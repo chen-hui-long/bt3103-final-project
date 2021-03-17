@@ -1,94 +1,81 @@
 <template>
-   <div>
+  <div>
     <header>
-        <h1><router-link to="/" exact>EATSY</router-link></h1>
-
-        <div class="searchBar">
-            <input type = "text" placeholder="Search by keyword!">
-            <img src = "@/assets/search.png">
+      <h1><router-link to="/" exact>EATSY</router-link></h1>
+      <div class="searchBar">
+        <input type="text" placeholder=" Search by keyword!" />
+        <img src="@/assets/search.png" />
+        <div class="right">
+          <h3><router-link to="/login" exact>Login</router-link></h3>
+          <span><router-link to="/favorite" exact>❤</router-link></span>
         </div>
-        
-        <div class = "left">
-        <h3><router-link to="/login" exact>Login </router-link></h3>
-        <router-link to="/favorite" exact><img src = "@/assets/favourites.png"></router-link>
-        </div>
-
+      </div>
     </header>
-    </div> 
-  
+  </div>
 </template>
 
 <script>
 export default {
-  
-  data(){
-    return{
-        }
-  }
-}
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style scoped>
 header {
   width: 100%;
   height: 100px;
-  background: #E3DDDF;
-  font-weight:normal;
+  background: #e3dddf;
+  font-weight: normal;
   position: sticky;
   top: 0;
 }
 
-h1{
-    color:black;
-    display: inline-block;
-    float: left;
-    padding: 0 80px;
-    font-size: 40px;
+h1 {
+  float: left;
+  width: 15%;
+  text-align: center;
+  font-size: 40px;
+  letter-spacing:2px
 }
 
-.searchBar{
-    display: inline-block;
-    padding:30px 6vw;
-}
-.searchBar input{
-    width: 45vw; 
-    height: 40px;
-    font-size: 18px;
-    text-indent: 15px;
-    border-radius: 15px;
-    border: 2px solid #D5D5D5;
+.searchBar {
+  display: flex;
+  width: 85%;
+  height: 100%;
+  align-items: center;
+  margin: 0;
 }
 
-.searchBar img {
-    position: absolute;
-    top:25px;
-    right:30vw;
-    width: 30px;
-    height: 30px;
-    padding:12px 0px;
+.searchBar > input {
+  width: 52%;
+  height: 30%;
+  font-size: 25px;
+  border-radius: 15px;
 }
 
-.left{
-    display:flex;
-    float:right;
-    padding:20px 100px 0px 0px;
-
-}
-h3{
-    color:black;
-    font-size:20px;
+.searchBar > img {
+  width: 3%;
+  height: auto;
+  padding-left: 1%;
 }
 
-img{
-  width: 26px;
-  height: 22px;
-  padding-left: 100px;
-  padding-top: 20px;
+.right {
+  display: flex;
+  width: 45%;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 5%;
 }
 
-a{
-    color: black;
-    text-decoration: none;
+.right > h3 {
+  width: 30%;
 }
 
+a {
+  color: black;
+  font-size: 35px;
+  text-decoration: none;
+}
 </style>
