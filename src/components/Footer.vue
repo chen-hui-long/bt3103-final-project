@@ -27,7 +27,7 @@
 
 
 				</div>
-
+				<!--
 				<div class="grid-item">
 					<div class = "social-buttons">
 						<a href= ""><i class="fab fa-instagram circle-icon"></i></a>
@@ -36,9 +36,9 @@
 						<a href= ""><i class="fab fa-twitter circle-icon"></i></a>
 					</div>
 				</div>   
+				-->
 			</div>
 			<hr>
-
 			<p>Copyright © 2021 | EATSY</p>
 
 		</div>
@@ -147,6 +147,10 @@ input {
     border-radius: 20px;
 }
 
+p {
+	text-align: center;
+	color: #A2845C;
+}
 
 
 </style>
