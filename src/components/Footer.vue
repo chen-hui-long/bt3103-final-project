@@ -6,21 +6,28 @@
 			<div class="grid-container">
 				<div class="grid-item inner-grid-container">
 					
-					<div class="grid-item">EATSY
+					<div class="grid-item">
+						<span id = "eatsy"> EATSY </span>
                         <br>
                         As a local directory site consolidating homemade baked goods,<br> Eatsy connects Singapore’s talented home bakers with <br>consumers to support local businesses. 
                         </div>   
-					<div class="grid-item">SELL <br>
+					<div class="grid-item">
+						<span id = "subtitle"> SELL </span>
+						<br>
                         <a href="">Sell on EATSY</a>
                         </div>   
-					<div class="grid-item">HELP
+					<div class="grid-item">
+						<span id = "subtitle">HELP</span>
                         <br>
                         <a href="">FAQs</a>
                         </div>   
-					<div class="grid-item">Yes! Send me exclusive offers on Eatsy
+					<div class="grid-item">
+						<span id = "subtitle">Yes! Send me exclusive offers on Eatsy</span>
                         <br>
+						<div class = "button-wrapper">
                         <input type="text" placeholder=" Enter your Email" /> 
                         <button>Subscribe</button>
+						</div>
                         </div>   
 					<div class="grid-item"><a href="">Contact us</a></div>   
 
@@ -38,7 +45,7 @@
 				</div>   
 				-->
 			</div>
-			<hr>
+			<hr color = "black">
 			<p>Copyright © 2021 | EATSY</p>
 
 		</div>
@@ -76,7 +83,7 @@ body {
 
 
 .site-footer .grid-container a {
-	color: #A2845C;
+	color:black;
 	text-decoration: none;
 	font-size: 15px;
 	line-height: 16.25px;
@@ -84,7 +91,7 @@ body {
 
 .site-footer .grid-item {
 	padding: 10px;
-	color: #A2845C;
+	color: black;
 }
 
 
@@ -139,18 +146,36 @@ body {
 }
 
 button {
-    background-color: white;
-    border-radius: 20px;
+    background-color:transparent;
+	border:none;
+	margin-left:-35%;
+	font-weight: bold;
 }
 
 input {
     border-radius: 20px;
+	width:120%;
+
 }
 
 p {
 	text-align: center;
-	color: #A2845C;
+	color: black;
 }
 
+#eatsy {
+	font-size:25px;
+	font-weight:bold;
+	letter-spacing: 2px;
+}
+
+#subtitle {
+	font-weight:bold;
+}
+
+.button-wrapper {
+	display: inline-block;
+	white-space: nowrap;
+}
 
 </style>
