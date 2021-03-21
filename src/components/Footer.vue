@@ -65,7 +65,7 @@ export default {};
 	position: relative;
 	background-color:#e3dddf;
 	width: 100%;	
-	bottom: 0;
+
 }
 
 .site-footer .container {
@@ -73,7 +73,8 @@ export default {};
 	margin: 0 auto;
 	position: relative;
 	overflow: hidden;
-	padding-top: 16px;
+	padding-top: 14px;
+	padding-bottom: 22px;
 }
 
 .site-footer .grid-container a {
@@ -97,17 +98,19 @@ export default {};
 .button-wrapper {
 	display: flex;
 	white-space: nowrap;
-	width: 90%;
+	width: 100%;
 	height: 40%;
 }
 
 button {
     background-color:transparent;
-	border:none;
+	border:transparent;
+	border-spacing: 20%;
 	margin-left:-24%;
 	font-weight: bold;
 	cursor: pointer;
-} 
+	padding: 10px;
+}
 
 button:hover {
     background: #d3cdcf7c;
@@ -117,7 +120,7 @@ button:hover {
 
 input {
     border-radius: 15px;
-	width:120%;
+	width: 100%;
 	font-size: 15px;
 	border: 2px solid #bbbbbb;
 	text-indent: 15px;
@@ -125,7 +128,7 @@ input {
 
 p {
 	text-align: center;
-	color: black;
+	color: white;
 	background: #bbbbbb;
 	font-size: 15px;
 	bottom: 0px;
