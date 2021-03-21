@@ -104,7 +104,7 @@ body {
 .site-footer .container hr { 
 	display: block; 
 	height: 1px;
-	border: 0; border-top: 1px solid #A2845C;
+	border: 0; border-top: 1px solid #000000;
 	margin: 1px; 
 	padding: 0; 
 }
