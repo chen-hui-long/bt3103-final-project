@@ -5,7 +5,7 @@
         <div class="logo"><span><router-link to="/" exact>EATSY</router-link></span></div>
         
         <div class="search">
-          <input type="text" placeholder=" Search by keyword!" />
+          <input type="text" placeholder="Search by keyword!" />
           <button id = "search-icon">	&#8981;</button>
 
         </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-
+export default {};
 </script>
 
 <style scoped>
@@ -48,6 +48,7 @@ nav {
   display: flex;
   align-items: center;
 }
+
 .search {
   display: flex;
   width: 80%;

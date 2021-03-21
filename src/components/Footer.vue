@@ -2,36 +2,35 @@
  <!-- Site footer -->
 	<footer class="site-footer">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <div class = "container">
+        
+		<div class = "container">
 			<div class="grid-container">
 				<div class="grid-item inner-grid-container">
 					
 					<div class="grid-item">
 						<span id = "eatsy"> EATSY </span>
                         <br>
-                        As a local directory site consolidating homemade baked goods,<br> Eatsy connects Singapore’s talented home bakers with <br>consumers to support local businesses. 
-                        </div>   
+                        As a local directory site consolidating homemade <br> baked goods, Eatsy connects Singapore’s talented <br> home bakers with consumers to support local businesses. 
+                    </div>   
 					<div class="grid-item">
 						<span id = "subtitle"> SELL </span>
 						<br>
                         <a href="">Sell on EATSY</a>
-                        </div>   
+                    </div>   
 					<div class="grid-item">
 						<span id = "subtitle">HELP</span>
                         <br>
                         <a href="">FAQs</a>
-                        </div>   
+                    </div>   
 					<div class="grid-item">
-						<span id = "subtitle">Yes! Send me exclusive offers on Eatsy</span>
+						<span id = "subscribe">Yes! Send me exclusive offers on Eatsy</span>
                         <br>
 						<div class = "button-wrapper">
-                        <input type="text" placeholder=" Enter your Email" /> 
+                        <input type="text" placeholder="Enter your email" /> 
                         <button>Subscribe</button>
 						</div>
-                        </div>   
+                    </div>   
 					<div class="grid-item"><a href="">Contact us</a></div>   
-
-
 
 				</div>
 				<!--
@@ -45,10 +44,8 @@
 				</div>   
 				-->
 			</div>
-			<hr color = "black">
-			<p>Copyright © 2021 | EATSY</p>
-
 		</div>
+			<p>Copyright © 2021 | EATSY</p>
 	</footer>
 </template>
 
@@ -57,43 +54,39 @@ export default {};
 </script>
 
 <style scoped>
-body {
-  font-family: system-ui;
-  background: #e3dddf;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
 }
-
-
 .site-footer {
-    margin-top: 50px; /* Remove */
 	position: relative;
 	background-color:#e3dddf;
 	width: 100%;	
-	bottom: 0; 
+
 }
 
 .site-footer .container {
-	max-width: 85%;
+	max-width: 90%;
 	margin: 0 auto;
 	position: relative;
 	overflow: hidden;
-	padding-top: 5px;
+	padding-top: 14px;
+	padding-bottom: 22px;
 }
-
-
 
 .site-footer .grid-container a {
 	color:black;
 	text-decoration: none;
 	font-size: 15px;
-	line-height: 16.25px;
+	line-height: 10px;
 }
 
 .site-footer .grid-item {
 	padding: 10px;
-	color: black;
 }
-
 
 .site-footer .grid-container .inner-grid-container {
 	display: grid;
@@ -101,16 +94,74 @@ body {
 	text-align: left;
 }
 
-.site-footer .container hr { 
-	display: block; 
-	height: 1px;
-	border: 0; border-top: 1px solid #000000;
-	margin: 1px; 
-	padding: 0; 
+
+.button-wrapper {
+	display: flex;
+	white-space: nowrap;
+	width: 100%;
+	height: 40%;
+}
+
+button {
+    background-color:transparent;
+	border:transparent;
+	border-spacing: 20%;
+	margin-left:-24%;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 10px;
+}
+
+button:hover {
+    background: #d3cdcf7c;
+    transition: 0.5s;
+    border-radius: 0 15px 15px 0px;
+}
+
+input {
+    border-radius: 15px;
+	width: 100%;
+	font-size: 15px;
+	border: 2px solid #bbbbbb;
+	text-indent: 15px;
+}
+
+p {
+	text-align: center;
+	color: white;
+	background: #bbbbbb;
+	font-size: 15px;
+	bottom: 0px;
+	padding: 20px;
+
+}
+
+#eatsy {
+	font-size:30px;
+	font-weight:bold;
+	letter-spacing: 2px;
+}
+
+#subtitle {
+	font-weight:bold;
+	font-size: 16px;
+	line-height: 42px;
+	color:black;
+}
+
+#subscribe {
+	font-weight:bold;
+	font-size: 16px;
+	line-height: 32px;
+	color:black;
 }
 
 
-.site-footer .grid-container .grid-item .social-buttons {
+
+
+
+
+/*.site-footer .grid-container .grid-item .social-buttons {
 	padding-top: 0px;
 }
 
@@ -144,38 +195,8 @@ body {
     padding:12px;
     border-radius: 50%;
 }
+*/
 
-button {
-    background-color:transparent;
-	border:none;
-	margin-left:-35%;
-	font-weight: bold;
-}
 
-input {
-    border-radius: 20px;
-	width:120%;
-
-}
-
-p {
-	text-align: center;
-	color: black;
-}
-
-#eatsy {
-	font-size:25px;
-	font-weight:bold;
-	letter-spacing: 2px;
-}
-
-#subtitle {
-	font-weight:bold;
-}
-
-.button-wrapper {
-	display: inline-block;
-	white-space: nowrap;
-}
 
 </style>
