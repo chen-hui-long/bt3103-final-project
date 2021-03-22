@@ -7,7 +7,6 @@
         <div class="search">
           <input type="text" placeholder="Search by keyword!" />
           <button id = "search-icon">	&#8981;</button>
-
         </div>
 
         <div class="login">
@@ -59,7 +58,6 @@ nav {
 }
 
 .search > input {
-  display: flex;
   width: 80%;
   border-radius: 15px;
   align-items: center;
@@ -72,20 +70,20 @@ nav {
   border: none;
   background: none;
   cursor: pointer;
+  position: absolute;
+  right: 6.8vw;
+  line-height: 60px;
+  bottom: -12px;
+  padding: 4px 3px;
 }
 
 #search-icon {
     transform: rotate(270deg);
     font-size: 66px;
-    block-size: 4.5vw;
     color: rgba(7, 7, 7, 0.39);
-    line-height: 45px;
-    position: absolute;
-    bottom: -1.4vh;
-    right: 6.8vw;
 }
 
-#search-icon:hover {
+.search > button:hover {
     background: #d3cdcf7c;
     transition: 0.5s;
     border-radius: 0 0 15px 15px;

@@ -4,23 +4,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Raleway&display=swap" rel="stylesheet">
 
     <app-header></app-header>
-    <HelloWorld></HelloWorld>
+    
+    <product-page></product-page>
+
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-import HelloWorld from './components/HelloWorld'
+
 import Footer from './components/Footer'
+import Products from './components/Products.vue'
 
 export default {
   name: 'App',
   components: {
     'app-header':Header,
-    'HelloWorld': HelloWorld,
-    'app-footer':Footer
-
+    'app-footer':Footer,
+    'product-page': Products,
   }
 }
 </script>

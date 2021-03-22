@@ -65,7 +65,6 @@ export default {};
 	position: relative;
 	background-color:#e3dddf;
 	width: 100%;	
-
 }
 
 .site-footer .container {
@@ -100,16 +99,19 @@ export default {};
 	white-space: nowrap;
 	width: 100%;
 	height: 40%;
+	justify-content: center;
+
 }
 
 button {
     background-color:transparent;
 	border:transparent;
-	border-spacing: 20%;
-	margin-left:-24%;
 	font-weight: bold;
 	cursor: pointer;
-	padding: 10px;
+	padding: 10px 14px;
+	position:absolute;
+	line-height: 22px;
+	right: 1.5%;	
 }
 
 button:hover {
@@ -124,6 +126,7 @@ input {
 	font-size: 15px;
 	border: 2px solid #bbbbbb;
 	text-indent: 15px;
+	align-items: center;
 }
 
 p {
