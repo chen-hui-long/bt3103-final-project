@@ -8,20 +8,47 @@
           <input type="text" placeholder="Search by keyword!" />
           <button id = "search-icon">	&#8981;</button>
         </div>
-
+        
+        <div v-if="signedIn" class="login">
+          <ul>
+            <li><router-link to="/profile" exact>Profile</router-link></li>
+            <li><router-link to="/favorite" exact><span id="heart-icon">♡</span></router-link></li>
+          </ul>
+        </div>
+        <div v-else>
         <div class="login">
           <ul>
             <li><router-link to="/login" exact>Login</router-link></li>
             <li><router-link to="/favorite" exact><span id="heart-icon">♡</span></router-link></li>
           </ul>
         </div>
+        </div>
+
       </nav>
     </header>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      signedIn: false,
+      username:""
+    }
+  },
+    methods: {
+    toggleSignIn(username) {
+      this.signedIn = true;
+      this.username = username;
+      this.$router.push("/");
+    },
+    toggleSignOut() {
+      this.signedIn = false;
+      this.username = "";
+    }
+  },
+};
 </script>
 
 <style scoped>
@@ -40,6 +67,8 @@ header {
   padding-right: 24px;
   background-color: #e3dddf;
   top: 0;
+  overflow:auto;
+  position:sticky;
 }
 nav {
   width: 100%;
@@ -51,20 +80,28 @@ nav {
 .search {
   display: flex;
   width: 80%;
-  justify-content: center;
   height: 45%;
+  justify-content: center;
   position: relative;
   
 }
 
 .search > input {
   width: 80%;
+  /*width: fit-content;*/
+  padding:0 48% 0 0;
   border-radius: 15px;
   align-items: center;
   font-size: 18px;
   text-indent: 15px;
   border: 2px solid #bbbbbb;
+
+  /*overflow:hidden;*/
+  /*display:inline-block;*/
+
+  cursor:text;
 }
+
 
 .search > button {
   border: none;
@@ -91,9 +128,11 @@ nav {
 
 .logo {
   display: flex;
-  width: 20%;
+  /*width: 20%;*/
+  margin-left:50px;
   height: 50%;
   justify-content: center;
+  color:none;
 }
 .logo span {
   font-size: 44px;
@@ -105,7 +144,8 @@ nav {
 .login {
   display: flex;
   height:50%;
-  width: 30%;
+  /*width: 30%;*/
+  margin-right: 50px;
   justify-content:space-evenly;
 }
 
@@ -114,8 +154,7 @@ nav {
   display: flex;
 }
 
-.login ul li a,
-.search ul li a {
+.login ul li a{
   padding: 35px 50px;
   color: black;
   font-size: 25px;
@@ -135,5 +174,6 @@ nav {
     font-weight: 500;
   
 }
+
 
 </style>

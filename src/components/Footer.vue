@@ -26,8 +26,13 @@
 						<span id = "subscribe">Yes! Send me exclusive offers on Eatsy</span>
                         <br>
 						<div class = "button-wrapper">
-                        <input type="text" placeholder="Enter your email" /> 
-                        <button>Subscribe</button>
+						<form v-on:submit.prevent="subscribe">
+                        <span id="input"><input type="email" placeholder="Enter your email" 
+						oninvalid="this.setCustomValidity('Please Enter valid email')" 
+						oninput="setCustomValidity('')"
+						required/>
+                        <button type="submit">Subscribe</button></span>
+						</form>
 						</div>
                     </div>   
 					<div class="grid-item"><a href="">Contact us</a></div>   
@@ -50,7 +55,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+	methods:{
+		subscribe(){
+			document.getElementById("subscribe").innerHTML = "You've been successfully signed up!";
+			document.getElementById("input").innerHTML = ""
+		}
+	}
+};
 </script>
 
 <style scoped>
@@ -69,7 +81,7 @@ export default {};
 
 .site-footer .container {
 	max-width: 90%;
-	margin: 0 auto;
+	margin: 0 50px;
 	position: relative;
 	overflow: hidden;
 	padding-top: 14px;
@@ -95,10 +107,9 @@ export default {};
 
 
 .button-wrapper {
-	display: flex;
+	display: inline-block;
 	white-space: nowrap;
 	width: 100%;
-	height: 40%;
 	justify-content: center;
 
 }
@@ -108,7 +119,7 @@ button {
 	border:transparent;
 	font-weight: bold;
 	cursor: pointer;
-	padding: 10px 14px;
+	padding: 8px 14px;
 	position:absolute;
 	line-height: 22px;
 	right: 1.5%;	
@@ -123,10 +134,12 @@ button:hover {
 input {
     border-radius: 15px;
 	width: 100%;
+	height:40px;
 	font-size: 15px;
 	border: 2px solid #bbbbbb;
 	text-indent: 15px;
 	align-items: center;
+	display:inline-block;
 }
 
 p {
