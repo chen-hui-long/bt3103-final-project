@@ -8,17 +8,13 @@
 
     <app-header></app-header>
     <hello-world></hello-world>
-    <!--product-page></product-page-->
-
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-
 import Footer from './components/Footer'
-//import Products from './components/Products.vue'
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
@@ -26,7 +22,6 @@ export default {
   components: {
     'app-header':Header,
     'app-footer':Footer,
-    /*'product-page': Products,*/
     HelloWorld
     
   }
