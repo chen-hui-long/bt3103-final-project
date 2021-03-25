@@ -2,12 +2,16 @@
   <div class = "parent">
     <div class = "filter-side">
       <h2> Filter By:</h2>
-      <button type = "button" class = "collapsible-f1" v-on:click ="onClickf1"> Bakery Goods </button>
+      <hr>
+      <div class = "filter-header"> 
+        Bakery Goods
+          <button type = "button" class = "collapsible-f1" v-on:click ="onClickf1">+</button>
+      </div>
       <div class = "f1">
       <form>
         <label><input type="checkbox" name="fl-bakery-goods" value="Breads" id="Breads" />Breads</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Brownies" id="Brownies" />Brownies</label><br>
-        <label><input type="checkbox" name="fl-bakery-goods" value="Cakes" id="Cakes" /> Cakes</label><br>
+        <label><input type="checkbox" name="fl-bakery-goods" value="Cakes" id="Cakes" />Cakes</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Cheesecakes" id="Cheesecakes" />Cheesecakes</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Cookies & Biscuits" id="Cookies & Biscuits" />Cookies & Biscuits </label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Chocolate Confections" id="Chocolate Confections" />Chocolate Confections</label><br>
@@ -20,7 +24,11 @@
         <label><input type="checkbox" name="fl-bakery-goods" value="Others" id="Others" />Others</label><br>
         </form>
       </div>
-      <button type = "button" class = "collapsible-f2" v-on:click ="onClickf2">Locations </button>
+      <hr>
+      <div class = "filter-header">
+        Locations
+        <button type = "button" class = "collapsible-f2" v-on:click ="onClickf2">+</button>
+      </div>
       <div class = "f2">
         <form>
         <label><input type="checkbox" name="fl-locations" value="Central" id="Central" />Central</label><br>
@@ -30,8 +38,11 @@
         <label><input type="checkbox" name="fl-locations" value="West" id="West" />West</label><br>
         </form>
       </div>
-
-      <button type = "button" class = "collapsible-f3" v-on:click ="onClickf3">Dietary Type</button>
+      <hr>
+      <div class = "filter-header">
+        Dietary Type
+      <button type = "button" class = "collapsible-f3" v-on:click ="onClickf3">+</button>
+      </div>
       <div class = "f3">
         <form>
         <label><input type="checkbox" name="fl-dietary" value="Halal" id="Halal" />Halal</label><br>
@@ -40,8 +51,11 @@
         <label><input type="checkbox" name="fl-dietary" value="Vegan" id="Vegan" />Vegan</label><br>
         </form>
       </div>
-
-      <button type = "button" class = "collapsible-f4" v-on:click ="onClickf4">Delivery / Self Pick-up </button>
+      <hr>
+      <div class = "filter-header">
+        Delivery / Self Pick-up
+      <button type = "button" class = "collapsible-f4" v-on:click ="onClickf4">+</button>
+      </div>
       <div class = "f4">
         <form>
         <label><input type="checkbox" name="fl-delivery-pickup" value="Delivery" id="Delivery" />Delivery</label><br>
@@ -79,41 +93,49 @@ export default {
     }, 
     onClickf1:function() {
       var x  = document.getElementsByClassName("f1")[0]
-      console.log(x.style)
+      var sym = document.getElementsByClassName("collapsible-f1")[0]
       if (x.style.display === "") { 
         x.style.display = "block"
+        sym.innerHTML = "-"
       } else {
         x.style.display = ""
+        sym.innerHTML = "+"
       }
     }, 
 
     onClickf2:function() {
       var x  = document.getElementsByClassName("f2")[0]
-      console.log(x.style)
+      var sym = document.getElementsByClassName("collapsible-f2")[0]
       if (x.style.display === "") { 
         x.style.display = "block"
+        sym.innerHTML = "-"
       } else {
         x.style.display = ""
+        sym.innerHTML = "+"
       }
     }, 
 
     onClickf3:function() {
       var x  = document.getElementsByClassName("f3")[0]
-      console.log(x.style)
+      var sym = document.getElementsByClassName("collapsible-f3")[0]
       if (x.style.display === "") { 
         x.style.display = "block"
+        sym.innerHTML = "-"
       } else {
         x.style.display = ""
+        sym.innerHTML = "+"
       }
     }, 
 
     onClickf4:function() {
       var x  = document.getElementsByClassName("f4")[0]
-      console.log(x.style)
+      var sym = document.getElementsByClassName("collapsible-f4")[0]
       if (x.style.display === "") { 
         x.style.display = "block"
+        sym.innerHTML = "-"
       } else {
         x.style.display = ""
+        sym.innerHTML = "+"
       }
     }, 
 
@@ -135,6 +157,7 @@ export default {
 
 .filter-side {
   flex: 0 0 20%;
+  padding-left: 30px;
 }
 
 ul {
@@ -170,4 +193,36 @@ img {
   display: none;
 }
 
+.collapsible-f1 {
+  background-color: transparent;
+  border:none;
+}
+
+.collapsible-f2 {
+  float:right;
+  background-color: transparent;
+  border:none;
+}
+
+.collapsible-f3 {
+  float:right;
+  background-color: transparent;
+  border:none;
+}
+
+.collapsible-f4 {
+  float:right;
+  background-color: transparent;
+  border:none;
+}
+
+.filter-header {
+  display:flex;
+  justify-content: space-between;
+  font-size:20px;
+}
+
+input { /*style for checkbox*/
+  margin-right:10px;
+}
 </style>
