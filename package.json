@@ -11,6 +11,7 @@
     "@iconify-icons/entypo": "^1.1.0",
     "@iconify/react": "^1.1.4",
     "@iconify/vue": "^1.0.6",
+    "@vue/compiler-sfc": "^3.0.7",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "firebase": "^8.3.1",
