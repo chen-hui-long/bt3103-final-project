@@ -19,7 +19,7 @@ import Header from './components/Header.vue'
 
 import Footer from './components/Footer'
 //import Products from './components/Products.vue'
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/Content.vue'
 
 export default {
   name: 'App',
