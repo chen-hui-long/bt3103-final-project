@@ -8,6 +8,11 @@
             </ul>
         </div-->
 
+        <!--Added--> 
+        <div>
+            this is a produce page for {{this.bakery[0].Name}}
+        </div>
+
         <div class="breadcrumb-wrap">
         <h3>Insert breadcrumb aka the sub navigation</h3>
         </div>
@@ -60,12 +65,34 @@
 <script>
 import ImageSlider from './ImageSlider.vue'
 import Reviews from './Reviews'
+import database from "../firebase.js"
 /*import Ratings from './Ratings.vue'*/
 export default {
   components:{
     'image-slider':ImageSlider,
     'reviews':Reviews
     /*'ratings': Ratings*/
+  }, 
+
+  data() {
+      return {
+          docID:"", 
+          bakery:[], 
+      }
+  }, 
+
+  methods: {
+      fetchItems:function() {
+          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
+              this.bakery.push(snapshot.data())
+          })
+      }
+  }, 
+
+  created() {
+      this.docID = this.$route.query.id
+      console.log(this.docID)
+      this.fetchItems();
   }
 };
 </script>
