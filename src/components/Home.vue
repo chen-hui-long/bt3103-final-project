@@ -65,11 +65,23 @@
 
       </div>
       <div class = "content-side">
-      <input id = "search_bar" type="text" v-model = "search_filter" placeholder="Search by keyword!" />
+        <div class = "search-sort">
+          <input id = "search_bar" type="text" v-model = "search_filter" placeholder="Search by keyword!" />
+          <div id = "sorting">
+            Sort by:
+            <select id="sort" v-model = "sort_by">
+                <option value="A-Z" selected>A-Z</option>
+                <option value="ratings_ascending">Ratings (Ascending)</option>
+                <option value="ratings_descending">Ratings (Descending)</option>
+            </select>
+          </div>
+        </div>
+        <hr>
     <ul>
       <li v-for = "bakery in search_bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].ImageURL" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].Name}}</p>
+        <p id = "bakery-rating">{{bakery[2]}} ★</p>
         </li>
       </ul>
       </div>
@@ -89,17 +101,26 @@ export default {
         dietary: [],
         deliver: []
       }, 
-      search_filter: ""
+      search_filter: "",
+      sort_by: "A-Z"
     }
   },
   methods: {
     fetchItems:function() {
       database.collection("bakeries").get().then(snapshot => {
         snapshot.docs.forEach(doc => {
-          this.bakeries.push([doc.id, doc.data()]);
+          var avg_rating = this.calAvgRating(doc.data().Rating)
+          this.bakeries.push([doc.id, doc.data(), avg_rating]);
         })
       })
     }, 
+    calAvgRating:function(rating) {
+      var total_rating = rating.One * 1 + rating.Two * 2 + rating.Three * 3 + rating.Four * 4 + rating.Five * 5
+      var total_review = rating.One + rating.Two + rating.Three + rating.Four  + rating.Five
+      var avg = total_rating / total_review
+      return Math.round(avg * 10) / 10
+    }, 
+
     onClickf1:function() {
       var x  = document.getElementsByClassName("f1")[0]
       var sym = document.getElementsByClassName("collapsible-f1")[0]
@@ -233,14 +254,25 @@ export default {
       var curr_filtered_bakeries = this.bakeries.filter((bakery) => {
           return bakery[1].Name.toLowerCase().includes(search);
       })
-      console.log(curr_filtered_bakeries)
+      if (this.sort_by == "A-Z") {
+        curr_filtered_bakeries.sort(function(a, b) {
+          return a[1].name - b[1].name
+        })
+      } else if (this.sort_by == "ratings_ascending") {
+        curr_filtered_bakeries.sort(function(a, b) {
+          return a[2] - b[2]
+        })
+      } else if (this.sort_by == "ratings_descending") {
+        curr_filtered_bakeries.sort(function(a, b) {
+          return b[2] - a[2]
+        })
+      }
       return curr_filtered_bakeries;
     }
   }, 
 
   created() {
     this.fetchItems();
-    console.log(this.bakeries)
   }
   }
 
@@ -325,15 +357,52 @@ input { /*style for checkbox*/
   margin-right:10px;
 }
 
+.content-side { 
+  flex: 0 0 80%;
+}
+
 .bakery-image-btn {
   background-color: transparent;
   padding: 0 0 0 0 ;
   border: none;
 }
 
+#bakery-name {
+  margin-bottom: 0;
+}
+#bakery-rating {
+  margin: 0 0 0 0;
+}
+
+.search-sort {
+  display:flex;
+  width:100%;
+  height:45px;
+  justify-content: space-between;
+  margin-top:10px;
+  margin-bottom: 10px;
+  padding-left:3%;
+  padding-right:3%;
+  align-items: center;
+}
+
 #search_bar {
-  width:80%;
-  margin-top: 10px;;
   border-radius: 15px;
+  width:60%;
+  text-indent: 15px;
+  font-size: 18px;
+  outline-style: none;
+  box-shadow: none;
+  border: 2px solid #bbbbbb;
+}
+
+#sorting {
+  font-size: 18px;
+}
+
+#sort {
+  border:none;
+  outline-style: none;
+  box-shadow: none;
 }
 </style>
