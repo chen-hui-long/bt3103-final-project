@@ -292,6 +292,7 @@ export default {
 
 ul {
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
