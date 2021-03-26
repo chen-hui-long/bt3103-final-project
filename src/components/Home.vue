@@ -65,8 +65,9 @@
 
       </div>
       <div class = "content-side">
+      <input id = "search_bar" type="text" v-model = "search_filter" placeholder="Search by keyword!" />
     <ul>
-      <li v-for = "bakery in bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
+      <li v-for = "bakery in search_bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].ImageURL" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].Name}}</p>
         </li>
@@ -81,12 +82,14 @@ export default {
   data() {
     return {
       bakeries: [],       //store all the bakeries details  
+      filtered_bakeries: [], 
       checked: {
         bakery: [], 
         location: [], 
         dietary: [],
         deliver: []
-      }
+      }, 
+      search_filter: ""
     }
   },
   methods: {
@@ -223,6 +226,18 @@ export default {
     }
 
   }, 
+
+  computed: {
+    search_bakeries:function() {
+      var search = this.search_filter.trim().toLowerCase()
+      var curr_filtered_bakeries = this.bakeries.filter((bakery) => {
+          return bakery[1].Name.toLowerCase().includes(search);
+      })
+      console.log(curr_filtered_bakeries)
+      return curr_filtered_bakeries;
+    }
+  }, 
+
   created() {
     this.fetchItems();
     console.log(this.bakeries)
@@ -316,4 +331,9 @@ input { /*style for checkbox*/
   border: none;
 }
 
+#search_bar {
+  width:80%;
+  margin-top: 10px;;
+  border-radius: 15px;
+}
 </style>
