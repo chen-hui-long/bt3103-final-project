@@ -7,12 +7,6 @@
                 <li class="breadcrumb-item active">Product List</li>
             </ul>
         </div-->
-
-        <!--Added--> 
-        <div>
-            this is a produce page for {{this.bakery[0].Name}}
-        </div>
-
         <div class="breadcrumb-wrap">
         <h3>Insert breadcrumb aka the sub navigation</h3>
         </div>
@@ -91,11 +85,11 @@ import database from "../firebase.js"
 export default {
     data() {
         return {
+            docID:"", 
+            bakery:[], 
             isActive1: false,
             isActive2: false,
             isActive3: false, 
-            docID:"", 
-            bakery:[], 
         }
     },
   components:{
