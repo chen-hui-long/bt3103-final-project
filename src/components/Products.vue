@@ -8,6 +8,11 @@
             </ul>
         </div-->
 
+        <!--Added--> 
+        <div>
+            this is a produce page for {{this.bakery[0].Name}}
+        </div>
+
         <div class="breadcrumb-wrap">
         <h3>Insert breadcrumb aka the sub navigation</h3>
         </div>
@@ -118,13 +123,23 @@ export default {
             this.isActive3 = false;
         }
     },
-          fetchItems:function() {
+    
+    fetchItems:function() {
           database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
               this.bakery.push(snapshot.data())
           })
       }
-  },
-   created() {
+    
+  }, 
+
+  data() {
+      return {
+          docID:"", 
+          bakery:[], 
+      }
+  }, 
+
+  created() {
       this.docID = this.$route.query.id
       console.log(this.docID)
       this.fetchItems();

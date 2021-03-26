@@ -108,6 +108,7 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
+
     onClickf2:function() {
       var x  = document.getElementsByClassName("f2")[0]
       var sym = document.getElementsByClassName("collapsible-f2")[0]
@@ -119,6 +120,7 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
+
     onClickf3:function() {
       var x  = document.getElementsByClassName("f3")[0]
       var sym = document.getElementsByClassName("collapsible-f3")[0]
@@ -130,6 +132,7 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
+
     onClickf4:function() {
       var x  = document.getElementsByClassName("f4")[0]
       var sym = document.getElementsByClassName("collapsible-f4")[0]
@@ -141,6 +144,7 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
+
     visible: function(bakery) {
       //no checked box 
       if (this.checked.bakery.length == 0) {
@@ -148,18 +152,21 @@ export default {
       } else {
         curr_bak_boolean = this.check_bakery(bakery.Bakes) //location filter
       }
+
       //location 
       if (this.checked.location.length == 0) {
         var curr_loc_boolean = true;
       } else {
         curr_loc_boolean = this.check_location(bakery.Location) //location filter
       }
+
       //diet
       if (this.checked.dietary.length == 0) {
         var curr_diet_boolean = true;
       } else {
         curr_diet_boolean = this.check_diet(bakery.Dietary) //diet filter
       }      
+
       //delivery
       if (this.checked.deliver.length == 0) {
         var curr_del_boolean = true;
@@ -167,7 +174,9 @@ export default {
         curr_del_boolean = this.check_deliver(bakery.Delivery) //delivery
       }     
       return (curr_loc_boolean && curr_del_boolean && curr_diet_boolean && curr_bak_boolean);
+      
     }, 
+
     check_bakery:function(bakes) {
       for (var i = 0; i < bakes.length; i++) {
         console.log(bakes[i])
@@ -177,6 +186,7 @@ export default {
       }
       return false;
     },
+    
     check_location:function(location) {
       if (this.checked.location.includes(location)) {
         return true;
@@ -184,6 +194,7 @@ export default {
         return false;
       }
     }, 
+
     check_deliver:function(delivery) {
       if (delivery == undefined) {
         return false; 
@@ -195,6 +206,7 @@ export default {
         return false;
       }
     },
+
     check_diet:function(diet) {
       if (diet == undefined) {
         return false 
@@ -204,20 +216,24 @@ export default {
         return false;
       }
     }, 
+
     route:function(event) {
       let doc_id = event.target.getAttribute("id");
       this.$router.push({path: "/product", query: {id: doc_id}})
     }
+
   }, 
   created() {
     this.fetchItems();
     console.log(this.bakeries)
   }
   }
+
 </script>
 
 
 <style scoped>
+
 .parent {
   display: flex;
 }
@@ -226,6 +242,7 @@ export default {
   padding-left: 30px;
   margin-bottom: 20px;
 }
+
 ul {
   display: flex;
   flex-wrap: wrap;
@@ -242,48 +259,61 @@ img {
   width: 300px;
   height: 300px;
 }
+
 .f1 {
   display: none;
 }
+
 .f2 { 
   display: none;
 }
+
 .f3 {
   display: none;
 }
+
 .f4 {
   display: none;
 }
+
 .collapsible-f1 {
   background-color: transparent;
   border:none;
 }
+
 .collapsible-f2 {
   float:right;
   background-color: transparent;
   border:none;
 }
+
 .collapsible-f3 {
   float:right;
   background-color: transparent;
   border:none;
 }
+
 .collapsible-f4 {
   float:right;
   background-color: transparent;
   border:none;
 }
+
 .filter-header {
   display:flex;
   justify-content: space-between;
   font-size:20px;
 }
+
+
 input { /*style for checkbox*/
   margin-right:10px;
 }
+
 .bakery-image-btn {
   background-color: transparent;
   padding: 0 0 0 0 ;
   border: none;
 }
+
 </style>
