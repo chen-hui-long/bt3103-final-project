@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Raleway&display=swap" rel="stylesheet">
 
     <app-header></app-header>
-    <!--hello-world></hello-world-->
+    <router-view></router-view>
     <product-page></product-page>
 
     <app-footer></app-footer>
@@ -19,7 +19,6 @@ import Header from './components/Header.vue'
 
 import Footer from './components/Footer'
 //import Products from './components/Products.vue'
-import HelloWorld from './components/Content.vue'
 
 
 export default {
@@ -27,8 +26,7 @@ export default {
   components: {
     'app-header':Header,
     'app-footer':Footer,
-    'product-page': Products,
-    /*HelloWorld*/
+    /*'product-page': Products,*/
     
   }
 }
