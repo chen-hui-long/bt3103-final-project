@@ -86,6 +86,8 @@ import database from "../firebase.js"
 export default {
     data() {
         return {
+            docID:"", 
+            bakery:[], 
             isActive1: false,
             isActive2: false,
             isActive3: false
