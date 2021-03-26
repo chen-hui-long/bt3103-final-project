@@ -292,12 +292,13 @@ export default {
 
 ul {
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
 }
 li {
-  flex-grow: 1;
+  flex-grow: 0;
   text-align: center;
   margin: 15px;
   font-size: 20px;
