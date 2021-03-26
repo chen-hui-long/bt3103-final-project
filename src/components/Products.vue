@@ -7,12 +7,6 @@
                 <li class="breadcrumb-item active">Product List</li>
             </ul>
         </div-->
-
-        <!--Added--> 
-        <div>
-            this is a produce page for {{this.bakery[0].Name}}
-        </div>
-
         <div class="breadcrumb-wrap">
         <h3>Insert breadcrumb aka the sub navigation</h3>
         </div>
