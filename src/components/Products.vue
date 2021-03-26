@@ -93,7 +93,9 @@ export default {
         return {
             isActive1: false,
             isActive2: false,
-            isActive3: false
+            isActive3: false, 
+            docID:"", 
+            bakery:[], 
         }
     },
   components:{
@@ -132,12 +134,6 @@ export default {
     
   }, 
 
-  data() {
-      return {
-          docID:"", 
-          bakery:[], 
-      }
-  }, 
 
   created() {
       this.docID = this.$route.query.id
