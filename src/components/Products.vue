@@ -25,33 +25,54 @@
             
             <div class="product-content-right">
             
-            <div class="title"><h3>Product Name</h3></div>
+            <div class="title"><h1>{{this.bakery[0].Name}}</h1></div>
             <p class="description">Insert description</p>
 
+            <div class="product-description">
             <div class="menu">
                 <span class="subtitle">Menu</span>
-                <button class="down-arrow">&#8964;</button>
-                <p class="description">Insert description</p>
+                <!--v-if to change button sign?-->
+                <div v-if='isActive1'>
+                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
+                <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-up" /></button>
+                <br><div><p class="description">Insert description</p></div>
+                </div>
+                <div v-else>
+                <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-down" /></button>
+                </div>
             </div>
 
             <div class="highlights">
                 <span class="subtitle">Highlights</span>
-                <button class="down-arrow">&#8964;</button>
-                <p class="description">Insert description</p>
+                <div v-if='isActive2'>
+                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
+                <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
+                <br><div><p class="description">Insert description</p></div>
+                </div>
+                <div v-else>
+                <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-down" /></button>
+                </div>
             </div>
 
 
             <div class="delivery">
                 <span class="subtitle">Delivery/ Collection</span>
-                <button class="down-arrow">&#8964;</button>
-                <p class="description">Insert description</p>
+                <div v-if='isActive3'>
+                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
+                <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-up" /></button>
+                <br><div><p class="description">Insert description</p></div>
+                </div>
+                <div v-else>
+                <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-down" /></button>
+                </div>
             </div>
 
             <div class="ig">
-                <p>IG:</p>
+                <p style="font-weight:bold;">IG:</p>
             <p class="description">@insert ig</p>
             </div>
     
+            </div>
             </div>
         </div>
 
@@ -68,24 +89,53 @@ import Reviews from './Reviews'
 import database from "../firebase.js"
 /*import Ratings from './Ratings.vue'*/
 export default {
+    data() {
+        return {
+            isActive1: false,
+            isActive2: false,
+            isActive3: false
+        }
+    },
   components:{
     'image-slider':ImageSlider,
     'reviews':Reviews
     /*'ratings': Ratings*/
+  },
+  methods:{
+      toggle1() {
+        if (!this.isActive1) {
+            this.isActive1 = true;
+        } else {
+            this.isActive1 = false;
+        }
+    },
+          toggle2() {
+        if (!this.isActive2) {
+            this.isActive2 = true;
+        } else {
+            this.isActive2 = false;
+        }
+    },
+          toggle3() {
+        if (!this.isActive3) {
+            this.isActive3 = true;
+        } else {
+            this.isActive3 = false;
+        }
+    },
+    
+    fetchItems:function() {
+          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
+              this.bakery.push(snapshot.data())
+          })
+      }
+    
   }, 
 
   data() {
       return {
           docID:"", 
           bakery:[], 
-      }
-  }, 
-
-  methods: {
-      fetchItems:function() {
-          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
-              this.bakery.push(snapshot.data())
-          })
       }
   }, 
 
@@ -141,26 +191,45 @@ export default {
     display:inline-block;    
 }
 
-
-
-.ig {
+.menu, .highlights, .delivery {
     display:flex;
 }
 
-.down-arrow {
+.ig {
+    display:flex;
+    font-size: 18px;
+}
+
+
+.arrow {
     background: none;
     border: none;
     font-weight: bolder;
     cursor: pointer;
+    position: absolute;
+    left: 400px;
+    /*display:inline-flex;*/
+    font-size: 1.25em;
 }
 
+.title {
+    color:#a19090;
+    letter-spacing: 1px;
+}
 .subtitle {
     font-weight:bold;
+    font-size: 18px;
+    padding-bottom: 40px;
 }
 
+.description {
+    font-size: 18px;
+    display:inline-block;
+    padding-bottom: 20px;
+}
 
 .review{
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 50px;
 }
 </style>

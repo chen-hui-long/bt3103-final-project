@@ -16,10 +16,8 @@
 
 <script>
 import Header from './components/Header.vue'
-
 import Footer from './components/Footer'
 //import Products from './components/Products.vue'
-
 export default {
   name: 'App',
   components: {
@@ -40,17 +38,13 @@ export default {
   position: relative;
   min-height: 100vh;
 }
-
-
 #app-footer{
   position:absolute;
    bottom:0;
 }
-
 html,
 body {
   margin: 0 !important;
   padding: 0 !important;
 }
-
 </style>

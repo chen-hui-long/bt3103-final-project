@@ -174,7 +174,7 @@ export default {
         curr_del_boolean = this.check_deliver(bakery.Delivery) //delivery
       }     
       return (curr_loc_boolean && curr_del_boolean && curr_diet_boolean && curr_bak_boolean);
-
+      
     }, 
 
     check_bakery:function(bakes) {
@@ -186,7 +186,7 @@ export default {
       }
       return false;
     },
-
+    
     check_location:function(location) {
       if (this.checked.location.includes(location)) {
         return true;
@@ -222,7 +222,6 @@ export default {
       this.$router.push({path: "/product", query: {id: doc_id}})
     }
 
-
   }, 
   created() {
     this.fetchItems();
@@ -238,7 +237,6 @@ export default {
 .parent {
   display: flex;
 }
-
 .filter-side {
   flex: 0 0 20%;
   padding-left: 30px;
@@ -307,6 +305,7 @@ img {
   font-size:20px;
 }
 
+
 input { /*style for checkbox*/
   margin-right:10px;
 }
@@ -316,4 +315,5 @@ input { /*style for checkbox*/
   padding: 0 0 0 0 ;
   border: none;
 }
+
 </style>

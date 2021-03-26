@@ -1,6 +1,7 @@
 <template>
     <div class="review-wrapper">
         <div><h3>Review this shop</h3></div>
+        <form>
         <input type="text" placeholder="Leave a review here" />
         
         <div class="ratings">
@@ -11,6 +12,7 @@
             <!--span class="stars"><ratings></ratings></span-->
             <button type="submit">Submit</button>
         </div>
+        </form> 
 
         <div class="reviews">
             <span><h3>### Reviews</h3></span>

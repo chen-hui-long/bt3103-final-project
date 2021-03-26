@@ -22,6 +22,10 @@
                 </button>
             </div>
         </div>
+
+        <div class="fav">
+            <button id="fav" @click="fav">♡</button>
+        </div>
             
     </div>
 </template>
@@ -110,6 +114,9 @@ export default {
             clearInterval(this.timerInterval);
             this.startTimer(this.timeLeft);
         },
+        fav() {
+
+        }
     },
     created() {
         //Check if startingImage prop was given and if the index is inside the images array bounds
@@ -150,8 +157,8 @@ export default {
 }
 
 .thumbnail-image > img {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     transition: all 250ms;
     opacity: 0.5;
     border-radius:15px;
@@ -173,8 +180,8 @@ export default {
 }
 
 .card-img > img {
-    width: 400px;
-    height: 400px;
+    width: 450px;
+    height: 450px;
     border-radius: 15px;
     margin-left: 75px;
 }
@@ -185,7 +192,7 @@ export default {
     position: absolute;
     top: 50%;
     margin-top: -20px;
-    width: 550px;
+    width: 600px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -207,5 +214,22 @@ export default {
 .actions > button:hover {
     background-color: black;
     color:white;
+}
+
+.fav {
+    position: absolute;
+    margin-left: 670px;
+    font-size: 28px;
+    font-family: system-ui;
+    font-weight: 500px;
+}
+.fav > button {
+    cursor: pointer;
+    transition: all 250ms;
+    width: 50px;
+    border-radius:50%;
+    border:none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    background-color:white;
 }
 </style>
