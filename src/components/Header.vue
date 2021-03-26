@@ -169,7 +169,7 @@ nav {
 
 #heart-icon {
     line-height: 44px;
-    font-size: 32px;
+    font-size: 36px;
     font-family: system-ui;
     font-weight: 500;
   

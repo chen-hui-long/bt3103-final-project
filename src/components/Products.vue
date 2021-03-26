@@ -20,30 +20,32 @@
             
             <div class="product-content-right">
             
-            <div class="title"><h3>Product Name</h3></div>
+            <div class="title"><h1>Lilac Oak</h1></div>
             <p class="description">Insert description</p>
 
             <div class="menu">
                 <span class="subtitle">Menu</span>
-                <button class="down-arrow">&#8964;</button>
+                <!--v-if to change button sign?-->
+                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
+                <button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">&#8964;</button>
                 <p class="description">Insert description</p>
             </div>
 
             <div class="highlights">
                 <span class="subtitle">Highlights</span>
-                <button class="down-arrow">&#8964;</button>
+                <button class="down-arrow" style="margin-left:68%;">&#8964;</button>
                 <p class="description">Insert description</p>
             </div>
 
 
             <div class="delivery">
                 <span class="subtitle">Delivery/ Collection</span>
-                <button class="down-arrow">&#8964;</button>
+                <button class="down-arrow" style="margin-left:180px;">&#8964;</button>
                 <p class="description">Insert description</p>
             </div>
 
             <div class="ig">
-                <p>IG:</p>
+                <p style="font-weight:bold;">IG:</p>
             <p class="description">@insert ig</p>
             </div>
     
@@ -62,10 +64,24 @@ import ImageSlider from './ImageSlider.vue'
 import Reviews from './Reviews'
 /*import Ratings from './Ratings.vue'*/
 export default {
+    data() {
+        return {
+            isActive: false
+        }
+    },
   components:{
     'image-slider':ImageSlider,
     'reviews':Reviews
     /*'ratings': Ratings*/
+  },
+  methods:{
+      toggle() {
+        if (!this.isActive) {
+            this.isActive = true;
+        } else {
+            this.isActive = false;
+        }
+    }
   }
 };
 </script>
@@ -115,25 +131,36 @@ export default {
 }
 
 
-
 .ig {
     display:flex;
+    font-size: 18px;
 }
+
+
 
 .down-arrow {
     background: none;
     border: none;
     font-weight: bolder;
     cursor: pointer;
+    /*font-size: 1.5em;*/
 }
 
+.title {
+    color:#a19090;
+    letter-spacing: 1px;
+}
 .subtitle {
     font-weight:bold;
+    font-size: 18px;
 }
 
+.description {
+    font-size: 18px;
+}
 
 .review{
-    margin-top: 50px;
+    margin-top: 150px;
     margin-left: 50px;
 }
 </style>
