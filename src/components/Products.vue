@@ -96,8 +96,6 @@ export default {
             isActive1: false,
             isActive2: false,
             isActive3: false, 
-            docID:"", 
-            bakery:[], 
         }
     },
   components:{
