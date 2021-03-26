@@ -66,9 +66,9 @@
       </div>
       <div class = "content-side">
     <ul>
-      <li v-for = "bakery in bakeries" v-bind:key="bakery.name" v-show = "visible(bakery)">
-        <img v-bind:src = "bakery.ImageURL">
-        <p id = "bakery-name">{{bakery.Name}}</p>
+      <li v-for = "bakery in bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
+        <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].ImageURL" v-bind:id = "bakery[0]"></button>
+        <p id = "bakery-name">{{bakery[1].Name}}</p>
         </li>
       </ul>
       </div>
@@ -93,7 +93,7 @@ export default {
     fetchItems:function() {
       database.collection("bakeries").get().then(snapshot => {
         snapshot.docs.forEach(doc => {
-          this.bakeries.push(doc.data());
+          this.bakeries.push([doc.id, doc.data()]);
         })
       })
     }, 
@@ -215,12 +215,18 @@ export default {
       } else {
         return false;
       }
+    }, 
+
+    route:function(event) {
+      let doc_id = event.target.getAttribute("id");
+      this.$router.push({path: "/product", query: {id: doc_id}})
     }
 
 
   }, 
   created() {
     this.fetchItems();
+    console.log(this.bakeries)
   }
   }
 
@@ -303,5 +309,11 @@ img {
 
 input { /*style for checkbox*/
   margin-right:10px;
+}
+
+.bakery-image-btn {
+  background-color: transparent;
+  padding: 0 0 0 0 ;
+  border: none;
 }
 </style>
