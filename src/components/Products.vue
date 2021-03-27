@@ -144,7 +144,6 @@ export default {
 
   created() {
       this.docID = this.$route.query.id
-      console.log(this.docID)
       this.fetchItems();
   }
 };
@@ -178,20 +177,18 @@ ul.breadcrumb li a {
 }
 
 .product-content {
-    display:inline-flex;
+    display:flex;
     margin-top: 50px;
 }
 
 .product-content-left{
-    position:relative;
-    left: 80px;
+    flex: 0 0 60%;
+    margin-left: 50px;;
     display:flex;
 }
 
 .product-content-right{
-    position:relative;
-    top: -18px;
-    left: 800px;
+    flex: 0 0 40%;
     display:block;    
 }
 
@@ -218,7 +215,6 @@ ul.breadcrumb li a {
     font-weight: bolder;
     cursor: pointer;
     position: absolute;
-    left: 400px;
     /*display:inline-flex;*/
     font-size: 1.25em;
 }
