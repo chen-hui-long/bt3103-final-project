@@ -269,29 +269,6 @@ export default {
     }
   }, 
 
-  computed: {
-    search_bakeries:function() {
-      var search = this.search_filter.trim().toLowerCase()
-      var curr_filtered_bakeries = this.bakeries.filter((bakery) => {
-          return bakery[1].Name.toLowerCase().includes(search);
-      })
-      if (this.sort_by == "A-Z") {
-        curr_filtered_bakeries.sort(function(a, b) {
-          return a[1].name - b[1].name
-        })
-      } else if (this.sort_by == "ratings_ascending") {
-        curr_filtered_bakeries.sort(function(a, b) {
-          return a[2] - b[2]
-        })
-      } else if (this.sort_by == "ratings_descending") {
-        curr_filtered_bakeries.sort(function(a, b) {
-          return b[2] - a[2]
-        })
-      }
-      return curr_filtered_bakeries;
-    }
-  }, 
-
   created() {
     this.fetchItems();
   }
@@ -304,9 +281,8 @@ export default {
   display: flex;
 }
 .filter-side {
-  flex: 0 0 25%;
-  padding-left: 80px;
-  padding-right:30px;
+  flex: 0 0 20%;
+  padding-left: 30px;
   margin-top: 100px;
   margin-bottom: 20px;
   
