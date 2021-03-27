@@ -81,15 +81,16 @@ nav {
   display: flex;
   width: 80%;
   height: 45%;
+  padding-left: 100px;
   justify-content: center;
   position: relative;
   
 }
 
 .search > input {
-  width: 80%;
+  width: 85%;
   /*width: fit-content;*/
-  padding:0 48% 0 0;
+  padding:0 40% 0 0;
   border-radius: 15px;
   align-items: center;
   font-size: 18px;
@@ -108,7 +109,7 @@ nav {
   background: none;
   cursor: pointer;
   position: absolute;
-  right: 6.8vw;
+  right: 5vw;
   line-height: 60px;
   bottom: -12px;
   padding: 4px 3px;

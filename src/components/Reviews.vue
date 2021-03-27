@@ -9,15 +9,15 @@
             <span class="stars"><star-rating v-bind:show-rating="false" v-bind:star-size="20" 
             border-color="black" border-width="3" rounded-corners=true 
             inactive-color="white" active-color="black"></star-rating></span>
-            <!--span class="stars"><ratings></ratings></span-->
-            <button type="submit">Submit</button>
+            <button type="submit" v-on:click.prevent="addItem">Submit</button>
         </div>
         </form> 
 
         <div class="reviews">
             <span><h3>### Reviews</h3></span>
-            <!-- to  retrieved star ratings from database-->
-            <span class="stars"><star-rating read-only="true" rating="5" v-bind:show-rating="false" v-bind:star-size="16" 
+            <!-- to  retrieve star ratings from database-->
+            <span class="stars"><star-rating read-only="true" rating="4.3" increment="0.1"
+            v-bind:show-rating="false" v-bind:star-size="16" 
             border-color="black" border-width="3" rounded-corners=true 
             inactive-color="white" active-color="black"></star-rating></span>
             <hr/>
@@ -27,6 +27,15 @@
             <div class="users">
             <img>profile pic
             </div>
+
+            <div class="user-reviews" v-for="(review, user) in bakery[0].ReviewsRatings" :key="user">
+                <p id="Name">{{user}}</p>
+                <star-rating read-only="true" v-bind:rating="review.rating" increment="0.1"
+            v-bind:show-rating="false" v-bind:star-size="16" 
+            border-color="black" border-width="3" rounded-corners=true 
+            inactive-color="white" active-color="black"></star-rating>
+                 {{review.review}}
+            </div>
             
         </div>
     </div>
@@ -35,18 +44,47 @@
 </template>
 
 <script>
-/*import Ratings from './Ratings.vue'
-export default {
-  components:{
-    'ratings': Ratings
-  }
-};*/
-
 import StarRating from 'vue-star-rating'
+import database from "../firebase.js"
 export default {
+    data() {
+        return {
+            docID:"", 
+            bakery:[],
+            /*needs help*/
+            newReview:{
+                user:"test",
+                review:"test",
+                rating:"4"
+            }
+        }
+    },   
     components:{
         'star-rating':StarRating
     },
+
+    methods:{
+    fetchItems:function() {
+          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
+              this.bakery.push(snapshot.data())
+          })
+      },
+    
+    /*needs help*/
+      addItem:function(){
+          database.collection('bakeries').doc(this.docID).add(
+              {test:'test'})
+      }      
+    
+  }, 
+
+
+  created() {
+      this.docID = this.$route.query.id
+      console.log(this.docID)
+      this.fetchItems();
+      this.addItem();
+  }
 }
 </script>
 
@@ -98,5 +136,14 @@ hr {
     border-style:inset;
     border-width: 1px;
     background-color: none;
+}
+
+.user-reviews{
+    margin-bottom: 50px;
+}
+
+#Name {
+    color:rgb(101, 101, 101);
+    text-decoration: underline;
 }
 </style>

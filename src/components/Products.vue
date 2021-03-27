@@ -8,7 +8,11 @@
             </ul>
         </div-->
         <div class="breadcrumb-wrap">
-        <h3>Insert breadcrumb aka the sub navigation</h3>
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">{{this.bakery[0].Dietary}}</a></li>
+            <li>{{this.bakery[0].Name}}</li>
+        </ul>
         </div>
 
         <div class="product-content">
@@ -20,17 +24,25 @@
             <div class="product-content-right">
             
             <div class="title"><h1>{{this.bakery[0].Name}}</h1></div>
-            <p class="description">Insert description</p>
+            <div style="width:430px;" class="description-box"><p class="description">{{this.bakery[0].Description}}</p></div>
 
             <div class="product-description">
+            
             <div class="menu">
                 <span class="subtitle">Menu</span>
                 <!--v-if to change button sign?-->
                 <div v-if='isActive1'>
                 <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-up" /></button>
-                <br><div><p class="description">Insert description</p></div>
+                <br>
+                <div class="wrapper">
+                <div style="float:left;" class="description-box" v-for="(bake, index) in bakery[0].Bakes" :key="index">
+                <p class="description1"><div>{{bake}}
+                <span v-if="index != Object.keys(bakery[0].Bakes).length -1">,</span></div>
                 </div>
+                </div>
+                </div>
+
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-down" /></button>
                 </div>
@@ -41,7 +53,7 @@
                 <div v-if='isActive2'>
                 <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
-                <br><div><p class="description">Insert description</p></div>
+                <br><div class="description-box"><p class="description">{{this.bakery[0].Dietary}}</p></div>
                 </div>
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-down" /></button>
@@ -54,7 +66,8 @@
                 <div v-if='isActive3'>
                 <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-up" /></button>
-                <br><div><p class="description">Insert description</p></div>
+                <br>
+                <div class="description-box"><p class="description">{{this.bakery[0].OrderDetails}}</p></div>
                 </div>
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-down" /></button>
@@ -63,7 +76,7 @@
 
             <div class="ig">
                 <p style="font-weight:bold;">IG:</p>
-            <p class="description">@insert ig</p>
+                <a :href= "'https://www.instagram.com/' + this.bakery[0].Instagram" class="description">@{{this.bakery[0].Instagram}}</a>
             </div>
     
             </div>
@@ -142,27 +155,27 @@ export default {
 
 .breadcrumb-wrap {
     position: relative;
-    width: 100%;
-}
-/*
-.breadcrumb-wrap .breadcrumb {
-    margin: 0;
-    padding: 0;
-    background: transparent;
+    padding-left:60px;
 }
 
-.breadcrumb li {
-    display: inline-block;
-    white-space: nowrap;
+ul.breadcrumb {
+  padding: 8px 16px;
+  list-style: none;
+  font-size: 18px;
 }
-.breadcrumb > .active {
-    color: #37474f;
-    font-weight: bold;
-}
-.breadcrumb > li a {
-    color: #515356;
-}*/
 
+ul.breadcrumb li {display: inline;}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: #626262;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {
+    color: #626262;
+    text-decoration: none;
+}
 
 .product-content {
     display:inline-flex;
@@ -177,17 +190,25 @@ export default {
 
 .product-content-right{
     position:relative;
+    top: -18px;
     left: 800px;
-    display:inline-block;    
+    display:block;    
 }
 
 .menu, .highlights, .delivery {
     display:flex;
+    width: 430px;
 }
 
 .ig {
     display:flex;
     font-size: 18px;
+}
+
+.ig a{
+    color:#a19090;
+    margin-top: 15px;
+    margin-left: 10px;
 }
 
 
@@ -212,10 +233,18 @@ export default {
     padding-bottom: 40px;
 }
 
-.description {
-    font-size: 18px;
-    display:inline-block;
-    padding-bottom: 20px;
+.description{
+    margin-bottom:30px;
+}
+
+.description-box{
+    /*position: absolute;*/
+    left:1px;
+}
+
+.wrapper{
+    padding-bottom:50px;
+    color:blue;
 }
 
 .review{

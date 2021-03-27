@@ -53,7 +53,7 @@
       </div>
       <hr>
       <div class = "filter-header">
-        Delivery / Self Pick-up
+        Delivery / <br>Self Pick-up
       <button type = "button" class = "collapsible-f4" v-on:click ="onClickf4">+</button>
       </div>
       <div class = "f4">
@@ -62,15 +62,39 @@
         <label><input type="checkbox" name="fl-delivery-pickup" value="Self Pick-Up" id="Self Pick-Up" v-model ="checked.deliver" />Self Pick-up</label><br>
         </form>
       </div>
-
       </div>
+
       <div class = "content-side">
+        <div class = "search-sort">
+          <input id = "search_bar" type="text" v-model = "search_filter" placeholder="Search by keyword!" />
+          <div id = "sorting">
+            Sort by:
+            <select id="sort" v-model = "sort_by">
+                <option value="A-Z" selected>A-Z</option>
+                <option value="ratings_ascending">Ratings (Ascending)</option>
+                <option value="ratings_descending">Ratings (Descending)</option>
+            </select>
+          </div>
+        </div>
+        <hr>
     <ul>
-      <li v-for = "bakery in bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
+      <li v-for = "bakery in search_bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].ImageURL" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].Name}}</p>
+        <p id = "bakery-rating">{{bakery[2]}} ★</p>
         </li>
       </ul>
+      <div class="pagination">
+        <a href="#">&laquo;</a>
+        <a class="active" href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">...</a>
+        <a href="#">&raquo;</a>
+      </div>
       </div>
   </div>
 </template>
@@ -81,21 +105,31 @@ export default {
   data() {
     return {
       bakeries: [],       //store all the bakeries details  
+      filtered_bakeries: [], 
       checked: {
         bakery: [], 
         location: [], 
         dietary: [],
         deliver: []
-      }
+      }, 
+      search_filter: "",
+      sort_by: "A-Z"
     }
   },
   methods: {
     fetchItems:function() {
       database.collection("bakeries").get().then(snapshot => {
         snapshot.docs.forEach(doc => {
-          this.bakeries.push([doc.id, doc.data()]);
+          var avg_rating = this.calAvgRating(doc.data().Rating)
+          this.bakeries.push([doc.id, doc.data(), avg_rating]);
         })
       })
+    }, 
+    calAvgRating:function(rating) {
+      var total_rating = rating.One * 1 + rating.Two * 2 + rating.Three * 3 + rating.Four * 4 + rating.Five * 5
+      var total_review = rating.One + rating.Two + rating.Three + rating.Four  + rating.Five
+      var avg = total_rating / total_review
+      return Math.round(avg * 10) / 10
     }, 
     onClickf1:function() {
       var x  = document.getElementsByClassName("f1")[0]
@@ -108,7 +142,6 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
-
     onClickf2:function() {
       var x  = document.getElementsByClassName("f2")[0]
       var sym = document.getElementsByClassName("collapsible-f2")[0]
@@ -120,7 +153,6 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
-
     onClickf3:function() {
       var x  = document.getElementsByClassName("f3")[0]
       var sym = document.getElementsByClassName("collapsible-f3")[0]
@@ -132,7 +164,6 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
-
     onClickf4:function() {
       var x  = document.getElementsByClassName("f4")[0]
       var sym = document.getElementsByClassName("collapsible-f4")[0]
@@ -144,7 +175,6 @@ export default {
         sym.innerHTML = "+"
       }
     }, 
-
     visible: function(bakery) {
       //no checked box 
       if (this.checked.bakery.length == 0) {
@@ -152,21 +182,18 @@ export default {
       } else {
         curr_bak_boolean = this.check_bakery(bakery.Bakes) //location filter
       }
-
       //location 
       if (this.checked.location.length == 0) {
         var curr_loc_boolean = true;
       } else {
         curr_loc_boolean = this.check_location(bakery.Location) //location filter
       }
-
       //diet
       if (this.checked.dietary.length == 0) {
         var curr_diet_boolean = true;
       } else {
         curr_diet_boolean = this.check_diet(bakery.Dietary) //diet filter
       }      
-
       //delivery
       if (this.checked.deliver.length == 0) {
         var curr_del_boolean = true;
@@ -176,7 +203,6 @@ export default {
       return (curr_loc_boolean && curr_del_boolean && curr_diet_boolean && curr_bak_boolean);
       
     }, 
-
     check_bakery:function(bakes) {
       for (var i = 0; i < bakes.length; i++) {
         console.log(bakes[i])
@@ -194,7 +220,6 @@ export default {
         return false;
       }
     }, 
-
     check_deliver:function(delivery) {
       if (delivery == undefined) {
         return false; 
@@ -206,7 +231,6 @@ export default {
         return false;
       }
     },
-
     check_diet:function(diet) {
       if (diet == undefined) {
         return false 
@@ -216,104 +240,174 @@ export default {
         return false;
       }
     }, 
-
     route:function(event) {
       let doc_id = event.target.getAttribute("id");
       this.$router.push({path: "/product", query: {id: doc_id}})
     }
-
+  }, 
+  computed: {
+    search_bakeries:function() {
+      var search = this.search_filter.trim().toLowerCase()
+      var curr_filtered_bakeries = this.bakeries.filter((bakery) => {
+          return bakery[1].Name.toLowerCase().includes(search);
+      })
+      if (this.sort_by == "A-Z") {
+        curr_filtered_bakeries.sort(function(a, b) {
+          return a[1].name - b[1].name
+        })
+      } else if (this.sort_by == "ratings_ascending") {
+        curr_filtered_bakeries.sort(function(a, b) {
+          return a[2] - b[2]
+        })
+      } else if (this.sort_by == "ratings_descending") {
+        curr_filtered_bakeries.sort(function(a, b) {
+          return b[2] - a[2]
+        })
+      }
+      return curr_filtered_bakeries;
+    }
   }, 
   created() {
     this.fetchItems();
-    console.log(this.bakeries)
   }
   }
-
 </script>
 
 
 <style scoped>
-
 .parent {
   display: flex;
 }
 .filter-side {
-  flex: 0 0 20%;
-  padding-left: 30px;
+  flex: 0 0 25%;
+  padding-left: 80px;
+  padding-right:30px;
+  margin-top: 100px;
   margin-bottom: 20px;
+  
 }
-
 ul {
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
 }
 li {
-  flex-grow: 1;
+  flex-grow: 0;
   text-align: center;
   margin: 15px;
   font-size: 20px;
 }
 img {
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  height: 280px;
 }
-
 .f1 {
   display: none;
 }
-
 .f2 { 
   display: none;
 }
-
 .f3 {
   display: none;
 }
-
 .f4 {
   display: none;
 }
-
 .collapsible-f1 {
   background-color: transparent;
   border:none;
 }
-
 .collapsible-f2 {
   float:right;
   background-color: transparent;
   border:none;
 }
-
 .collapsible-f3 {
   float:right;
   background-color: transparent;
   border:none;
 }
-
 .collapsible-f4 {
   float:right;
   background-color: transparent;
   border:none;
 }
-
 .filter-header {
   display:flex;
   justify-content: space-between;
   font-size:20px;
 }
-
-
 input { /*style for checkbox*/
   margin-right:10px;
 }
-
+.content-side { 
+  flex: 0 0 75%;
+  padding-right:80px;
+}
 .bakery-image-btn {
   background-color: transparent;
   padding: 0 0 0 0 ;
   border: none;
 }
+#bakery-name {
+  margin-bottom: 0;
+}
+#bakery-rating {
+  margin: 0 0 0 0;
+}
+.search-sort {
+  display:flex;
+  width:100%;
+  height:45px;
+  justify-content: space-between;
+  margin-top:10px;
+  margin-bottom: 10px;
+  padding-left:3%;
+  padding-right:3%;
+  align-items: center;
+}
+#search_bar {
+  border-radius: 15px;
+  width:60%;
+  text-indent: 15px;
+  font-size: 18px;
+  outline-style: none;
+  box-shadow: none;
+  border: 2px solid #bbbbbb;
+}
+#sorting {
+  font-size: 18px;
+}
+#sort {
+  border:none;
+  outline-style: none;
+  box-shadow: none;
+}
+
+.pagination {
+  display: inline-block;
+
+}
+
+.pagination a {
+  /*border: 1px solid #ddd;*/
+  border-radius:50px;
+  background-color:#e5e5e5b4;
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 0 4px;
+  font-weight:bold;
+}
+
+.pagination a.active {
+  background-color: #898989d1;
+  color:black;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
 
 </style>

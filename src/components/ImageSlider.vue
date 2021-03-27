@@ -1,6 +1,5 @@
 <template>
     <div class="card-carousel" @mouseover="stopTimer" @mouseleave="restartTimer">
-
         <div class="thumbnails">
             <div 
                 v-for="(image, index) in  images"
@@ -31,11 +30,19 @@
 </template>
 
 <script>
+import database from "../firebase.js"
 export default {
     name: 'Carousel',
     data() {
         return {
-        images: [
+        docID:"", 
+        bakery:[],
+        images:[
+            {id:'1',thumb:""},
+            {id:'2',thumb:""},
+            {id:'3',thumb:""}, 
+        ],
+        /*images: [
           {id:'1',
           thumb:"https://cdn.pixabay.com/photo/2015/12/12/15/24/amsterdam-1089646_1280.jpg"
           },
@@ -45,7 +52,7 @@ export default {
           {id:'3',
           thumb:"https://cdn.pixabay.com/photo/2015/05/15/14/27/eiffel-tower-768501_1280.jpg"
           },
-      ],
+      ],*/
             //Index of the starting image
             startingImage: 0,
             //Index of the active image
@@ -116,8 +123,15 @@ export default {
         },
         fav() {
 
-        }
-    },
+        },
+        fetchItems:function() {
+          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
+              this.bakery.push(snapshot.data())
+              /*this.images[0].thumb.push(snapshot.data().ImageURL)*/
+
+          })
+        },
+
     created() {
         //Check if startingImage prop was given and if the index is inside the images array bounds
         if(this.startingImage 
@@ -125,7 +139,9 @@ export default {
             && this.startingImage < this.images.length) {
             this.activeImage = this.startingImage;
         }
+        this.fetchItems();
     },
+}
 }
 </script>
 
