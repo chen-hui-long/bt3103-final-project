@@ -33,10 +33,10 @@
 import database from "../firebase.js"
 export default {
     name: 'Carousel',
+
     data() {
         return {
         docID:"", 
-        bakery:[],
         images:[
             {id:'1',thumb:""},
             {id:'2',thumb:""},
@@ -125,6 +125,8 @@ export default {
 
         },
         fetchItems:function() {
+            console.log("fettching item..") 
+            console.log(this.docID)
           database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
               this.bakery.push(snapshot.data())
               /*this.images[0].thumb.push(snapshot.data().ImageURL)*/

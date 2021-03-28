@@ -131,6 +131,7 @@ export default {
       var avg = total_rating / total_review
       return Math.round(avg * 10) / 10
     }, 
+
     onClickf1:function() {
       var x  = document.getElementsByClassName("f1")[0]
       var sym = document.getElementsByClassName("collapsible-f1")[0]
@@ -267,6 +268,7 @@ export default {
       return curr_filtered_bakeries;
     }
   }, 
+
   created() {
     this.fetchItems();
   }
@@ -279,9 +281,8 @@ export default {
   display: flex;
 }
 .filter-side {
-  flex: 0 0 25%;
-  padding-left: 80px;
-  padding-right:30px;
+  flex: 0 0 20%;
+  padding-left: 30px;
   margin-top: 100px;
   margin-bottom: 20px;
   
@@ -342,10 +343,12 @@ img {
 input { /*style for checkbox*/
   margin-right:10px;
 }
+
+
 .content-side { 
-  flex: 0 0 75%;
-  padding-right:80px;
+  flex: 0 0 80%;
 }
+
 .bakery-image-btn {
   background-color: transparent;
   padding: 0 0 0 0 ;
@@ -410,4 +413,44 @@ input { /*style for checkbox*/
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
+
+#bakery-name {
+  margin-bottom: 0;
+}
+#bakery-rating {
+  margin: 0 0 0 0;
+}
+
+.search-sort {
+  display:flex;
+  width:100%;
+  height:45px;
+  justify-content: space-between;
+  margin-top:10px;
+  margin-bottom: 10px;
+  padding-left:3%;
+  padding-right:3%;
+  align-items: center;
+}
+
+#search_bar {
+  border-radius: 15px;
+  width:60%;
+  text-indent: 15px;
+  font-size: 18px;
+  outline-style: none;
+  box-shadow: none;
+  border: 2px solid #bbbbbb;
+}
+
+#sorting {
+  font-size: 18px;
+}
+
+#sort {
+  border:none;
+  outline-style: none;
+  box-shadow: none;
+}
 </style>
+
