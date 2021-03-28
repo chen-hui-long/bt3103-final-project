@@ -1,17 +1,13 @@
 <template>
     <body>
-        <!--div class="breadcrumb-wrap">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Vegan</a></li>
-                <li class="breadcrumb-item active">Product List</li>
-            </ul>
-        </div-->
         <div class="breadcrumb-wrap">
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">{{this.bakery[0].Dietary}}</a></li>
+            <li><a><router-link to="/" exact>Home</router-link></a></li>
+            <!-- insert router for dietary type if there is -->
+            <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].Dietary}}</a></li>
             <li>{{this.bakery[0].Name}}</li>
+
+
         </ul>
         </div>
 
@@ -30,9 +26,7 @@
             
             <div class="menu">
                 <span class="subtitle">Menu</span>
-                <!--v-if to change button sign?-->
                 <div v-if='isActive1'>
-                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
                 <div class="wrapper">
@@ -51,7 +45,6 @@
             <div class="highlights">
                 <span class="subtitle">Highlights</span>
                 <div v-if='isActive2'>
-                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
                 <br><div class="description-box"><p class="description">{{this.bakery[0].Dietary}}</p></div>
                 </div>
@@ -64,7 +57,6 @@
             <div class="delivery">
                 <span class="subtitle">Delivery/ Collection</span>
                 <div v-if='isActive3'>
-                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
                 <div class="description-box"><p class="description">{{this.bakery[0].OrderDetails}}</p></div>
