@@ -8,6 +8,8 @@ export default[
     { path: '/product', component: Product},
     { path: '/login', component: Login},
     { path: '/signup', component: Signup},
+    { path: '/sell', component: Sell},
+    { path: '/selling', component: Selling}
     //{ path: '/Fav', component: Favourite}
 ]
 
