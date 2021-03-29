@@ -15,7 +15,7 @@
 					<div class="grid-item">
 						<span id = "subtitle"> SELL </span>
 						<br>
-                        <a href="">Sell on EATSY</a>
+                        <li><router-link to ="/sell" exact>Sell on EATSY</router-link></li>
                     </div>   
 					<div class="grid-item">
 						<span id = "subtitle">HELP</span>
