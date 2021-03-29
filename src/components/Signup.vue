@@ -3,6 +3,7 @@
   <div class="form">
     <form class="register-form">
       <input type="text" v-model ="email" placeholder="Email"/>
+      <input type="text" v-model="firstname"/>
       <input type="password" v-model ="password" placeholder="Password"/>
       <button v-on:click.prevent = "register">Register</button>
       <p class="message">Have An Account ? <router-link to="/login" exact>Login</router-link></p>
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import database from '../firebase.js';
 import firebase from '@firebase/app';
 require('firebase/auth');
 export default {
@@ -20,6 +22,7 @@ export default {
         return {
             email: "", 
             password: "", 
+            firstname: "",
         }
     }, 
 
@@ -28,6 +31,10 @@ export default {
             console.log("register start")
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
                 console.log(cred);
+                db.collection("Users").doc(cred.user.uid).set({
+                  email: this.email,
+                  firstname: this.firstname,
+                })
             }, err => {
                 alert(err.message);
             })
