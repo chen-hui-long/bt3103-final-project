@@ -1,5 +1,6 @@
 <template>
 <div class="sell-page">
+    <p id="message"><router-link to="/home" exact>Home</router-link><b> / Sell</b></p>
         <header>
         Free, Simple, Transparent
         </header>
@@ -23,6 +24,12 @@ export default {
 </script>
 
 <style>
+#message {
+    text-align: left;
+    margin-top: 50px;
+    margin-left: 100px;
+    font-size: 25px;
+}
 
 header {
     text-align: center;
