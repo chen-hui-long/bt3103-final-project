@@ -2,6 +2,8 @@ import Home from './components/Home.vue'
 import Product from './components/Products.vue'
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
+import Sell from './components/Sell.vue'
+import Selling from './components/Selling.vue'
 //import Favourite from './components/Favourite.vue'
 export default[
     { path: '/', component: Home},
