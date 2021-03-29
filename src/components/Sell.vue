@@ -1,8 +1,10 @@
 <template>
-<div class="sell-page">
-    <h1>Free, Simple, Transparent</h1>
+<div id="sell-page">
+    <header>
+        Free, Simple, Transparent
+        </header>
     <p id="words">Be featured today</p>
-    <button v-on:click= "startSelling">Start selling on Eatsy</button>
+    <button  v-on:click= "startSelling">Start selling on Eatsy</button>
   </div>
 </template>
 
@@ -19,12 +21,35 @@ export default {
 
 <style>
 
+header {
+    text-align: center;
+    color: black;
+    font-size: 40px;
+    font-weight: bold;
+    margin-block: 40px;
+}
+
+#sell-page {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+button{
+    height: 60px;
+    width: 200px;
+    background-color: black;
+    color: white;
+    font-size: 50px;
+    border-radius: 30px;
+}
+
 #words {
-    font-size: 30px;
+    font-size: 20px;
     color: grey;
     box-sizing: border-box;
     padding-left: 24px;
     padding-right: 24px;
 }
+
 
 </style>
