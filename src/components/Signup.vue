@@ -3,7 +3,7 @@
   <div class="form">
     <form class="register-form">
       <input type="text" v-model ="email" placeholder="Email"/>
-      <input type="text" v-model="firstname"/>
+      <input type="text" v-model="name" placeholder = "Name"/>
       <input type="password" v-model ="password" placeholder="Password"/>
       <button v-on:click.prevent = "register">Register</button>
       <p class="message">Have An Account ? <router-link to="/login" exact>Login</router-link></p>
@@ -22,7 +22,7 @@ export default {
         return {
             email: "", 
             password: "", 
-            firstname: "",
+            name: "",
         }
     }, 
 

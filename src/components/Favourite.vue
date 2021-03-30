@@ -42,7 +42,7 @@ export default{
                 const data = snapshot.data()
                 this.image1 = data.ImageURL[0]
                 this.image2 = data.ImageURL[1]
-                this.rating = computeRating(data.Rating)
+                //this.rating = computeRating(data.Rating)
                 this.reviewsNum = data.Reviews.length
             })
         }

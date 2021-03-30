@@ -7,8 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Raleway&display=swap" rel="stylesheet">
 
     <app-header></app-header>
+    <p>
+    <router-link to="/signup" exact>CUSTOMER Sign Up</router-link> |
+    <router-link to="/login" exact>CUSTOMER Login</router-link> |
+    <router-link to="/product" exact>Product</router-link> |
+    <router-link to="/sell" exact>Sell</router-link> |
+    <router-link to="/profile" exact>Profile</router-link> |
+    <router-link to="/" exact>Home</router-link> |
+    <router-link to="/edit" exact>edit</router-link> 
+    </p>
+    DO NOT DELETE THIS FIRST, USE THIS TO DEBUG. 
     <router-view></router-view>
-    <!--product-page></product-page-->
 
     <app-footer></app-footer>
   </div>

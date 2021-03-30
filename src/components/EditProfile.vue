@@ -43,10 +43,12 @@ export default{
     props:['userID'],
 
     methods: {
-        // not sure about the image upload ans storage
+        // not sure about the image upload ans storage\
+        /*
         changeImage(e){
             this.image = firebase.storage().ref().child(e) 
         },
+        */
         
         fetchOrigin(){
             db.collection("Users").doc(this.userID).get().then(snapshot => {
