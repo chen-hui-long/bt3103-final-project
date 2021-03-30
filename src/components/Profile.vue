@@ -1,0 +1,120 @@
+<template>
+    <div class="profile">
+        <div id="links">
+            <router-link id="home" to='/home'>Home / </router-link> 
+            <router-link id="profile" to='/profile'>Profile</router-link>
+        </div>
+
+        <div id="user">
+            <img v-bind:src ="this.image">
+            <div id="username">{{this.name}}</div>
+            <button id="edit">Edit Profile</button>
+        </div>
+
+        <div id="history">
+            <div id="shopButton">
+                <button v-on:click="showShop()"/>
+                <div>Favourite shops</div>
+                <div>{{this.shops.length}} shops</div>
+            </div>
+
+            <div id="reviewButton">
+                <button v-on:click="showReview()"/>
+                <div>Past reviews</div>
+                <div>{{this.reviews.length}} review</div>
+            </div>
+        </div>
+
+<!--test
+        <div id="details">
+            <div id="shops" v-show="this.showShops">
+                <div v-for="shop in shops" v-bind:key="shop.name">
+                    <Favourite v-bind:shop="shop"/>
+                </div>
+            </div>
+
+            <div id="reviews" v-show="this.showReviews">
+                <div v-for="review in reviews" v-bind:key="review.id">
+                    <Review v-bind:review="review"/>
+                </div>
+            </div>
+
+            <div id="nothing1" v-if="this.showShops & this.shops.length == 0">
+                <div class="firstLine">Nothing here... yet</div>
+                <div class="secondLine">You don't have any favourite shops yet! Explore Eatsy and find a shop you'll love.</div>
+            </div>
+
+            <div id="nothing2" v-if="this.showReviews & this.reviews.length == 0">
+                <div class="firstLine">Nothing here... yet</div>
+                <div class="secondLine">You haven't given any reviews yet! Start purchasing and leave your reviews.</div>
+            </div>
+        </div>
+-->
+                
+
+
+    
+
+
+    </div>
+
+</template>
+
+<script> 
+import db from '../firebase.js'
+import firebase from '@firebase/app'
+require('firebase/auth')
+
+export default {
+    data() {
+        return{
+            image: "",
+            name: "",
+            showShops: true,
+            showReviews: false,
+            shops: [],
+            reviews: [],
+
+        }
+    },
+
+    components:{
+
+    },
+
+    methods:{
+        fetchItems(){
+            const userID = firebase.auth().currentUserID.uid
+            db.collection("Users").doc(userID).get().then(snapshot => {
+                const data = snapshot.data()
+                console.log(data)
+                this.image = data.image
+                this.name = data.name
+                this.shops = data.shops
+                this.reviews = data.reviews
+            })
+        },
+
+        showShop(){
+            this.showShops = true;
+            this.showReviews = false;
+        },
+
+        showReview(){
+            this.showReviews = true;
+            this.showShops = false;
+        }
+    },
+
+    created(){
+        this.fetchItems();
+    }
+
+
+}
+
+</script>
+
+<style scoped> 
+
+</style>

@@ -4,6 +4,7 @@ import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
 import Sell from './components/Sell.vue'
 import Selling from './components/Selling.vue'
+import Profile from './components/Profile.vue'
 //import Favourite from './components/Favourite.vue'
 export default[
     { path: '/', component: Home},
@@ -11,7 +12,8 @@ export default[
     { path: '/login', component: Login},
     { path: '/signup', component: Signup},
     { path: '/sell', component: Sell},
-    { path: '/selling', component: Selling}
+    { path: '/selling', component: Selling},
+    { path: '/profile', component: Profile}
     //{ path: '/Fav', component: Favourite}
 ]
 
