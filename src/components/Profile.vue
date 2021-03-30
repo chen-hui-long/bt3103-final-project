@@ -25,11 +25,11 @@
             </div>
         </div>
 
-<!--test
+
         <div id="details">
             <div id="shops" v-show="this.showShops">
-                <div v-for="shop in shops" v-bind:key="shop.name">
-                    <Favourite v-bind:shop="shop"/>
+                <div v-for="shopName in shops" v-bind:key="shopName">
+                    <Favourite v-bind:shopName="shopName"/>
                 </div>
             </div>
 
@@ -49,18 +49,14 @@
                 <div class="secondLine">You haven't given any reviews yet! Start purchasing and leave your reviews.</div>
             </div>
         </div>
--->
-                
-
-
-    
-
 
     </div>
 
 </template>
 
 <script> 
+import Favourite from './Favourite.vue'
+import Review from './Review.vue'
 import db from '../firebase.js'
 import firebase from '@firebase/app'
 require('firebase/auth')
@@ -79,6 +75,8 @@ export default {
     },
 
     components:{
+        Favourite,
+        Review,
 
     },
 
@@ -92,8 +90,10 @@ export default {
                 this.name = data.name
                 this.shops = data.shops
                 this.reviews = data.reviews
+                // need to check whether formats are correct
             })
         },
+
 
         showShop(){
             this.showShops = true;
