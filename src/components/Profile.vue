@@ -1,6 +1,6 @@
 <template>
     <div class="profile">
-        <div id="links">
+        <div class="links">
             <router-link id="home" to='/home'>Home / </router-link> 
             <router-link id="profile" to='/profile'>Profile</router-link>
         </div>
@@ -8,7 +8,7 @@
         <div id="user">
             <img v-bind:src ="this.image">
             <div id="username">{{this.name}}</div>
-            <button id="edit">Edit Profile</button>
+            <button id="edit" v-on:click="edit()">Edit Profile</button>
         </div>
 
         <div id="history">
@@ -64,6 +64,7 @@ require('firebase/auth')
 export default {
     data() {
         return{
+            userID: firebase.auth().currentUserID.uid,
             image: "",
             name: "",
             showShops: true,
@@ -82,8 +83,7 @@ export default {
 
     methods:{
         fetchItems(){
-            const userID = firebase.auth().currentUserID.uid
-            db.collection("Users").doc(userID).get().then(snapshot => {
+            db.collection("Users").doc(this.userID).get().then(snapshot => {
                 const data = snapshot.data()
                 console.log(data)
                 this.image = data.image
@@ -103,6 +103,10 @@ export default {
         showReview(){
             this.showReviews = true;
             this.showShops = false;
+        },
+
+        edit(){
+            this.$router.push({name: "edit", params: {userID: this.userID}})
         }
     },
 
