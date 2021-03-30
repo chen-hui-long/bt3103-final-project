@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import database from '../firebase.js';
+import db from '../firebase.js';
 import firebase from '@firebase/app';
 require('firebase/auth');
 export default {
