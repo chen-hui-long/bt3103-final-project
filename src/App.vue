@@ -14,7 +14,9 @@
     <router-link to="/sell" exact>Sell</router-link> |
     <router-link to="/profile" exact>Profile</router-link> |
     <router-link to="/" exact>Home</router-link> |
-    <router-link to="/edit" exact>edit</router-link> 
+    <router-link to="/edit" exact>edit</router-link> |
+    <router-link to="/sellersignup" exact>SELLER Sign up</router-link> |
+    <router-link to="/multipleselect" exact>multiple select</router-link> |
     </p>
     DO NOT DELETE THIS FIRST, USE THIS TO DEBUG. 
     <router-view></router-view>
