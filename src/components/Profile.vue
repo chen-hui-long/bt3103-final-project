@@ -64,7 +64,7 @@ require('firebase/auth')
 export default {
     data() {
         return{
-            userID: firebase.auth().currentUserID.uid,
+            userID: firebase.auth().currentUser.uid,
             image: "",
             name: "",
             showShops: true,
@@ -86,7 +86,7 @@ export default {
             db.collection("Users").doc(this.userID).get().then(snapshot => {
                 const data = snapshot.data()
                 console.log(data)
-                this.image = data.image
+                //this.image = data.image
                 this.name = data.name
                 this.shops = data.shops
                 this.reviews = data.reviews

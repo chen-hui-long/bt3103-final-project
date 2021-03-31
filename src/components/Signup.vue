@@ -29,7 +29,7 @@ export default {
 
     methods: {
         register: function() {
-            const curr_user = {email:this.email, name:this.name, favourite:[], reviews: {}, total_review: 0, customer: true, total_favourite: 0} 
+            const curr_user = {email:this.email, name:this.name, favourite:[], reviews: {}, total_review: 0, seller: false, total_favourite: 0} 
             console.log(curr_user)
             console.log("register start")
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
@@ -37,11 +37,11 @@ export default {
                   Object.assign({}, curr_user)
                 )
                 this.$router.push({path: "/profile"})
+                this.$parent.forceRerender();
             }, err => {
                 alert(err.message);
             })
             console.log("end")
-            this.$router.push()
         }
     }
     
