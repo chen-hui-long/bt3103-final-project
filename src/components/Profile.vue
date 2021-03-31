@@ -10,7 +10,7 @@
             <div id="username">{{this.name}}</div>
             <button id="edit" v-on:click="edit()">Edit Profile</button>
         </div>
-
+        <!--
         <div id="history">
             <div id="shopButton">
                 <button v-on:click="showShop()"/>
@@ -49,14 +49,15 @@
                 <div class="secondLine">You haven't given any reviews yet! Start purchasing and leave your reviews.</div>
             </div>
         </div>
+        -->
 
     </div>
 
 </template>
 
 <script> 
-import Favourite from './Favourite.vue'
-import Review from './Review.vue'
+//import Favourite from './Favourite.vue'
+//import Review from './Review.vue'
 import db from '../firebase.js'
 import firebase from '@firebase/app'
 require('firebase/auth')
@@ -65,31 +66,21 @@ export default {
     data() {
         return{
             userID: firebase.auth().currentUser.uid,
-            image: "",
-            name: "",
-            showShops: true,
-            showReviews: false,
-            shops: [],
-            reviews: [],
+            image: "", 
 
         }
     },
 
     components:{
-        Favourite,
-        Review,
+        //Favourite,
+        //Review,
 
     },
 
     methods:{
         fetchItems(){
             db.collection("Users").doc(this.userID).get().then(snapshot => {
-                const data = snapshot.data()
-                console.log(data)
-                //this.image = data.image
-                this.name = data.name
-                this.shops = data.shops
-                this.reviews = data.reviews
+                this.image = snapshot.data().image
                 // need to check whether formats are correct
             })
         },
@@ -112,6 +103,7 @@ export default {
 
     created(){
         this.fetchItems();
+        console.log(this.user);
     }
 
 

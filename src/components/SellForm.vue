@@ -42,9 +42,26 @@
         <input type="text" v-model="email" placeholder="Official Website" />   
         Instagram:
         <input type="text" v-model="email" placeholder="@handlename" />     
-        
-        
-        <button v-on:click.prevent="register">Register</button>
+        Upload Pictures of your product: 
+        <div id = "image-upload"> 
+          <div id = "image-upload-div">  
+            <input type="file" @change="onFileChange1" accept = "image/*">
+            <img v-if ="this.imageData1" :src="imageData1" />
+            <img v-else :src = "this.no_image"/>
+          </div>
+          <div id = "image-upload-div">  
+            <input type="file" @change="onFileChange2" accept = "image/*">
+            <img v-if ="this.imageData2" :src="imageData2" />
+            <img v-else :src = "this.no_image"/>
+          </div>
+          <div id = "image-upload-div">  
+            <input type="file" @change="onFileChange3" accept = "image/*">
+            <img v-if ="this.imageData3" :src="imageData3" />
+            <img v-else :src = "this.no_image"/>
+          </div>                    
+        </div>
+        <br>
+          <button v-on:click.prevent="register">Register</button>
       </form>
     </div>
   </div>
@@ -66,6 +83,10 @@ export default {
       shop_name: "",
       short_desc: "",
       value: [],
+      imageData1:'', 
+      imageData2: '', 
+      imageData3: '', 
+      no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png"
     };
   },
 
@@ -89,6 +110,37 @@ export default {
         );
       console.log("end");
     },
+    onFileChange1(event) {
+      const file = event.target.files.item(0);
+      const reader = new FileReader();
+      reader.addEventListener('load', this.imageLoaded1);
+      reader.readAsDataURL(file);
+    },
+    imageLoaded1(event){
+      this.imageData1 = event.target.result;
+    }, 
+
+    onFileChange2(event) {
+    const file = event.target.files.item(0);
+    const reader = new FileReader();
+    reader.addEventListener('load', this.imageLoaded2);
+    reader.readAsDataURL(file);
+    },
+
+    imageLoaded2(event){
+      this.imageData2 = event.target.result;
+    }, 
+
+    onFileChange3(event) {
+    const file = event.target.files.item(0);
+    const reader = new FileReader();
+    reader.addEventListener('load', this.imageLoaded3);
+    reader.readAsDataURL(file);
+    },
+
+    imageLoaded3(event){
+      this.imageData3 = event.target.result;
+    }, 
   },
 };
 </script>
@@ -202,4 +254,23 @@ header {
   color: #000000;
   text-decoration: none;
 }
+
+#image-upload{
+  display:flex;
+  justify-content: space-around;
+}
+
+#image-upload-div {
+  width: 25%;
+  align-items: center;
+}
+
+img {
+  width:250px;
+  height:250px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 </style>
