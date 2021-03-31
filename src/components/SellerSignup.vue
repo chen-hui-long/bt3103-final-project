@@ -50,7 +50,7 @@
         Official Website: 
         <input type="text" v-model="email" placeholder="Official Website" />   
         Instagram:
-        <input type="text" v-model="email" placeholder="@handlename" />     
+        <input type="text" v-model="email" placeholder="handlename" />     
         
         
         <button v-on:click.prevent="register">Register</button>
