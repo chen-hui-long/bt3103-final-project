@@ -1,5 +1,6 @@
 <template>
 <div class="login-page">
+  <header>Register</header>
   <div class="form">
     <form class="register-form">
       <input type="text" v-model ="email" placeholder="Email"/>
@@ -28,18 +29,19 @@ export default {
 
     methods: {
         register: function() {
+            const curr_user = {email:this.email, name:this.name, favourite:[], reviews: {}, total_review: 0, customer: true, total_favourite: 0} 
+            console.log(curr_user)
             console.log("register start")
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
-                console.log(cred);
-                db.collection("Users").doc(cred.user.uid).set({
-                  email: this.email,
-                  firstname: this.firstname,
-                })
+                db.collection("Users").doc(cred.user.uid).set(
+                  Object.assign({}, curr_user)
+                )
+                this.$router.push({path: "/profile"})
             }, err => {
                 alert(err.message);
             })
             console.log("end")
-            
+            this.$router.push()
         }
     }
     
@@ -47,6 +49,14 @@ export default {
 </script>
 
 <style scoped>
+header {
+  text-align: center;
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  margin-block: 40px;
+}
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
