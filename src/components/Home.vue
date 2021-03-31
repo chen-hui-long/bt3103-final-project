@@ -271,6 +271,7 @@ export default {
 
   created() {
     this.fetchItems();
+    console.log(this.bakeries)
   }
   }
 </script>

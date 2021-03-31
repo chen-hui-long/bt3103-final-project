@@ -6,6 +6,7 @@
       <input type="password" v-model = "password" placeholder="Password"/>
       <button v-on:click.prevent = "login">login</button>
       <p class="message">Not registered? <router-link to="/signup" exact>Sign Up</router-link></p>
+      <p class="message">Interested to sell on Eatsy?  <router-link to="/sell" exact>Click Here</router-link></p>
     </form>
   </div>
 </div>
