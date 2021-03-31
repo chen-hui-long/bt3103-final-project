@@ -1,5 +1,6 @@
 <template>
 <div class="login-page">
+  <header>Welcome Back</header>
   <div class="form">
     <form class="login-form">
       <input type="text" v-model = "email" placeholder="Email"/>
@@ -41,6 +42,14 @@ export default {
 </script>
 
 <style scoped>
+header {
+  text-align: center;
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  margin-block: 40px;
+}
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
