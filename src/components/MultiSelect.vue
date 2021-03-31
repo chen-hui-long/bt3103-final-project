@@ -7,7 +7,7 @@
       :close-on-select="false"
       :clear-on-select="false"
       :preserve-search="true"
-      placeholder="Pick some"
+      placeholder="What type of bakery are you selling?"
       label="type"
       track-by="type"
       :preselect-first="true"

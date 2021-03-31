@@ -11,8 +11,11 @@
         
         <div v-if="signedIn" class="login">
           <ul>
-            <li><router-link to="/profile" exact>Profile</router-link></li>
+            <li>  
+            <a href ="#" v-on:click ="toMyProfile">Profile</a>
+            </li>
             <li><router-link to="/favorite" exact><span id="heart-icon">♡</span></router-link></li>
+            <li><a href ="#" v-on:click ="logout">Logout</a></li>
           </ul>
         </div>
         <div v-else>
@@ -30,25 +33,38 @@
 </template>
 
 <script>
+import firebase from '@firebase/app';
+require('firebase/auth');
 export default {
   data() {
     return {
       signedIn: false,
-      username:""
+      currentUser : false,
     }
   },
     methods: {
-    toggleSignIn(username) {
-      this.signedIn = true;
-      this.username = username;
-      this.$router.push("/");
+      logout: function() {
+        firebase.auth().signOut().then(() => {
+          this.$router.push('/login')
+          this.$parent.forceRerender();
+        })
+      }, 
+      checkLogin: function() {
+        if (firebase.auth().currentUser) {
+          this.signedIn = true;
+          this.currentUser = firebase.auth().currentUser; 
+        }
+      }, 
+      toMyProfile: function() {
+        console.log("to my profile")
+      }, 
     },
-    toggleSignOut() {
-      this.signedIn = false;
-      this.username = "";
+
+    created() {
+      this.checkLogin();
     }
-  },
-};
+
+}
 </script>
 
 <style scoped>
@@ -146,8 +162,9 @@ nav {
   display: flex;
   height:50%;
   /*width: 30%;*/
-  margin-right: 50px;
+  margin-right: 30px;
   justify-content:space-evenly;
+  
 }
 
 .login ul,
@@ -156,9 +173,9 @@ nav {
 }
 
 .login ul li a{
-  padding: 35px 50px;
+  padding: 35px 20px;
   color: black;
-  font-size: 25px;
+  font-size: 22px;
   font-weight:bold;
   line-height: 48px;
 }
