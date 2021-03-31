@@ -1,6 +1,6 @@
 <template>
 <div class="sell-page">
-    <p id="message"><router-link to="/" exact>Home</router-link><b> / Sell</b></p>
+  <p id="message"><router-link to="/" exact>Home</router-link><b> / Sell</b></p>
         <header>
         Free, Simple, Transparent
         </header>
@@ -58,7 +58,7 @@ button {
 }
 
 #words {
-  font-size: 25px;
+  font-size: 20px;
   color: grey;
   box-sizing: border-box;
   padding-left: 24px;

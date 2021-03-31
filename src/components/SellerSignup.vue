@@ -1,5 +1,6 @@
 <template>
   <div class="login-page">
+  <p id="message"><router-link to="/" exact>Home</router-link><b> / Sell</b></p>
     <div class="form">
       <form class="register-form">
         Email:
@@ -29,6 +30,10 @@
         <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" /></label>
         <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" /></label>
         <br> 
+        Delivery/Self Pick-Up Details: <br>
+        (fees, location, etc)
+        <input type="text" v-model="order_details" placeholder="Delivery: Self Pick-Up:" />
+        <br>
         Location:
         <br>
         <select id="location" >
