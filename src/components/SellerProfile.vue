@@ -17,7 +17,7 @@
       <table>
         <tr>
           <td class = "heading">
-            <button class ="edit">Edit my listing </button>
+            <button class ="edit" v-on:click="edit">Edit my listing </button>
             </td>
         </tr>
         <tr>
@@ -119,6 +119,10 @@ export default {
           console.log(this.bakery);
         });
     },
+
+    edit: function() {
+      this.$router.push({path: "/editlisting"})
+    }
   },
 
   created() {
