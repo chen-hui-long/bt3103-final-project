@@ -9,7 +9,6 @@
 
         <form action="/action_page.php">
             <label for="image">Select image: </label>
-            <!-- not sure about the image upload ans storage -->
             <input name="image" type="file" accept="image/*" v-on:change="changeImage">
 
 
@@ -43,7 +42,7 @@ export default{
     props:['userID'],
 
     methods: {
-        // not sure about the image upload ans storage\
+        // not sure about the image upload ans storage
         /*
         changeImage(e){
             this.image = firebase.storage().ref().child(e) 
@@ -71,4 +70,43 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+.links {
+  text-align: left;
+  padding: 10px;
+}
+
+#home {
+  color: gray;
+}
+
+#profile {
+  color: gray;
+}
+
+form {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  margin: 0 auto 100px;
+  padding: 45px;
+}
+form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border-radius: 5px;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+form label {
+  float: left;
+}
+</style>
 

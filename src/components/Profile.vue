@@ -111,5 +111,88 @@ export default {
 };
 </script>
 
-<style scoped>
+
+<style scoped> 
+.links {
+    text-align: left;
+    padding-left: 10%;
+    padding-bottom: 20px;
+}
+
+#profile {
+    color: black;
+}
+
+/*user*/
+#user {
+    size: 50%;
+    padding-left: 10%;
+    padding-bottom: 40px;
+}
+
+#img {
+    float: left;
+    width: 90px;
+    border-radius: 90px;
+}
+
+#username {
+    size: 30px;
+    float: left;
+    font-weight: bolder;
+    padding-left: 5%;
+    padding-right: 5%
+}
+
+#edit {
+    float: left;
+    height: 10%;
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#user:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/*history*/
+#history{
+    padding-left: 10%;
+    width: 30%;
+
+}
+
+.show {
+    width: 120px;
+    height: 80px;
+    border-radius: 25px;
+}
+
+.title {
+    font-weight: bold;
+
+}
+
+/*shops*/
+#shopButton {
+    float: left;
+    padding-right: 50px;
+}
+
+
+/*reviews*/
+#reviewButton {
+    float: left;
+}
+
+#history:after{
+    content: "";
+    display: table;
+    clear: both;
+}
 </style>
