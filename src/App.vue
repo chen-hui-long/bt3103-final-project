@@ -11,15 +11,11 @@
     <router-link to="/signup" exact>Sign Up</router-link> |
     <router-link to="/login" exact>Login</router-link> |
     <router-link to="/product" exact>Product</router-link> |
-    <router-link to="/sell" exact>Sell</router-link> |
     <router-link to="/profile" exact>User Profile</router-link> |
     <router-link to="/" exact>Home</router-link> |
-    <router-link to="/edit" exact>edit</router-link> |
-    <router-link to="/sellform" exact>Selling form</router-link> |
-    <router-link to="/sellerprofile" exact>Seller profile page</router-link> |
-    <router-link to="/editlisting" exact>Edit listing</router-link> |
     </p>
-    DO NOT DELETE THIS FIRST, USE THIS TO DEBUG. 
+    ROUTE LINK THAT REQUIE LOGIN:
+    DO NOT DELETE FIRST USE THIS AS DEBUG  
     <router-view></router-view>
 
     <app-footer></app-footer>
