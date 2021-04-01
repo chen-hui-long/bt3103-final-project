@@ -145,6 +145,8 @@ export default {
         Reviews: {},
         favourite_users: [],
         review_users: [],
+      }).then(() => {
+        this.$router.push({path: '/sellerprofile'})
       })
     },
     
