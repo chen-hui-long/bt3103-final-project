@@ -1,33 +1,43 @@
 <template>
   
-  <div class="login-page">
-    <header>Complete the form and start selling today!</header>
+  <div>
+    <div class = "navbar">
+      <NavBar></NavBar>
+    </div>
+    <div class = "login-page">
+      <header>Complete the form and start selling today!</header>
     <div class="form">
       <form class="register-form">
-        Short description of business and speciaties:
+        Shop name:
+          <input
+            type="text"
+            v-model="shop_name"
+            placeholder="Shop name"
+          />
+        Short description of business and specialties:
         <input
-          type="password"
+          type="text"
           v-model="short_desc"
           placeholder="Short description"
         />
         Product types:
-        <Multiselect></Multiselect>
+        <Multiselect v-on:input = "clickMulti($event)"></Multiselect>
         <br>
         Dietary types & options:
         <br />
-        <label id="checkbox-block">Halal<input type="checkbox" id="checkbox-dietary" /></label>
-        <label id="checkbox-block">Keto<input type="checkbox"  id="checkbox-dietary"/></label>
-        <label id="checkbox-block">Gluten-Free<input type="checkbox"  id="checkbox-dietary"/></label>
-        <label id="checkbox-block">Vegan<input type="checkbox"  id="checkbox-dietary"/></label>
+        <label id="checkbox-block">Halal<input type="checkbox" id="checkbox-dietary"  value="Halal" v-model = "dietary"/></label>
+        <label id="checkbox-block">Keto<input type="checkbox"  id="checkbox-dietary" value="Keto" v-model = "dietary"/></label>
+        <label id="checkbox-block">Gluten-Free<input type="checkbox"  id="checkbox-dietary" value="Gluten-Free" v-model = "dietary"/></label>
+        <label id="checkbox-block">Vegan<input type="checkbox"  id="checkbox-dietary" value="Vegan" v-model = "dietary"/></label>
         <br> 
         Deal Options:
         <br>
-        <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" /></label>
-        <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" /></label>
+        <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" value="Delivery" v-model = "deal_options"/></label>
+        <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" value="Self Pick-Up" v-model = "deal_options"/></label>
         <br> 
         Location:
         <br>
-        <select id="location" >
+        <select id="location" v-model= "location" >
             <option value="Central" selected>Central</option>
             <option value="East">East</option>
             <option value="North">North</option>
@@ -37,11 +47,13 @@
         <br>
         <br>
         Business email:
-        <input type="text" v-model="email" placeholder="Business Email" />
+        <input type="text" v-model="business_email" placeholder="Business Email" />
         Official Website: 
-        <input type="text" v-model="email" placeholder="Official Website" />   
+        <input type="text" v-model="official_website" placeholder="Official Website" />   
         Instagram:
-        <input type="text" v-model="email" placeholder="@handlename" />     
+        <input type="text" v-model="instagram" placeholder="@handlename" />  
+        Facebook:
+        <input type="text" v-model="facebook" placeholder="Facebook Page" />    
         Upload Pictures of your product: 
         <div id = "image-upload"> 
           <div id = "image-upload-div">  
@@ -58,11 +70,20 @@
             <input type="file" @change="onFileChange3" accept = "image/*">
             <img v-if ="this.imageData3" :src="imageData3" />
             <img v-else :src = "this.no_image"/>
-          </div>                    
+          </div>    
+          <div id = "image-upload-div">  
+            <input type="file" @change="onFileChange4" accept = "image/*">
+            <img v-if ="this.imageData4" :src="imageData4" />
+            <img v-else :src = "this.no_image"/>
+          </div>                  
         </div>
+        <br>
+        Order Details:
+        <input type="text" v-model="order_details" placeholder="Give a short description of order, eg. min order etc" /> 
         <br>
           <button v-on:click.prevent="register">Register</button>
       </form>
+    </div>
     </div>
   </div>
 </template>
@@ -72,43 +93,64 @@ import Multiselect from "./MultiSelect.vue";
 import db from "../firebase.js";
 import firebase from "@firebase/app";
 require("firebase/auth");
+import NavBar from "./ProfileNavBar";
 export default {
   components: {
     Multiselect,
+    NavBar,
   },
   data() {
     return {
-      email: "",
-      password: "",
       shop_name: "",
       short_desc: "",
-      value: [],
+      type:[], 
+      dietary: [],
+      deal_options: [],
+      location: "", 
+      business_email: "",
+      official_website: "",
+      facebook: "",
+      instagram: "", 
       imageData1:'', 
       imageData2: '', 
       imageData3: '', 
-      no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png"
+      imageData4: '',
+      order_details: '', 
+      no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png",
+      userID: firebase.auth().currentUser.uid
+
     };
   },
 
   methods: {
     register: function () {
-      console.log("register start");
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          (cred) => {
-            console.log(cred);
-            db.collection("Users").doc(cred.user.uid).set({
-              email: this.email,
-              firstname: this.firstname,
-            });
-          },
-          (err) => {
-            alert(err.message);
-          }
-        );
-      console.log("end");
+      this.updateToSeller();
+      db.collection("bakeriesNew").doc(this.userID).set({
+        shop_name: this.shop_name, 
+        short_desc:this.short_desc, 
+        type: this.type, 
+        dietary: this.dietary, 
+        deal_options: this.deal_options, 
+        location: this.location, 
+        business_email: this.business_email,
+        official_website: this.official_website,
+        facebook: this.facebook,
+        instagram: this.instagram,
+        images: [this.imageData1, this.imageData2, this.imageData3, this.imageData4],
+        order_details: this.order_details, 
+        ratings: {One: 0, Two:0, Three:0, Four:0, Five:0}, 
+        total_ratings_by_users: 0, 
+        total_favourites_by_users: 0,
+        owner: this.userID,
+        Reviews: {}
+      })
+    },
+    
+    updateToSeller: function() {
+      //function to update user to seller in firestore 
+      db.collection("Users").doc(this.userID).update({
+        seller:true
+      })
     },
     onFileChange1(event) {
       const file = event.target.files.item(0);
@@ -141,6 +183,24 @@ export default {
     imageLoaded3(event){
       this.imageData3 = event.target.result;
     }, 
+
+    onFileChange4(event) {
+    const file = event.target.files.item(0);
+    const reader = new FileReader();
+    reader.addEventListener('load', this.imageLoaded4);
+    reader.readAsDataURL(file);
+    },
+
+    imageLoaded4(event){
+      this.imageData4 = event.target.result;
+    }, 
+
+    clickMulti: function(event) {
+      this.type = []
+      for (var i = 0; i < event.length; i++) {
+        this.type.push(event[i].type)
+      }
+    }
   },
 };
 </script>
@@ -156,7 +216,7 @@ header {
 
 .login-page {
   width: 80%;
-  padding: 8% 0 0;
+  padding: 0 0;
   margin: auto;
 }
 .form {
@@ -273,4 +333,7 @@ img {
   margin-right: auto;
 }
 
+.navbar {
+  text-align: center;
+}
 </style>

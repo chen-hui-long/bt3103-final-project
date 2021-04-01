@@ -37,6 +37,7 @@ function guardMyroute(to, from, next) {
   }
 }
 
+
 //For breadcrumb reference
 /*{
     path: '/', 

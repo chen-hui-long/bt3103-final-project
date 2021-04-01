@@ -1,16 +1,16 @@
 <template>
-    <div class="profile">
-        <div class="links">
-            <router-link id="home" to='/home'>Home / </router-link> 
-            <router-link id="profile" to='/profile'>Profile</router-link>
-        </div>
-
-        <div id="user">
-            <img v-bind:src ="this.image">
-            <div id="username">{{this.name}}</div>
-            <button id="edit" v-on:click="edit()">Edit Profile</button>
-        </div>
-        <!--
+  <div class="profile">
+    <div class="links">
+      <router-link id="home" to="/home">Home / </router-link>
+      <router-link id="profile" to="/profile">Profile</router-link>
+    </div>
+    <NavBar></NavBar>
+    <div id="user">
+      <img v-bind:src="this.image" />
+      <div id="username">{{ this.name }}</div>
+      <button id="edit" v-on:click="edit()">Edit Profile</button>
+    </div>
+    <!--
         <div id="history">
             <div id="shopButton">
                 <button v-on:click="showShop()"/>
@@ -50,66 +50,67 @@
             </div>
         </div>
         -->
-
-    </div>
-
+  </div>
 </template>
 
-<script> 
+<script>
 //import Favourite from './Favourite.vue'
 //import Review from './Review.vue'
-import db from '../firebase.js'
-import firebase from '@firebase/app'
-require('firebase/auth')
+import db from "../firebase.js";
+import firebase from "@firebase/app";
+require("firebase/auth");
+import NavBar from "./ProfileNavBar";
 
 export default {
-    data() {
-        return{
-            userID: firebase.auth().currentUser.uid,
-            image: "", 
+  data() {
+    return {
+      userID: firebase.auth().currentUser.uid,
+      image: "",
+      seller: [],
+    };
+  },
 
-        }
+  components: {
+    NavBar,
+    //Favourite,
+    //Review,
+  },
+
+  methods: {
+    fetchItems() {
+      db.collection("Users")
+        .doc(this.userID)
+        .get()
+        .then((snapshot) => {
+          this.image = snapshot.data().image;
+          this.seller.push(snapshot.data().seller);
+          // need to check whether formats are correct
+        });
     },
 
-    components:{
-        //Favourite,
-        //Review,
-
+    showShop() {
+      this.showShops = true;
+      this.showReviews = false;
     },
 
-    methods:{
-        fetchItems(){
-            db.collection("Users").doc(this.userID).get().then(snapshot => {
-                this.image = snapshot.data().image
-                // need to check whether formats are correct
-            })
-        },
-
-
-        showShop(){
-            this.showShops = true;
-            this.showReviews = false;
-        },
-
-        showReview(){
-            this.showReviews = true;
-            this.showShops = false;
-        },
-
-        edit(){
-            this.$router.push({name: "edit", params: {userID: this.userID}})
-        }
+    showReview() {
+      this.showReviews = true;
+      this.showShops = false;
     },
 
-    created(){
-        this.fetchItems();
-        console.log(this.user);
-    }
+    edit() {
+      this.$router.push({ name: "edit", params: { userID: this.userID } });
+    },
+  },
 
-
-}
-
+  created() {
+    this.fetchItems();
+    console.log(this.image);
+    console.log(this.seller[0])
+  },
+};
 </script>
+
 
 <style scoped> 
 .links {
@@ -194,7 +195,4 @@ export default {
     display: table;
     clear: both;
 }
-
-
-
 </style>
