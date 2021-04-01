@@ -1,6 +1,7 @@
 <template>
   <div>
     <multiselect
+      @input="emit"
       v-model="value"
       :options="options"
       :multiple="true"
@@ -10,7 +11,7 @@
       placeholder="What type of bakery are you selling?"
       label="type"
       track-by="type"
-      :preselect-first="true"
+      :preselect-first="false"
     >
       <template slot="selection" slot-scope="{ values, search, isOpen }"
         ><span
@@ -25,6 +26,9 @@
 
 <script>
 import Multiselect from "vue-multiselect";
+import db from "../firebase.js";
+import firebase from "@firebase/app";
+require("firebase/auth");
 export default {
   components: {
     Multiselect,
@@ -33,20 +37,58 @@ export default {
     return {
       value: [],
       options: [
-        {type: "Breads"},
-        {type: "Brownies"},
-        {type: "Cakes"},
-        {type: "Cheesecakes"},
-        {type: "Cookies & Biscuits"},
-        {type: "Chocolate Confections"},
-        {type: "Cupcakes & Muffins"},
-        {type: "Donuts"}, 
-        {type: "Macarons"}, 
-        {type: "Pastries"}, 
-        {type: "Traditional Desserts"}, 
-        {type: "Others"}, 
+        { type: "Breads" },
+        { type: "Brownies" },
+        { type: "Cakes" },
+        { type: "Cheesecakes" },
+        { type: "Cookies & Biscuits" },
+        { type: "Chocolate Confections" },
+        { type: "Cupcakes & Muffins" },
+        { type: "Donuts" },
+        { type: "Macarons" },
+        { type: "Pastries" },
+        { type: "Traditional Desserts" },
+        { type: "Others" },
       ],
+      userID: firebase.auth().currentUser.uid,
+      isSeller: null,
+      selected: [], 
     };
+  },
+
+  methods: {
+    emit: function () {
+      this.$emit("input", this.value);
+      console.log(this.value);
+    },
+    preselect:function() {
+      console.log(this.selected)
+      for (var i = 0; i <  this.selected.length; i++) {
+        this.value.push({type:this.selected[i]})
+      }
+      console.log(this.value)
+    }
+  },
+  created() {
+    db.collection("Users")
+      .doc(this.userID)
+      .get()
+      .then((doc) => {
+        this.isSeller = doc.data().seller;
+      })
+      .then(() => {
+        if (this.isSeller) {
+          db.collection("bakeriesNew")
+            .doc(this.userID)
+            .get()
+            .then((doc) => {
+              var types = doc.data().type;
+              console.log(types.length)
+              this.selected = types
+              this.preselect();
+            });
+        }
+      });
   },
 };
 </script>

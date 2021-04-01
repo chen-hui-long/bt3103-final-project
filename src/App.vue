@@ -8,15 +8,16 @@
 
     <app-header :key ="componentKey"></app-header>
     <p>
-    <router-link to="/signup" exact>CUSTOMER Sign Up</router-link> |
-    <router-link to="/login" exact>CUSTOMER Login</router-link> |
+    <router-link to="/signup" exact>Sign Up</router-link> |
+    <router-link to="/login" exact>Login</router-link> |
     <router-link to="/product" exact>Product</router-link> |
     <router-link to="/sell" exact>Sell</router-link> |
-    <router-link to="/profile" exact>Profile</router-link> |
+    <router-link to="/profile" exact>User Profile</router-link> |
     <router-link to="/" exact>Home</router-link> |
     <router-link to="/edit" exact>edit</router-link> |
     <router-link to="/sellform" exact>Selling form</router-link> |
     <router-link to="/sellerprofile" exact>Seller profile page</router-link> |
+    <router-link to="/editlisting" exact>Edit listing</router-link> |
     </p>
     DO NOT DELETE THIS FIRST, USE THIS TO DEBUG. 
     <router-view></router-view>

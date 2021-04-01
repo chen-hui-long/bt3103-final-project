@@ -56,7 +56,7 @@ export default {
         }
       }, 
       toMyProfile: function() {
-        console.log("to my profile")
+        this.$router.push({path: '/profile'})
       }, 
     },
 
