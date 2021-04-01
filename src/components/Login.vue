@@ -1,11 +1,13 @@
 <template>
 <div class="login-page">
+  <header>Welcome Back</header>
   <div class="form">
     <form class="login-form">
       <input type="text" v-model = "email" placeholder="Email"/>
       <input type="password" v-model = "password" placeholder="Password"/>
       <button v-on:click.prevent = "login">login</button>
       <p class="message">Not registered? <router-link to="/signup" exact>Sign Up</router-link></p>
+      <p class="message">Interested to sell on Eatsy?  <router-link to="/sell" exact>Click Here</router-link></p>
     </form>
   </div>
 </div>
@@ -27,19 +29,49 @@ export default {
         login: function() {
             console.log("register start")
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
-                alert(user);
+                console.log(user.user.email)
+                alert("you are logged in as")
+                alert(user.user.email);
+                this.$router.push({path: "/profile"})
+                this.$parent.forceRerender();
             }, err => {
                 alert(err.message);
             })
             console.log("end")
             
+        }, 
+
+        /*
+        redirect: function() {
+          var user = firebase.auth().currentUser
+          var user_uid = user.uid;
+          console.log(user_uid)
+          var doc_user = db.collection("Users").doc(user_uid);
+          doc_user.get().then(doc => {
+            if (doc.exists) {
+              console.log("this is a user")
+              this.$router.push({path: "/profile"})
+            } else {
+              console.log("this is a seller")
+              this.$router.push({path: "/sellerprofile"})
+            }
+          })
         }
+        */
     }
 
 }
 </script>
 
 <style scoped>
+header {
+  text-align: center;
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  margin-block: 40px;
+}
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;

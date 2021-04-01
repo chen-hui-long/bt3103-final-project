@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import Routescomp from './routes.js'
+import firebase from '@firebase/app';
+require('firebase/auth');
 //import VueBreadcrumbs from 'vue-2-breadcrumbs';
 
 //fontawesome icons
@@ -22,7 +24,14 @@ const myRouter =  new VueRouter({
   mode:'history'
 })
 
-new Vue({
-  render: h => h(App),
-  router:myRouter
-}).$mount('#app')
+let app;
+firebase.auth().onAuthStateChanged(user => {
+  console.log(user)
+  if (!app) {
+    app = new Vue({
+      render: h => h(App),
+      router:myRouter
+    }).$mount('#app')
+  }
+})
+

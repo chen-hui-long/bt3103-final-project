@@ -1,10 +1,10 @@
 <template>
 <div class="login-page">
-  <header>Register</header>
+  <header>Register and start selling today!</header>
   <div class="form">
     <form class="register-form">
       <input type="text" v-model ="email" placeholder="Email"/>
-      <input type="text" v-model="name" placeholder = "Name"/>
+      <input type="text" v-model="shop_name" placeholder = "Shop Name"/>
       <input type="password" v-model ="password" placeholder="Password"/>
       <button v-on:click.prevent = "register">Register</button>
       <p class="message">Have An Account ? <router-link to="/login" exact>Login</router-link></p>
@@ -23,26 +23,25 @@ export default {
         return {
             email: "", 
             password: "", 
-            name: "",
-            default_image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.business2community.com%2Fwp-content%2Fuploads%2F2017%2F08%2Fblank-profile-picture-973460_640.png&imgrefurl=https%3A%2F%2Fwww.business2community.com%2Fsocial-media%2Fimportance-profile-picture-career-01899604&tbnid=ZbfgeaptF8Y5ZM&vet=12ahUKEwjK19qH57vvAhXCm0sFHdcJD5UQMygAegUIARCnAQ..i&docid=Smb2EEjVhvpzWM&w=640&h=640&q=profile%20picture&ved=2ahUKEwjK19qH57vvAhXCm0sFHdcJD5UQMygAegUIARCnAQ "
+            shop_name: "",
         }
     }, 
 
     methods: {
         register: function() {
-            const curr_user = {email:this.email, name:this.name, favourite:[], reviews: {}, total_review: 0, seller: false, total_favourite: 0, image: this.default_image} 
-            console.log(curr_user)
+            const curr_seller = {email:this.email, name:this.shop_name, total_reviews_by_users: 0, total_favourites_by_users: 0, average_rating: 0} 
+            console.log(curr_seller)
             console.log("register start")
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
-                db.collection("Users").doc(cred.user.uid).set(
-                  Object.assign({}, curr_user)
+                db.collection("Sellers").doc(cred.user.uid).set(
+                  Object.assign({}, curr_seller)
                 )
-                this.$router.push({path: "/profile"})
-                this.$parent.forceRerender();
+                this.$router.push({path: "/sellerprofile"})
             }, err => {
                 alert(err.message);
             })
             console.log("end")
+            this.$router.push()
         }
     }
     
