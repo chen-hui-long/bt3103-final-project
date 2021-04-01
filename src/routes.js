@@ -9,6 +9,7 @@ import SellForm from "./components/SellForm.vue";
 import MultipleSelect from "./components/MultiSelect.vue";
 import SellerSignup from "./components/SellerSignup.vue";
 import SellerProfile from "./components/SellerProfile.vue";
+import EditListing from "./components/Edit.vue";
 import firebase from "@firebase/app";
 require("firebase/auth");
 //import Favourite from './components/Favourite.vue'
@@ -23,6 +24,7 @@ export default [
   { path: "/sellform", component: SellForm },
   { path: "/multipleselect", component: MultipleSelect },
   { path: "/sellersignup", component: SellerSignup },
+  { path: "/editlisting", component: EditListing },
   { path: "/sellerprofile", component: SellerProfile, beforeEnter : guardMyroute},
   //{ path: '/Fav', component: Favourite}
 ];

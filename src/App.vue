@@ -17,6 +17,7 @@
     <router-link to="/edit" exact>edit</router-link> |
     <router-link to="/sellform" exact>Selling form</router-link> |
     <router-link to="/sellerprofile" exact>Seller profile page</router-link> |
+    <router-link to="/editlisting" exact>Edit listing</router-link> |
     </p>
     DO NOT DELETE THIS FIRST, USE THIS TO DEBUG. 
     <router-view></router-view>
