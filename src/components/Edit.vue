@@ -99,21 +99,33 @@
               <input type="file" @change="onFileChange1" accept="image/*" />
               <img v-if="this.imageData1" :src="imageData1" />
               <img v-else :src="this.imageData1" />
+              <div class = "delete-image-div">
+              <button class= "delete-image" v-on:click.prevent = "delete_image1">Delete</button>
+              </div>
             </div>
             <div id="image-upload-div">
               <input type="file" @change="onFileChange2" accept="image/*" />
               <img v-if="this.imageData2" :src="imageData2" />
               <img v-else :src="this.imageData2" />
+              <div class = "delete-image-div">
+              <button class= "delete-image" v-on:click.prevent = "delete_image2">Delete</button>
+              </div>
             </div>
             <div id="image-upload-div">
               <input type="file" @change="onFileChange3" accept="image/*" />
               <img v-if="this.imageData3" :src="imageData3" />
               <img v-else :src="this.imageData3" />
+              <div class = "delete-image-div">
+              <button class= "delete-image" v-on:click.prevent = "delete_image3">Delete</button>
+              </div>
             </div>
             <div id="image-upload-div">
               <input type="file" @change="onFileChange4" accept="image/*" />
               <img v-if="this.imageData4" :src="imageData4" />
               <img v-else :src="this.imageData4" />
+              <div class = "delete-image-div">
+              <button class= "delete-image" v-on:click.prevent = "delete_image4">Delete</button>
+              </div>
             </div>
           </div>
           <br />
@@ -124,7 +136,11 @@
             placeholder="Give a short description of order, eg. min order etc"
           />
           <br />
-          <button v-on:click.prevent="register">Register</button>
+          <div id = "changes">
+            <button id = "deletebtn" v-on:click = "delete_action">Delete Listing</button>
+            <button id = "cancelbtn" v-on:click = "cancel_action">Cancel</button>
+            <button id = "savebtn" v-on:click = "save">Save changes</button>
+            </div>
         </form>
       </div>
     </div>
@@ -160,6 +176,7 @@ export default {
       imageData4: "",
       order_details: "",
       userID: firebase.auth().currentUser.uid,
+      no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png",
     };
   },
 
@@ -234,8 +251,51 @@ export default {
       this.type = [];
       for (var i = 0; i < event.length; i++) {
         this.type.push(event[i].type);
-      }
+        }
+    }, 
+    cancel_action:function() {
+        this.$router.push({path: '/sellerprofile'})
     },
+    
+    save:function() {
+        db.collection("bakeriesNew").doc(this.userID).update({
+            shop_name: this.shop_name, 
+            short_desc:this.short_desc, 
+            type: this.type, 
+            dietary: this.dietary, 
+            deal_options: this.deal_options, 
+            location: this.location, 
+            business_email: this.business_email,
+            official_website: this.official_website,
+            facebook: this.facebook,
+            instagram: this.instagram,
+            images: [this.imageData1, this.imageData2, this.imageData3, this.imageData4],
+            order_details: this.order_details, 
+      })
+      this.$router.push({path: '/sellerprofile'})
+    }, 
+
+    delete_action:function() {
+        db.collection("bakeriesNew").doc(this.userID).delete()
+        db.collection("Users").doc(this.userID).update({
+            seller:false
+        })
+        this.$router.push({path: '/profile'})
+    }, 
+
+    delete_image1:function() {
+        this.imageData1 = this.no_image;
+    }, 
+
+    delete_image2:function() {
+        this.imageData2 = this.no_image;
+    }, 
+    delete_image3:function() {
+        this.imageData3 = this.no_image;
+    },
+    delete_image4:function() {
+        this.imageData4 = this.no_image;
+    }            
   },
 
   created: function () {
@@ -299,7 +359,7 @@ header {
   text-transform: uppercase;
   outline: 0;
   background: #4caf50;
-  width: 100%;
+  width: 33%;
   border: 0;
   padding: 15px;
   color: #ffffff;
@@ -374,5 +434,33 @@ img {
 
 .navbar {
   text-align: center;
+}
+
+#changes {
+    display: flex;
+    justify-content: space-around;
+}
+
+#deletebtn{
+    background: #cc3723;
+}
+
+#cancelbtn{
+    background: #617375;
+}
+
+#savebtn{
+    background: #43a047;
+}
+
+.delete-image-div {
+  display: flex;
+  justify-content: space-around;
+}
+
+button.delete-image {
+    margin-top:10px;
+    padding: 5px;
+    background:#cc3723
 }
 </style>

@@ -142,7 +142,9 @@ export default {
         total_ratings_by_users: 0, 
         total_favourites_by_users: 0,
         owner: this.userID,
-        Reviews: {}
+        Reviews: {},
+        favourite_users: [],
+        review_users: [],
       })
     },
     
@@ -336,4 +338,5 @@ img {
 .navbar {
   text-align: center;
 }
+
 </style>
