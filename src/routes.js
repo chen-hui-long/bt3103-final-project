@@ -11,6 +11,7 @@ import SellerSignup from "./components/SellerSignup.vue";
 import SellerProfile from "./components/SellerProfile.vue";
 import EditListing from "./components/Edit.vue";
 import firebase from "@firebase/app";
+import db from "./firebase.js";
 require("firebase/auth");
 //import Favourite from './components/Favourite.vue'
 export default [
@@ -24,7 +25,7 @@ export default [
   { path: "/sellform", component: SellForm },
   { path: "/multipleselect", component: MultipleSelect },
   { path: "/sellersignup", component: SellerSignup },
-  { path: "/editlisting", component: EditListing },
+  { path: "/editlisting", component: EditListing, beforeEnter: guardEditListing},
   { path: "/sellerprofile", component: SellerProfile, beforeEnter : guardMyroute},
   //{ path: '/Fav', component: Favourite}
 ];
@@ -35,6 +36,24 @@ function guardMyroute(to, from, next) {
       path: "/login"
     })
   } else {
+    next();
+  }
+}
+
+function guardEditListing(to, from, next) {
+  if (!firebase.auth().currentUser) {
+    next({
+      path: "/login"
+    })
+  } else {
+    db.collection("Users").doc(firebase.auth().currentUser.uid).get().then((doc) =>{
+      console.log(doc.data().seller)
+      if (!doc.data().seller) {
+        next({
+          path: '/sell'
+        })
+      }
+    })
     next();
   }
 }

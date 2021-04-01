@@ -142,7 +142,11 @@ export default {
         total_ratings_by_users: 0, 
         total_favourites_by_users: 0,
         owner: this.userID,
-        Reviews: {}
+        Reviews: {},
+        favourite_users: [],
+        review_users: [],
+      }).then(() => {
+        this.$router.push({path: '/sellerprofile'})
       })
     },
     
@@ -336,4 +340,5 @@ img {
 .navbar {
   text-align: center;
 }
+
 </style>
