@@ -1,6 +1,7 @@
 <template>
   <div>
-    <multiselect
+    <multiselect 
+      @input = "emit"
       v-model="value"
       :options="options"
       :multiple="true"
@@ -10,7 +11,7 @@
       placeholder="What type of bakery are you selling?"
       label="type"
       track-by="type"
-      :preselect-first="true"
+      :preselect-first="false"
     >
       <template slot="selection" slot-scope="{ values, search, isOpen }"
         ><span
@@ -48,6 +49,11 @@ export default {
       ],
     };
   },
+  methods: {
+    emit: function() {
+      this.$emit("input", this.value);
+    }
+  }
 };
 </script>
 
