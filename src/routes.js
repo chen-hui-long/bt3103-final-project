@@ -22,7 +22,7 @@ export default [
   { path: "/sell", component: Sell },
   { path: "/profile", component: Profile },
   { path: "/edit", component: EditProfile },
-  { path: "/sellform", component: SellForm },
+  { path: "/sellform", component: SellForm, beforeEnter: guardSellingForm},
   { path: "/multipleselect", component: MultipleSelect },
   { path: "/sellersignup", component: SellerSignup },
   { path: "/editlisting", component: EditListing, beforeEnter: guardEditListing},
@@ -51,6 +51,24 @@ function guardEditListing(to, from, next) {
       if (!doc.data().seller) {
         next({
           path: '/sell'
+        })
+      }
+    })
+    next();
+  }
+}
+
+function guardSellingForm(to, from, next) {
+  if (!firebase.auth().currentUser) {
+    next({
+      path: "/login"
+    })
+  } else {
+    db.collection("Users").doc(firebase.auth().currentUser.uid).get().then((doc) =>{
+      console.log(doc.data().seller)
+      if (doc.data().seller) {
+        next({
+          path: '/sellerprofile'
         })
       }
     })
