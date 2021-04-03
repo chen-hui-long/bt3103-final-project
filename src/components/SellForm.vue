@@ -82,9 +82,6 @@
           </div>                  
         </div>
         <br>
-        Order Details:
-        <input type="text" v-model="order_details" placeholder="Give a short description of order, eg. min order etc" /> 
-        <br>
           <button v-on:click.prevent="register">Register</button>
       </form>
     </div>
