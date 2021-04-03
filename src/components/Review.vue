@@ -40,7 +40,7 @@ export default{
 
     methods:{
         findImage(){
-            db.collection("bakeries").doc(this.review.id).get().then(snapshot => {
+            db.collection("bakeriesNew").doc(this.review.id).get().then(snapshot => {
                 this.imageURL = snapshot.data().ImageURL[0]
             })
         }

@@ -3,9 +3,12 @@
         <div class="breadcrumb-wrap">
         <ul class="breadcrumb">
             <li><a><router-link to="/" exact>Home</router-link></a></li>
-            <!-- insert router for dietary type if there is -->
-            <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].Dietary}}</a></li>
-            <li>{{this.bakery[0].Name}}</li>
+            <!-- insert router for dietary type if there is 
+            Show only when click at filter 
+            then click will go back to the home page with the filtered dietayr
+            Or is too hard shld we just scrape it away??? -->
+            <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].dietary}}</a></li> /
+            <li>{{this.bakery[0].shop_name}}</li>
 
 
         </ul>
@@ -19,8 +22,8 @@
             
             <div class="product-content-right">
             
-            <div class="title"><h1>{{this.bakery[0].Name}}</h1></div>
-            <div style="width:430px;" class="description-box"><p class="description">{{this.bakery[0].Description}}</p></div>
+            <div class="title"><h1>{{this.bakery[0].shop_name}}</h1></div>
+            <div style="width:430px;" class="description-box"><p class="description">{{this.bakery[0].short_desc}}</p></div>
 
             <div class="product-description">
             
@@ -30,9 +33,9 @@
                 <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
                 <div class="wrapper">
-                <div style="float:left;" class="description-box" v-for="(bake, index) in bakery[0].Bakes" :key="index">
+                <div style="float:left;" class="description-box" v-for="(bake, index) in bakery[0].type" :key="index">
                 <p class="description1"><div>{{bake}}
-                <span v-if="index != Object.keys(bakery[0].Bakes).length -1">,</span></div>
+                <span v-if="index != Object.keys(bakery[0].type).length -1">,</span></div>
                 </div>
                 </div>
                 </div>
@@ -46,7 +49,7 @@
                 <span class="subtitle">Highlights</span>
                 <div v-if='isActive2'>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
-                <br><div class="description-box"><p class="description">{{this.bakery[0].Dietary}}</p></div>
+                <br><div class="description-box"><p class="description">{{this.bakery[0].dietary}}</p></div> <!-- insert for-loop to display diff dietary type-->
                 </div>
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-down" /></button>
@@ -59,7 +62,7 @@
                 <div v-if='isActive3'>
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
-                <div class="description-box"><p class="description">{{this.bakery[0].OrderDetails}}</p></div>
+                <div class="description-box"><p class="description">{{this.bakery[0].order_details}}</p></div>
                 </div>
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-down" /></button>
@@ -68,7 +71,7 @@
 
             <div class="ig">
                 <p style="font-weight:bold;">IG:</p>
-                <a :href= "'https://www.instagram.com/' + this.bakery[0].Instagram" class="description">@{{this.bakery[0].Instagram}}</a>
+                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.bakery[0].instagram}}</a>
             </div>
     
             </div>
@@ -126,7 +129,7 @@ export default {
     },
     
     fetchItems:function() {
-          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
+          database.collection('bakeriesNew').doc(this.docID).get().then((snapshot) => {
               this.bakery.push(snapshot.data())
           })
       }

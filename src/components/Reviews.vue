@@ -65,14 +65,14 @@ export default {
 
     methods:{
     fetchItems:function() {
-          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
+          database.collection('bakeriesNew').doc(this.docID).get().then((snapshot) => {
               this.bakery.push(snapshot.data())
           })
       },
     
     /*needs help*/
       addItem:function(){
-          database.collection('bakeries').doc(this.docID).add(
+          database.collection('bakeriesNew').doc(this.docID).add(
               {test:'test'})
       }      
     
