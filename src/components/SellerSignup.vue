@@ -1,63 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="login-page">
-  <p id="message"><router-link to="/" exact>Home</router-link><b> / Sell</b></p>
-    <div class="form">
-      <form class="register-form">
-        Email:
-        <input type="text" v-model="email" placeholder="Email" />
-        Password:
-        <input type="text" v-model="password" placeholder="Password" />
-        Shop Name:
-        <input type="password" v-model="shop_name" placeholder="Shop Name" />
-        Short description of business and speciaties:
-        <input
-          type="password"
-          v-model="short_desc"
-          placeholder="Short description"
-        />
-        Product types:
-        <Multiselect></Multiselect>
-        <br>
-        Dietary types & options:
-        <br />
-        <label id="checkbox-block">Halal<input type="checkbox" id="checkbox-dietary" /></label>
-        <label id="checkbox-block">Keto<input type="checkbox"  id="checkbox-dietary"/></label>
-        <label id="checkbox-block">Gluten-Free<input type="checkbox"  id="checkbox-dietary"/></label>
-        <label id="checkbox-block">Vegan<input type="checkbox"  id="checkbox-dietary"/></label>
-        <br> 
-        Deal Options:
-        <br>
-        <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" /></label>
-        <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" /></label>
-        <br> 
-        Delivery/Self Pick-Up Details: <br>
-        (fees, location, etc)
-        <input type="text" v-model="order_details" placeholder="Delivery: Self Pick-Up:" />
-        <br>
-        Location:
-        <br>
-        <select id="location" >
-            <option value="Central" selected>Central</option>
-            <option value="East">East</option>
-            <option value="North">North</option>
-            <option value="South">South</option>
-            <option value="West">West</option>
-        </select>
-        <br>
-        <br>
-        Business email:
-        <input type="text" v-model="email" placeholder="Business Email" />
-        Official Website: 
-        <input type="text" v-model="email" placeholder="Official Website" />   
-        Instagram:
-        <input type="text" v-model="email" placeholder="handlename" />     
-        
-        
-        <button v-on:click.prevent="register">Register</button>
-      </form>
-    </div>
-=======
 <div class="login-page">
   <header>Register and start selling today!</header>
   <div class="form">
@@ -68,7 +9,6 @@
       <button v-on:click.prevent = "register">Register</button>
       <p class="message">Have An Account ? <router-link to="/login" exact>Login</router-link></p>
     </form>
->>>>>>> c21da299c705bf173e3a9b494bd04c00fe8846ac
   </div>
 </div>
     
@@ -79,21 +19,6 @@ import db from '../firebase.js';
 import firebase from '@firebase/app';
 require('firebase/auth');
 export default {
-<<<<<<< HEAD
-  components: {
-    Multiselect,
-  },
-  data() {
-    return {
-      email: "",
-      password: "",
-      shop_name: "",
-      short_desc: "",
-      order_details: "",
-      value: [],
-    };
-  },
-=======
     data() {
         return {
             email: "", 
@@ -101,7 +26,6 @@ export default {
             shop_name: "",
         }
     }, 
->>>>>>> c21da299c705bf173e3a9b494bd04c00fe8846ac
 
     methods: {
         register: function() {

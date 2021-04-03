@@ -1,14 +1,4 @@
 <template>
-<<<<<<< HEAD
-<div class="sell-page">
-  <p id="message"><router-link to="/" exact>Home</router-link><b> / Sell</b></p>
-        <header>
-        Free, Simple, Transparent
-        </header>
-    <div class="form">
-      <p id="words">Be featured today</p>
-      <button v-on:click="startSelling">Start selling on Eatsy</button>
-=======
   <div>
     <div class="sell-page">
       <NavBar></NavBar>
@@ -17,7 +7,6 @@
         <p id="words">Be featured today</p>
         <button v-on:click="startSelling">Start selling on Eatsy</button>
       </div>
->>>>>>> c21da299c705bf173e3a9b494bd04c00fe8846ac
     </div>
   </div>
 </template>
@@ -32,11 +21,7 @@ export default {
 
   methods: {
     startSelling() {
-<<<<<<< HEAD
-      this.$router.push("/sellersignup");
-=======
       this.$router.push({ path: "/sellform" });
->>>>>>> c21da299c705bf173e3a9b494bd04c00fe8846ac
     },
   },
 };
