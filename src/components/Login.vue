@@ -30,8 +30,7 @@ export default {
             console.log("register start")
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
                 console.log(user.user.email)
-                alert("you are logged in as")
-                alert(user.user.email);
+                alert("you are logged in as " + user.user.email)
                 this.$router.push({path: "/profile"})
                 this.$parent.forceRerender();
             }, err => {

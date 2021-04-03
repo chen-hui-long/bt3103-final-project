@@ -63,7 +63,7 @@ button {
 }
 
 #words {
-  font-size: 25px;
+  font-size: 20px;
   color: grey;
   box-sizing: border-box;
   padding-left: 24px;

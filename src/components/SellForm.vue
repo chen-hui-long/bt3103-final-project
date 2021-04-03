@@ -35,6 +35,10 @@
         <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" value="Delivery" v-model = "deal_options"/></label>
         <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" value="Self Pick-Up" v-model = "deal_options"/></label>
         <br> 
+        Delivery/Self Pick-Up Details:<br>
+        (fees, locations, etc.)
+        <input type="text" v-model="order_details" placeholder="Delivery: / Self Pick-Up:" /> 
+        <br>
         Location:
         <br>
         <select id="location" v-model= "location" >
@@ -51,7 +55,7 @@
         Official Website: 
         <input type="text" v-model="official_website" placeholder="Official Website" />   
         Instagram:
-        <input type="text" v-model="instagram" placeholder="@handlename" />  
+        <input type="text" v-model="instagram" placeholder="handlename" />  
         Facebook:
         <input type="text" v-model="facebook" placeholder="Facebook Page" />    
         Upload Pictures of your product: 
@@ -77,9 +81,6 @@
             <img v-else :src = "this.no_image"/>
           </div>                  
         </div>
-        <br>
-        Order Details:
-        <input type="text" v-model="order_details" placeholder="Give a short description of order, eg. min order etc" /> 
         <br>
           <button v-on:click.prevent="register">Register</button>
       </form>
