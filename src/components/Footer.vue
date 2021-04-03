@@ -20,7 +20,7 @@
 					<div class="grid-item">
 						<span id = "subtitle">HELP</span>
                         <br>
-                        <a href="">FAQs</a>
+                        <li><router-link to ="/faq" exact>FAQs</router-link></li>
                     </div>   
 					<div class="grid-item">
 						<span id = "subscribe">Yes! Send me exclusive offers on Eatsy</span>
