@@ -74,6 +74,7 @@ export default {
       password: "",
       shop_name: "",
       short_desc: "",
+      order_details: "",
       value: [],
     };
   },
