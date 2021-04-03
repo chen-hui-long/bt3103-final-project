@@ -1,25 +1,81 @@
-import Home from './components/Home.vue'
-import Product from './components/Products.vue'
-import Login from './components/Login.vue'
-import Signup from './components/Signup.vue'
-import Sell from './components/Sell.vue'
-import Profile from './components/Profile.vue'
-import EditProfile from './components/EditProfile.vue'
-import SellerSignUp from './components/SellerSignup.vue' 
-import MultipleSelect from './components/MultiSelect.vue'
+import Home from "./components/Home.vue";
+import Product from "./components/Products.vue";
+import Login from "./components/Login.vue";
+import Signup from "./components/Signup.vue";
+import Sell from "./components/Sell.vue";
+import Profile from "./components/Profile.vue";
+import EditProfile from "./components/EditProfile.vue";
+import SellForm from "./components/SellForm.vue";
+import MultipleSelect from "./components/MultiSelect.vue";
+import SellerSignup from "./components/SellerSignup.vue";
+import SellerProfile from "./components/SellerProfile.vue";
+import EditListing from "./components/Edit.vue";
+import firebase from "@firebase/app";
+import db from "./firebase.js";
+require("firebase/auth");
 //import Favourite from './components/Favourite.vue'
-export default[
-    { path: '/', component: Home},
-    { path: '/product', component: Product},
-    { path: '/login', component: Login},
-    { path: '/signup', component: Signup},
-    { path: '/sell', component: Sell},
-    { path: '/profile', component: Profile},
-    { path: '/edit', component: EditProfile}, 
-    { path: '/sellersignup', component: SellerSignUp}, 
-    { path: '/multipleselect', component: MultipleSelect}, 
-    //{ path: '/Fav', component: Favourite}
-]
+export default [
+  { path: "/", component: Home },
+  { path: "/product", component: Product },
+  { path: "/login", component: Login },
+  { path: "/signup", component: Signup },
+  { path: "/sell", component: Sell },
+  { path: "/profile", component: Profile },
+  { path: "/edit", component: EditProfile },
+  { path: "/sellform", component: SellForm, beforeEnter: guardSellingForm},
+  { path: "/multipleselect", component: MultipleSelect },
+  { path: "/sellersignup", component: SellerSignup },
+  { path: "/editlisting", component: EditListing, beforeEnter: guardEditListing},
+  { path: "/sellerprofile", component: SellerProfile, beforeEnter : guardMyroute},
+  //{ path: '/Fav', component: Favourite}
+];
+
+function guardMyroute(to, from, next) {
+  if (!firebase.auth().currentUser) {
+    next({
+      path: "/login"
+    })
+  } else {
+    next();
+  }
+}
+
+function guardEditListing(to, from, next) {
+  if (!firebase.auth().currentUser) {
+    next({
+      path: "/login"
+    })
+  } else {
+    db.collection("Users").doc(firebase.auth().currentUser.uid).get().then((doc) =>{
+      console.log(doc.data().seller)
+      if (!doc.data().seller) {
+        next({
+          path: '/sell'
+        })
+      }
+    })
+    next();
+  }
+}
+
+function guardSellingForm(to, from, next) {
+  if (!firebase.auth().currentUser) {
+    next({
+      path: "/login"
+    })
+  } else {
+    db.collection("Users").doc(firebase.auth().currentUser.uid).get().then((doc) =>{
+      console.log(doc.data().seller)
+      if (doc.data().seller) {
+        next({
+          path: '/sellerprofile'
+        })
+      }
+    })
+    next();
+  }
+}
+
 
 //For breadcrumb reference
 /*{
@@ -43,5 +99,3 @@ export default[
           breadcrumb: 'Bar Page'
         }
       }*/
-
-

@@ -24,12 +24,13 @@ export default {
             email: "", 
             password: "", 
             name: "",
+            default_image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.business2community.com%2Fwp-content%2Fuploads%2F2017%2F08%2Fblank-profile-picture-973460_640.png&imgrefurl=https%3A%2F%2Fwww.business2community.com%2Fsocial-media%2Fimportance-profile-picture-career-01899604&tbnid=ZbfgeaptF8Y5ZM&vet=12ahUKEwjK19qH57vvAhXCm0sFHdcJD5UQMygAegUIARCnAQ..i&docid=Smb2EEjVhvpzWM&w=640&h=640&q=profile%20picture&ved=2ahUKEwjK19qH57vvAhXCm0sFHdcJD5UQMygAegUIARCnAQ "
         }
     }, 
 
     methods: {
         register: function() {
-            const curr_user = {email:this.email, name:this.name, favourite:[], reviews: {}, total_review: 0, customer: true, total_favourite: 0} 
+            const curr_user = {email:this.email, name:this.name, favourite:[], reviews: {}, total_review: 0, seller: false, total_favourite: 0, image: this.default_image} 
             console.log(curr_user)
             console.log("register start")
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
@@ -37,11 +38,11 @@ export default {
                   Object.assign({}, curr_user)
                 )
                 this.$router.push({path: "/profile"})
+                this.$parent.forceRerender();
             }, err => {
                 alert(err.message);
             })
             console.log("end")
-            this.$router.push()
         }
     }
     

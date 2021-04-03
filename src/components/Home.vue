@@ -79,8 +79,8 @@
         <hr>
     <ul>
       <li v-for = "bakery in search_bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
-        <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].ImageURL" v-bind:id = "bakery[0]"></button>
-        <p id = "bakery-name">{{bakery[1].Name}}</p>
+        <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].images[0]" v-bind:id = "bakery[0]"></button>
+        <p id = "bakery-name">{{bakery[1].shop_name}}</p>
         <p id = "bakery-rating">{{bakery[2]}} ★</p>
         </li>
       </ul>
@@ -118,9 +118,9 @@ export default {
   },
   methods: {
     fetchItems:function() {
-      database.collection("bakeries").get().then(snapshot => {
+      database.collection("bakeriesNew").get().then(snapshot => {
         snapshot.docs.forEach(doc => {
-          var avg_rating = this.calAvgRating(doc.data().Rating)
+          var avg_rating = this.calAvgRating(doc.data().ratings)
           this.bakeries.push([doc.id, doc.data(), avg_rating]);
         })
       })
@@ -128,8 +128,12 @@ export default {
     calAvgRating:function(rating) {
       var total_rating = rating.One * 1 + rating.Two * 2 + rating.Three * 3 + rating.Four * 4 + rating.Five * 5
       var total_review = rating.One + rating.Two + rating.Three + rating.Four  + rating.Five
-      var avg = total_rating / total_review
-      return Math.round(avg * 10) / 10
+      if (total_review == 0) {
+        return 0
+      } else {
+        var avg = total_rating / total_review
+        return Math.round(avg * 10) / 10
+      }
     }, 
 
     onClickf1:function() {
@@ -181,25 +185,25 @@ export default {
       if (this.checked.bakery.length == 0) {
       var curr_bak_boolean = true;
       } else {
-        curr_bak_boolean = this.check_bakery(bakery.Bakes) //location filter
+        curr_bak_boolean = this.check_bakery(bakery.type) //location filter
       }
       //location 
       if (this.checked.location.length == 0) {
         var curr_loc_boolean = true;
       } else {
-        curr_loc_boolean = this.check_location(bakery.Location) //location filter
+        curr_loc_boolean = this.check_location(bakery.location) //location filter
       }
       //diet
       if (this.checked.dietary.length == 0) {
         var curr_diet_boolean = true;
       } else {
-        curr_diet_boolean = this.check_diet(bakery.Dietary) //diet filter
+        curr_diet_boolean = this.check_diet(bakery.dietary) //diet filter
       }      
       //delivery
       if (this.checked.deliver.length == 0) {
         var curr_del_boolean = true;
       } else {
-        curr_del_boolean = this.check_deliver(bakery.Delivery) //delivery
+        curr_del_boolean = this.check_deliver(bakery.deal_options) //delivery
       }     
       return (curr_loc_boolean && curr_del_boolean && curr_diet_boolean && curr_bak_boolean);
       
@@ -224,21 +228,27 @@ export default {
     check_deliver:function(delivery) {
       if (delivery == undefined) {
         return false; 
-      } else if (delivery == "Both") {
-        return true;
-      } else if (this.checked.deliver.includes(delivery)) {
-        return true;
-      } else {
-        return false;
+      } else{
+          for (var i = 0; i < delivery.length; i++) {
+            console.log(delivery[i])
+            if (this.checked.deliver.includes(delivery[i])) {
+              return true;
+            }
+          }
       }
+      return false;
     },
     check_diet:function(diet) {
       if (diet == undefined) {
         return false 
-      } else if (this.checked.dietary.includes(diet)) {
-        return true 
       } else {
-        return false;
+          for (var i = 0; i < diet.length; i++) {
+            console.log(diet[i])
+            if (this.checked.dietary.includes(diet[i])) {
+              return true;
+            }
+      }
+      return false;
       }
     }, 
     route:function(event) {
@@ -250,11 +260,16 @@ export default {
     search_bakeries:function() {
       var search = this.search_filter.trim().toLowerCase()
       var curr_filtered_bakeries = this.bakeries.filter((bakery) => {
-          return bakery[1].Name.toLowerCase().includes(search);
+          return bakery[1].shop_name.toLowerCase().includes(search);
       })
+      console.log(curr_filtered_bakeries)
       if (this.sort_by == "A-Z") {
         curr_filtered_bakeries.sort(function(a, b) {
-          return a[1].name - b[1].name
+          if (a[1].shop_name < b[1].shop_name) {
+            return -1 
+          } else {
+            return 1
+          }
         })
       } else if (this.sort_by == "ratings_ascending") {
         curr_filtered_bakeries.sort(function(a, b) {
@@ -271,7 +286,7 @@ export default {
 
   created() {
     this.fetchItems();
-    console.log(this.bakeries)
+
   }
   }
 </script>

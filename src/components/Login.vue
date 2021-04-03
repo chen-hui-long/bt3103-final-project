@@ -29,13 +29,35 @@ export default {
         login: function() {
             console.log("register start")
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
-                alert(user);
+                console.log(user.user.email)
+                alert("you are logged in as")
+                alert(user.user.email);
+                this.$router.push({path: "/profile"})
+                this.$parent.forceRerender();
             }, err => {
                 alert(err.message);
             })
             console.log("end")
             
+        }, 
+
+        /*
+        redirect: function() {
+          var user = firebase.auth().currentUser
+          var user_uid = user.uid;
+          console.log(user_uid)
+          var doc_user = db.collection("Users").doc(user_uid);
+          doc_user.get().then(doc => {
+            if (doc.exists) {
+              console.log("this is a user")
+              this.$router.push({path: "/profile"})
+            } else {
+              console.log("this is a seller")
+              this.$router.push({path: "/sellerprofile"})
+            }
+          })
         }
+        */
     }
 
 }

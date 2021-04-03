@@ -1,16 +1,16 @@
 <template>
-    <div class="profile">
-        <div class="links">
-            <router-link id="home" to='/home'>Home / </router-link> 
-            <router-link id="profile" to='/profile'>Profile</router-link>
-        </div>
-
-        <div id="user">
-            <img v-bind:src ="this.image">
-            <div id="username">{{this.name}}</div>
-            <button id="edit" v-on:click="edit()">Edit Profile</button>
-        </div>
-
+  <div class="profile">
+    <div class="links">
+      <router-link id="home" to="/home">Home / </router-link>
+      <router-link id="profile" to="/profile">Profile</router-link>
+    </div>
+    <NavBar></NavBar>
+    <div id="user">
+      <img v-bind:src="this.image" />
+      <div id="username">{{ this.name }}</div>
+      <button id="edit" v-on:click="edit()">Edit Profile</button>
+    </div>
+    <!--
         <div id="history">
             <div id="shopButton">
                 <button v-on:click="showShop()"/>
@@ -49,76 +49,150 @@
                 <div class="secondLine">You haven't given any reviews yet! Start purchasing and leave your reviews.</div>
             </div>
         </div>
-
-    </div>
-
+        -->
+  </div>
 </template>
 
-<script> 
-import Favourite from './Favourite.vue'
-import Review from './Review.vue'
-import db from '../firebase.js'
-import firebase from '@firebase/app'
-require('firebase/auth')
+<script>
+//import Favourite from './Favourite.vue'
+//import Review from './Review.vue'
+import db from "../firebase.js";
+import firebase from "@firebase/app";
+require("firebase/auth");
+import NavBar from "./ProfileNavBar";
 
 export default {
-    data() {
-        return{
-            userID: firebase.auth().currentUserID.uid,
-            image: "",
-            name: "",
-            showShops: true,
-            showReviews: false,
-            shops: [],
-            reviews: [],
+  data() {
+    return {
+      userID: firebase.auth().currentUser.uid,
+      image: "",
+      seller: [],
+    };
+  },
 
-        }
+  components: {
+    NavBar,
+    //Favourite,
+    //Review,
+  },
+
+  methods: {
+    fetchItems() {
+      db.collection("Users")
+        .doc(this.userID)
+        .get()
+        .then((snapshot) => {
+          this.image = snapshot.data().image;
+          this.seller.push(snapshot.data().seller);
+          // need to check whether formats are correct
+        });
     },
 
-    components:{
-        Favourite,
-        Review,
-
+    showShop() {
+      this.showShops = true;
+      this.showReviews = false;
     },
 
-    methods:{
-        fetchItems(){
-            db.collection("Users").doc(this.userID).get().then(snapshot => {
-                const data = snapshot.data()
-                console.log(data)
-                this.image = data.image
-                this.name = data.name
-                this.shops = data.shops
-                this.reviews = data.reviews
-                // need to check whether formats are correct
-            })
-        },
-
-
-        showShop(){
-            this.showShops = true;
-            this.showReviews = false;
-        },
-
-        showReview(){
-            this.showReviews = true;
-            this.showShops = false;
-        },
-
-        edit(){
-            this.$router.push({name: "edit", params: {userID: this.userID}})
-        }
+    showReview() {
+      this.showReviews = true;
+      this.showShops = false;
     },
 
-    created(){
-        this.fetchItems();
-    }
+    edit() {
+      this.$router.push({ name: "edit", params: { userID: this.userID } });
+    },
+  },
 
+  created() {
+    this.fetchItems();
+    console.log(this.image);
+    console.log(this.seller[0])
+  },
+};
+</script>
+
+
+<style scoped> 
+.links {
+    text-align: left;
+    padding-left: 10%;
+    padding-bottom: 20px;
+}
+
+#profile {
+    color: black;
+}
+
+/*user*/
+#user {
+    size: 50%;
+    padding-left: 10%;
+    padding-bottom: 40px;
+}
+
+#img {
+    float: left;
+    width: 90px;
+    border-radius: 90px;
+}
+
+#username {
+    size: 30px;
+    float: left;
+    font-weight: bolder;
+    padding-left: 5%;
+    padding-right: 5%
+}
+
+#edit {
+    float: left;
+    height: 10%;
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#user:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/*history*/
+#history{
+    padding-left: 10%;
+    width: 30%;
 
 }
 
-</script>
+.show {
+    width: 120px;
+    height: 80px;
+    border-radius: 25px;
+}
 
-<style scoped> 
+.title {
+    font-weight: bold;
 
+}
+
+/*shops*/
+#shopButton {
+    float: left;
+    padding-right: 50px;
+}
+
+
+/*reviews*/
+#reviewButton {
+    float: left;
+}
+
+#history:after{
+    content: "";
+    display: table;
+    clear: both;
+}
 </style>

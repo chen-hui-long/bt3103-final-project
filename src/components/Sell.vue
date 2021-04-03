@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 <div class="sell-page">
   <p id="message"><router-link to="/" exact>Home</router-link><b> / Sell</b></p>
         <header>
@@ -7,16 +8,35 @@
     <div class="form">
       <p id="words">Be featured today</p>
       <button v-on:click="startSelling">Start selling on Eatsy</button>
+=======
+  <div>
+    <div class="sell-page">
+      <NavBar></NavBar>
+      <header>Free, Simple, Transparent</header>
+      <div class="form">
+        <p id="words">Be featured today</p>
+        <button v-on:click="startSelling">Start selling on Eatsy</button>
+      </div>
+>>>>>>> c21da299c705bf173e3a9b494bd04c00fe8846ac
     </div>
   </div>
 </template>
 
 <script>
+import NavBar from "./ProfileNavBar";
 export default {
   name: "Sell",
+  components: {
+    NavBar,
+  },
+
   methods: {
     startSelling() {
+<<<<<<< HEAD
       this.$router.push("/sellersignup");
+=======
+      this.$router.push({ path: "/sellform" });
+>>>>>>> c21da299c705bf173e3a9b494bd04c00fe8846ac
     },
   },
 };
@@ -53,8 +73,8 @@ button {
   color: white;
   font-size: 30px;
   border-radius: 30px;
-  padding-left:20px;
-  padding-right:20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #words {
@@ -63,5 +83,9 @@ button {
   box-sizing: border-box;
   padding-left: 24px;
   padding-right: 24px;
+}
+
+.links {
+  padding-left:20px;
 }
 </style>
