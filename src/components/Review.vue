@@ -2,7 +2,7 @@
     <div class="review">
 
         <div id="first">
-            <img v-bind:src="this.imageURL">
+            <img v-bind:src="this.image">
             
             <div id="firstLine">
                 <div id="name">{{this.shopName}}</div>
@@ -14,7 +14,7 @@
         </div>
 
         <div id="second">
-            <!-- add time --><div id="time">{{this.time}}</div>
+            <!-- add time --><div id="time">{{this.date}}</div>
             <!-- add rating --><div id="rating">{{this.rating}}</div>
         </div>
 
@@ -31,27 +31,33 @@ export default{
             shopName: "",
             text: "",
             rating: 0,
-            imageURL: "",
-            time: "",
+            image: "",
+            date: "",
         }
     },
 
-    props:['review'],
+    props:['rev'],
 
     methods:{
         findImage(){
-            db.collection("bakeriesNew").doc(this.review.id).get().then(snapshot => {
-                this.imageURL = snapshot.data().ImageURL[0]
+            db.collection("bakeriesNew").doc(this.rev.UID).get().then(snapshot => {
+                this.image = snapshot.data().images[0];
             })
-        }
+        },
+
+        toDate(){
+            var time = new Date(this.rev.time.seconds)
+            this.date = time.getDate().toString() + "/" + (time.getMonth()+1).toString() + "/" + time.getFullYear().toString().substr(-2)
+        } // though works, the time seems incorrect
+
     },
 
     created(){
-        this.shopName = this.review.id
-        this.text = this.review.review
-        this.rating=  this.review.rating
-        this.time = this.review.time
+        this.shopName = this.rev.shopName
+        this.text = this.rev.review
+        this.rating=  this.rev.rating
         this.findImage()
+        this.toDate()
     }
 }
 

@@ -15,7 +15,6 @@
 
     </div>
 
-
 </template>
 
 <script> 
@@ -25,6 +24,7 @@ import db from '../firebase.js'
 export default{
     data(){
         return{
+            shopName: "",
             image1: "",
             image2: "",
             rating: 0,
@@ -32,7 +32,7 @@ export default{
         }
     },
 
-    props:['shopName'],
+    props:['shopID'],
 
     components:{
         //Ratings,
@@ -40,14 +40,24 @@ export default{
 
     methods:{
         fetchItem(){
-            db.collection("bakeries").doc(this.shopName).get().then(snapshot => {
+            db.collection("bakeriesNew").doc(this.shopID).get().then(snapshot => {
                 const data = snapshot.data()
-                this.image1 = data.ImageURL[0]
-                this.image2 = data.ImageURL[1]
-                //this.rating = computeRating(data.Rating)
-                this.reviewsNum = data.Reviews.length
+                this.image1 = data.images[0]
+                this.image2 = data.images[1]
+                this.shopName = data.shop_name
+                /*
+                include a function to calculate average rating?
+                this.rating = data.avgRating
+                */
+                this.reviewsNum = Object.keys(data.Reviews).length
             })
-        }
+        },
+
+
+    },
+
+    created(){
+        this.fetchItem();
     }
 }
 
