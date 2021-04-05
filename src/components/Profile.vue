@@ -1,62 +1,66 @@
 <template>
   <div class="profile">
-    <div class="links">
-      <router-link id="home" to="/home">Home / </router-link>
-      <router-link id="profile" to="/profile">Profile</router-link>
+    <div class="navbar">
+      <NavBar></NavBar>
     </div>
-    <NavBar></NavBar>
-    <div id="user">
-      <img v-bind:src="this.image" />
-      <div id="username">{{ this.name }}</div>
-      <button id="edit" v-on:click="edit()">Edit Profile</button>
+    <div class="top-profile">
+      <img class="profile-pic" v-bind:src="this.image" />
+      <div class="profile-info">
+        <a class="profile-name">{{ this.name }}</a>
+        <br />
+        <br />
+        <button class="edit" v-on:click="edit()">Edit Profile</button>
+      </div>
     </div>
-    
-        <div id="history">
-            <div id="shopButton">
-                <button v-on:click="showShop()"/>
-                <div>Favourite shops</div>
-                <div>{{this.total_fav}} shops</div>
-            </div>
-
-            <div id="reviewButton">
-                <button v-on:click="showReview()"/>
-                <div>Past reviews</div>
-                <div>{{this.total_rev}} review</div>
-            </div>
+    <div class="fav-review">
+        <div class="fav-review-sub">
+          <button class = "fav-review-button" v-on:click="showShop()">♡</button>
+          <div class="head-text">Favourite shops</div>
+          <div class="sub-text">{{ this.total_fav }} shops</div>
         </div>
 
-
-        <div id="details">
-          
-            <div id="shops" v-show="this.showShops">
-                <div v-for="shopID in favs" v-bind:key="shopID">
-                    <Favourite v-bind:shopID="shopID"/>
-                </div>
-            </div>
-
-            <div id="reviews" v-show="this.showReviews">
-                <div v-for="review in revs" v-bind:key="review.UID">
-                    <Review v-bind:rev="review"/>
-                </div>
-            </div>
- 
-            <div id="nothing1" v-if="this.showShops && this.total_fav == 0">
-                <div class="firstLine">Nothing here... yet</div>
-                <div class="secondLine">You don't have any favourite shops yet! Explore Eatsy and find a shop you'll love.</div>
-            </div>
-
-            <div id="nothing2" v-if="this.showReviews && this.total_rev == 0">
-                <div class="firstLine">Nothing here... yet</div>
-                <div class="secondLine">You haven't given any reviews yet! Start purchasing and leave your reviews.</div>
-            </div>  
+        <div class="fav-review-sub">
+          <button class = "fav-review-button" v-on:click="showReview()">☆</button>
+          <div class="head-text">Past reviews</div>
+          <div class="sub-text">{{ this.total_rev }} review</div>
         </div>
-    
+    </div>
+
+    <div id="details">
+      <div id="shops" v-show="this.showShops">
+        <div v-for="shopID in favs" v-bind:key="shopID">
+          <Favourite v-bind:shopID="shopID" />
+        </div>
+      </div>
+
+      <div id="reviews" v-show="this.showReviews">
+        <div v-for="review in revs" v-bind:key="review.UID">
+          <Review v-bind:rev="review" />
+        </div>
+      </div>
+
+      <div id="nothing1" v-if="this.showShops && this.total_fav == 0">
+        <div class="firstLine">Nothing here... yet</div>
+        <div class="secondLine">
+          You don't have any favourite shops yet! Explore Eatsy and find a shop
+          you'll love.
+        </div>
+      </div>
+
+      <div id="nothing2" v-if="this.showReviews && this.total_rev == 0">
+        <div class="firstLine">Nothing here... yet</div>
+        <div class="secondLine">
+          You haven't given any reviews yet! Start purchasing and leave your
+          reviews.
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Favourite from './Favourite.vue'
-import Review from './Review.vue'
+import Favourite from "./Favourite.vue";
+import Review from "./Review.vue";
 import db from "../firebase.js";
 import firebase from "@firebase/app";
 require("firebase/auth");
@@ -75,8 +79,7 @@ export default {
       total_fav: 0,
       total_rev: 0,
 
-
-      seller:[], //needed?
+      seller: [], //needed?
     };
   },
 
@@ -98,9 +101,7 @@ export default {
           this.name = snapshot.data().name;
           this.total_fav = snapshot.data().total_favourite;
           this.total_rev = snapshot.data().total_review;
-
-         
-          this.seller.push(snapshot.data().seller) //needed?
+          this.seller.push(snapshot.data().seller); //needed?
         });
     },
 
@@ -114,7 +115,7 @@ export default {
       this.showShops = false;
     },
 
-/*
+    /*
     getLength(ary){
       if (ary && ary.length){
         return ary.length;
@@ -141,87 +142,97 @@ export default {
 };
 </script>
 
-<style scoped> 
+<style scoped>
+.navbar {
+  text-align: center;
+}
+
 .links {
-    text-align: left;
-    padding-left: 10%;
-    padding-bottom: 20px;
+  text-align: left;
+  padding-left: 10%;
+  padding-bottom: 20px;
 }
 
 #profile {
-    color: black;
+  color: black;
 }
 
 /*user*/
-#user {
-    size: 50%;
-    padding-left: 10%;
-    padding-bottom: 40px;
+.top-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#img {
-    float: left;
-    width: 90px;
-    border-radius: 90px;
+.profile-pic {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+.profile-info {
+  margin-left: 30px;
+}
+.edit {
+  background-color: white;
+  color: black;
+  border-radius: 30px;
 }
 
-#username {
-    size: 30px;
-    float: left;
-    font-weight: bolder;
-    padding-left: 5%;
-    padding-right: 5%
-}
-
-#edit {
-    float: left;
-    height: 10%;
-    background-color: white;
-    color: black;
-    border-radius: 30px;
-    padding-left:10px;
-    padding-right:10px;
-}
-
-#user:after {
-    content: "";
-    display: table;
-    clear: both;
+.profile-name {
+  font-size: 30px;
+  margin-right: 5px;
+  font-weight: bolder;
 }
 
 /*history*/
-#history{
-    padding-left: 10%;
-    width: 30%;
-
-}
 
 .show {
-    width: 120px;
-    height: 80px;
-    border-radius: 25px;
+  width: 120px;
+  height: 80px;
+  border-radius: 25px;
 }
 
 .title {
-    font-weight: bold;
+  font-weight: bold;
+}
 
+.fav-review {
+  margin-top:50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*shops*/
 #shopButton {
-    float: left;
-    padding-right: 50px;
+
 }
 
+.head-text {
+  font-weight: bold;
+  text-align: center;
+}
 
+.sub-text {
+  text-align: center;
+}
 /*reviews*/
 #reviewButton {
-    float: left;
+
 }
 
-#history:after{
-    content: "";
-    display: table;
-    clear: both;
+.fav-review-button {
+  width:125px;
+  height:75px;
+  font-size: 30px;
+  border-radius: 30px;
+
 }
+
+.fav-review-sub {
+  margin-left:10px;
+  margin-right:10px;
+}
+
+
 </style>

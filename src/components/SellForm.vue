@@ -139,11 +139,11 @@ export default {
         instagram: this.instagram,
         images: [this.imageData1, this.imageData2, this.imageData3, this.imageData4],
         order_details: this.order_details, 
-        ratings: {One: 0, Two:0, Three:0, Four:0, Five:0}, 
+        ratings: {0: 1, 1:0, 2:0, 3:0, 4:0, 5:0}, 
         total_ratings_by_users: 0, 
         total_favourites_by_users: 0,
         owner: this.userID,
-        Reviews: {},
+        reviews: [],
         favourite_users: [],
         review_users: [],
       }).then(() => {

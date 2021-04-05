@@ -35,7 +35,6 @@
 						</form>
 						</div>
                     </div>   
-					<div class="grid-item"><a href="">Contact us</a></div>   
 
 				</div>
 				<!--

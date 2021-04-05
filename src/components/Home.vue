@@ -81,7 +81,19 @@
       <li v-for = "bakery in search_bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].images[0]" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].shop_name}}</p>
-        <p id = "bakery-rating">{{bakery[2]}} ★</p>
+        <p id = "bakery-rating"><star-rating
+          read-only="true"
+          v-model="bakery[2]"
+          increment="0.1"
+          v-bind:show-rating="false"
+          v-bind:star-size="16"
+          border-color="black"
+          border-width="3"
+          rounded-corners="true"
+          inactive-color="white"
+          active-color="black"
+        ></star-rating>
+        </p>
         </li>
       </ul>
       <div class="pagination">
@@ -101,7 +113,11 @@
 
 <script>
 import database from "../firebase"
+import StarRating from "vue-star-rating";
 export default {
+  components: {
+    "star-rating": StarRating,
+  },
   data() {
     return {
       bakeries: [],       //store all the bakeries details  
@@ -120,18 +136,17 @@ export default {
     fetchItems:function() {
       database.collection("bakeriesNew").get().then(snapshot => {
         snapshot.docs.forEach(doc => {
-          var avg_rating = this.calAvgRating(doc.data().ratings)
+          var avg_rating = this.calAvgRating(doc.data().ratings, doc.data().total_ratings_by_users)
           this.bakeries.push([doc.id, doc.data(), avg_rating]);
         })
       })
     }, 
-    calAvgRating:function(rating) {
-      var total_rating = rating.One * 1 + rating.Two * 2 + rating.Three * 3 + rating.Four * 4 + rating.Five * 5
-      var total_review = rating.One + rating.Two + rating.Three + rating.Four  + rating.Five
-      if (total_review == 0) {
+    calAvgRating:function(rating, total_ratings) {
+      var total_rating = rating[0] * 0 + rating[1] * 1 + rating[2] * 2 + rating[3] * 3 + rating[4] * 4 + rating[5] * 5
+      if (total_ratings == 0) {
         return 0
       } else {
-        var avg = total_rating / total_review
+        var avg = total_rating / total_ratings
         return Math.round(avg * 10) / 10
       }
     }, 
@@ -374,7 +389,12 @@ input { /*style for checkbox*/
   margin-bottom: 0;
 }
 #bakery-rating {
-  margin: 0 0 0 0;
+  align-content: center;
+}
+
+div.vue-star-rating {
+  display: flex;
+  justify-content: center;
 }
 .search-sort {
   display:flex;

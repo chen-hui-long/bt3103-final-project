@@ -16,7 +16,7 @@
 
         <div class="product-content">
             <div class="product-content-left">
-            <image-slider></image-slider>
+            <image-slider v-bind:images = "images" :curr_product_id = "docID"></image-slider>
             </div>
 
             
@@ -98,6 +98,7 @@ export default {
             isActive1: false,
             isActive2: false,
             isActive3: false, 
+            images: [], 
         }
     },
   components:{
@@ -131,7 +132,12 @@ export default {
     fetchItems:function() {
           database.collection('bakeriesNew').doc(this.docID).get().then((snapshot) => {
               this.bakery.push(snapshot.data())
+              this.images.push({id: "1" , thumb: snapshot.data().images[0]})
+              this.images.push({id: "2", thumb: snapshot.data().images[1]})
+              this.images.push({id: "3", thumb: snapshot.data().images[2]})
+              this.images.push({id: "4", thumb: snapshot.data().images[3]})
           })
+
       }
     
   }, 

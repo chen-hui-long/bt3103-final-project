@@ -36,7 +36,6 @@ export default {
 
     methods: {
         login: function() {
-            console.log("register start")
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
                 console.log(user.user.email)
                 alert("you are logged in as " + user.user.email)
@@ -45,7 +44,6 @@ export default {
             }, err => {
                 alert(err.message);
             })
-            console.log("end")
             
         }, 
         toggleIsClicked: function() {
