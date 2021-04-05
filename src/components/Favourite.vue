@@ -1,6 +1,6 @@
 <template>
     <div id="favourite">
-        <img id="img2" v-bind:src="this.image2">
+        <!-- img id="img2" v-bind:src="this.image2"> -->
 
         <div id="shopDetails">
             <img id="img1" v-bind:src="this.image1">
@@ -8,7 +8,7 @@
             <div id="name">{{this.shopName}}</div>
             <!-- replaced by star rating -->
             <div id="rating">{{this.rating}}</div>
-            <div id="review">( {{this.reviewsNum}} reviews)</div>
+            <div id="review"> ({{this.reviewsNum}} reviews)</div>
             <!-- check fav and replaced by icon -->
             <div id="fav">♡</div>
         </div>
@@ -49,7 +49,7 @@ export default{
                 include a function to calculate average rating?
                 this.rating = data.avgRating
                 */
-                this.reviewsNum = Object.keys(data.Reviews).length
+                this.reviewsNum = data.total_ratings_by_users
             })
         },
 
@@ -68,6 +68,8 @@ export default{
     border: 2px solid;
     border-color: rgb(214, 210, 206);
     overflow: auto;
+    margin: 10px 10px 25px 25px;
+    border-radius: 12px;
 }
 
 #img2{
