@@ -5,10 +5,10 @@
     <form class="login-form">
       <h3> Sign in </h3><br>
       <input type="text" :style="emailClicked ? { 'border-color': 'black'} : null" 
-        v-on:click = "toggleIsClicked"
+        v-on:click = "toggleIsClicked1"
         v-model = "email" placeholder="Email"/>
       <input type="password" :style="pwClicked ? { 'border-color': 'black'} : null"
-        v-on:click = "toggleIsClicked"
+        v-on:click = "toggleIsClicked2"
         v-model = "password" placeholder="Password"/>
       <router-link to="/forgot">Forgot Password?</router-link><br><br>
       <button v-on:click.prevent = "login">sign in</button>
@@ -46,9 +46,14 @@ export default {
             })
             
         }, 
-        toggleIsClicked: function() {
-          this.emailClicked = !this.emailClicked
-          this.pwClicked = !this.pwClicked
+        toggleIsClicked1: function() {
+          this.emailClicked = true
+          this.pwClicked = false
+        },
+
+        toggleIsClicked2: function() {
+          this.emailClicked = false
+          this.pwClicked = true
         }
         /*
         redirect: function() {
@@ -133,8 +138,6 @@ h3 {
   transform: scale(1.05)
 }
 
-
-
 .form .message {
   margin: 15px 0 0;
   color: #919191;
@@ -144,6 +147,8 @@ h3 {
   color: black;
   text-decoration: none;
 }
+
+/*do we need this???*/
 .container {
   position: relative;
   z-index: 1;
