@@ -13,7 +13,7 @@
       track-by="type"
       :preselect-first="false"
     >
-      <template slot="selection" slot-scope="{ values, search, isOpen }"
+      <template slot="selection" slot-scope="{ values, isOpen }"
         ><span
           class="multiselect__single"
           v-if="values.length &amp;&amp; !isOpen"

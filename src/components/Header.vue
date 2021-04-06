@@ -11,11 +11,20 @@
         
         <div v-if="signedIn" class="login">
           <ul>
-            <li>  
+            <!--li>  
             <a href ="#" v-on:click ="toMyProfile">Profile</a>
+            </li-->
+
+            <li class="dropdown">
+              <a href='#'>Profile</a>
+              <div class="dropdown-content">
+              <a href="#" v-on:click ="toMyProfile" id="menu">View your profile</a>
+              <a href="#" v-on:click ="logout" id="menu">Log out</a>
+              </div>
             </li>
-            <li><router-link to="/favorite" exact><span id="heart-icon">♡</span></router-link></li>
-            <li><a href ="#" v-on:click ="logout">Logout</a></li>
+            
+            <li id="fav"><router-link to="/favorite" exact><span id="heart-icon">♡</span></router-link></li>
+            <!--li><a href ="#" v-on:click ="logout">Logout</a></li-->
           </ul>
         </div>
         <div v-else>
@@ -26,7 +35,6 @@
           </ul>
         </div>
         </div>
-
       </nav>
     </header>
   </div>
@@ -42,6 +50,7 @@ export default {
       currentUser : false,
     }
   },
+
     methods: {
       logout: function() {
         firebase.auth().signOut().then(() => {
@@ -57,7 +66,7 @@ export default {
       }, 
       toMyProfile: function() {
         this.$router.push({path: '/profile'})
-      }, 
+      },
     },
 
     created() {
@@ -68,13 +77,14 @@ export default {
 </script>
 
 <style scoped>
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style-type: none;
   text-decoration: none;
 }
+
 header {
   box-sizing: border-box;
   width: 100vw;
@@ -83,19 +93,23 @@ header {
   padding-right: 24px;
   background-color: #e3dddf;
   top: 0;
-  overflow:auto;
-  position:sticky;
+  /*overflow:auto;*/
+ /* position:sticky;*/
 }
+
 nav {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
+  /*overflow: hidden;*/
 }
+
+
 
 .search {
   display: flex;
-  width: 80%;
+  width: 70%;
   height: 45%;
   padding-left: 100px;
   justify-content: center;
@@ -112,7 +126,6 @@ nav {
   font-size: 18px;
   text-indent: 15px;
   border: 2px solid #bbbbbb;
-
   /*overflow:hidden;*/
   /*display:inline-block;*/
 
@@ -162,7 +175,7 @@ nav {
   display: flex;
   height:50%;
   /*width: 30%;*/
-  margin-right: 30px;
+  margin-right: 50px;
   justify-content:space-evenly;
   
 }
@@ -172,8 +185,9 @@ nav {
   display: flex;
 }
 
-.login ul li a{
-  padding: 35px 20px;
+
+.login ul a{
+  padding: 37px 25px;
   color: black;
   font-size: 22px;
   font-weight:bold;
@@ -183,15 +197,61 @@ nav {
 .login a:hover {
   background: #d3cdcf;
   transition: 0.5s;
-}
-
-#heart-icon {
-    line-height: 44px;
-    font-size: 36px;
-    font-family: system-ui;
-    font-weight: 500;
   
 }
 
+#heart-icon {
+    line-height: 40px;
+    font-size: 36px;
+    font-family: system-ui;
+    font-weight: 500;  
+}
+
+#menu {
+  font-size: 14px;
+  padding: 0px 20px;
+  font-weight: lighter;
+}
+.dropbtn:hover {
+  background: #d3cdcf;
+  transition: 0.5s;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  /*min-width: 160px;*/
+  width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(100, 100, 100, 0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  margin: 10px 0px;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 </style>
