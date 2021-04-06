@@ -49,8 +49,17 @@
                 <span class="subtitle">Highlights</span>
                 <div v-if='isActive2'>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
-                <br><div class="description-box"><p class="description">{{this.bakery[0].dietary}}</p></div> <!-- insert for-loop to display diff dietary type-->
+                <br>
+                <!--div class="description-box"><p class="description">{{this.bakery[0].dietary}}</p></div> <insert for-loop to display diff dietary type-->
+                <div class="wrapper">
+                <div style="float:left;" class="description-box" v-for="(diet, index) in bakery[0].dietary" :key="index">
+                <ul class="description1">
+                    <li>{{diet}}</li>
+                </ul>
                 </div>
+                </div>
+                </div>
+
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-down" /></button>
                 </div>
@@ -241,7 +250,7 @@ ul.breadcrumb li a {
 
 .wrapper{
     padding-bottom:50px;
-    color:blue;
+    color:black;
 }
 
 .review{

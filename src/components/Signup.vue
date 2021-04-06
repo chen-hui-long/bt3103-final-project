@@ -1,79 +1,171 @@
 <template>
-<div class="login-page">
-  <!--header>Register</header-->
-  <div class="form">
-    <form class="register-form">
-      <div id ="text">
-      <span id = "text1"> Create your account </span><br>
-      <span> Registration is easy. </span> </div><br>
-      <input type="text" :style="emailClicked ? { 'border-color': 'black'} : null" 
-        v-on:click = "toggleIsClicked1" v-model ="email" placeholder="Email*"/>
-      <input type="text" :style="nameClicked ? { 'border-color': 'black'} : null" 
-        v-on:click = "toggleIsClicked2" v-model="name" placeholder = "Name*"/>
-      <input type="password" :style="pwClicked ? { 'border-color': 'black'} : null" 
-        v-on:click = "toggleIsClicked3" v-model ="password" placeholder="Password*"/>
-      <button v-on:click.prevent = "register">Register</button>
-      <p class="message">Have An Account ? <router-link to="/login" exact>Login</router-link></p>
-    </form>
+  <div class="login-page">
+    <!--header>Register</header-->
+    <div class="form">
+      <form class="register-form">
+        <div id="text">
+          <span id="text1"> Create your account </span><br />
+          <span> Registration is easy. </span>
+        </div>
+        <br />
+        <input
+          type="text"
+          :style="emailClicked ? { 'border-color': 'black' } : null"
+          v-on:click="toggleIsClicked1"
+          v-model="email"
+          placeholder="Email*"
+        />
+        <input
+          type="text"
+          :style="nameClicked ? { 'border-color': 'black' } : null"
+          v-on:click="toggleIsClicked2"
+          v-model="name"
+          placeholder="Name*"
+        />
+
+        <input
+          type="password"
+          :style="pwClicked ? { 'border-color': 'black' } : null"
+          v-on:click="toggleIsClicked3"
+          @input="checkPassword"
+          v-model="password"
+          autocomplete="off"
+          placeholder="Password*"
+        />
+        <ul>
+          <li v-bind:class="{ is_valid: contains_eight_characters }">
+            8 Characters
+          </li>
+          <li v-bind:class="{ is_valid: contains_number }">Contains Number</li>
+          <li v-bind:class="{ is_valid: contains_uppercase }">
+            Contains Uppercase
+          </li>
+          <li v-bind:class="{ is_valid: contains_lowercase }">
+            Contains Lowercase
+          </li>
+        </ul>
+
+        <div
+          class="checkmark_container"
+          v-bind:class="{ show_checkmark: valid_password }"
+        >
+          <svg width="50%" height="50%" viewBox="0 0 140 100">
+            <path
+              class="checkmark"
+              v-bind:class="{ checked: valid_password }"
+              d="M10,50 l25,40 l95,-70"
+            />
+          </svg>
+        </div>
+
+        <button v-on:click.prevent="register">Register</button>
+        <p class="message">
+          Have An Account? <router-link to="/login" exact>Login</router-link>
+        </p>
+      </form>
+    </div>
   </div>
-</div>
-    
 </template>
 
 <script>
-import db from '../firebase.js';
-import firebase from '@firebase/app';
+import db from "../firebase.js";
+import firebase from "@firebase/app";
 //import func from 'vue-editor-bridge';
-require('firebase/auth');
+require("firebase/auth");
+
 export default {
-    data() {
-        return {
-            emailClicked:true,
-            nameClicked: false,
-            pwClicked: false,
-            email: "", 
-            password: "", 
-            name: "",
-            default_image: "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-        }
-    }, 
+  data() {
+    return {
+      emailClicked: true,
+      nameClicked: false,
+      pwClicked: false,
+      email: "",
+      password: "",
+      password_length: 0,
+      contains_eight_characters: false,
+      contains_number: false,
+      contains_uppercase: false,
+      contains_lowercase: false,
+      valid_password: false,
+      name: "",
+      default_image:
+        "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+    };
+  },
+  methods: {
+    register: function () {
+      const curr_user = {
+        email: this.email,
+        name: this.name,
+        favourite: [],
+        reviews: [],
+        total_review: 0,
+        seller: false,
+        total_favourite: 0,
+        image: this.default_image,
+      };
+      console.log(curr_user);
+      console.log("register start");
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(
+          (cred) => {
+            db.collection("Users")
+              .doc(cred.user.uid)
+              .set(Object.assign({}, curr_user));
+            this.$router.push({ path: "/profile" });
+            this.$parent.forceRerender();
+          },
+          (err) => {
+            alert(err.message);
+          }
+        );
+      console.log("end");
+    },
+    toggleIsClicked1: function () {
+      this.emailClicked = !this.emailClicked;
+      this.nameClicked = false;
+      this.pwClicked = false;
+    },
 
-    methods: {
-        register: function() {
-            const curr_user = {email:this.email, name:this.name, favourite:[], reviews: [], total_review: 0, seller: false, total_favourite: 0, image: this.default_image} 
-            console.log(curr_user)
-            console.log("register start")
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
-                db.collection("Users").doc(cred.user.uid).set(
-                  Object.assign({}, curr_user)
-                )
-                this.$router.push({path: "/profile"})
-                this.$parent.forceRerender();
-            }, err => {
-                alert(err.message);
-            })
-            console.log("end")
-        },
-        toggleIsClicked1: function() {
-          this.emailClicked = !this.emailClicked
-          this.nameClicked = false
-          this.pwClicked = false
-        },
+    toggleIsClicked2: function () {
+      (this.emailClicked = false), (this.nameClicked = !this.nameClicked);
+      this.pwClicked = false;
+    },
 
-        toggleIsClicked2: function() {
-          this.emailClicked = false,
-          this.nameClicked = !this.nameClicked
-          this.pwClicked = false
-        },
+    toggleIsClicked3: function () {
+      this.emailClicked = false;
+      this.nameClicked = false;
+      this.pwClicked = !this.pwClicked;
+    },
 
-        toggleIsClicked3: function() {
-          this.emailClicked = false
-          this.nameClicked = false
-          this.pwClicked = !this.pwClicked
-        }
-    }
-    
-}
+    checkPassword() {
+      this.password_length = this.password.length;
+      if (this.password_length > 7) {
+        this.contains_eight_characters = true;
+      } else {
+        this.contains_eight_characters = false;
+      }
+
+      this.contains_number = /\d/.test(this.password);
+      this.contains_uppercase = /[A-Z]/.test(this.password);
+      this.contains_lowercase = /[a-z]/.test(this.password);
+
+      if (
+        this.contains_eight_characters === true &&
+        this.contains_lowercase === true &&
+        this.contains_uppercase === true &&
+        this.contains_number === true
+      ) {
+        this.valid_password = true;
+      } else {
+        this.valid_password = false;
+      }
+    },
+  },
+};
+
 </script>
 
 <style scoped>
@@ -94,7 +186,7 @@ header {
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   max-width: 420px;
   margin: 0 auto 100px;
   padding: 30px 45px 70px 45px;
@@ -123,18 +215,19 @@ header {
   width: 100%;
   border: 0;
   padding: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
   border-radius: 30px;
 }
-.form button:hover,.form button:active,.form button:focus {
+.form button:hover,
+.form button:active,
+.form button:focus {
   background: black;
-  transform: scale(1.05)
+  transform: scale(1.05);
 }
-
 
 .form .message {
   margin: 15px 0 0;
@@ -145,13 +238,22 @@ header {
   color: black;
   text-decoration: none;
 }
+
+.has_required {
+  text-decoration: line-through;
+  color: #689868;
+}
+
+/* IS IT CAN REMOVE THESE??
+
 .container {
   position: relative;
   z-index: 1;
   max-width: 300px;
   margin: 0 auto;
 }
-.container:before, .container:after {
+.container:before,
+.container:after {
   content: "";
   display: block;
   clear: both;
@@ -176,13 +278,13 @@ header {
   text-decoration: none;
 }
 .container .info span .fa {
-  color: #EF3B3A;
+  color: #ef3b3a;
 }
+*/
 
 #text {
   text-align: left;
   font-size: 16px;
-
 }
 
 #text1 {
@@ -190,98 +292,72 @@ header {
   font-size: 20px;
 }
 
-/*header {
-  text-align: center;
-  color: black;
-  font-size: 40px;
-  font-weight: bold;
-  margin-block: 40px;
+
+input[type="password"] {
+	display: block;
+
 }
 
-.login-page {
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
+ul {
+	padding-left: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+li { 
+	margin-bottom: 8px;
+	color: #525f7f;
+	position: relative;
 }
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
-}
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 300px;
-  margin: 0 auto;
-}
-.container:before, .container:after {
+
+li:before {
   content: "";
-  display: block;
-  clear: both;
+	width: 0%; height: 2px;
+	background: #bbbbbb;
+	position: absolute;
+	left: 0; top: 50%;
+	display: block;
+	transition: all .6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.container .info {
-  margin: 50px auto;
-  text-align: center;
+
+/* Checkmark & Strikethrough --------- */
+.is_valid { color: rgba(136, 152, 170, 0.8); }
+.is_valid:before { width: 100%; }
+
+.checkmark_container {
+	border-radius: 50%;
+	position: absolute;
+	top: 265px; right: 60px;
+	background: white;
+	width: 25px; height: 25px;
+	visibility: hidden;
+	opacity: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: opacity .4s ease;
 }
-.container .info h1 {
-  margin: 0 0 15px;
-  padding: 0;
-  font-size: 36px;
-  font-weight: 300;
-  color: #1a1a1a;
+
+.show_checkmark {
+  visibility: visible;
+  opacity: 1;
 }
-.container .info span {
-  color: #4d4d4d;
-  font-size: 12px;
+
+.checkmark {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: black;
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
 }
-.container .info span a {
-  color: #000000;
-  text-decoration: none;
+
+.checked { animation: draw 0.5s ease forwards; }
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
 }
-.container .info span .fa {
-  color: #EF3B3A;
-}
-*/
 </style>
