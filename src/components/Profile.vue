@@ -115,16 +115,6 @@ export default {
       this.showShops = false;
     },
 
-    /*
-    getLength(ary){
-      if (ary && ary.length){
-        return ary.length;
-      } else {
-        return 0;
-      }
-    },
-    */
-
     edit() {
       this.$router.push({ name: "edit", params: { userID: this.userID } });
     },
@@ -132,11 +122,6 @@ export default {
 
   created() {
     this.userID = firebase.auth().currentUser.uid;
-    /*
-    db.collection("Users").doc(this.userID).get().then(snapshot => {
-      console.log(snapshot.data().reviews)
-    })
-    */
     this.fetchItems();
   },
 };
