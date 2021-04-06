@@ -37,7 +37,7 @@
         <br> 
         Delivery/Self Pick-Up Details:<br>
         (fees, locations, etc.)
-        <input type="text" v-model="order_details" placeholder="Delivery: / Self Pick-Up:" /> 
+        <input type="text" v-model="order_details" :placeholder= "'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'" /> 
         <br>
         Location:
         <br>
