@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  props:["item"],
+
   data(){
     return { toggletText: ['show', 'hide'] }
   }

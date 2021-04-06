@@ -1,6 +1,4 @@
 <template>
-
-
   <div id="app">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,15 +22,13 @@
 
 <script>
 import Header from './components/Header.vue'
-
 import Footer from './components/Footer'
-//import Products from './components/Products.vue'
 export default {
   name: 'App',
   components: {
     'app-header':Header,
     'app-footer':Footer,
-    /*'product-page': Products,*/
+
     
   }, 
   data () {
@@ -70,5 +66,8 @@ body {
 app-header{
   position:absolute;
 }
+
+
+
 
 </style>

@@ -20,7 +20,7 @@
     </div>
 
     <div class="fav">
-      <button id="fav" @click="fav">♡</button>
+      <button id="fav1" @click="fav">♡</button>
     </div>
   </div>
 </template>
@@ -125,6 +125,8 @@ export default {
       if (!firebase.auth().currentUser) {
         this.$router.push({ path: "/login" });
       } else {
+       document.getElementById("fav1").innerHTML = "<span style='color; #ff0000;'>♥</span>";
+       document.getElementById("fav1").style.color="#DC143C";
         //if user fav the shop, remove from fav
         database
           .collection("Users")
