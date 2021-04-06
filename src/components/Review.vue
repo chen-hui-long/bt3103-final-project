@@ -2,12 +2,9 @@
   <div class="review">
     <div id="reviewDetails">
       <img v-bind:src="this.image" />
-      <div id="name">{{ this.shopName }}</div>
-      <!-- check fav, replaced by heart icon -->
+      <div id="name" v-on:click="toProduct">{{ this.shopName }}</div>
       <div id="text">{{ this.review }}</div>
-      <!-- add time -->
       <div id="time">{{ this.date }}</div>
-      <!-- add rating -->
       <span class="stars"
         ><star-rating
           read-only="true"
@@ -22,6 +19,7 @@
           active-color="black"
         ></star-rating
       ></span>
+      <!-- check fav, replaced by heart icon -->
       <div id="fav">♡</div>
     </div>
   </div>
@@ -48,6 +46,7 @@ export default {
   props: ["rev"],
 
   methods: {
+    /*
     toDate() {
       var time = new Date(this.rev.time.seconds);
       this.date =
@@ -58,6 +57,7 @@ export default {
         time.getFullYear().toString().substr(-2);
     },
     // though works, the time seems incorrect
+    */
 
     fetchItem() {
       this.review = this.rev.review;
@@ -72,6 +72,9 @@ export default {
         });
     },
 
+    toProduct() {
+      this.$router.push({ path: "/product", query: { id: this.rev.UID } });
+    },
   },
 
   created() {
