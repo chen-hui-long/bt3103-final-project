@@ -34,14 +34,14 @@
         />
         <ul>
           <li v-bind:class="{ is_valid: contains_eight_characters }">
-            8 Characters
+            Min. 8 Characters
           </li>
-          <li v-bind:class="{ is_valid: contains_number }">Contains Number</li>
+          <li v-bind:class="{ is_valid: contains_number }">At Least 1 Number</li>
           <li v-bind:class="{ is_valid: contains_uppercase }">
-            Contains Uppercase
+            At Least 1 Uppercase
           </li>
           <li v-bind:class="{ is_valid: contains_lowercase }">
-            Contains Lowercase
+            At Least 1 Lowercase
           </li>
         </ul>
 
