@@ -11,14 +11,18 @@
         Shop name:
           <input
             type="text"
+            :style="nameClicked ? {'border-color':'black'} :null"
             v-model="shop_name"
-            placeholder="Shop name"
+            placeholder="Shop Name"
+            v-on:click="toggleIsClicked1"
           />
         Short description of business and specialties:
         <input
           type="text"
+          :style="descClicked ? {'border-color':'black'} :null"
           v-model="short_desc"
           placeholder="Short description"
+          v-on:click="toggleIsClicked2"
         />
         Product types:
         <Multiselect v-on:input = "clickMulti($event)"></Multiselect>
@@ -37,7 +41,13 @@
         <br> 
         Delivery/Self Pick-Up Details:<br>
         (fees, locations, etc.)
-        <input type="text" v-model="order_details" :placeholder= "'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'" /> 
+        <input 
+          type="text" 
+          :style="delClicked ? {'border-color' : 'black'} :null"
+          v-model="order_details" 
+          :placeholder= "'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'"
+          v-on:click="toggleIsClicked3"   
+        /> 
         <br>
         Location:
         <br>
@@ -51,13 +61,33 @@
         <br>
         <br>
         Business email:
-        <input type="text" v-model="business_email" placeholder="Business Email" />
+        <input 
+        type="text" 
+        :style="emailClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked4"
+        v-model="business_email" 
+        placeholder="Business Email" />
         Official Website: 
-        <input type="text" v-model="official_website" placeholder="Official Website" />   
+        <input 
+        type="text" 
+        :style="websiteClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked5"
+        v-model="official_website" 
+        placeholder="Official Website" />   
         Instagram:
-        <input type="text" v-model="instagram" placeholder="handlename" />  
+        <input 
+        type="text" 
+        :style="igClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked6"
+        v-model="instagram" 
+        placeholder="Handlename" />  
         Facebook:
-        <input type="text" v-model="facebook" placeholder="Facebook Page" />    
+        <input 
+        type="text" 
+        :style="fbClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked7"
+        v-model="facebook" 
+        placeholder="Facebook Page" />    
         Upload Pictures of your product: 
         <div id = "image-upload"> 
           <div id = "image-upload-div">  
@@ -103,6 +133,13 @@ export default {
   data() {
     return {
       shop_name: "",
+      nameClicked: true,
+      descClicked: false,
+      delClicked: false,
+      emailClicked: false,
+      websiteClicked: false,
+      igClicked: false,
+      fbClicked:false,
       short_desc: "",
       type:[], 
       dietary: [],
@@ -117,8 +154,8 @@ export default {
       imageData3: '', 
       imageData4: '',
       order_details: '', 
-      logo_image: "https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-9/167127685_10216055136566277_6964222100683509610_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=730e14&_nc_ohc=Z1R6Fd8zFtsAX8QCjNj&_nc_ht=scontent-xsp1-3.xx&oh=28a0d996f7cb7bafe6c9983625898343&oe=6091578D",
-      product_image: "https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-9/170761635_10216055138766332_8231753557169581290_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=730e14&_nc_ohc=lynqitk2dLIAX8NI3_0&_nc_ht=scontent-xsp1-3.xx&oh=7c4b85a7ffe863a8106ba9bf53753dd5&oe=609035E1",
+      logo_image: "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+      product_image: "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
       userID: firebase.auth().currentUser.uid
 
     };
@@ -201,6 +238,70 @@ export default {
       this.imageData4 = event.target.result;
     }, 
 
+
+    toggleIsClicked1: function () {
+    this.nameClicked = !this.nameClicked;
+    this.descClicked = false;
+    this.delClicked = false;
+    this.emailClicked = false;
+    this.websiteClicked = false;
+    this.igClicked = false;
+    },
+
+    toggleIsClicked2: function () {
+    (this.nameClicked = false), (this.descClicked = !this.descClicked);
+    this.delClicked = false;
+    this.emailClicked = false;
+    this.websiteClicked = false;
+    this.igClicked = false;
+    },
+
+    toggleIsClicked3: function () { 
+    (this.nameClicked = false),
+    (this.descClicked = false),
+    (this.delClicked = !this.delClicked);
+    this.emailClicked = false;
+    this.websiteClicked = false;
+    this.igClicked;
+    },
+
+    toggleIsClicked4: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = !this.emailClicked);
+      this.websiteClicked = false;
+      this.igClicked = false;
+    },
+
+    toggleIsClicked5: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = false),
+      (this.websiteClicked = !this.websiteClicked);
+      this.igClicked = false;
+    },
+
+    toggleIsClicked6: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = false),
+      (this.websiteClicked = false),
+      (this.igClicked = !this.igClicked);
+    },
+
+    toggleIsClicked7: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = false),
+      (this.websiteClicked = false),
+      (this.igClicked = false),
+      this.fbClicked = !this.fbClicked;
+    },
+
     clickMulti: function(event) {
       this.type = []
       for (var i = 0; i < event.length; i++) {
@@ -231,9 +332,11 @@ header {
   background: #ffffff;
   margin: 0 auto 100px;
   padding: 45px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
+  /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
-.form input {
+/*.form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -243,6 +346,19 @@ header {
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+} */
+
+.form input {
+  /*font-family: "Roboto", sans-serif;*/
+  outline: 0;
+  /*background: #f2f2f2;*/
+  width: 100%;
+  border: #bbbbbb solid 1px;
+  margin: 0 0 20px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 10px;
 }
 
 #checkbox-dietary {
@@ -265,9 +381,10 @@ header {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4caf50;
+  background: black;
   width: 100%;
   border: 0;
+  border-radius: 30px;
   padding: 15px;
   color: #ffffff;
   font-size: 14px;
@@ -278,7 +395,8 @@ header {
 .form button:hover,
 .form button:active,
 .form button:focus {
-  background: #43a047;
+  background: black;
+  transform: scale(1.05);
 }
 .form .message {
   margin: 15px 0 0;
