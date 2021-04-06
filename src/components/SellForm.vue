@@ -466,11 +466,14 @@ header {
 #image-upload-div {
   width: 25%;
   align-items: center;
+
 }
 
 img {
   width:200px;
   height:200px;
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -479,5 +482,38 @@ img {
 .navbar {
   text-align: center;
 }
+
+</style>
+
+<style>
+.multiselect__option--highlight {
+  background: #e3dddf !important;
+  color: black;
+}
+
+.multiselect__option--highlight:after {
+  background: #bbbbbb !important;
+}
+
+.multiselect__tag {
+  margin: 0 0 20px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #e3dddf;
+  color: black;
+}
+
+.multiselect__tag-icon:after {
+  color: rgba(60, 60, 60, 0.5) !important;
+}
+
+.multiselect__tag-icon:focus,
+.multiselect__tag-icon:hover {
+  background: #f0f0f0 !important;
+  color:black;
+}
+
+
 
 </style>
