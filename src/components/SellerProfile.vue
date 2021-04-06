@@ -171,7 +171,8 @@ table {
 }
 
 .shop-name {
-  font-size: 25px;
+  font-size: 30px;
+  font-weight: bolder;
 }
 
 .profile-info {

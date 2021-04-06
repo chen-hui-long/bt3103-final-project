@@ -1,44 +1,41 @@
 <template>
     <body>
-        <!--div class="breadcrumb-wrap">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Vegan</a></li>
-                <li class="breadcrumb-item active">Product List</li>
-            </ul>
-        </div-->
         <div class="breadcrumb-wrap">
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">{{this.bakery[0].Dietary}}</a></li>
-            <li>{{this.bakery[0].Name}}</li>
+            <li><a><router-link to="/" exact>Home</router-link></a></li>
+            <!-- insert router for dietary type if there is 
+            Show only when click at filter 
+            then click will go back to the home page with the filtered dietayr
+            Or is too hard shld we just scrape it away??? -->
+            <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].dietary}}</a></li> /
+            <li>{{this.bakery[0].shop_name}}</li>
+
+
         </ul>
         </div>
 
         <div class="product-content">
             <div class="product-content-left">
-            <image-slider></image-slider>
+            <image-slider v-bind:images = "images" :curr_product_id = "docID"></image-slider>
             </div>
 
             
             <div class="product-content-right">
             
-            <div class="title"><h1>{{this.bakery[0].Name}}</h1></div>
-            <div style="width:430px;" class="description-box"><p class="description">{{this.bakery[0].Description}}</p></div>
+            <div class="title"><h1>{{this.bakery[0].shop_name}}</h1></div>
+            <div style="width:430px;" class="description-box"><p class="description">{{this.bakery[0].short_desc}}</p></div>
 
             <div class="product-description">
             
             <div class="menu">
                 <span class="subtitle">Menu</span>
-                <!--v-if to change button sign?-->
                 <div v-if='isActive1'>
-                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
                 <div class="wrapper">
-                <div style="float:left;" class="description-box" v-for="(bake, index) in bakery[0].Bakes" :key="index">
+                <div style="float:left;" class="description-box" v-for="(bake, index) in bakery[0].type" :key="index">
                 <p class="description1"><div>{{bake}}
-                <span v-if="index != Object.keys(bakery[0].Bakes).length -1">,</span></div>
+                <span v-if="index != Object.keys(bakery[0].type).length -1">,</span></div>
                 </div>
                 </div>
                 </div>
@@ -51,10 +48,18 @@
             <div class="highlights">
                 <span class="subtitle">Highlights</span>
                 <div v-if='isActive2'>
-                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
-                <br><div class="description-box"><p class="description">{{this.bakery[0].Dietary}}</p></div>
+                <br>
+                <!--div class="description-box"><p class="description">{{this.bakery[0].dietary}}</p></div> <insert for-loop to display diff dietary type-->
+                <div class="wrapper">
+                <div style="float:left;" class="description-box" v-for="(diet, index) in bakery[0].dietary" :key="index">
+                <ul class="description1">
+                    <li>{{diet}}</li>
+                </ul>
                 </div>
+                </div>
+                </div>
+
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-down" /></button>
                 </div>
@@ -64,10 +69,9 @@
             <div class="delivery">
                 <span class="subtitle">Delivery/ Collection</span>
                 <div v-if='isActive3'>
-                <!--button class="down-arrow" style="margin-left:80%;" v-bind:class="{active:isActive}" @click="toggle()">{{isActive? "&#8963;" : "&#8964;"}}</button-->
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
-                <div class="description-box"><p class="description">{{this.bakery[0].OrderDetails}}</p></div>
+                <div class="description-box"><p class="description">{{this.bakery[0].order_details}}</p></div>
                 </div>
                 <div v-else>
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-down" /></button>
@@ -76,7 +80,7 @@
 
             <div class="ig">
                 <p style="font-weight:bold;">IG:</p>
-                <a :href= "'https://www.instagram.com/' + this.bakery[0].Instagram" class="description">@{{this.bakery[0].Instagram}}</a>
+                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.bakery[0].instagram}}</a>
             </div>
     
             </div>
@@ -103,6 +107,7 @@ export default {
             isActive1: false,
             isActive2: false,
             isActive3: false, 
+            images: [], 
         }
     },
   components:{
@@ -134,9 +139,14 @@ export default {
     },
     
     fetchItems:function() {
-          database.collection('bakeries').doc(this.docID).get().then((snapshot) => {
+          database.collection('bakeriesNew').doc(this.docID).get().then((snapshot) => {
               this.bakery.push(snapshot.data())
+              this.images.push({id: "1" , thumb: snapshot.data().images[0]})
+              this.images.push({id: "2", thumb: snapshot.data().images[1]})
+              this.images.push({id: "3", thumb: snapshot.data().images[2]})
+              this.images.push({id: "4", thumb: snapshot.data().images[3]})
           })
+
       }
     
   }, 
@@ -240,7 +250,7 @@ ul.breadcrumb li a {
 
 .wrapper{
     padding-bottom:50px;
-    color:blue;
+    color:black;
 }
 
 .review{

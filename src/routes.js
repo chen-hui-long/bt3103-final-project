@@ -1,6 +1,7 @@
 import Home from "./components/Home.vue";
 import Product from "./components/Products.vue";
 import Login from "./components/Login.vue";
+import ForgotPw from "./components/ForgotPw.vue"
 import Signup from "./components/Signup.vue";
 import Sell from "./components/Sell.vue";
 import Profile from "./components/Profile.vue";
@@ -19,6 +20,7 @@ export default [
   { path: "/", component: Home },
   { path: "/product", component: Product },
   { path: "/login", component: Login },
+  { path: "/forgot", component: ForgotPw},
   { path: "/signup", component: Signup },
   { path: "/sell", component: Sell },
   { path: "/profile", component: Profile },

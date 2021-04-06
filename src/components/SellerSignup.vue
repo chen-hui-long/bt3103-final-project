@@ -7,7 +7,7 @@
       <input type="text" v-model="shop_name" placeholder = "Shop Name"/>
       <input type="password" v-model ="password" placeholder="Password"/>
       <button v-on:click.prevent = "register">Register</button>
-      <p class="message">Have An Account ? <router-link to="/login" exact>Login</router-link></p>
+      <p class="message">Have An Account? <router-link to="/login" exact>Login</router-link></p>
     </form>
   </div>
 </div>

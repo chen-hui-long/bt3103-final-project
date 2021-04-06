@@ -1,11 +1,17 @@
 <template>
 <div class="login-page">
-  <header>Welcome Back</header>
+  <!--header>Welcome Back</header-->
   <div class="form">
     <form class="login-form">
-      <input type="text" v-model = "email" placeholder="Email"/>
-      <input type="password" v-model = "password" placeholder="Password"/>
-      <button v-on:click.prevent = "login">login</button>
+      <h3> Sign in </h3><br>
+      <input type="text" :style="emailClicked ? { 'border-color': 'black'} : null" 
+        v-on:click = "toggleIsClicked1"
+        v-model = "email" placeholder="Email"/>
+      <input type="password" :style="pwClicked ? { 'border-color': 'black'} : null"
+        v-on:click = "toggleIsClicked2"
+        v-model = "password" placeholder="Password"/>
+      <router-link to="/forgot">Forgot Password?</router-link><br><br>
+      <button v-on:click.prevent = "login">sign in</button>
       <p class="message">Not registered? <router-link to="/signup" exact>Sign Up</router-link></p>
       <p class="message">Interested to sell on Eatsy?  <router-link to="/sell" exact>Click Here</router-link></p>
     </form>
@@ -16,18 +22,20 @@
 
 <script>
 import firebase from '@firebase/app';
+
 require('firebase/auth');
 export default {
     data() {
         return {
             email: "", 
             password: "", 
+            emailClicked: true,
+            pwClicked: false,
         }
     }, 
 
     methods: {
         login: function() {
-            console.log("register start")
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
                 console.log(user.user.email)
                 alert("you are logged in as " + user.user.email)
@@ -36,10 +44,17 @@ export default {
             }, err => {
                 alert(err.message);
             })
-            console.log("end")
             
         }, 
+        toggleIsClicked1: function() {
+          this.emailClicked = true
+          this.pwClicked = false
+        },
 
+        toggleIsClicked2: function() {
+          this.emailClicked = false
+          this.pwClicked = true
+        }
         /*
         redirect: function() {
           var user = firebase.auth().currentUser
@@ -63,45 +78,51 @@ export default {
 </script>
 
 <style scoped>
-header {
+h3 {
+  text-align: left;
+}
+/*header {
   text-align: center;
   color: black;
   font-size: 40px;
   font-weight: bold;
   margin-block: 40px;
-}
+}*/
 
 .login-page {
-  width: 360px;
-  padding: 8% 0 0;
+  width: 420px;
+  padding: 1% 0 0;
   margin: auto;
 }
 .form {
   position: relative;
   z-index: 1;
   background: #FFFFFF;
-  max-width: 360px;
+  max-width: 420px;
   margin: 0 auto 100px;
-  padding: 45px;
+  padding: 30px 45px 70px 45px;
   text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
+  /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
 .form input {
-  font-family: "Roboto", sans-serif;
+  /*font-family: "Roboto", sans-serif;*/
   outline: 0;
-  background: #f2f2f2;
+  /*background: #f2f2f2;*/
   width: 100%;
-  border: 0;
-  margin: 0 0 15px;
+  border: #bbbbbb solid 1px;
+  margin: 0 0 20px;
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+  border-radius: 10px;
 }
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4CAF50;
+  background: black;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -110,19 +131,24 @@ header {
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+  border-radius: 30px;
 }
 .form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
+  background: black;
+  transform: scale(1.05)
 }
+
 .form .message {
   margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
+  color: #919191;
+  font-size: 14px;
 }
 .form .message a {
-  color: #4CAF50;
+  color: black;
   text-decoration: none;
 }
+
+/*do we need this???*/
 .container {
   position: relative;
   z-index: 1;
