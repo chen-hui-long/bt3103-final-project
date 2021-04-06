@@ -4,6 +4,10 @@ import VueRouter from 'vue-router'
 import Routescomp from './routes.js'
 import firebase from '@firebase/app';
 require('firebase/auth');
+
+//pop up
+import VueSweetAlert from "vue-sweetalert2";
+import 'sweetalert2/dist/sweetalert2.min.css';
 //import VueBreadcrumbs from 'vue-2-breadcrumbs';
 
 //fontawesome icons
@@ -11,6 +15,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 //import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+Vue.use(VueSweetAlert);
 
 library.add(faAngleDown, faAngleUp)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
