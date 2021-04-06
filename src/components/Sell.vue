@@ -41,7 +41,7 @@ header {
   margin-bottom: 50px;
 }
 
-.form {
+/*.form {
   position: relative;
   z-index: 1;
   background: #ffffff;
@@ -50,9 +50,23 @@ header {
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}*/
+
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  max-width: 420px;
+  margin: 0 auto 100px;
+  padding: 30px 45px 70px 45px;
+  text-align: center;
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
+  /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
 
-button {
+/*button {
   height: 10%;
   background-color: black;
   color: white;
@@ -60,6 +74,28 @@ button {
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
+}*/
+
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: black;
+  width: 80%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.form button:hover,
+.form button:active,
+.form button:focus {
+  background: black;
+  transform: scale(1.05);
 }
 
 #words {
