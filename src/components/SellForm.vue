@@ -63,22 +63,22 @@
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange1" accept = "image/*">
             <img v-if ="this.imageData1" :src="imageData1" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.logo_image"/>
           </div>
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange2" accept = "image/*">
             <img v-if ="this.imageData2" :src="imageData2" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.product_image"/>
           </div>
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange3" accept = "image/*">
             <img v-if ="this.imageData3" :src="imageData3" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.product_image"/>
           </div>    
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange4" accept = "image/*">
             <img v-if ="this.imageData4" :src="imageData4" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.product_image"/>
           </div>                  
         </div>
         <br>
@@ -117,7 +117,8 @@ export default {
       imageData3: '', 
       imageData4: '',
       order_details: '', 
-      no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png",
+      logo_image: "https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-9/167127685_10216055136566277_6964222100683509610_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=730e14&_nc_ohc=Z1R6Fd8zFtsAX8QCjNj&_nc_ht=scontent-xsp1-3.xx&oh=28a0d996f7cb7bafe6c9983625898343&oe=6091578D",
+      product_image: "https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-9/170761635_10216055138766332_8231753557169581290_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=730e14&_nc_ohc=lynqitk2dLIAX8NI3_0&_nc_ht=scontent-xsp1-3.xx&oh=7c4b85a7ffe863a8106ba9bf53753dd5&oe=609035E1",
       userID: firebase.auth().currentUser.uid
 
     };
