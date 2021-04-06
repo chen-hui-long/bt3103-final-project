@@ -8,7 +8,8 @@
       <header>Complete the form and start selling today!</header>
     <div class="form">
       <form class="register-form">
-        Shop name:
+
+        <b>Shop Name:</b>
           <input
             type="text"
             :style="nameClicked ? {'border-color':'black'} :null"
@@ -16,7 +17,8 @@
             placeholder="Shop Name"
             v-on:click="toggleIsClicked1"
           />
-        Short description of business and specialties:
+
+        <b>Short description of business and specialties:</b>
         <input
           type="text"
           :style="descClicked ? {'border-color':'black'} :null"
@@ -24,22 +26,27 @@
           placeholder="Short description"
           v-on:click="toggleIsClicked2"
         />
-        Product types:
+
+        <b>Product types:</b>
         <Multiselect v-on:input = "clickMulti($event)"></Multiselect>
         <br>
-        Dietary types & options:
-        <br />
+
+        <b>Dietary types & options:</b>
+        <br>
         <label id="checkbox-block">Halal<input type="checkbox" id="checkbox-dietary"  value="Halal" v-model = "dietary"/></label>
         <label id="checkbox-block">Keto<input type="checkbox"  id="checkbox-dietary" value="Keto" v-model = "dietary"/></label>
         <label id="checkbox-block">Gluten-Free<input type="checkbox"  id="checkbox-dietary" value="Gluten-Free" v-model = "dietary"/></label>
         <label id="checkbox-block">Vegan<input type="checkbox"  id="checkbox-dietary" value="Vegan" v-model = "dietary"/></label>
         <br> 
-        Deal Options:
+
+        <b>Deal Options:</b>
         <br>
         <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" value="Delivery" v-model = "deal_options"/></label>
         <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" value="Self Pick-Up" v-model = "deal_options"/></label>
         <br> 
-        Delivery/Self Pick-Up Details:<br>
+
+        <b>Delivery/Self Pick-Up Details:</b>
+          <br>
         (fees, locations, etc.)
         <input 
           type="text" 
@@ -49,7 +56,8 @@
           v-on:click="toggleIsClicked3"   
         /> 
         <br>
-        Location:
+
+        <b>Location:</b>
         <br>
         <select id="location" v-model= "location" >
             <option value="Central" selected>Central</option>
@@ -60,35 +68,40 @@
         </select>
         <br>
         <br>
-        Business email:
+
+        <b>Business email:</b>
         <input 
         type="text" 
         :style="emailClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked4"
         v-model="business_email" 
         placeholder="Business Email" />
-        Official Website: 
+
+        <b>Official Website: </b>
         <input 
         type="text" 
         :style="websiteClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked5"
         v-model="official_website" 
         placeholder="Official Website" />   
-        Instagram:
+
+        <b>Instagram:</b>
         <input 
         type="text" 
         :style="igClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked6"
         v-model="instagram" 
         placeholder="Handlename" />  
-        Facebook:
+
+        <b>Facebook:</b>
         <input 
         type="text" 
         :style="fbClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked7"
         v-model="facebook" 
         placeholder="Facebook Page" />    
-        Upload Pictures of your product: 
+
+        <b>Upload Pictures of your product:</b>
         <div id = "image-upload"> 
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange1" accept = "image/*">
@@ -246,6 +259,7 @@ export default {
     this.emailClicked = false;
     this.websiteClicked = false;
     this.igClicked = false;
+    this.fbClicked = false;
     },
 
     toggleIsClicked2: function () {
@@ -254,6 +268,7 @@ export default {
     this.emailClicked = false;
     this.websiteClicked = false;
     this.igClicked = false;
+    this.fbClicked = false;
     },
 
     toggleIsClicked3: function () { 
@@ -262,7 +277,8 @@ export default {
     (this.delClicked = !this.delClicked);
     this.emailClicked = false;
     this.websiteClicked = false;
-    this.igClicked;
+    this.igClicked = false;
+    this.fbClicked = false;
     },
 
     toggleIsClicked4: function () { 
@@ -272,6 +288,7 @@ export default {
       (this.emailClicked = !this.emailClicked);
       this.websiteClicked = false;
       this.igClicked = false;
+      this.fbClicked = false;
     },
 
     toggleIsClicked5: function () { 
@@ -281,6 +298,7 @@ export default {
       (this.emailClicked = false),
       (this.websiteClicked = !this.websiteClicked);
       this.igClicked = false;
+      this.fbClicked = false;
     },
 
     toggleIsClicked6: function () { 
@@ -290,6 +308,7 @@ export default {
       (this.emailClicked = false),
       (this.websiteClicked = false),
       (this.igClicked = !this.igClicked);
+      this.fbClicked = false;
     },
 
     toggleIsClicked7: function () { 
