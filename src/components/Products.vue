@@ -239,6 +239,7 @@ ul.breadcrumb li a {
 .title {
     color:#a19090;
     letter-spacing: 1px;
+    line-height: 20px;
 }
 .subtitle {
     font-weight:bold;
@@ -246,7 +247,8 @@ ul.breadcrumb li a {
 }
 
 .description{
-    margin-bottom:30px;
+    margin-top: 20px;
+    margin-bottom:40px;
 }
 
 
