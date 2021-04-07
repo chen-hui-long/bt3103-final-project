@@ -1,6 +1,5 @@
 <template>
   <div class="login-page">
-    <button @click="showAlert">DO NOTE DELTE THIS BUTTON FIRST</button>
     <div class="form">
       <form class="register-form">
         <div id="text">
@@ -36,7 +35,9 @@
           <li v-bind:class="{ is_valid: contains_eight_characters }">
             Min. 8 Characters
           </li>
-          <li v-bind:class="{ is_valid: contains_number }">At Least 1 Number</li>
+          <li v-bind:class="{ is_valid: contains_number }">
+            At Least 1 Number
+          </li>
           <li v-bind:class="{ is_valid: contains_uppercase }">
             At Least 1 Uppercase
           </li>
@@ -44,7 +45,11 @@
             At Least 1 Lowercase
           </li>
         </ul>
-
+        <div>
+          I understand and agree to
+          <a v-on:click="privacy">Terms and Conditions </a>
+        </div>
+        <br />
         <div
           class="checkmark_container"
           v-bind:class="{ show_checkmark: valid_password }"
@@ -75,10 +80,8 @@ require("firebase/auth");
 // ES6 Modules or TypeScript
 // CommonJS
 
-
 export default {
-  components: { 
-  }, 
+  components: {},
 
   data() {
     return {
@@ -99,39 +102,63 @@ export default {
     };
   },
   methods: {
-    showAlert() {
-      this.$swal('Hello Vue world!!!')
+    privacy() {
+      this.$router.push({ path: "/terms-and-conditions" });
     },
 
     register: function () {
-      const curr_user = {
-        email: this.email,
-        name: this.name,
-        favourite: [],
-        reviews: [],
-        total_review: 0,
-        seller: false,
-        total_favourite: 0,
-        image: this.default_image,
-      };
-      console.log(curr_user);
-      console.log("register start");
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          (cred) => {
-            db.collection("Users")
-              .doc(cred.user.uid)
-              .set(Object.assign({}, curr_user));
-            this.$router.push({ path: "/profile" });
-            this.$parent.forceRerender();
-          },
-          (err) => {
-            alert(err.message);
-          }
-        );
-      console.log("end");
+      if (!this.checkAllFilled()) {
+        this.$swal({
+          icon: "error",
+          text: "Error: Please fill up all the required details",
+          confirmButtonColor: "#000000",
+        });
+      } else {
+        this.checkPassword();
+        if (!this.valid_password) {
+          this.$swal({
+            icon: "error",
+            text: "Error: Password does not meet the requirement",
+            confirmButtonColor: "#000000",
+          });
+        } else {
+          const curr_user = {
+            email: this.email,
+            name: this.name,
+            favourite: [],
+            reviews: [],
+            total_review: 0,
+            seller: false,
+            total_favourite: 0,
+            image: this.default_image,
+          };
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(this.email, this.password)
+            .then(
+              (cred) => {
+                db.collection("Users")
+                  .doc(cred.user.uid)
+                  .set(Object.assign({}, curr_user));
+                this.$swal({
+                  icon: "success",
+                  text: "Registration sucessful",
+                  confirmButtonColor: "#000000",
+                }).then(() => {
+                  this.$router.push({ path: "/profile" });
+                  this.$parent.forceRerender();
+                });
+              },
+              (err) => {
+                this.$swal({
+                  icon: "error",
+                  text: err,
+                  confirmButtonColor: "#000000",
+                });
+              }
+            );
+        }
+      }
     },
     toggleIsClicked1: function () {
       this.emailClicked = !this.emailClicked;
@@ -173,9 +200,16 @@ export default {
         this.valid_password = false;
       }
     },
+
+    checkAllFilled() {
+      if (this.email == "" || this.name == "" || this.password == "") {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
 };
-
 </script>
 
 <style scoped>
@@ -302,51 +336,57 @@ header {
   font-size: 20px;
 }
 
-
 input[type="password"] {
-	display: block;
-
+  display: block;
 }
 
 ul {
-	padding-left: 20px;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-li { 
-	margin-bottom: 8px;
-	color: #525f7f;
-	position: relative;
+li {
+  margin-bottom: 8px;
+  color: #525f7f;
+  position: relative;
 }
 
 li:before {
   content: "";
-	width: 0%; height: 2px;
-	background: #bbbbbb;
-	position: absolute;
-	left: 0; top: 50%;
-	display: block;
-	transition: all .6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 0%;
+  height: 2px;
+  background: #bbbbbb;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: block;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Checkmark & Strikethrough --------- */
-.is_valid { color: rgba(136, 152, 170, 0.8); }
-.is_valid:before { width: 100%; }
+.is_valid {
+  color: rgba(136, 152, 170, 0.8);
+}
+.is_valid:before {
+  width: 100%;
+}
 
 .checkmark_container {
-	border-radius: 50%;
-	position: absolute;
-	top: 265px; right: 60px;
-	background: white;
-	width: 25px; height: 25px;
-	visibility: hidden;
-	opacity: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition: opacity .4s ease;
+  border-radius: 50%;
+  position: absolute;
+  top: 265px;
+  right: 60px;
+  background: white;
+  width: 25px;
+  height: 25px;
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.4s ease;
 }
 
 .show_checkmark {
@@ -365,9 +405,13 @@ li:before {
   stroke-dashoffset: 180;
 }
 
-.checked { animation: draw 0.5s ease forwards; }
+.checked {
+  animation: draw 0.5s ease forwards;
+}
 
 @keyframes draw {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 </style>

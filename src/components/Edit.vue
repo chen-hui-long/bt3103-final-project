@@ -148,11 +148,11 @@
           />
           <br />
           <div id="changes">
-            <button id="deletebtn" v-on:click.prevent="delete_action">
+            <button id="deletebtn" v-on:click.prevent="confirm_delete">
               Delete Listing
             </button>
             <button id="cancelbtn" v-on:click="cancel_action">Cancel</button>
-            <button id="savebtn" v-on:click="save">Save changes</button>
+            <button id="savebtn" v-on:click.prevent="save">Save changes</button>
           </div>
         </form>
       </div>
@@ -189,7 +189,10 @@ export default {
       imageData4: "",
       order_details: "",
       userID: firebase.auth().currentUser.uid,
-      no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png",
+      thumbnail:
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+      picture:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
       deleting_user_id: "",
     };
   },
@@ -292,8 +295,16 @@ export default {
             this.imageData4,
           ],
           order_details: this.order_details,
+        })
+        .then(() => {
+          this.$swal({
+            icon: "success",
+            text: "Listing updated",
+            confirmButtonColor: "#000000",
+          }).then(() => {
+            this.$router.push({ path: "/sellerprofile"});
+          })
         });
-      this.$router.push({ path: "/sellerprofile" });
     },
 
     delete_action: function () {
@@ -304,7 +315,7 @@ export default {
         .then((doc) => {
           var favourite_users = doc.data().favourite_users;
           var review_users = doc.data().review_users;
-          
+
           for (var i = 0; i < favourite_users.length; i++) {
             db.collection("Users")
               .doc(favourite_users[i])
@@ -312,50 +323,91 @@ export default {
                 favourite: firebase.firestore.FieldValue.arrayRemove(
                   this.userID
                 ),
-                total_favourite: firebase.firestore.FieldValue.increment(-1)
-              }).then(() => {console.log("deleted")}).then(() => console.log("fav deleted"))
+                total_favourite: firebase.firestore.FieldValue.increment(-1),
+              })
+              .then(() => {
+                console.log("deleted");
+              })
+              .then(() => console.log("fav deleted"));
           }
-          
-          for (var j = 0; j < review_users.length; j++) {
-            this.deleting_user_id = review_users[j]
-            console.log(this.deleting_user_id)
-            db.collection("Users").doc(this.deleting_user_id).get().then((doc) =>{
-              var curr_user_reviews = doc.data().reviews
-              for (var k = 0; k < curr_user_reviews.length; k++) {
-                if (curr_user_reviews[k].UID == this.userID) {
-                  var review = curr_user_reviews[k]
-                  console.log(this.deleting_user_id)
-                  db.collection("Users").doc(this.deleting_user_id).update({
-                    reviews: firebase.firestore.FieldValue.arrayRemove(
-                  review
-                ), 
-                total_review: firebase.firestore.FieldValue.increment(-1)
-                  }).then(() => console.log("deletion complete"))
-                }
-              }
-            }).then(() => console.log("user loop done"))
-          }
-        }).then(() => console.log("fav and review all deleted"));
 
-      db.collection("bakeriesNew").doc(this.userID).delete()
-      db.collection("Users").doc(this.userID).update({
-      seller:false
-      })
-      this.$router.push({path: '/profile'})
+          for (var j = 0; j < review_users.length; j++) {
+            this.deleting_user_id = review_users[j];
+            console.log(this.deleting_user_id);
+            db.collection("Users")
+              .doc(this.deleting_user_id)
+              .get()
+              .then((doc) => {
+                var curr_user_reviews = doc.data().reviews;
+                for (var k = 0; k < curr_user_reviews.length; k++) {
+                  if (curr_user_reviews[k].UID == this.userID) {
+                    var review = curr_user_reviews[k];
+                    console.log(this.deleting_user_id);
+                    db.collection("Users")
+                      .doc(this.deleting_user_id)
+                      .update({
+                        reviews: firebase.firestore.FieldValue.arrayRemove(
+                          review
+                        ),
+                        total_review: firebase.firestore.FieldValue.increment(
+                          -1
+                        ),
+                      })
+                      .then(() => console.log("deletion complete"));
+                  }
+                }
+              })
+              .then(() => console.log("user loop done"));
+          }
+        })
+        .then(() => console.log("fav and review all deleted"));
+
+      db.collection("bakeriesNew").doc(this.userID).delete();
+      db.collection("Users")
+        .doc(this.userID)
+        .update({
+          seller: false,
+        })
+        .then(() => {
+          this.$swal({
+            text: "Listing Deleted",
+            icon:"success",
+            confirmButtonColor: "#000000",
+          }).then(() => {
+            this.$router.push({ path: "/profile" });
+          });
+        });
     },
 
     delete_image1: function () {
-      this.imageData1 = this.no_image;
+      this.imageData1 = this.thumbnail;
     },
 
     delete_image2: function () {
-      this.imageData2 = this.no_image;
+      this.imageData2 = this.picture;
     },
     delete_image3: function () {
-      this.imageData3 = this.no_image;
+      this.imageData3 = this.picture;
     },
     delete_image4: function () {
-      this.imageData4 = this.no_image;
+      this.imageData4 = this.picture;
+    },
+
+    confirm_delete() {
+      this.$swal
+        .fire({
+          icon: "warning",
+          iconColor: "#d33",
+          text: "Are you sure? This will delete all exisiting reviews",
+          showCancelButton: true,
+          confirmButtonText: `Delete`,
+          confirmButtonColor: "#d33",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.delete_action();
+          }
+        });
     },
   },
 
