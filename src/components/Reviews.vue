@@ -12,8 +12,8 @@
             v-bind:star-size="20"
             @rating-selected="setRating"
             border-color="black"
-            border-width="3"
-            rounded-corners="true"
+            v-bind:border-width= "3"
+            v-bind:rounded-corners="true"
             inactive-color="white"
             active-color="black"
           ></star-rating
@@ -29,14 +29,14 @@
       <!-- to  retrieve star ratings from database-->
       <span class="stars"
         ><star-rating
-          read-only="true"
-          increment="0.1"
+          v-bind:readOnly= "true"
+          v-bind:increment="0.1"
           v-model="this.rating"
           v-bind:show-rating="false"
           v-bind:star-size="16"
           border-color="black"
-          border-width="3"
-          rounded-corners="true"
+          v-bind:border-width= "3"
+          v-bind:rounded-corners="true"
           inactive-color="white"
           active-color="black"
         ></star-rating

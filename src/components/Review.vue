@@ -7,14 +7,14 @@
       <div id="time">{{ this.date }}</div>
       <span class="stars"
         ><star-rating
-          read-only="true"
+          v-bind:read-only= "true"
           v-model="rating"
-          increment="0.1"
-          v-bind:show-rating="false"
+          v-bind:increment="0.1"
+          v-bind:show-rating= false
           v-bind:star-size="16"
           border-color="black"
-          border-width="3"
-          rounded-corners="true"
+          v-bind:border-width="3"
+          v-bind:rounded-corners= true 
           inactive-color="white"
           active-color="black"
         ></star-rating

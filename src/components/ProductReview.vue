@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="users">
       <img id="profile-pic" v-bind:src = profile_pic />
       <div class="wrapper">
@@ -21,6 +22,7 @@
       {{ review.review }}
     </div>
     </div>
+
   </div>
 </template>
 
@@ -50,7 +52,7 @@ export default {
           this.review_given = this.review.review
           this.date = this.time
           db.collection("Users").doc(this.review.user_id).get().then((doc) => {
-              //alert(doc.data().name)
+
               this.reviewer_name = doc.data().name
               this.profile_pic = doc.data().image
           })
