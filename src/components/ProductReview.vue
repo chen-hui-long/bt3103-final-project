@@ -8,7 +8,7 @@
       <span id="Date">{{this.date}}</span>
       <p></p>
       <star-rating
-        read-only="true"
+        v-bind:read-only="true"
         v-bind:rating="this.review.rating"
         increment="0.1"
         v-bind:show-rating="false"
