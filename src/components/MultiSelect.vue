@@ -59,14 +59,11 @@ export default {
   methods: {
     emit: function () {
       this.$emit("input", this.value);
-      console.log(this.value);
     },
     preselect:function() {
-      console.log(this.selected)
       for (var i = 0; i <  this.selected.length; i++) {
         this.value.push({type:this.selected[i]})
       }
-      console.log(this.value)
     }
   },
   created() {
@@ -83,7 +80,6 @@ export default {
             .get()
             .then((doc) => {
               var types = doc.data().type;
-              console.log(types.length)
               this.selected = types
               this.preselect();
             });

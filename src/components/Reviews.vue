@@ -12,10 +12,11 @@
             v-bind:star-size="20"
             @rating-selected="setRating"
             border-color="black"
-            v-bind:border-width= "3"
+            v-bind:border-width="3"
             v-bind:rounded-corners="true"
             inactive-color="white"
             active-color="black"
+            v-model="this.rating"
           ></star-rating
         ></span>
         <button type="submit" v-on:click.prevent="submit">Submit</button>
@@ -29,13 +30,13 @@
       <!-- to  retrieve star ratings from database-->
       <span class="stars"
         ><star-rating
-          v-bind:readOnly= "true"
+          v-bind:read-only="true"
           v-bind:increment="0.1"
-          v-model="this.rating"
+          v-bind:rating="this.rating1"
           v-bind:show-rating="false"
           v-bind:star-size="16"
           border-color="black"
-          v-bind:border-width= "3"
+          v-bind:border-width="3"
           v-bind:rounded-corners="true"
           inactive-color="white"
           active-color="black"
@@ -43,7 +44,7 @@
       ></span>
       <hr />
 
-      <p style="color:red;">insert sort on the top right</p>
+      <p style="color: red">insert sort on the top right</p>
 
       <div
         class="user-reviews"
@@ -53,7 +54,7 @@
         <indiv-review v-bind:review="review"></indiv-review>
       </div>
 
-      <p style="color:red;">insert pageination</p>
+      <p style="color: red">insert pageination</p>
     </div>
   </div>
 </template>
@@ -62,7 +63,7 @@
 import StarRating from "vue-star-rating";
 import database from "../firebase.js";
 import firebase from "@firebase/app";
-import ProductReview from './ProductReview';
+import ProductReview from "./ProductReview";
 require("firebase/auth");
 export default {
   data() {
@@ -88,7 +89,7 @@ export default {
         .get()
         .then((snapshot) => {
           this.bakery.push(snapshot.data());
-          this.rating = this.calAvgRating(
+          this.rating1 = this.calAvgRating(
             snapshot.data().ratings,
             snapshot.data().total_ratings_by_users
           );
@@ -113,14 +114,21 @@ export default {
     },
 
     getName(user_id) {
-      database.collection("Users").doc(user_id).get().then(doc => {
-        this.curr_reviewer = doc.data().name;
-      })
+      database
+        .collection("Users")
+        .doc(user_id)
+        .get()
+        .then((doc) => {
+          this.curr_reviewer = doc.data().name;
+        });
       return this.curr_reviewer;
     },
 
+    /* I edited the top part*/
     setRating: function (rating) {
-      this.rating1 = rating;
+      //this.rating1 = rating;
+      this.rating = rating;
+      console.log(this.rating);
     },
 
     /*needs help*/
@@ -155,7 +163,7 @@ export default {
                 .update({
                   reviews: firebase.firestore.FieldValue.arrayUnion({
                     UID: this.docID,
-                    rating: this.rating1,
+                    rating: this.rating,
                     review: this.review,
                     time: Date(),
                   }),
@@ -173,7 +181,7 @@ export default {
                 .update({
                   reviews: firebase.firestore.FieldValue.arrayUnion({
                     user_id: firebase.auth().currentUser.uid,
-                    rating: this.rating1,
+                    rating: this.rating,
                     review: this.review,
                     time: Date(),
                   }),

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="sell-page">
-      <NavBar></NavBar>
       <header>Free, Simple, Transparent</header>
       <div class="form">
         <p id="words">Be featured today</p>
@@ -12,11 +11,9 @@
 </template>
 
 <script>
-import NavBar from "./ProfileNavBar";
 export default {
   name: "Sell",
   components: {
-    NavBar,
   },
 
   methods: {
