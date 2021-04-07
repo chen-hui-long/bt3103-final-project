@@ -43,7 +43,7 @@
       ></span>
       <hr />
 
-      <p>insert sort</p>
+      <p style="color:red;">insert sort on the top right</p>
 
       <div
         class="user-reviews"
@@ -52,6 +52,8 @@
       >
         <indiv-review v-bind:review="review"></indiv-review>
       </div>
+
+      <p style="color:red;">insert pageination</p>
     </div>
   </div>
 </template>
@@ -68,6 +70,7 @@ export default {
       docID: "",
       bakery: [],
       rating: 0,
+      rating1: 0,
       total_reviews: 0,
       review: "",
     };
@@ -117,7 +120,7 @@ export default {
     },
 
     setRating: function (rating) {
-      this.rating = rating;
+      this.rating1 = rating;
     },
 
     /*needs help*/
@@ -152,7 +155,7 @@ export default {
                 .update({
                   reviews: firebase.firestore.FieldValue.arrayUnion({
                     UID: this.docID,
-                    rating: this.rating,
+                    rating: this.rating1,
                     review: this.review,
                     time: Date(),
                   }),
@@ -170,7 +173,7 @@ export default {
                 .update({
                   reviews: firebase.firestore.FieldValue.arrayUnion({
                     user_id: firebase.auth().currentUser.uid,
-                    rating: this.rating,
+                    rating: this.rating1,
                     review: this.review,
                     time: Date(),
                   }),

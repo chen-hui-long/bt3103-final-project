@@ -1,20 +1,26 @@
 <template>
   <div>
-    <div class="users"><img />profile pic</div>
-    <p id="Name">{{this.reviewer_name}}</p>
-    <star-rating
-      read-only="true"
-      v-bind:rating="this.review.rating"
-      increment="0.1"
-      v-bind:show-rating="false"
-      v-bind:star-size="16"
-      border-color="black"
-      border-width="3"
-      rounded-corners="true"
-      inactive-color="white"
-      active-color="black"
-    ></star-rating>
-    {{ review.review }}
+    <div class="users">
+      <img id="profile-pic" v-bind:src = profile_pic />
+      <div class="wrapper">
+      <span id="Name">{{this.reviewer_name}}</span>
+      <span id="Date">{{this.date}}</span>
+      <p></p>
+      <star-rating
+        read-only="true"
+        v-bind:rating="this.review.rating"
+        increment="0.1"
+        v-bind:show-rating="false"
+        v-bind:star-size="16"
+        border-color="black"
+        border-width="3"
+        rounded-corners="true"
+        inactive-color="white"
+        active-color="black">
+      </star-rating>
+      {{ review.review }}
+    </div>
+    </div>
   </div>
 </template>
 
@@ -42,9 +48,9 @@ export default {
       fetchItems() {
           this.rating = this.review.rating
           this.review_given = this.review.review
-          this.date = this.time;
+          this.date = this.time
           db.collection("Users").doc(this.review.user_id).get().then((doc) => {
-              alert(doc.data().name)
+              //alert(doc.data().name)
               this.reviewer_name = doc.data().name
               this.profile_pic = doc.data().image
           })
@@ -64,4 +70,23 @@ export default {
 </script>
 
 <style scoped>
+#profile-pic {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+#Name {
+  text-decoration: underline;
+  color: #474747;
+}
+
+.users {
+  display: flex;
+}
+
+.wrapper {
+  margin-left: 1.5em;
+}
+
 </style>
