@@ -8,12 +8,12 @@
       :close-on-select="false"
       :clear-on-select="false"
       :preserve-search="true"
-      placeholder="What type of bakery are you selling?"
+      placeholder="What type of bakes are you selling?"
       label="type"
       track-by="type"
       :preselect-first="false"
     >
-      <template slot="selection" slot-scope="{ values, search, isOpen }"
+      <template slot="selection" slot-scope="{ values, isOpen }"
         ><span
           class="multiselect__single"
           v-if="values.length &amp;&amp; !isOpen"
@@ -59,14 +59,11 @@ export default {
   methods: {
     emit: function () {
       this.$emit("input", this.value);
-      console.log(this.value);
     },
     preselect:function() {
-      console.log(this.selected)
       for (var i = 0; i <  this.selected.length; i++) {
         this.value.push({type:this.selected[i]})
       }
-      console.log(this.value)
     }
   },
   created() {
@@ -83,7 +80,6 @@ export default {
             .get()
             .then((doc) => {
               var types = doc.data().type;
-              console.log(types.length)
               this.selected = types
               this.preselect();
             });

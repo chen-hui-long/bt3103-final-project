@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <!--header>Register</header-->
+    <button @click="showAlert">DO NOTE DELTE THIS BUTTON FIRST</button>
     <div class="form">
       <form class="register-form">
         <div id="text">
@@ -72,8 +72,14 @@ import db from "../firebase.js";
 import firebase from "@firebase/app";
 //import func from 'vue-editor-bridge';
 require("firebase/auth");
+// ES6 Modules or TypeScript
+// CommonJS
+
 
 export default {
+  components: { 
+  }, 
+
   data() {
     return {
       emailClicked: true,
@@ -93,6 +99,10 @@ export default {
     };
   },
   methods: {
+    showAlert() {
+      this.$swal('Hello Vue world!!!')
+    },
+
     register: function () {
       const curr_user = {
         email: this.email,

@@ -12,10 +12,11 @@
             v-bind:star-size="20"
             @rating-selected="setRating"
             border-color="black"
-            border-width="3"
-            rounded-corners="true"
+            v-bind:border-width= "3"
+            v-bind:rounded-corners="true"
             inactive-color="white"
             active-color="black"
+            v-model="this.rating"
           ></star-rating
         ></span>
         <button type="submit" v-on:click.prevent="submit">Submit</button>
@@ -29,21 +30,21 @@
       <!-- to  retrieve star ratings from database-->
       <span class="stars"
         ><star-rating
-          read-only="true"
-          increment="0.1"
-          v-model="this.rating"
+          v-bind:read-only= "true"
+          v-bind:increment="0.1"
+          v-bind:rating="this.rating1"
           v-bind:show-rating="false"
           v-bind:star-size="16"
           border-color="black"
-          border-width="3"
-          rounded-corners="true"
+          v-bind:border-width= "3"
+          v-bind:rounded-corners="true"
           inactive-color="white"
           active-color="black"
         ></star-rating
       ></span>
       <hr />
 
-      <p>insert sort</p>
+      <p style="color:red;">insert sort on the top right</p>
 
       <div
         class="user-reviews"
@@ -52,6 +53,8 @@
       >
         <indiv-review v-bind:review="review"></indiv-review>
       </div>
+
+      <p style="color:red;">insert pageination</p>
     </div>
   </div>
 </template>
@@ -68,6 +71,7 @@ export default {
       docID: "",
       bakery: [],
       rating: 0,
+      rating1: 0,
       total_reviews: 0,
       review: "",
     };
@@ -85,7 +89,7 @@ export default {
         .get()
         .then((snapshot) => {
           this.bakery.push(snapshot.data());
-          this.rating = this.calAvgRating(
+          this.rating1 = this.calAvgRating(
             snapshot.data().ratings,
             snapshot.data().total_ratings_by_users
           );
@@ -116,9 +120,13 @@ export default {
       return this.curr_reviewer;
     },
 
+    /* I edited the top part*/
     setRating: function (rating) {
-      this.rating = rating;
+      //this.rating1 = rating;
+      this.rating = rating
+      console.log(this.rating)
     },
+    
 
     /*needs help*/
     submit: function () {

@@ -7,8 +7,10 @@
             Show only when click at filter 
             then click will go back to the home page with the filtered dietayr
             Or is too hard shld we just scrape it away??? -->
+            <!-- comment out first 
             <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].dietary}}</a></li> /
             <li>{{this.bakery[0].shop_name}}</li>
+            <-->
 
 
         </ul>
@@ -16,71 +18,72 @@
 
         <div class="product-content">
             <div class="product-content-left">
-            <image-slider v-bind:images = "images" :curr_product_id = "docID"></image-slider>
+            <image-slider v-bind:images = "images" :curr_product_id = "docID" :curr_user = "curr_user"></image-slider>
             </div>
 
             
             <div class="product-content-right">
-            
-            <div class="title"><h1>{{this.bakery[0].shop_name}}</h1></div>
-            <div style="width:430px;" class="description-box"><p class="description">{{this.bakery[0].short_desc}}</p></div>
+            <div class="title"><h1>{{this.shop_name}}</h1></div>
+            <div style="width:430px;" class="description-box"><p class="description">{{this.short_desc}}</p></div>
 
             <div class="product-description">
             
             <div class="menu">
                 <span class="subtitle">Menu</span>
-                <div v-if='isActive1'>
+                <span v-if='isActive1'>
                 <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
                 <div class="wrapper">
+                <p></p>
                 <div style="float:left;" class="description-box" v-for="(bake, index) in bakery[0].type" :key="index">
-                <p class="description1"><div>{{bake}}
-                <span v-if="index != Object.keys(bakery[0].type).length -1">,</span></div>
+                <span class="description1" v-if="index != 0">, </span>{{bake}}</div>
                 </div>
-                </div>
-                </div>
+                </span>
 
-                <div v-else>
+                <span v-else>
                 <button class="arrow" v-bind:class="{active:isActive1}" @click="toggle1()"><font-awesome-icon icon="angle-down" /></button>
-                </div>
+                </span>
             </div>
 
             <div class="highlights">
                 <span class="subtitle">Highlights</span>
-                <div v-if='isActive2'>
+                <span v-if='isActive2'>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
-                <!--div class="description-box"><p class="description">{{this.bakery[0].dietary}}</p></div> <insert for-loop to display diff dietary type-->
+               
                 <div class="wrapper">
-                <div style="float:left;" class="description-box" v-for="(diet, index) in bakery[0].dietary" :key="index">
+                <div class="description-box" v-for="(diet, index) in bakery[0].dietary" :key="index">
                 <ul class="description1">
                     <li>{{diet}}</li>
                 </ul>
                 </div>
                 </div>
-                </div>
+                </span>
 
-                <div v-else>
+                <span v-else>
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-down" /></button>
-                </div>
+                </span>
             </div>
 
 
             <div class="delivery">
                 <span class="subtitle">Delivery/ Collection</span>
-                <div v-if='isActive3'>
+                <span v-if='isActive3'>
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
-                <div class="description-box"><p class="description">{{this.bakery[0].order_details}}</p></div>
+                <div class="wrapper">
+                <div style="float:left;" class="description-box"><p class="description1">{{this.bakery[0].order_details}}</p></div>
                 </div>
-                <div v-else>
+                </span>
+
+                <span v-else>
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-down" /></button>
-                </div>
+                </span>
             </div>
 
             <div class="ig">
                 <p style="font-weight:bold;">IG:</p>
-                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.bakery[0].instagram}}</a>
+                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.instagram}} </a>
             </div>
     
             </div>
@@ -98,7 +101,8 @@
 import ImageSlider from './ImageSlider.vue'
 import Reviews from './Reviews'
 import database from "../firebase.js"
-/*import Ratings from './Ratings.vue'*/
+import firebase from "@firebase/app";
+require("firebase/auth");
 export default {
     data() {
         return {
@@ -108,12 +112,16 @@ export default {
             isActive2: false,
             isActive3: false, 
             images: [], 
+            shop_name: "", 
+            short_desc: "",
+            instagram: "",
+            curr_user:"",
+
         }
     },
   components:{
     'image-slider':ImageSlider,
     'reviews':Reviews
-    /*'ratings': Ratings*/
   },
   methods:{
       toggle1() {
@@ -145,7 +153,13 @@ export default {
               this.images.push({id: "2", thumb: snapshot.data().images[1]})
               this.images.push({id: "3", thumb: snapshot.data().images[2]})
               this.images.push({id: "4", thumb: snapshot.data().images[3]})
+              this.shop_name = snapshot.data().shop_name;
+              this.short_desc = snapshot.data().short_desc;
+              this.instagram = snapshot.data().instagram;
           })
+          if (firebase.auth().currentUser) {
+              this.curr_user = firebase.auth().currentUser.uid
+          }
 
       }
     
@@ -160,8 +174,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .breadcrumb-wrap {
     position: relative;
     padding-left:60px;
@@ -192,19 +204,25 @@ ul.breadcrumb li a {
 }
 
 .product-content-left{
-    flex: 0 0 60%;
-    margin-left: 50px;;
+    flex: 0 0 840px;
+    margin-left: 50px;
     display:flex;
 }
 
 .product-content-right{
-    flex: 0 0 40%;
-    display:block;    
+    display:block;
 }
 
-.menu, .highlights, .delivery {
-    display:flex;
-    width: 430px;
+.menu {
+    margin-bottom:40px;
+}
+
+.highlights {
+    margin-bottom: 40px;
+}
+
+.delivery {
+    margin-bottom: 30px;
 }
 
 .ig {
@@ -224,33 +242,33 @@ ul.breadcrumb li a {
     border: none;
     font-weight: bolder;
     cursor: pointer;
-    position: absolute;
-    /*display:inline-flex;*/
     font-size: 1.25em;
+    position: absolute;
+    right: 100px;
+
+
 }
 
 .title {
     color:#a19090;
     letter-spacing: 1px;
+    line-height: 20px;
 }
 .subtitle {
     font-weight:bold;
     font-size: 18px;
-    padding-bottom: 40px;
 }
 
 .description{
-    margin-bottom:30px;
+    margin-top: 20px;
+    margin-bottom:40px;
 }
 
-.description-box{
-    /*position: absolute;*/
-    left:1px;
-}
 
-.wrapper{
-    padding-bottom:50px;
+.wrapper {
     color:black;
+    display: inline-block;
+    width: 400px;
 }
 
 .review{

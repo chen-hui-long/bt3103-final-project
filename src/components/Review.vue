@@ -7,14 +7,14 @@
       <div id="time">{{ this.date }}</div>
       <span class="stars"
         ><star-rating
-          read-only="true"
+          v-bind:read-only= "true"
           v-model="rating"
-          increment="0.1"
-          v-bind:show-rating="false"
+          v-bind:increment="0.1"
+          v-bind:show-rating= false
           v-bind:star-size="16"
           border-color="black"
-          border-width="3"
-          rounded-corners="true"
+          v-bind:border-width="3"
+          v-bind:rounded-corners= true 
           inactive-color="white"
           active-color="black"
         ></star-rating
@@ -46,7 +46,7 @@ export default {
   props: ["rev"],
 
   methods: {
-    /*
+    
     toDate() {
       var time = new Date(this.rev.time.seconds);
       this.date =
@@ -57,7 +57,7 @@ export default {
         time.getFullYear().toString().substr(-2);
     },
     // though works, the time seems incorrect
-    */
+    
 
     fetchItem() {
       this.review = this.rev.review;

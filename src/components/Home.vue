@@ -82,14 +82,14 @@
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].images[0]" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].shop_name}}</p>
         <p id = "bakery-rating"><star-rating
-          read-only="true"
+          v-bind:read-only= "true"
           v-model="bakery[2]"
-          increment="0.1"
-          v-bind:show-rating="false"
+          v-bind:increment="0.1"
+          v-bind:show-rating= false
           v-bind:star-size="16"
-          border-color="black"
-          border-width="3"
-          rounded-corners="true"
+          border-color= "black"
+          v-bind:border-width= "3"
+          v-bind:rounded-corners= true
           inactive-color="white"
           active-color="black"
         ></star-rating>

@@ -8,38 +8,56 @@
       <header>Complete the form and start selling today!</header>
     <div class="form">
       <form class="register-form">
-        Shop name:
+
+        <b>Shop Name:</b>
           <input
             type="text"
+            :style="nameClicked ? {'border-color':'black'} :null"
             v-model="shop_name"
-            placeholder="Shop name"
+            placeholder="Shop Name"
+            v-on:click="toggleIsClicked1"
           />
-        Short description of business and specialties:
+
+        <b>Short description of business and specialties:</b>
         <input
           type="text"
+          :style="descClicked ? {'border-color':'black'} :null"
           v-model="short_desc"
           placeholder="Short description"
+          v-on:click="toggleIsClicked2"
         />
-        Product types:
+
+        <b>Product types:</b>
         <Multiselect v-on:input = "clickMulti($event)"></Multiselect>
         <br>
-        Dietary types & options:
-        <br />
+
+        <b>Dietary types & options:</b>
+        <br>
         <label id="checkbox-block">Halal<input type="checkbox" id="checkbox-dietary"  value="Halal" v-model = "dietary"/></label>
         <label id="checkbox-block">Keto<input type="checkbox"  id="checkbox-dietary" value="Keto" v-model = "dietary"/></label>
         <label id="checkbox-block">Gluten-Free<input type="checkbox"  id="checkbox-dietary" value="Gluten-Free" v-model = "dietary"/></label>
         <label id="checkbox-block">Vegan<input type="checkbox"  id="checkbox-dietary" value="Vegan" v-model = "dietary"/></label>
         <br> 
-        Deal Options:
+
+        <b>Deal Options:</b>
         <br>
         <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" value="Delivery" v-model = "deal_options"/></label>
         <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" value="Self Pick-Up" v-model = "deal_options"/></label>
         <br> 
-        Delivery/Self Pick-Up Details:<br>
+
+        <b>Delivery/Self Pick-Up Details:</b>
+          <br>
         (fees, locations, etc.)
-        <input type="text" v-model="order_details" :placeholder= "'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'" /> 
+        <input 
+          type="text" 
+          :style="delClicked ? {'border-color' : 'black'} :null"
+          v-model="order_details" 
+          :placeholder= "'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'"
+          v-on:click="toggleIsClicked3"   
+        /> 
         <br>
-        Location:
+
+        <b>Location:</b>
         <br>
         <select id="location" v-model= "location" >
             <option value="Central" selected>Central</option>
@@ -50,35 +68,60 @@
         </select>
         <br>
         <br>
-        Business email:
-        <input type="text" v-model="business_email" placeholder="Business Email" />
-        Official Website: 
-        <input type="text" v-model="official_website" placeholder="Official Website" />   
-        Instagram:
-        <input type="text" v-model="instagram" placeholder="handlename" />  
-        Facebook:
-        <input type="text" v-model="facebook" placeholder="Facebook Page" />    
-        Upload Pictures of your product: 
+
+        <b>Business email:</b>
+        <input 
+        type="text" 
+        :style="emailClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked4"
+        v-model="business_email" 
+        placeholder="Business Email" />
+
+        <b>Official Website: </b>
+        <input 
+        type="text" 
+        :style="websiteClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked5"
+        v-model="official_website" 
+        placeholder="Official Website" />   
+
+        <b>Instagram:</b>
+        <input 
+        type="text" 
+        :style="igClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked6"
+        v-model="instagram" 
+        placeholder="Handlename" />  
+
+        <b>Facebook:</b>
+        <input 
+        type="text" 
+        :style="fbClicked ? {'border-color' : 'black'} :null"
+        v-on:click="toggleIsClicked7"
+        v-model="facebook" 
+        placeholder="Facebook Page" />    
+
+        <b>Upload Pictures of your product:</b>
         <div id = "image-upload"> 
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange1" accept = "image/*">
             <img v-if ="this.imageData1" :src="imageData1" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.logo_image"/>
           </div>
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange2" accept = "image/*">
             <img v-if ="this.imageData2" :src="imageData2" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.product_image"/>
           </div>
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange3" accept = "image/*">
             <img v-if ="this.imageData3" :src="imageData3" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.product_image"/>
           </div>    
           <div id = "image-upload-div">  
             <input type="file" @change="onFileChange4" accept = "image/*">
             <img v-if ="this.imageData4" :src="imageData4" />
-            <img v-else :src = "this.no_image"/>
+            <img v-else :src = "this.product_image"/>
           </div>                  
         </div>
         <br>
@@ -103,6 +146,13 @@ export default {
   data() {
     return {
       shop_name: "",
+      nameClicked: true,
+      descClicked: false,
+      delClicked: false,
+      emailClicked: false,
+      websiteClicked: false,
+      igClicked: false,
+      fbClicked:false,
       short_desc: "",
       type:[], 
       dietary: [],
@@ -117,7 +167,8 @@ export default {
       imageData3: '', 
       imageData4: '',
       order_details: '', 
-      no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png",
+      logo_image: "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+      product_image: "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
       userID: firebase.auth().currentUser.uid
 
     };
@@ -200,6 +251,76 @@ export default {
       this.imageData4 = event.target.result;
     }, 
 
+
+    toggleIsClicked1: function () {
+    this.nameClicked = !this.nameClicked;
+    this.descClicked = false;
+    this.delClicked = false;
+    this.emailClicked = false;
+    this.websiteClicked = false;
+    this.igClicked = false;
+    this.fbClicked = false;
+    },
+
+    toggleIsClicked2: function () {
+    (this.nameClicked = false), (this.descClicked = !this.descClicked);
+    this.delClicked = false;
+    this.emailClicked = false;
+    this.websiteClicked = false;
+    this.igClicked = false;
+    this.fbClicked = false;
+    },
+
+    toggleIsClicked3: function () { 
+    (this.nameClicked = false),
+    (this.descClicked = false),
+    (this.delClicked = !this.delClicked);
+    this.emailClicked = false;
+    this.websiteClicked = false;
+    this.igClicked = false;
+    this.fbClicked = false;
+    },
+
+    toggleIsClicked4: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = !this.emailClicked);
+      this.websiteClicked = false;
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked5: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = false),
+      (this.websiteClicked = !this.websiteClicked);
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked6: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = false),
+      (this.websiteClicked = false),
+      (this.igClicked = !this.igClicked);
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked7: function () { 
+      (this.nameClicked = false),
+      (this.descClicked = false),
+      (this.delClicked = false),
+      (this.emailClicked = false),
+      (this.websiteClicked = false),
+      (this.igClicked = false),
+      this.fbClicked = !this.fbClicked;
+    },
+
     clickMulti: function(event) {
       this.type = []
       for (var i = 0; i < event.length; i++) {
@@ -230,9 +351,11 @@ header {
   background: #ffffff;
   margin: 0 auto 100px;
   padding: 45px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
+  /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
-.form input {
+/*.form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -242,6 +365,19 @@ header {
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+} */
+
+.form input {
+  /*font-family: "Roboto", sans-serif;*/
+  outline: 0;
+  /*background: #f2f2f2;*/
+  width: 100%;
+  border: #bbbbbb solid 1px;
+  margin: 0 0 20px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 10px;
 }
 
 #checkbox-dietary {
@@ -264,9 +400,10 @@ header {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4caf50;
+  background: black;
   width: 100%;
   border: 0;
+  border-radius: 30px;
   padding: 15px;
   color: #ffffff;
   font-size: 14px;
@@ -277,7 +414,8 @@ header {
 .form button:hover,
 .form button:active,
 .form button:focus {
-  background: #43a047;
+  background: black;
+  transform: scale(1.05);
 }
 .form .message {
   margin: 15px 0 0;
@@ -328,11 +466,14 @@ header {
 #image-upload-div {
   width: 25%;
   align-items: center;
+
 }
 
 img {
   width:200px;
   height:200px;
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -341,5 +482,38 @@ img {
 .navbar {
   text-align: center;
 }
+
+</style>
+
+<style>
+.multiselect__option--highlight {
+  background: #e3dddf !important;
+  color: black;
+}
+
+.multiselect__option--highlight:after {
+  background: #bbbbbb !important;
+}
+
+.multiselect__tag {
+  margin: 0 0 20px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #e3dddf;
+  color: black;
+}
+
+.multiselect__tag-icon:after {
+  color: rgba(60, 60, 60, 0.5) !important;
+}
+
+.multiselect__tag-icon:focus,
+.multiselect__tag-icon:hover {
+  background: #f0f0f0 !important;
+  color:black;
+}
+
+
 
 </style>

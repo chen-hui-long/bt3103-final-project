@@ -16,7 +16,10 @@
             placeholder="Short description"
           />
           Product types:
-          <Multiselect v-on:input="clickMulti($event)" v-bind:value = "type"></Multiselect>
+          <Multiselect
+            v-on:input="clickMulti($event)"
+            v-bind:value="type"
+          ></Multiselect>
           <br />
           Dietary types & options:
           <br />
@@ -99,32 +102,40 @@
               <input type="file" @change="onFileChange1" accept="image/*" />
               <img v-if="this.imageData1" :src="imageData1" />
               <img v-else :src="this.imageData1" />
-              <div class = "delete-image-div">
-              <button class= "delete-image" v-on:click.prevent = "delete_image1">Delete</button>
+              <div class="delete-image-div">
+                <button class="delete-image" v-on:click.prevent="delete_image1">
+                  Delete
+                </button>
               </div>
             </div>
             <div id="image-upload-div">
               <input type="file" @change="onFileChange2" accept="image/*" />
               <img v-if="this.imageData2" :src="imageData2" />
               <img v-else :src="this.imageData2" />
-              <div class = "delete-image-div">
-              <button class= "delete-image" v-on:click.prevent = "delete_image2">Delete</button>
+              <div class="delete-image-div">
+                <button class="delete-image" v-on:click.prevent="delete_image2">
+                  Delete
+                </button>
               </div>
             </div>
             <div id="image-upload-div">
               <input type="file" @change="onFileChange3" accept="image/*" />
               <img v-if="this.imageData3" :src="imageData3" />
               <img v-else :src="this.imageData3" />
-              <div class = "delete-image-div">
-              <button class= "delete-image" v-on:click.prevent = "delete_image3">Delete</button>
+              <div class="delete-image-div">
+                <button class="delete-image" v-on:click.prevent="delete_image3">
+                  Delete
+                </button>
               </div>
             </div>
             <div id="image-upload-div">
               <input type="file" @change="onFileChange4" accept="image/*" />
               <img v-if="this.imageData4" :src="imageData4" />
               <img v-else :src="this.imageData4" />
-              <div class = "delete-image-div">
-              <button class= "delete-image" v-on:click.prevent = "delete_image4">Delete</button>
+              <div class="delete-image-div">
+                <button class="delete-image" v-on:click.prevent="delete_image4">
+                  Delete
+                </button>
               </div>
             </div>
           </div>
@@ -136,11 +147,13 @@
             placeholder="Give a short description of order, eg. min order etc"
           />
           <br />
-          <div id = "changes">
-            <button id = "deletebtn" v-on:click = "delete_action">Delete Listing</button>
-            <button id = "cancelbtn" v-on:click = "cancel_action">Cancel</button>
-            <button id = "savebtn" v-on:click = "save">Save changes</button>
-            </div>
+          <div id="changes">
+            <button id="deletebtn" v-on:click.prevent="delete_action">
+              Delete Listing
+            </button>
+            <button id="cancelbtn" v-on:click="cancel_action">Cancel</button>
+            <button id="savebtn" v-on:click="save">Save changes</button>
+          </div>
         </form>
       </div>
     </div>
@@ -177,6 +190,7 @@ export default {
       order_details: "",
       userID: firebase.auth().currentUser.uid,
       no_image: "https://www.asiaoceania.org/aogs2021/img/no_uploaded.png",
+      deleting_user_id: "",
     };
   },
 
@@ -186,9 +200,9 @@ export default {
         .doc(this.userID)
         .get()
         .then((doc) => {
-          this.shop_name =  doc.data().shop_name;
+          this.shop_name = doc.data().shop_name;
           this.short_desc = doc.data().short_desc;
-          this.type= doc.data().type;
+          this.type = doc.data().type;
           this.dietary = doc.data().dietary;
           this.location = doc.data().location;
           this.deal_options = doc.data().deal_options;
@@ -251,51 +265,98 @@ export default {
       this.type = [];
       for (var i = 0; i < event.length; i++) {
         this.type.push(event[i].type);
-        }
-    }, 
-    cancel_action:function() {
-        this.$router.push({path: '/sellerprofile'})
+      }
     },
-    
-    save:function() {
-        db.collection("bakeriesNew").doc(this.userID).update({
-            shop_name: this.shop_name, 
-            short_desc:this.short_desc, 
-            type: this.type, 
-            dietary: this.dietary, 
-            deal_options: this.deal_options, 
-            location: this.location, 
-            business_email: this.business_email,
-            official_website: this.official_website,
-            facebook: this.facebook,
-            instagram: this.instagram,
-            images: [this.imageData1, this.imageData2, this.imageData3, this.imageData4],
-            order_details: this.order_details, 
+    cancel_action: function () {
+      this.$router.push({ path: "/sellerprofile" });
+    },
+
+    save: function () {
+      db.collection("bakeriesNew")
+        .doc(this.userID)
+        .update({
+          shop_name: this.shop_name,
+          short_desc: this.short_desc,
+          type: this.type,
+          dietary: this.dietary,
+          deal_options: this.deal_options,
+          location: this.location,
+          business_email: this.business_email,
+          official_website: this.official_website,
+          facebook: this.facebook,
+          instagram: this.instagram,
+          images: [
+            this.imageData1,
+            this.imageData2,
+            this.imageData3,
+            this.imageData4,
+          ],
+          order_details: this.order_details,
+        });
+      this.$router.push({ path: "/sellerprofile" });
+    },
+
+    delete_action: function () {
+      //delete in the user who favourite and reviewed the shop
+      db.collection("bakeriesNew")
+        .doc(this.userID)
+        .get()
+        .then((doc) => {
+          var favourite_users = doc.data().favourite_users;
+          var review_users = doc.data().review_users;
+          
+          for (var i = 0; i < favourite_users.length; i++) {
+            db.collection("Users")
+              .doc(favourite_users[i])
+              .update({
+                favourite: firebase.firestore.FieldValue.arrayRemove(
+                  this.userID
+                ),
+                total_favourite: firebase.firestore.FieldValue.increment(-1)
+              }).then(() => {console.log("deleted")}).then(() => console.log("fav deleted"))
+          }
+          
+          for (var j = 0; j < review_users.length; j++) {
+            this.deleting_user_id = review_users[j]
+            console.log(this.deleting_user_id)
+            db.collection("Users").doc(this.deleting_user_id).get().then((doc) =>{
+              var curr_user_reviews = doc.data().reviews
+              for (var k = 0; k < curr_user_reviews.length; k++) {
+                if (curr_user_reviews[k].UID == this.userID) {
+                  var review = curr_user_reviews[k]
+                  console.log(this.deleting_user_id)
+                  db.collection("Users").doc(this.deleting_user_id).update({
+                    reviews: firebase.firestore.FieldValue.arrayRemove(
+                  review
+                ), 
+                total_review: firebase.firestore.FieldValue.increment(-1)
+                  }).then(() => console.log("deletion complete"))
+                }
+              }
+            }).then(() => console.log("user loop done"))
+          }
+        }).then(() => console.log("fav and review all deleted"));
+
+      db.collection("bakeriesNew").doc(this.userID).delete()
+      db.collection("Users").doc(this.userID).update({
+      seller:false
       })
-      this.$router.push({path: '/sellerprofile'})
-    }, 
-
-    delete_action:function() {
-        db.collection("bakeriesNew").doc(this.userID).delete()
-        db.collection("Users").doc(this.userID).update({
-            seller:false
-        })
-        this.$router.push({path: '/profile'})
-    }, 
-
-    delete_image1:function() {
-        this.imageData1 = this.no_image;
-    }, 
-
-    delete_image2:function() {
-        this.imageData2 = this.no_image;
-    }, 
-    delete_image3:function() {
-        this.imageData3 = this.no_image;
+      this.$router.push({path: '/profile'})
     },
-    delete_image4:function() {
-        this.imageData4 = this.no_image;
-    }            
+
+    delete_image1: function () {
+      this.imageData1 = this.no_image;
+    },
+
+    delete_image2: function () {
+      this.imageData2 = this.no_image;
+    },
+    delete_image3: function () {
+      this.imageData3 = this.no_image;
+    },
+    delete_image4: function () {
+      this.imageData4 = this.no_image;
+    },
   },
 
   created: function () {
@@ -437,20 +498,20 @@ img {
 }
 
 #changes {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
-#deletebtn{
-    background: #cc3723;
+#deletebtn {
+  background: #cc3723;
 }
 
-#cancelbtn{
-    background: #617375;
+#cancelbtn {
+  background: #617375;
 }
 
-#savebtn{
-    background: #43a047;
+#savebtn {
+  background: #43a047;
 }
 
 .delete-image-div {
@@ -459,8 +520,8 @@ img {
 }
 
 button.delete-image {
-    margin-top:10px;
-    padding: 5px;
-    background:#cc3723
+  margin-top: 10px;
+  padding: 5px;
+  background: #cc3723;
 }
 </style>
