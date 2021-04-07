@@ -3,14 +3,14 @@
     <div class="users"><img />profile pic</div>
     <p id="Name">{{this.reviewer_name}}</p>
     <star-rating
-      read-only="true"
+      v-bind:read-only="true"
       v-bind:rating="this.review.rating"
-      increment="0.1"
+      v-bind:increment="0.1"
       v-bind:show-rating="false"
       v-bind:star-size="16"
       border-color="black"
-      border-width="3"
-      rounded-corners="true"
+      v-bind:border-width="3"
+      v-bind:rounded-corners="true"
       inactive-color="white"
       active-color="black"
     ></star-rating>
@@ -44,7 +44,6 @@ export default {
           this.review_given = this.review.review
           this.date = this.time;
           db.collection("Users").doc(this.review.user_id).get().then((doc) => {
-              alert(doc.data().name)
               this.reviewer_name = doc.data().name
               this.profile_pic = doc.data().image
           })

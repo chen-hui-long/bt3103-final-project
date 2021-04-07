@@ -7,8 +7,10 @@
             Show only when click at filter 
             then click will go back to the home page with the filtered dietayr
             Or is too hard shld we just scrape it away??? -->
+            <!-- comment out first 
             <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].dietary}}</a></li> /
             <li>{{this.bakery[0].shop_name}}</li>
+            <-->
 
 
         </ul>
@@ -16,13 +18,13 @@
 
         <div class="product-content">
             <div class="product-content-left">
-            <image-slider v-bind:images = "images" :curr_product_id = "docID"></image-slider>
+            <image-slider v-bind:images = "images" :curr_product_id = "docID" :curr_user = "curr_user"></image-slider>
             </div>
 
             
             <div class="product-content-right">
-            <div class="title"><h1>{{this.bakery[0].shop_name}}</h1></div>
-            <div style="width:430px;" class="description-box"><p class="description">{{this.bakery[0].short_desc}}</p></div>
+            <div class="title"><h1>{{this.shop_name}}</h1></div>
+            <div style="width:430px;" class="description-box"><p class="description">{{this.short_desc}}</p></div>
 
             <div class="product-description">
             
@@ -81,7 +83,7 @@
 
             <div class="ig">
                 <p style="font-weight:bold;">IG:</p>
-                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.bakery[0].instagram}}</a>
+                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.instagram}} </a>
             </div>
     
             </div>
@@ -99,7 +101,8 @@
 import ImageSlider from './ImageSlider.vue'
 import Reviews from './Reviews'
 import database from "../firebase.js"
-/*import Ratings from './Ratings.vue'*/
+import firebase from "@firebase/app";
+require("firebase/auth");
 export default {
     data() {
         return {
@@ -109,12 +112,16 @@ export default {
             isActive2: false,
             isActive3: false, 
             images: [], 
+            shop_name: "", 
+            short_desc: "",
+            instagram: "",
+            curr_user:"",
+
         }
     },
   components:{
     'image-slider':ImageSlider,
     'reviews':Reviews
-    /*'ratings': Ratings*/
   },
   methods:{
       toggle1() {
@@ -146,7 +153,13 @@ export default {
               this.images.push({id: "2", thumb: snapshot.data().images[1]})
               this.images.push({id: "3", thumb: snapshot.data().images[2]})
               this.images.push({id: "4", thumb: snapshot.data().images[3]})
+              this.shop_name = snapshot.data().shop_name;
+              this.short_desc = snapshot.data().short_desc;
+              this.instagram = snapshot.data().instagram;
           })
+          if (firebase.auth().currentUser) {
+              this.curr_user = firebase.auth().currentUser.uid
+          }
 
       }
     
