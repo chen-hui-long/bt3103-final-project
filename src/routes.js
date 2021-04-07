@@ -12,6 +12,7 @@ import SellerSignup from "./components/SellerSignup.vue";
 import SellerProfile from "./components/SellerProfile.vue";
 import EditListing from "./components/Edit.vue";
 import Faq from "./components/Faq.vue";
+import TC from "./components/TC.vue"
 import firebase from "@firebase/app";
 import db from "./firebase.js";
 require("firebase/auth");
@@ -30,7 +31,8 @@ export default [
   { path: "/sellersignup", component: SellerSignup },
   { path: "/editlisting", component: EditListing, beforeEnter: guardEditListing},
   { path: "/sellerprofile", component: SellerProfile, beforeEnter : guardMyroute},
-  { path: "/faq", component: Faq }
+  { path: "/faq", component: Faq }, 
+  { path: "/terms-and-conditions", component: TC }
   //{ path: '/Fav', component: Favourite}
 ];
 
