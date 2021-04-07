@@ -46,7 +46,7 @@ export default {
   props: ["rev"],
 
   methods: {
-    /*
+    
     toDate() {
       var time = new Date(this.rev.time.seconds);
       this.date =
@@ -57,7 +57,7 @@ export default {
         time.getFullYear().toString().substr(-2);
     },
     // though works, the time seems incorrect
-    */
+    
 
     fetchItem() {
       this.review = this.rev.review;
