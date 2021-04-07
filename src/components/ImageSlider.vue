@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="fav">
+    <div v-if="show()" class="fav">
       <button id="fav1" @click="fav">♡</button>
     </div>
   </div>
@@ -33,23 +33,12 @@ export default {
   name: "Carousel",
   props: {
     images: {},
-    curr_product_id: [],
+    curr_product_id: {},
+    curr_user: {},
   },
   data() {
     return {
-      curr_user_id: "",
       docID: "",
-      /*images: [
-          {id:'1',
-          thumb:"https://cdn.pixabay.com/photo/2015/12/12/15/24/amsterdam-1089646_1280.jpg"
-          },
-          {id:'2',
-          thumb:"https://cdn.pixabay.com/photo/2016/02/17/23/03/usa-1206240_1280.jpg"
-          },
-          {id:'3',
-          thumb:"https://cdn.pixabay.com/photo/2015/05/15/14/27/eiffel-tower-768501_1280.jpg"
-          },
-      ],*/
       //Index of the starting image
       startingImage: 0,
       //Index of the active image
@@ -62,6 +51,7 @@ export default {
       timeLeft: 0,
       //Hold the interval so we can clear it when needed
       timerInterval: null,
+      fav_shop: false,
     };
   },
   computed: {
@@ -125,8 +115,6 @@ export default {
       if (!firebase.auth().currentUser) {
         this.$router.push({ path: "/login" });
       } else {
-       document.getElementById("fav1").innerHTML = "<span style='color; #ff0000;'>♥</span>";
-       document.getElementById("fav1").style.color="#DC143C";
         //if user fav the shop, remove from fav
         database
           .collection("Users")
@@ -150,9 +138,15 @@ export default {
                 .collection("bakeriesNew")
                 .doc(this.curr_product_id)
                 .update({
-                  total_favourites_by_users: firebase.firestore.FieldValue.increment(-1),
-                  favourite_users: firebase.firestore.FieldValue.arrayRemove(firebase.auth().currentUser.uid),
+                  total_favourites_by_users: firebase.firestore.FieldValue.increment(
+                    -1
+                  ),
+                  favourite_users: firebase.firestore.FieldValue.arrayRemove(
+                    firebase.auth().currentUser.uid
+                  ),
                 });
+              document.getElementById("fav1").innerHTML =
+                "<span>♡</span>";
             } else {
               database
                 .collection("Users")
@@ -168,24 +162,40 @@ export default {
                 .collection("bakeriesNew")
                 .doc(this.curr_product_id)
                 .update({
-                  total_favourites_by_users: firebase.firestore.FieldValue.increment(1),
-                  favourite_users: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.uid),
+                  total_favourites_by_users: firebase.firestore.FieldValue.increment(
+                    1
+                  ),
+                  favourite_users: firebase.firestore.FieldValue.arrayUnion(
+                    firebase.auth().currentUser.uid
+                  ),
                 });
+              document.getElementById("fav1").innerHTML =
+                "<span style='color: #ff0000;'>♥</span>";
             }
           });
       }
     },
-    fetchItems: function () {
-      console.log("fettching item..");
-      console.log(this.docID);
-      database
-        .collection("bakeries")
-        .doc(this.docID)
-        .get()
-        .then((snapshot) => {
-          this.bakery.push(snapshot.data());
-          /*this.images[0].thumb.push(snapshot.data().ImageURL)*/
-        });
+
+    show: function () {
+      //if it is guest, show default button
+      if (this.curr_user == "") {
+        return true;
+      } else {
+        //logged in, check if already favourite
+        database
+          .collection("Users")
+          .doc(this.curr_user)
+          .get()
+          .then((doc) => {
+            if (doc.data().favourite.includes(this.curr_product_id)) {
+              document.getElementById("fav1").innerHTML =
+                "<span style='color; #ff0000;'>♥</span>";
+              document.getElementById("fav1").style.color = "#DC143C";
+              this.fav_shop = true;
+            }
+          });
+        return true;
+      }
     },
 
     created() {
@@ -198,6 +208,7 @@ export default {
         this.activeImage = this.startingImage;
       }
       this.fetchItems();
+      alert(this.curr_user);
     },
   },
 };
