@@ -45,11 +45,21 @@
       <hr />
 
       <p style="color: red">insert sort on the top right</p>
+      <div id="sorting">
+        Sort by:
+        <select id="sort" v-model="sort_by">
+          <option value="new" selected>Date (Newest)</option>
+          <option value="old" selected>Date (Oldest)</option>
+          <option value="ratings_ascending">Ratings (Ascending)</option>
+          <option value="ratings_descending">Ratings (Descending)</option>
+        </select>
+      </div>
 
       <div
         class="user-reviews"
-        v-for="(review, user) in bakery[0].reviews"
+        v-for="(review, user) in review_sorted"
         :key="user"
+        v-bind:review="review"
       >
         <indiv-review v-bind:review="review"></indiv-review>
       </div>
@@ -74,6 +84,8 @@ export default {
       rating1: 0,
       total_reviews: 0,
       review: "",
+      sort_by: "new",
+      reviews_unsorted: [],
     };
   },
   components: {
@@ -93,6 +105,8 @@ export default {
             snapshot.data().ratings,
             snapshot.data().total_ratings_by_users
           );
+          this.reviews_unsorted = snapshot.data().reviews;
+          console.log(this.reviews_unsorted);
           this.total_reviews = snapshot.data().total_ratings_by_users;
         });
     },
@@ -109,7 +123,7 @@ export default {
         return 0;
       } else {
         var avg = total_rating / total_ratings;
-        return Math.round(avg * 10) / 10;
+        return Math.round(avg * 100) / 100;
       }
     },
 
@@ -124,7 +138,6 @@ export default {
       return this.curr_reviewer;
     },
 
-    /* I edited the top part*/
     setRating: function (rating) {
       //this.rating1 = rating;
       this.rating = rating;
@@ -149,9 +162,12 @@ export default {
               var curr_UID = reviews_arr[i].UID;
               if (curr_UID == this.docID) {
                 reviewed = true;
-                alert(
-                  "Already reviewed in the past 3 months! (maybe can change this to popup instead of alert"
-                );
+                this.$swal({
+                  icon: "error",
+                  text:
+                    "You have already reviewed this bakery in the past 3 months.",
+                  confirmButtonColor: "#000000",
+                });
               }
             }
 
@@ -198,6 +214,30 @@ export default {
             }
           });
       }
+    },
+  },
+
+  computed: {
+    review_sorted() {
+      var sorted = this.reviews_unsorted;
+      if (this.sort_by == "ratings_ascending") {
+        sorted.sort(function (a, b) {
+          return a.rating - b.rating;
+        });
+      } else if (this.sort_by == "ratings_descending") {
+        sorted.sort(function (a, b) {
+          return b.rating - a.rating;
+        });
+      } else if (this.sort_by == "new") {
+        sorted.sort(function (a, b) {
+          return new Date(b.time) - new Date(a.time)
+        });
+      } else if (this.sort_by == "old") {
+        sorted.sort(function (a, b) {
+          return new Date(a.time) - new Date(b.time)
+        });
+      }
+      return sorted;
     },
   },
 
