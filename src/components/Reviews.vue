@@ -16,6 +16,7 @@
             v-bind:rounded-corners="true"
             inactive-color="white"
             active-color="black"
+            v-model="this.rating"
           ></star-rating
         ></span>
         <button type="submit" v-on:click.prevent="submit">Submit</button>
@@ -29,9 +30,9 @@
       <!-- to  retrieve star ratings from database-->
       <span class="stars"
         ><star-rating
-          v-bind:readOnly= "true"
+          v-bind:read-only= "true"
           v-bind:increment="0.1"
-          v-model="this.rating"
+          v-bind:rating="this.rating1"
           v-bind:show-rating="false"
           v-bind:star-size="16"
           border-color="black"
@@ -88,7 +89,7 @@ export default {
         .get()
         .then((snapshot) => {
           this.bakery.push(snapshot.data());
-          this.rating = this.calAvgRating(
+          this.rating1 = this.calAvgRating(
             snapshot.data().ratings,
             snapshot.data().total_ratings_by_users
           );
@@ -119,9 +120,13 @@ export default {
       return this.curr_reviewer;
     },
 
+    /* I edited the top part*/
     setRating: function (rating) {
-      this.rating1 = rating;
+      //this.rating1 = rating;
+      this.rating = rating
+      console.log(this.rating)
     },
+    
 
     /*needs help*/
     submit: function () {
@@ -155,7 +160,7 @@ export default {
                 .update({
                   reviews: firebase.firestore.FieldValue.arrayUnion({
                     UID: this.docID,
-                    rating: this.rating1,
+                    rating: this.rating,
                     review: this.review,
                     time: Date(),
                   }),
@@ -173,7 +178,7 @@ export default {
                 .update({
                   reviews: firebase.firestore.FieldValue.arrayUnion({
                     user_id: firebase.auth().currentUser.uid,
-                    rating: this.rating1,
+                    rating: this.rating,
                     review: this.review,
                     time: Date(),
                   }),
