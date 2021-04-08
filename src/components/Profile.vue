@@ -69,7 +69,8 @@ import NavBar from "./ProfileNavBar";
 export default {
   data() {
     return {
-      userID: firebase.auth().currentUser.uid,
+      signedIn: false,
+      userID: null,
       image: "",
       favs: [],
       revs: [],
@@ -90,6 +91,13 @@ export default {
   },
 
   methods: {
+    checkLogin: function() {
+        if (firebase.auth().currentUser) {
+          this.signedIn = true;
+          this.userID = firebase.auth().currentUser.uid;
+        }
+      },     
+
     fetchItems() {
       db.collection("Users")
         .doc(this.userID)
@@ -121,8 +129,13 @@ export default {
   },
 
   created() {
-    this.userID = firebase.auth().currentUser.uid;
-    this.fetchItems();
+    this.checkLogin();
+    if (this.signedIn) {
+      this.fetchItems();
+    } else {
+      this.$router.push({path: '/login'})
+    }
+    
   },
 };
 </script>
