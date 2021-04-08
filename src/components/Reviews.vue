@@ -12,7 +12,7 @@
             v-bind:star-size="20"
             @rating-selected="setRating"
             border-color="black"
-            v-bind:border-width= "3"
+            v-bind:border-width="3"
             v-bind:rounded-corners="true"
             inactive-color="white"
             active-color="black"
@@ -30,13 +30,13 @@
       <!-- to  retrieve star ratings from database-->
       <span class="stars"
         ><star-rating
-          v-bind:read-only= "true"
+          v-bind:read-only="true"
           v-bind:increment="0.1"
           v-bind:rating="this.rating1"
           v-bind:show-rating="false"
           v-bind:star-size="16"
           border-color="black"
-          v-bind:border-width= "3"
+          v-bind:border-width="3"
           v-bind:rounded-corners="true"
           inactive-color="white"
           active-color="black"
@@ -44,17 +44,27 @@
       ></span>
       <hr />
 
-      <p style="color:red;">insert sort on the top right</p>
+      <p style="color: red">insert sort on the top right</p>
+      <div id="sorting">
+        Sort by:
+        <select id="sort" v-model="sort_by">
+          <option value="new" selected>Date (Newest)</option>
+          <option value="old" selected>Date (Oldest)</option>
+          <option value="ratings_ascending">Ratings (Ascending)</option>
+          <option value="ratings_descending">Ratings (Descending)</option>
+        </select>
+      </div>
 
       <div
         class="user-reviews"
-        v-for="(review, user) in bakery[0].reviews"
+        v-for="(review, user) in review_sorted"
         :key="user"
+        v-bind:review="review"
       >
         <indiv-review v-bind:review="review"></indiv-review>
       </div>
 
-      <p style="color:red;">insert pageination</p>
+      <p style="color: red">insert pageination</p>
     </div>
   </div>
 </template>
@@ -63,7 +73,7 @@
 import StarRating from "vue-star-rating";
 import database from "../firebase.js";
 import firebase from "@firebase/app";
-import ProductReview from './ProductReview';
+import ProductReview from "./ProductReview";
 require("firebase/auth");
 export default {
   data() {
@@ -74,6 +84,8 @@ export default {
       rating1: 0,
       total_reviews: 0,
       review: "",
+      sort_by: "new",
+      reviews_unsorted: [],
     };
   },
   components: {
@@ -93,6 +105,8 @@ export default {
             snapshot.data().ratings,
             snapshot.data().total_ratings_by_users
           );
+          this.reviews_unsorted = snapshot.data().reviews;
+          console.log(this.reviews_unsorted);
           this.total_reviews = snapshot.data().total_ratings_by_users;
         });
     },
@@ -109,24 +123,26 @@ export default {
         return 0;
       } else {
         var avg = total_rating / total_ratings;
-        return Math.round(avg * 10) / 10;
+        return Math.round(avg * 100) / 100;
       }
     },
 
     getName(user_id) {
-      database.collection("Users").doc(user_id).get().then(doc => {
-        this.curr_reviewer = doc.data().name;
-      })
+      database
+        .collection("Users")
+        .doc(user_id)
+        .get()
+        .then((doc) => {
+          this.curr_reviewer = doc.data().name;
+        });
       return this.curr_reviewer;
     },
 
-    /* I edited the top part*/
     setRating: function (rating) {
       //this.rating1 = rating;
-      this.rating = rating
-      console.log(this.rating)
+      this.rating = rating;
+      console.log(this.rating);
     },
-    
 
     /*needs help*/
     submit: function () {
@@ -146,9 +162,12 @@ export default {
               var curr_UID = reviews_arr[i].UID;
               if (curr_UID == this.docID) {
                 reviewed = true;
-                alert(
-                  "Already reviewed in the past 3 months! (maybe can change this to popup instead of alert"
-                );
+                this.$swal({
+                  icon: "error",
+                  text:
+                    "You have already reviewed this bakery in the past 3 months.",
+                  confirmButtonColor: "#000000",
+                });
               }
             }
 
@@ -195,6 +214,30 @@ export default {
             }
           });
       }
+    },
+  },
+
+  computed: {
+    review_sorted() {
+      var sorted = this.reviews_unsorted;
+      if (this.sort_by == "ratings_ascending") {
+        sorted.sort(function (a, b) {
+          return a.rating - b.rating;
+        });
+      } else if (this.sort_by == "ratings_descending") {
+        sorted.sort(function (a, b) {
+          return b.rating - a.rating;
+        });
+      } else if (this.sort_by == "new") {
+        sorted.sort(function (a, b) {
+          return new Date(b.time) - new Date(a.time)
+        });
+      } else if (this.sort_by == "old") {
+        sorted.sort(function (a, b) {
+          return new Date(a.time) - new Date(b.time)
+        });
+      }
+      return sorted;
     },
   },
 

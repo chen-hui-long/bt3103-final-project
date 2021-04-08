@@ -1,61 +1,88 @@
 <template>
-<div class="login-page">
-  <!--header>Welcome Back</header-->
-  <div class="form">
-    <form class="login-form">
-      <h3> Sign in </h3><br>
-      <input type="text" :style="emailClicked ? { 'border-color': 'black'} : null" 
-        v-on:click = "toggleIsClicked1"
-        v-model = "email" placeholder="Email"/>
-      <input type="password" :style="pwClicked ? { 'border-color': 'black'} : null"
-        v-on:click = "toggleIsClicked2"
-        v-model = "password" placeholder="Password"/>
-      <router-link to="/forgot">Forgot Password?</router-link><br><br>
-      <button v-on:click.prevent = "login">sign in</button>
-      <p class="message">Not registered? <router-link to="/signup" exact>Sign Up</router-link></p>
-      <p class="message">Interested to sell on Eatsy?  <router-link to="/sell" exact>Click Here</router-link></p>
-    </form>
+  <div class="login-page">
+    <!--header>Welcome Back</header-->
+    <div class="form">
+      <form class="login-form">
+        <h3>Sign in</h3>
+        <br />
+        <input
+          type="text"
+          :style="emailClicked ? { 'border-color': 'black' } : null"
+          v-on:click="toggleIsClicked1"
+          v-model="email"
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          :style="pwClicked ? { 'border-color': 'black' } : null"
+          v-on:click="toggleIsClicked2"
+          v-model="password"
+          placeholder="Password"
+        />
+        <router-link to="/forgot">Forgot Password?</router-link><br /><br />
+        <button v-on:click.prevent="login">sign in</button>
+        <p class="message">
+          Not registered? <router-link to="/signup" exact>Sign Up</router-link>
+        </p>
+        <p class="message">
+          Interested to sell on Eatsy?
+          <router-link to="/sell" exact>Click Here</router-link>
+        </p>
+      </form>
+    </div>
   </div>
-</div>
-    
 </template>
 
 <script>
-import firebase from '@firebase/app';
+import firebase from "@firebase/app";
 
-require('firebase/auth');
+require("firebase/auth");
 export default {
-    data() {
-        return {
-            email: "", 
-            password: "", 
-            emailClicked: true,
-            pwClicked: false,
-        }
-    }, 
+  data() {
+    return {
+      email: "",
+      password: "",
+      emailClicked: true,
+      pwClicked: false,
+    };
+  },
 
-    methods: {
-        login: function() {
-            firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
-                console.log(user.user.email)
-                alert("you are logged in as " + user.user.email)
-                this.$router.push({path: "/profile"})
-                this.$parent.forceRerender();
-            }, err => {
-                alert(err.message);
+  methods: {
+    login: function () {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          (user) => {
+            this.$swal.fire({
+              icon: "success",
+              title: "Login sucessful",
+              confirmButtonColor: "#000000",
+            }).then(() => {
+            console.log(user)
+            this.$router.push({ path: "/profile" });
+            this.$parent.forceRerender();
             })
-            
-        }, 
-        toggleIsClicked1: function() {
-          this.emailClicked = true
-          this.pwClicked = false
-        },
+          },
+          (err) => {
+            this.$swal({
+              icon: 'error',
+              text: err,
+              confirmButtonColor: "#000000",
+            });
+          }
+        );
+    },
+    toggleIsClicked1: function () {
+      this.emailClicked = true;
+      this.pwClicked = false;
+    },
 
-        toggleIsClicked2: function() {
-          this.emailClicked = false
-          this.pwClicked = true
-        }
-        /*
+    toggleIsClicked2: function () {
+      this.emailClicked = false;
+      this.pwClicked = true;
+    },
+    /*
         redirect: function() {
           var user = firebase.auth().currentUser
           var user_uid = user.uid;
@@ -72,9 +99,8 @@ export default {
           })
         }
         */
-    }
-
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -97,7 +123,7 @@ h3 {
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   max-width: 420px;
   margin: 0 auto 100px;
   padding: 30px 45px 70px 45px;
@@ -126,16 +152,18 @@ h3 {
   width: 100%;
   border: 0;
   padding: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
   border-radius: 30px;
 }
-.form button:hover,.form button:active,.form button:focus {
+.form button:hover,
+.form button:active,
+.form button:focus {
   background: black;
-  transform: scale(1.05)
+  transform: scale(1.05);
 }
 
 .form .message {
@@ -155,7 +183,8 @@ h3 {
   max-width: 300px;
   margin: 0 auto;
 }
-.container:before, .container:after {
+.container:before,
+.container:after {
   content: "";
   display: block;
   clear: both;
@@ -180,8 +209,6 @@ h3 {
   text-decoration: none;
 }
 .container .info span .fa {
-  color: #EF3B3A;
+  color: #ef3b3a;
 }
-
-
 </style>
