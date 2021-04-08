@@ -13,29 +13,31 @@
       </div>
     </div>
     <div class="fav-review">
-        <div class="fav-review-sub">
-          <button class = "fav-review-button" v-on:click="showShop()">♡</button>
-          <div class="head-text">Favourite shops</div>
-          <div class="sub-text">{{ this.total_fav }} shops</div>
-        </div>
+      <div class="fav-review-sub">
+        <button class="fav-review-button" v-on:click="showShop()">♡</button>
+        <div class="head-text">Favourite shops</div>
+        <div class="sub-text">{{ this.total_fav }} shops</div>
+      </div>
 
-        <div class="fav-review-sub">
-          <button class = "fav-review-button" v-on:click="showReview()">☆</button>
-          <div class="head-text">Past reviews</div>
-          <div class="sub-text">{{ this.total_rev }} review</div>
-        </div>
+      <div class="fav-review-sub">
+        <button class="fav-review-button" v-on:click="showReview()">☆</button>
+        <div class="head-text">Past reviews</div>
+        <div class="sub-text">{{ this.total_rev }} review</div>
+      </div>
     </div>
 
     <div id="details">
-      <div id="shops" v-show="this.showShops">
-        <div v-for="shopID in favs" v-bind:key="shopID">
-          <Favourite v-bind:shopID="shopID" />
+      <div class="not-empty">
+        <div id="shops" v-show="this.showShops">
+          <div v-for="shopID in favs" v-bind:key="shopID">
+            <Favourite v-bind:shopID="shopID" />
+          </div>
         </div>
-      </div>
 
-      <div id="reviews" v-show="this.showReviews">
-        <div v-for="review in revs" v-bind:key="review.UID">
-          <Review v-bind:rev="review" />
+        <div id="reviews" v-show="this.showReviews">
+          <div v-for="review in revs" v-bind:key="review.UID">
+            <Review v-bind:rev="review" />
+          </div>
         </div>
       </div>
 
@@ -74,7 +76,7 @@ export default {
       image: "",
       favs: [],
       revs: [],
-      showShops: true,
+      showShops: false,
       showReviews: false,
       name: "",
       total_fav: 0,
@@ -91,12 +93,12 @@ export default {
   },
 
   methods: {
-    checkLogin: function() {
-        if (firebase.auth().currentUser) {
-          this.signedIn = true;
-          this.userID = firebase.auth().currentUser.uid;
-        }
-      },     
+    checkLogin: function () {
+      if (firebase.auth().currentUser) {
+        this.signedIn = true;
+        this.userID = firebase.auth().currentUser.uid;
+      }
+    },
 
     fetchItems() {
       db.collection("Users")
@@ -124,7 +126,7 @@ export default {
     },
 
     edit() {
-      this.$router.push({ name: "edit", params: { userID: this.userID } });
+      this.$router.push({ path: "edit", params: { userID: this.userID } });
     },
   },
 
@@ -133,9 +135,8 @@ export default {
     if (this.signedIn) {
       this.fetchItems();
     } else {
-      this.$router.push({path: '/login'})
+      this.$router.push({ path: "/login" });
     }
-    
   },
 };
 </script>
@@ -145,23 +146,12 @@ export default {
   text-align: center;
 }
 
-.links {
-  text-align: left;
-  padding-left: 10%;
-  padding-bottom: 20px;
-}
-
-#profile {
-  color: black;
-}
-
 /*user*/
 .top-profile {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .profile-pic {
   border-radius: 50%;
   width: 150px;
@@ -170,67 +160,58 @@ export default {
 .profile-info {
   margin-left: 30px;
 }
-.edit {
-  background-color: white;
-  color: black;
-  border-radius: 30px;
-}
-
 .profile-name {
   font-size: 30px;
   margin-right: 5px;
   font-weight: bolder;
 }
-
-/*history*/
-
-.show {
-  width: 120px;
-  height: 80px;
-  border-radius: 25px;
+.edit {
+  background-color: #919191;
+  color: black;
+  border-radius: 30px;
 }
 
-.title {
-  font-weight: bold;
-}
-
+/*button*/
 .fav-review {
-  margin-top:50px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-/*shops*/
-#shopButton {
-
+.fav-review-sub {
+  margin-left: 10px;
+  margin-right: 10px;
 }
-
+.fav-review-button {
+  width: 125px;
+  height: 75px;
+  font-size: 30px;
+  border-radius: 30px;
+  border: 0;
+}
+.fav-review-button:hover,
+.fav-review-button:focus,
+.fav-review-button:active {
+  border: black solid 1px;
+}
 .head-text {
   font-weight: bold;
   text-align: center;
 }
-
 .sub-text {
   text-align: center;
 }
-/*reviews*/
-#reviewButton {
 
+/*details*/
+.not-empty {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
 }
-
-.fav-review-button {
-  width:125px;
-  height:75px;
-  font-size: 30px;
-  border-radius: 30px;
-
+#shops {
+  width: 350px;
 }
-
-.fav-review-sub {
-  margin-left:10px;
-  margin-right:10px;
+#reviews {
+  flex: 50%;
 }
-
-
 </style>

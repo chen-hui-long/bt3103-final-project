@@ -1,6 +1,6 @@
 <template>
   <div id="favourite">
-    <!-- img id="img2" v-bind:src="this.image2"> -->
+    <img id="img2" v-bind:src="this.image2">
 
     <div id="shopDetails">
       <img id="img1" v-bind:src="this.image1" />
@@ -82,36 +82,40 @@ export default {
   overflow: auto;
   margin: 10px 10px 25px 25px;
   border-radius: 12px;
+  
 }
 
 #img2 {
   width: 100%;
-  text-align: left;
+  height: 320px;
+  object-fit: cover;
 }
 
 #img1 {
   float: left;
-  width: 20%;
-  padding: 15px;
-  padding-right: 35px;
+  width: 100px;
+
 }
 
-#name {
+.name {
   padding: 15px;
   color: rgb(179, 149, 110);
   text-decoration: underline;
   text-align: left;
-  font-size: 20px;
+  font-size: 15px;
   letter-spacing: 1px;
 }
 
 #rating {
   float: left;
-  padding-bottom: 10px;
 }
 
 #fav {
-  text-align: right;
-  padding-right: 20px;
+    line-height: 40px;
+    font-size: 20px;
+    font-family: system-ui;
+    font-weight: 500;  
+    text-align: right;
+    padding-right: 20px;
 }
 </style>
