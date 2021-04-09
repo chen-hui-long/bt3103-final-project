@@ -170,7 +170,7 @@ export default {
                   ),
                 });
               document.getElementById("fav1").innerHTML =
-                "<span style='color: #ff0000;'>♥</span>";
+                "<span style='color: #a52a2a;'>♥</span>";
             }
           });
       }
@@ -189,8 +189,8 @@ export default {
           .then((doc) => {
             if (doc.data().favourite.includes(this.curr_product_id)) {
               document.getElementById("fav1").innerHTML =
-                "<span style='color; #ff0000;'>♥</span>";
-              document.getElementById("fav1").style.color = "#DC143C";
+                "<span style='color: #a52a2a;'>♥</span>";
+              document.getElementById("fav1").style.color = "#a52a2a;";
               this.fav_shop = true;
             }
           });

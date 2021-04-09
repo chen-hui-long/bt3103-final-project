@@ -2,7 +2,7 @@
   <div class="review-wrapper">
     <div><h3>Review this shop</h3></div>
     <form>
-      <input type="text" placeholder="Leave a review here" v-model="review" />
+      <textarea type="obs" placeholder="Leave a review here" v-model="review" />
 
       <div class="ratings">
         <span><h3>Ratings:</h3></span>
@@ -19,8 +19,9 @@
             v-model="this.rating"
           ></star-rating
         ></span>
+      
         <button type="submit" v-on:click.prevent="submit">Submit</button>
-      </div>
+        </div>
     </form>
 
     <div class="reviews">
@@ -44,7 +45,6 @@
       ></span>
       <hr />
 
-      <p style="color: red">insert sort on the top right</p>
       <div id="sorting">
         Sort by:
         <select id="sort" v-model="sort_by">
@@ -86,6 +86,7 @@ export default {
       review: "",
       sort_by: "new",
       reviews_unsorted: [],
+      owner: "",
     };
   },
   components: {
@@ -108,6 +109,7 @@ export default {
           this.reviews_unsorted = snapshot.data().reviews;
           console.log(this.reviews_unsorted);
           this.total_reviews = snapshot.data().total_ratings_by_users;
+          this.owner = snapshot.data().owner;
         });
     },
 
@@ -150,69 +152,79 @@ export default {
       if (!firebase.auth().currentUser) {
         this.$router.push({ path: "/login" });
       } else {
-        //if user has review the shop, user cannot review it again
-        database
-          .collection("Users")
-          .doc(firebase.auth().currentUser.uid)
-          .get()
-          .then((snapshot) => {
-            var reviews_arr = snapshot.data().reviews;
-            var reviewed = false;
-            for (var i = 0; i < reviews_arr.length; i++) {
-              var curr_UID = reviews_arr[i].UID;
-              if (curr_UID == this.docID) {
-                reviewed = true;
-                this.$swal({
-                  icon: "error",
-                  text:
-                    "You have already reviewed this bakery in the past 3 months.",
-                  confirmButtonColor: "#000000",
-                });
-              }
-            }
-
-            //if curr havent review the user before
-            if (!reviewed) {
-              database
-                .collection("Users")
-                .doc(firebase.auth().currentUser.uid)
-                .update({
-                  reviews: firebase.firestore.FieldValue.arrayUnion({
-                    UID: this.docID,
-                    rating: this.rating,
-                    review: this.review,
-                    time: Date(),
-                  }),
-                });
-              database
-                .collection("Users")
-                .doc(firebase.auth().currentUser.uid)
-                .update({
-                  total_review: firebase.firestore.FieldValue.increment(1),
-                });
-              var rating_number = parseInt(this.rating);
-              database
-                .collection("bakeriesNew")
-                .doc(this.docID)
-                .update({
-                  reviews: firebase.firestore.FieldValue.arrayUnion({
-                    user_id: firebase.auth().currentUser.uid,
-                    rating: this.rating,
-                    review: this.review,
-                    time: Date(),
-                  }),
-                  total_ratings_by_users: firebase.firestore.FieldValue.increment(
-                    1
-                  ),
-                  review_users: firebase.firestore.FieldValue.arrayUnion(
-                    firebase.auth().currentUser.uid
-                  ),
-                  [`ratings.${rating_number}`]: firebase.firestore.FieldValue.increment(
-                    1
-                  ),
-                });
-            }
+        //if the current user is the owner, he cannot review
+        if (this.owner == firebase.auth().currentUser.uid) {
+          this.$swal({
+            icon: "error",
+            text: "You are not allowed to leave review for your own listing",
+            confirmButtonColor: "#000000",
           });
+        } else {
+          //if user has review the shop, user cannot review it again
+          database
+            .collection("Users")
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then((snapshot) => {
+              var reviews_arr = snapshot.data().reviews;
+              var reviewed = false;
+              for (var i = 0; i < reviews_arr.length; i++) {
+                var curr_UID = reviews_arr[i].UID;
+                if (curr_UID == this.docID) {
+                  reviewed = true;
+                  this.$swal({
+                    icon: "error",
+                    text:
+                      "You have already reviewed this bakery in the past 3 months.",
+                    confirmButtonColor: "#000000",
+                  });
+                }
+              }
+
+              //if curr havent review the user before
+              if (!reviewed) {
+                database
+                  .collection("Users")
+                  .doc(firebase.auth().currentUser.uid)
+                  .update({
+                    reviews: firebase.firestore.FieldValue.arrayUnion({
+                      UID: this.docID,
+                      rating: this.rating,
+                      review: this.review,
+                      time: Date(),
+                    }),
+                  });
+                database
+                  .collection("Users")
+                  .doc(firebase.auth().currentUser.uid)
+                  .update({
+                    total_review: firebase.firestore.FieldValue.increment(1),
+                  });
+                var rating_number = parseInt(this.rating);
+                database
+                  .collection("bakeriesNew")
+                  .doc(this.docID)
+                  .update({
+                    reviews: firebase.firestore.FieldValue.arrayUnion({
+                      user_id: firebase.auth().currentUser.uid,
+                      rating: this.rating,
+                      review: this.review,
+                      time: Date(),
+                    }),
+                    total_ratings_by_users: firebase.firestore.FieldValue.increment(
+                      1
+                    ),
+                    review_users: firebase.firestore.FieldValue.arrayUnion(
+                      firebase.auth().currentUser.uid
+                    ),
+                    [`ratings.${rating_number}`]: firebase.firestore.FieldValue.increment(
+                      1
+                    ),
+                  });
+                location.reload();
+              }
+            });
+        }
       }
     },
   },
@@ -230,11 +242,11 @@ export default {
         });
       } else if (this.sort_by == "new") {
         sorted.sort(function (a, b) {
-          return new Date(b.time) - new Date(a.time)
+          return new Date(b.time) - new Date(a.time);
         });
       } else if (this.sort_by == "old") {
         sorted.sort(function (a, b) {
-          return new Date(a.time) - new Date(b.time)
+          return new Date(a.time) - new Date(b.time);
         });
       }
       return sorted;
@@ -249,20 +261,21 @@ export default {
 </script>
 
 <style scoped>
-input {
+textarea {
   width: 750px;
-  height: 150px;
-  border-radius: 15px;
-  align-items: center;
-  font-size: 18px;
+  height: 145px;
+  border-radius: 20px;
+  font-size: 20px;
   text-indent: 15px;
   border: none;
-  background-color: rgba(236, 235, 235, 0.733);
+  resize: none;
+  background-color: rgba(236, 235, 235, 0.555);
+  padding-top: 15px;
 }
 
 .ratings {
   display: flex;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .stars {
@@ -274,17 +287,19 @@ button {
   border: none;
   background-color: #bbbbbb;
   border-radius: 15px;
-  font-size: 1em;
+  font-size: 1.2em;
   height: 40px;
   display: inline-block;
   width: fit-content;
   padding: 0 30px;
-  margin-left: 400px;
+  margin-left: 380px;
+  margin-top: 35px;
   cursor: pointer;
 }
 
 .reviews > span {
   display: inline-flex;
+  margin-top: 30px;
 }
 
 hr {
@@ -305,4 +320,17 @@ hr {
   color: rgb(101, 101, 101);
   text-decoration: underline;
 }
+
+#sorting {
+  margin-left: 450px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+#sort {
+  border: none;
+  outline-style: none;
+  cursor: pointer;
+}
+
 </style>

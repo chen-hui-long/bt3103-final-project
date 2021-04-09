@@ -7,15 +7,15 @@
       <header>Edit your listing</header>
       <div class="form">
         <form class="register-form">
-          Shop name:
+          Shop name*:
           <input type="text" v-model="shop_name" placeholder="Shop name" />
-          Short description of business and specialties:
+          Short description of business and specialties*:
           <input
             type="text"
             v-model="short_desc"
             placeholder="Short description"
           />
-          Product types:
+          Product types*:
           <Multiselect
             v-on:input="clickMulti($event)"
             v-bind:value="type"
@@ -52,7 +52,7 @@
               v-model="dietary"
           /></label>
           <br />
-          Deal Options:
+          Deal Options*:
           <br />
           <label id="checkbox-block"
             >Delivery<input
@@ -68,8 +68,15 @@
               value="Self Pick-Up"
               v-model="deal_options"
           /></label>
+
           <br />
-          Location:
+          Delivery/Self Pick-Up Details*:
+          <br />
+          (fees, locations, etc.)
+          <input type="text" v-model="order_details" />
+
+          <br />
+          Location*:
           <br />
           <select id="location" v-model="location">
             <option value="Central" selected>Central</option>
@@ -140,13 +147,6 @@
             </div>
           </div>
           <br />
-          Order Details:
-          <input
-            type="text"
-            v-model="order_details"
-            placeholder="Give a short description of order, eg. min order etc"
-          />
-          <br />
           <div id="changes">
             <button id="deletebtn" v-on:click.prevent="confirm_delete">
               Delete Listing
@@ -214,6 +214,7 @@ export default {
           this.facebook = doc.data().facebook;
           this.instagram = doc.data().instagram;
           this.order_details = doc.data().order_details;
+          console.log(this.order_details);
           this.imageData1 = doc.data().images[0];
           this.imageData2 = doc.data().images[1];
           this.imageData3 = doc.data().images[2];
@@ -275,36 +276,44 @@ export default {
     },
 
     save: function () {
-      db.collection("bakeriesNew")
-        .doc(this.userID)
-        .update({
-          shop_name: this.shop_name,
-          short_desc: this.short_desc,
-          type: this.type,
-          dietary: this.dietary,
-          deal_options: this.deal_options,
-          location: this.location,
-          business_email: this.business_email,
-          official_website: this.official_website,
-          facebook: this.facebook,
-          instagram: this.instagram,
-          images: [
-            this.imageData1,
-            this.imageData2,
-            this.imageData3,
-            this.imageData4,
-          ],
-          order_details: this.order_details,
-        })
-        .then(() => {
-          this.$swal({
-            icon: "success",
-            text: "Listing updated",
-            confirmButtonColor: "#000000",
-          }).then(() => {
-            this.$router.push({ path: "/sellerprofile"});
-          })
+      if (!this.check_allfilled()) {
+        this.$swal.fire({
+          icon: "error",
+          title: "Please check all required field are filled",
+          confirmButtonColor: "#000000",
         });
+      } else {
+        db.collection("bakeriesNew")
+          .doc(this.userID)
+          .update({
+            shop_name: this.shop_name,
+            short_desc: this.short_desc,
+            type: this.type,
+            dietary: this.dietary,
+            deal_options: this.deal_options,
+            location: this.location,
+            business_email: this.business_email,
+            official_website: this.official_website,
+            facebook: this.facebook,
+            instagram: this.instagram,
+            images: [
+              this.imageData1,
+              this.imageData2,
+              this.imageData3,
+              this.imageData4,
+            ],
+            order_details: this.order_details,
+          })
+          .then(() => {
+            this.$swal({
+              icon: "success",
+              text: "Listing updated",
+              confirmButtonColor: "#000000",
+            }).then(() => {
+              this.$router.push({ path: "/sellerprofile" });
+            });
+          });
+      }
     },
 
     delete_action: function () {
@@ -371,7 +380,7 @@ export default {
         .then(() => {
           this.$swal({
             text: "Listing Deleted",
-            icon:"success",
+            icon: "success",
             confirmButtonColor: "#000000",
           }).then(() => {
             this.$router.push({ path: "/profile" });
@@ -408,6 +417,21 @@ export default {
             this.delete_action();
           }
         });
+    },
+
+    check_allfilled() {
+      if (
+        this.shop_name == "" ||
+        this.short_desc == "" ||
+        this.type == [] ||
+        this.deal_options == [] ||
+        this.location == "" ||
+        this.order_details == ""
+      ) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
 

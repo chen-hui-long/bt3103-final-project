@@ -17,8 +17,15 @@
         </div>
 
         <div class="product-content">
+
+            <div class="left-wrapper">
             <div class="product-content-left">
             <image-slider v-bind:images = "images" :curr_product_id = "docID" :curr_user = "curr_user"></image-slider>
+            </div>
+
+            <div class="review">
+            <reviews></reviews>
+            </div>
             </div>
 
             
@@ -51,12 +58,16 @@
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
                
-                <div class="wrapper">
+                <div class="wrapper" v-show="this.bakery[0].dietary != ''">
                 <div class="description-box" v-for="(diet, index) in bakery[0].dietary" :key="index">
                 <ul class="description1">
                     <li>{{diet}}</li>
                 </ul>
                 </div>
+                </div>
+
+                <div class="wrapper" v-show="this.bakery[0].dietary == ''">
+                <div class="description-box"><ul><li>No special dietary requirements</li></ul></div>
                 </div>
                 </span>
 
@@ -71,8 +82,12 @@
                 <span v-if='isActive3'>
                 <button class="arrow" v-bind:class="{active:isActive3}" @click="toggle3()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
-                <div class="wrapper">
+                <div class="wrapper" v-show="this.bakery[0].order_details != ''">
                 <div style="float:left;" class="description-box"><p class="description1">{{this.bakery[0].order_details}}</p></div>
+                </div>
+
+                <div class="wrapper" v-show="this.bakery[0].order_details == ''">
+                <div class="description-box"><p><i>Contact seller for more information</i></p></div>
                 </div>
                 </span>
 
@@ -82,16 +97,35 @@
             </div>
 
             <div class="ig">
-                <p style="font-weight:bold;">IG:</p>
-                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.instagram}} </a>
+                <div v-show="this.instagram != '' ">
+                <span style="font-weight:bold;">IG:</span>
+                <a :href= "'https://www.instagram.com/' + this.instagram" class="description-box">@{{this.instagram}} </a>
+                </div>
             </div>
-    
-            </div>
-            </div>
-        </div>
 
-        <div class="review">
-        <reviews></reviews>
+            <div class="fb">
+                <div v-show="this.bakery[0].facebook != ''">
+                <span style="font-weight:bold;">FB:</span>
+                <a :href= this.bakery[0].facebook class="description-box">{{this.bakery[0].facebook}} </a>
+                </div>
+            </div>
+
+            <div class="website">
+                <div v-show="this.bakery[0].official_website != '' ">
+                <span style="font-weight:bold;">Website:</span>
+                <a :href= this.bakery[0].official_website class="description-box">{{this.bakery[0].official_website}} </a>
+                </div>
+            </div>
+            
+            <div class="email">
+                <div v-show="this.bakery[0].business_email != '' ">
+                <span style="font-weight:bold;">Email:</span>
+                <a class="description-box">{{this.bakery[0].business_email}} </a>
+                </div>
+            </div>
+
+            </div>
+            </div>
         </div>
 
   </body>
@@ -204,12 +238,13 @@ ul.breadcrumb li a {
 }
 
 .product-content-left{
-    flex: 0 0 840px;
-    margin-left: 50px;
+    /*flex: 0 0 500px;*/
+    margin-left: 80px;
     display:flex;
 }
 
 .product-content-right{
+    margin-left: 100px;
     display:block;
 }
 
@@ -222,7 +257,7 @@ ul.breadcrumb li a {
 }
 
 .delivery {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .ig {
@@ -236,6 +271,42 @@ ul.breadcrumb li a {
     margin-left: 10px;
 }
 
+.fb {
+    display:flex;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.fb a{
+    color:#a19090;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.website {
+    display:flex;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.website a{
+    color:#a19090;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.email {
+    display:flex;
+    font-size: 18px;
+    margin-top:10px;
+}
+
+.email a{
+    color:#a19090;
+    margin-top: 15px;
+    margin-left: 10px;
+    text-decoration: underline;
+}
 
 .arrow {
     background: none;
@@ -264,7 +335,9 @@ ul.breadcrumb li a {
     margin-bottom:40px;
 }
 
-
+.description-box {
+    font-size: 18px;
+}
 .wrapper {
     color:black;
     display: inline-block;
@@ -272,7 +345,7 @@ ul.breadcrumb li a {
 }
 
 .review{
-    margin-top: 150px;
+    margin-top: 200px;
     margin-left: 50px;
 }
 </style>
