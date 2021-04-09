@@ -10,14 +10,19 @@
       <div id="image-upload-div">
         <div id="title">Upload your image:</div>
         <input id="text" type="file" @change="changeImage" accept="image/*" />
-        <br><img v-if="this.image" :src="image" />
+        <br /><img v-if="this.image" :src="image" />
         <img v-else :src="this.image" />
       </div>
 
       <div id="name-update">
-      <label id="title">Name: </label><br>
-      <input id="text" type="text" v-model="name" placeholder="Name" /><br><br>
-      <button id="update" v-on:click="save">UPDATE</button>
+        <label id="title">Name: </label><br />
+        <input
+          id="text"
+          type="text"
+          v-model="name"
+          placeholder="Name"
+        /><br /><br />
+        <button id="update" v-on:click.prevent="save">UPDATE</button>
       </div>
     </form>
   </div>
@@ -67,9 +72,14 @@ export default {
           image: this.image,
         })
         .then(() => {
-          alert("Update successfully!");
+          this.$swal({
+            icon: "success",
+            text: "Updated Successfully",
+            confirmButtonColor: "#000000",
+          }).then(() => {
+            this.$router.push({path:"/profile"})
+          });
         });
-      this.$router.push({ path: "/profile" });
     },
   },
 
@@ -98,7 +108,7 @@ export default {
   font-weight: bold;
 }
 #text {
-  width:400px;
+  width: 400px;
 }
 
 #image-upload-div {
@@ -135,7 +145,7 @@ img {
 
 #update {
   background-color: black;
-  color:white;
+  color: white;
   cursor: pointer;
   padding: 5px 30px;
   border-radius: 6px;

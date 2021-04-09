@@ -86,14 +86,14 @@
             </div>
 
             <div class="ig">
-                <div v-show="this.instagram != '-' ">
+                <div v-show="this.instagram != '' ">
                 <span style="font-weight:bold;">IG:</span>
                 <a :href= "'https://www.instagram.com/' + this.instagram" class="description-box">@{{this.instagram}} </a>
                 </div>
             </div>
 
             <div class="fb">
-                <div v-show="this.bakery[0].facebook != '-' || this.bakery[0].facebook != ''">
+                <div v-show="this.bakery[0].facebook != '' || this.bakery[0].facebook != ''">
                 <span style="font-weight:bold;">FB:</span>
                 <a :href= this.bakery[0].facebook class="description-box">{{this.bakery[0].facebook}} </a>
                 </div>

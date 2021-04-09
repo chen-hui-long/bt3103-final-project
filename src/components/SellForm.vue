@@ -7,16 +7,18 @@
       <header>Complete the form and start selling today!</header>
       <div class="form">
         <form class="register-form">
-          <b>Shop Name:</b>
+          <b>Shop Name*:
+          </b>
           <input
             type="text"
             :style="nameClicked ? { 'border-color': 'black' } : null"
             v-model="shop_name"
             placeholder="Shop Name"
             v-on:click="toggleIsClicked1"
+            maxlength="50"
           />
 
-          <b>Short description of business and specialties:</b>
+          <b>Short description of business and specialties*:</b>
           <input
             type="text"
             :style="descClicked ? { 'border-color': 'black' } : null"
@@ -25,7 +27,7 @@
             v-on:click="toggleIsClicked2"
           />
 
-          <b>Product types:</b>
+          <b>Product types*:</b>
           <Multiselect v-on:input="clickMulti($event)"></Multiselect>
           <br />
 
@@ -61,7 +63,7 @@
           /></label>
           <br />
 
-          <b>Deal Options:</b>
+          <b>Deal Options*:</b>
           <br />
           <label id="checkbox-block"
             >Delivery<input
@@ -79,7 +81,7 @@
           /></label>
           <br />
 
-          <b>Delivery/Self Pick-Up Details:</b>
+          <b>Delivery/Self Pick-Up Details*:</b>
           <br />
           (fees, locations, etc.)
           <input
@@ -91,7 +93,7 @@
           />
           <br />
 
-          <b>Location:</b>
+          <b>Location*:</b>
           <br />
           <select id="location" v-model="location">
             <option value="Central" selected>Central</option>
@@ -196,10 +198,14 @@ export default {
       official_website: "",
       facebook: "",
       instagram: "",
-      imageData1: "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
-      imageData2: "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
-      imageData3: "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
-      imageData4: "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      imageData1:
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+      imageData2:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      imageData3:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      imageData4:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
       order_details: "",
       userID: firebase.auth().currentUser.uid,
     };
@@ -207,44 +213,52 @@ export default {
 
   methods: {
     register: function () {
-      this.updateToSeller();
-      db.collection("bakeriesNew")
-        .doc(this.userID)
-        .set({
-          shop_name: this.shop_name,
-          short_desc: this.short_desc,
-          type: this.type,
-          dietary: this.dietary,
-          deal_options: this.deal_options,
-          location: this.location,
-          business_email: this.business_email,
-          official_website: this.official_website,
-          facebook: this.facebook,
-          instagram: this.instagram,
-          images: [
-            this.imageData1,
-            this.imageData2,
-            this.imageData3,
-            this.imageData4,
-          ],
-          order_details: this.order_details,
-          ratings: { 0: 1, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
-          total_ratings_by_users: 0,
-          total_favourites_by_users: 0,
-          owner: this.userID,
-          reviews: [],
-          favourite_users: [],
-          review_users: [],
-        })
-        .then(() => {
-          this.$swal({
-            icon: "success",
-            text: "Listing Created!",
-            confirmButtonColor: "#000000",
-          }).then(() => {
-            this.$router.push({ path: "/sellerprofile" });
-          });
+      if (!this.check_allfilled()) {
+        this.$swal.fire({
+          icon: "error",
+          title: "Please check all required field are filled",
+          confirmButtonColor: "#000000",
         });
+      } else {
+        this.updateToSeller();
+        db.collection("bakeriesNew")
+          .doc(this.userID)
+          .set({
+            shop_name: this.shop_name,
+            short_desc: this.short_desc,
+            type: this.type,
+            dietary: this.dietary,
+            deal_options: this.deal_options,
+            location: this.location,
+            business_email: this.business_email,
+            official_website: this.official_website,
+            facebook: this.facebook,
+            instagram: this.instagram,
+            images: [
+              this.imageData1,
+              this.imageData2,
+              this.imageData3,
+              this.imageData4,
+            ],
+            order_details: this.order_details,
+            ratings: { 0: 1, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+            total_ratings_by_users: 0,
+            total_favourites_by_users: 0,
+            owner: this.userID,
+            reviews: [],
+            favourite_users: [],
+            review_users: [],
+          })
+          .then(() => {
+            this.$swal({
+              icon: "success",
+              text: "Listing Created!",
+              confirmButtonColor: "#000000",
+            }).then(() => {
+              this.$router.push({ path: "/sellerprofile" });
+            });
+          });
+      }
     },
 
     updateToSeller: function () {
@@ -369,6 +383,21 @@ export default {
       this.type = [];
       for (var i = 0; i < event.length; i++) {
         this.type.push(event[i].type);
+      }
+    },
+
+    check_allfilled() {
+      if (
+        this.shop_name == "" ||
+        this.short_desc == "" ||
+        this.type == [] ||
+        this.deal_options == [] ||
+        this.location == "" ||
+        this.order_details == ""
+      ) {
+        return false;
+      } else {
+        return true;
       }
     },
   },
@@ -509,6 +538,8 @@ header {
 
 #image-upload-div {
   width: 25%;
+  margin-right: 5px;
+  margin-left: 5px;
   align-items: center;
 }
 
