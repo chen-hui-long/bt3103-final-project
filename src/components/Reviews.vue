@@ -85,6 +85,7 @@ export default {
       review: "",
       sort_by: "new",
       reviews_unsorted: [],
+      owner: "",
     };
   },
   components: {
@@ -107,6 +108,7 @@ export default {
           this.reviews_unsorted = snapshot.data().reviews;
           console.log(this.reviews_unsorted);
           this.total_reviews = snapshot.data().total_ratings_by_users;
+          this.owner = snapshot.data().owner;
         });
     },
 
@@ -149,69 +151,79 @@ export default {
       if (!firebase.auth().currentUser) {
         this.$router.push({ path: "/login" });
       } else {
-        //if user has review the shop, user cannot review it again
-        database
-          .collection("Users")
-          .doc(firebase.auth().currentUser.uid)
-          .get()
-          .then((snapshot) => {
-            var reviews_arr = snapshot.data().reviews;
-            var reviewed = false;
-            for (var i = 0; i < reviews_arr.length; i++) {
-              var curr_UID = reviews_arr[i].UID;
-              if (curr_UID == this.docID) {
-                reviewed = true;
-                this.$swal({
-                  icon: "error",
-                  text:
-                    "You have already reviewed this bakery in the past 3 months.",
-                  confirmButtonColor: "#000000",
-                });
-              }
-            }
-
-            //if curr havent review the user before
-            if (!reviewed) {
-              database
-                .collection("Users")
-                .doc(firebase.auth().currentUser.uid)
-                .update({
-                  reviews: firebase.firestore.FieldValue.arrayUnion({
-                    UID: this.docID,
-                    rating: this.rating,
-                    review: this.review,
-                    time: Date(),
-                  }),
-                });
-              database
-                .collection("Users")
-                .doc(firebase.auth().currentUser.uid)
-                .update({
-                  total_review: firebase.firestore.FieldValue.increment(1),
-                });
-              var rating_number = parseInt(this.rating);
-              database
-                .collection("bakeriesNew")
-                .doc(this.docID)
-                .update({
-                  reviews: firebase.firestore.FieldValue.arrayUnion({
-                    user_id: firebase.auth().currentUser.uid,
-                    rating: this.rating,
-                    review: this.review,
-                    time: Date(),
-                  }),
-                  total_ratings_by_users: firebase.firestore.FieldValue.increment(
-                    1
-                  ),
-                  review_users: firebase.firestore.FieldValue.arrayUnion(
-                    firebase.auth().currentUser.uid
-                  ),
-                  [`ratings.${rating_number}`]: firebase.firestore.FieldValue.increment(
-                    1
-                  ),
-                });
-            }
+        //if the current user is the owner, he cannot review
+        if (this.owner == firebase.auth().currentUser.uid) {
+          this.$swal({
+            icon: "error",
+            text: "You are not allowed to leave review for your own listing",
+            confirmButtonColor: "#000000",
           });
+        } else {
+          //if user has review the shop, user cannot review it again
+          database
+            .collection("Users")
+            .doc(firebase.auth().currentUser.uid)
+            .get()
+            .then((snapshot) => {
+              var reviews_arr = snapshot.data().reviews;
+              var reviewed = false;
+              for (var i = 0; i < reviews_arr.length; i++) {
+                var curr_UID = reviews_arr[i].UID;
+                if (curr_UID == this.docID) {
+                  reviewed = true;
+                  this.$swal({
+                    icon: "error",
+                    text:
+                      "You have already reviewed this bakery in the past 3 months.",
+                    confirmButtonColor: "#000000",
+                  });
+                }
+              }
+
+              //if curr havent review the user before
+              if (!reviewed) {
+                database
+                  .collection("Users")
+                  .doc(firebase.auth().currentUser.uid)
+                  .update({
+                    reviews: firebase.firestore.FieldValue.arrayUnion({
+                      UID: this.docID,
+                      rating: this.rating,
+                      review: this.review,
+                      time: Date(),
+                    }),
+                  });
+                database
+                  .collection("Users")
+                  .doc(firebase.auth().currentUser.uid)
+                  .update({
+                    total_review: firebase.firestore.FieldValue.increment(1),
+                  });
+                var rating_number = parseInt(this.rating);
+                database
+                  .collection("bakeriesNew")
+                  .doc(this.docID)
+                  .update({
+                    reviews: firebase.firestore.FieldValue.arrayUnion({
+                      user_id: firebase.auth().currentUser.uid,
+                      rating: this.rating,
+                      review: this.review,
+                      time: Date(),
+                    }),
+                    total_ratings_by_users: firebase.firestore.FieldValue.increment(
+                      1
+                    ),
+                    review_users: firebase.firestore.FieldValue.arrayUnion(
+                      firebase.auth().currentUser.uid
+                    ),
+                    [`ratings.${rating_number}`]: firebase.firestore.FieldValue.increment(
+                      1
+                    ),
+                  });
+                location.reload();
+              }
+            });
+        }
       }
     },
   },
@@ -229,11 +241,11 @@ export default {
         });
       } else if (this.sort_by == "new") {
         sorted.sort(function (a, b) {
-          return new Date(b.time) - new Date(a.time)
+          return new Date(b.time) - new Date(a.time);
         });
       } else if (this.sort_by == "old") {
         sorted.sort(function (a, b) {
-          return new Date(a.time) - new Date(b.time)
+          return new Date(a.time) - new Date(b.time);
         });
       }
       return sorted;
@@ -307,7 +319,7 @@ hr {
 
 #sorting {
   margin-left: 450px;
-  font-weight:bold;
+  font-weight: bold;
   margin-bottom: 30px;
 }
 
