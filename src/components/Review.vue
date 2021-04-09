@@ -99,9 +99,8 @@ export default {
 
 img {
   float: left;
-  width: 20%;
+  width: 150px;
   padding: 15px;
-  padding-right: 35px;
 }
 
 #name {
@@ -109,11 +108,16 @@ img {
   color: rgb(179, 149, 110);
   text-decoration: underline;
   text-align: left;
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 1px;
 }
 
 #fav {
+    line-height: 40px;
+    font-size: 20px;
+    font-family: system-ui;
+    font-weight: 500;  
+
   text-align: right;
   padding-right: 20px;
 }
