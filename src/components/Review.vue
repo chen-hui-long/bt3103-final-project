@@ -68,7 +68,6 @@ export default {
         .then((snapshot) => {
           this.image = snapshot.data().images[0];
           this.shopName = snapshot.data().shop_name;
-          this.total_ratings = snapshot.data().total_ratings_by_users;
         });
     },
 

@@ -56,12 +56,18 @@ export default {
           this.image1 = data.images[0];
           this.image2 = data.images[1];
           this.shopName = data.shop_name;
-          /*
-                include a function to calculate average rating?
-                this.rating = data.avgRating
-                */
-          this.reviewsNum = data.total_ratings_by_users;
+          this.rating = this.calAvgRating(snapshot.data().ratings, snapshot.data().total_ratings_by_users);
         });
+    },
+
+    calAvgRating(rating, total_ratings) {
+      var total_rating = rating[0] * 0 + rating[1] * 1 + rating[2] * 2 + rating[3] * 3 + rating[4] * 4 + rating[5] * 5;
+      if (total_ratings == 0) {
+        return 0;
+      } else {
+        var avg = total_rating / total_ratings;
+        return Math.round(avg * 10) / 10;
+      }
     },
 
     toProduct() {
