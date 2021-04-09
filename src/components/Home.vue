@@ -313,7 +313,7 @@ export default {
 }
 .filter-side {
   flex: 0 0 25%;
-  padding-left: 80px;
+  padding-left: 50px;
   margin-top: 100px;
   margin-bottom: 20px;
   
@@ -338,8 +338,8 @@ li {
   font-size: 20px;
 }
 img {
-  width: 280px;
-  height: 280px;
+  width: 225px;
+  height: 225px;
   cursor: pointer;
 }
 .f1 {

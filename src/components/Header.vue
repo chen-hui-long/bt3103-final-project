@@ -2,13 +2,18 @@
   <div>
     <header>
       <nav>
-        <div class="logo"><span><router-link to="/" exact>EATSY</router-link></span></div>
-        
-        <div class="search">
-          <input type="text" placeholder="Search by keyword!" />
-          <button id = "search-icon">	&#8981;</button>
+        <div class="logo">
+          <span><router-link to="/" exact>EATSY</router-link></span>
         </div>
-        
+
+        <div class="search">
+          <input
+            type="text"
+            placeholder="Search by keyword!"
+          />
+          <button id="search-icon">&#8981;</button>
+        </div>
+
         <div v-if="signedIn" class="login">
           <ul>
             <!--li>  
@@ -16,24 +21,34 @@
             </li-->
 
             <li class="dropdown">
-              <a href='#'>Profile</a>
+              <a href="#">Profile</a>
               <div class="dropdown-content">
-              <a href="#" v-on:click ="toMyProfile" id="menu">View your profile</a>
-              <a href="#" v-on:click ="logout" id="menu">Log out</a>
+                <a href="#" v-on:click="toMyProfile" id="menu"
+                  >View your profile</a
+                >
+                <a href="#" v-on:click="logout" id="menu">Log out</a>
               </div>
             </li>
-            
-            <li id="fav"><router-link to="/favorite" exact><span id="heart-icon">♡</span></router-link></li>
+
+            <li id="fav">
+              <router-link to="/favorite" exact
+                ><span id="heart-icon">♡</span></router-link
+              >
+            </li>
             <!--li><a href ="#" v-on:click ="logout">Logout</a></li-->
           </ul>
         </div>
         <div v-else>
-        <div class="login">
-          <ul>
-            <li><router-link to="/login" exact>Login</router-link></li>
-            <li><router-link to="/favorite" exact><span id="heart-icon">♡</span></router-link></li>
-          </ul>
-        </div>
+          <div class="login">
+            <ul>
+              <li><router-link to="/login" exact>Login</router-link></li>
+              <li>
+                <router-link to="/favorite" exact
+                  ><span id="heart-icon">♡</span></router-link
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </header>
@@ -41,43 +56,46 @@
 </template>
 
 <script>
-import firebase from '@firebase/app';
-require('firebase/auth');
+import firebase from "@firebase/app";
+require("firebase/auth");
 export default {
   data() {
     return {
       signedIn: false,
-      currentUser : false,
-    }
+      currentUser: false,
+    };
   },
 
-    methods: {
-      logout: function() {
-        firebase.auth().signOut().then(() => {
-          this.$router.push('/login')
+  methods: {
+    logout: function () {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push("/login");
           this.$parent.forceRerender();
-        })
-      }, 
-      checkLogin: function() {
-        if (firebase.auth().currentUser) {
-          this.signedIn = true;
-          this.currentUser = firebase.auth().currentUser; 
-        }
-      }, 
-      toMyProfile: function() {
-        this.$router.push({path: '/profile'})
-      },
+        });
+    },
+    checkLogin: function () {
+      if (firebase.auth().currentUser) {
+        this.signedIn = true;
+        this.currentUser = firebase.auth().currentUser;
+      }
+    },
+    toMyProfile: function () {
+      this.$router.push({ path: "/profile" });
     },
 
-    created() {
-      this.checkLogin();
-    }
+  },
 
-}
+  created() {
+    this.checkLogin();
+  },
+};
 </script>
 
 <style scoped>
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -94,7 +112,7 @@ header {
   background-color: #e3dddf;
   top: 0;
   /*overflow:auto;*/
- /* position:sticky;*/
+  /* position:sticky;*/
 }
 
 nav {
@@ -105,8 +123,6 @@ nav {
   /*overflow: hidden;*/
 }
 
-
-
 .search {
   display: flex;
   width: 70%;
@@ -114,13 +130,12 @@ nav {
   padding-left: 100px;
   justify-content: center;
   position: relative;
-  
 }
 
 .search > input {
   width: 85%;
   /*width: fit-content;*/
-  padding:0 40% 0 0;
+  padding: 0 40% 0 0;
   border-radius: 15px;
   align-items: center;
   font-size: 18px;
@@ -129,9 +144,8 @@ nav {
   /*overflow:hidden;*/
   /*display:inline-block;*/
 
-  cursor:text;
+  cursor: text;
 }
-
 
 .search > button {
   border: none;
@@ -145,24 +159,24 @@ nav {
 }
 
 #search-icon {
-    transform: rotate(270deg);
-    font-size: 66px;
-    color: rgba(7, 7, 7, 0.39);
+  transform: rotate(270deg);
+  font-size: 66px;
+  color: rgba(7, 7, 7, 0.39);
 }
 
 .search > button:hover {
-    background: #d3cdcf7c;
-    transition: 0.5s;
-    border-radius: 0 0 15px 15px;
+  background: #d3cdcf7c;
+  transition: 0.5s;
+  border-radius: 0 0 15px 15px;
 }
 
 .logo {
   display: flex;
   /*width: 20%;*/
-  margin-left:50px;
+  margin-left: 50px;
   height: 50%;
   justify-content: center;
-  color:none;
+  color: none;
 }
 .logo span {
   font-size: 44px;
@@ -173,11 +187,10 @@ nav {
 
 .login {
   display: flex;
-  height:50%;
+  height: 50%;
   /*width: 30%;*/
   margin-right: 50px;
-  justify-content:space-evenly;
-  
+  justify-content: space-evenly;
 }
 
 .login ul,
@@ -185,26 +198,24 @@ nav {
   display: flex;
 }
 
-
-.login ul a{
+.login ul a {
   padding: 37px 25px;
   color: black;
   font-size: 22px;
-  font-weight:bold;
+  font-weight: bold;
   line-height: 48px;
 }
 
 .login a:hover {
   background: #d3cdcf;
   transition: 0.5s;
-  
 }
 
 #heart-icon {
-    line-height: 40px;
-    font-size: 36px;
-    font-family: system-ui;
-    font-weight: 500;  
+  line-height: 40px;
+  font-size: 36px;
+  font-family: system-ui;
+  font-weight: 500;
 }
 
 #menu {
@@ -220,7 +231,6 @@ nav {
 .dropdown {
   position: relative;
   display: inline-block;
-
 }
 
 .dropdown-content {
@@ -234,7 +244,6 @@ nav {
   box-shadow: 0px 8px 16px 0px rgba(100, 100, 100, 0.2);
   z-index: 1;
 }
-
 
 .dropdown-content a {
   float: none;
@@ -253,5 +262,4 @@ nav {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
 </style>
