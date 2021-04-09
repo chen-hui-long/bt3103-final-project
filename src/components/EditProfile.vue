@@ -17,7 +17,7 @@
       <div id="name-update">
       <label id="title">Name: </label><br>
       <input id="text" type="text" v-model="name" placeholder="Name" /><br><br>
-      <button id="update" v-on:click="save">Update</button>
+      <button id="update" v-on:click="save">UPDATE</button>
       </div>
     </form>
   </div>
