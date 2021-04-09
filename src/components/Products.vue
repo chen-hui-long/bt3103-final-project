@@ -51,12 +51,16 @@
                 <button class="arrow" v-bind:class="{active:isActive2}" @click="toggle2()"><font-awesome-icon icon="angle-up" /></button>
                 <br>
                
-                <div class="wrapper">
+                <div class="wrapper" v-show="this.bakery[0].dietary != ''">
                 <div class="description-box" v-for="(diet, index) in bakery[0].dietary" :key="index">
                 <ul class="description1">
                     <li>{{diet}}</li>
                 </ul>
                 </div>
+                </div>
+
+                <div class="wrapper" v-show="this.bakery[0].dietary == ''">
+                <div class="description-box"><p><i>Find out yourself from their social media!</i></p></div>
                 </div>
                 </span>
 
@@ -82,10 +86,27 @@
             </div>
 
             <div class="ig">
-                <p style="font-weight:bold;">IG:</p>
-                <a :href= "'https://www.instagram.com/' + this.bakery[0].instagram" class="description">@{{this.instagram}} </a>
+                <div v-show="this.instagram != '-' ">
+                <span style="font-weight:bold;">IG:</span>
+                <a :href= "'https://www.instagram.com/' + this.instagram" class="description-box">@{{this.instagram}} </a>
+                </div>
             </div>
-    
+
+            <div class="fb">
+                <div v-show="this.bakery[0].facebook != '-' || this.bakery[0].facebook != ''">
+                <span style="font-weight:bold;">FB:</span>
+                <a :href= this.bakery[0].facebook class="description-box">{{this.bakery[0].facebook}} </a>
+                </div>
+            </div>
+
+            <div class="email">
+                <div v-show="this.bakery[0].business_email != '-' ">
+                <span style="font-weight:bold;">Email:</span>
+                <a class="description-box">{{this.bakery[0].business_email}} </a>
+                </div>
+            </div>
+
+            
             </div>
             </div>
         </div>
@@ -222,7 +243,7 @@ ul.breadcrumb li a {
 }
 
 .delivery {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .ig {
@@ -236,6 +257,30 @@ ul.breadcrumb li a {
     margin-left: 10px;
 }
 
+.fb {
+    display:flex;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.fb a{
+    color:#a19090;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.email {
+    display:flex;
+    font-size: 18px;
+    margin-top:10px;
+}
+
+.email a{
+    color:#a19090;
+    margin-top: 15px;
+    margin-left: 10px;
+    text-decoration: underline;
+}
 
 .arrow {
     background: none;
@@ -264,7 +309,9 @@ ul.breadcrumb li a {
     margin-bottom:40px;
 }
 
-
+.description-box {
+    font-size: 18px;
+}
 .wrapper {
     color:black;
     display: inline-block;
