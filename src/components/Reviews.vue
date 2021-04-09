@@ -2,7 +2,7 @@
   <div class="review-wrapper">
     <div><h3>Review this shop</h3></div>
     <form>
-      <input type="text" placeholder="Leave a review here" v-model="review" />
+      <textarea type="obs" placeholder="Leave a review here" v-model="review" />
 
       <div class="ratings">
         <span><h3>Ratings:</h3></span>
@@ -19,8 +19,9 @@
             v-model="this.rating"
           ></star-rating
         ></span>
+      
         <button type="submit" v-on:click.prevent="submit">Submit</button>
-      </div>
+        </div>
     </form>
 
     <div class="reviews">
@@ -260,20 +261,21 @@ export default {
 </script>
 
 <style scoped>
-input {
+textarea {
   width: 750px;
-  height: 150px;
-  border-radius: 15px;
-  align-items: center;
-  font-size: 18px;
+  height: 145px;
+  border-radius: 20px;
+  font-size: 20px;
   text-indent: 15px;
   border: none;
-  background-color: rgba(236, 235, 235, 0.733);
+  resize: none;
+  background-color: rgba(236, 235, 235, 0.555);
+  padding-top: 15px;
 }
 
 .ratings {
   display: flex;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .stars {
@@ -285,17 +287,19 @@ button {
   border: none;
   background-color: #bbbbbb;
   border-radius: 15px;
-  font-size: 1em;
+  font-size: 1.2em;
   height: 40px;
   display: inline-block;
   width: fit-content;
   padding: 0 30px;
-  margin-left: 400px;
+  margin-left: 380px;
+  margin-top: 35px;
   cursor: pointer;
 }
 
 .reviews > span {
   display: inline-flex;
+  margin-top: 30px;
 }
 
 hr {
@@ -328,4 +332,5 @@ hr {
   outline-style: none;
   cursor: pointer;
 }
+
 </style>
