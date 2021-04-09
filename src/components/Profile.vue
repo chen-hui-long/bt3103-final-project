@@ -27,17 +27,15 @@
     </div>
 
     <div id="details">
-      <div class="not-empty">
-        <div id="shops" v-show="this.showShops">
-          <div v-for="shopID in favs" v-bind:key="shopID">
-            <Favourite v-bind:shopID="shopID" />
-          </div>
+      <div class="container" v-show="this.showShops">
+        <div class="shop" v-for="shopID in favs" v-bind:key="shopID">
+          <Favourite v-bind:shopID="shopID" v-on:changeFav="changeFav" />
         </div>
+      </div>
 
-        <div id="reviews" v-show="this.showReviews">
-          <div v-for="review in revs" v-bind:key="review.UID">
-            <Review v-bind:rev="review" />
-          </div>
+      <div class="container" v-show="this.showReviews">
+        <div class="rev" v-for="review in revs" v-bind:key="review.UID">
+          <Review v-bind:rev="review" :checkFav="checkFav(review.UID)" />
         </div>
       </div>
 
@@ -188,6 +186,7 @@ export default {
   font-size: 30px;
   border-radius: 30px;
   border: 0;
+  outline: 0;
 }
 .fav-review-button:hover,
 .fav-review-button:focus,
@@ -203,15 +202,14 @@ export default {
 }
 
 /*details*/
-.not-empty {
+
+.container {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
+  flex-direction: row;
 }
-#shops {
-  width: 350px;
-}
-#reviews {
-  flex: 50%;
+
+.rev {
+  flex: 0 0 50%;
 }
 </style>

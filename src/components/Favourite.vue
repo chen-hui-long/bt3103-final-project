@@ -19,8 +19,7 @@
           active-color="black"
         ></star-rating
       ></span>
-      <!-- replaced by icon -->
-      <div id="fav">♡</div>
+      <div id="fav" v-on:click="clickFav">♥</div>
     </div>
   </div>
 </template>
@@ -92,9 +91,9 @@ export default {
 }
 
 #img2 {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
+  width: 262px;
+  height: 250px;
+
 }
 
 #img1 {
@@ -117,11 +116,13 @@ export default {
 }
 
 #fav {
-    line-height: 40px;
-    font-size: 20px;
-    font-family: system-ui;
-    font-weight: 500;  
-    text-align: right;
-    padding-right: 20px;
+  font-size: 20px;
+  font-family: system-ui;
+  font-weight: 500;
+  text-align: right;
+  padding-right: 20px;
+  float: right;
+  color: rgb(206, 58, 58);
 }
+
 </style>
