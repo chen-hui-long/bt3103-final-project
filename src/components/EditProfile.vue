@@ -8,15 +8,17 @@
 
     <form action="/action_page.php">
       <div id="image-upload-div">
-        <div id="img">Upload your image:</div>
-        <input type="file" @change="changeImage" accept="image/*" />
-        <img v-if="this.image" :src="image" />
+        <div id="title">Upload your image:</div>
+        <input id="text" type="file" @change="changeImage" accept="image/*" />
+        <br><img v-if="this.image" :src="image" />
         <img v-else :src="this.image" />
       </div>
 
-      <label>Name: </label>
-      <input type="text" v-model="name" placeholder="Name" />
-      <button id="update" v-on:click="save">Update</button>
+      <div id="name-update">
+      <label id="title">Name: </label><br>
+      <input id="text" type="text" v-model="name" placeholder="Name" /><br><br>
+      <button id="update" v-on:click="save">UPDATE</button>
+      </div>
     </form>
   </div>
 </template>
@@ -92,6 +94,16 @@ export default {
   color: gray;
 }
 
+#title {
+  font-weight: bold;
+}
+#text {
+  width:400px;
+}
+
+#image-upload-div {
+  margin-bottom: 3em;
+}
 form {
   position: relative;
   z-index: 1;
@@ -99,6 +111,7 @@ form {
   margin: 0 auto 100px;
   padding: 45px;
 }
+
 form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
@@ -107,7 +120,7 @@ form input {
   border-radius: 5px;
   border: 0;
   margin: 0 0 15px;
-  padding: 15px;
+  padding: 10px;
   box-sizing: border-box;
   font-size: 14px;
 }
@@ -117,7 +130,16 @@ form label {
 }
 
 img {
-  width: 50%;
+  width: 400px;
+}
+
+#update {
+  background-color: black;
+  color:white;
+  cursor: pointer;
+  padding: 5px 30px;
+  border-radius: 6px;
+  border: none;
 }
 </style>
 

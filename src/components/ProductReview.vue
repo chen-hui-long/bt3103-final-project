@@ -59,7 +59,7 @@ export default {
     }, 
 
     getTime() {
-      return moment(this.review.time).format('DD/MM/YYYY, h:mm:ss a')
+      return moment(this.review.time).format('DD/MM/YYYY')
     }
   },
 
@@ -77,7 +77,14 @@ export default {
 
 #Name {
   text-decoration: underline;
-  color: #474747;
+  color: #565656df;
+}
+
+#Date {
+  margin-left: 80px;
+  font-size: 16px;
+  color: #565656df;
+
 }
 
 .users {
@@ -86,5 +93,7 @@ export default {
 
 .wrapper {
   margin-left: 1.5em;
+  margin-bottom: 1.5em;
+  font-size: 18px;
 }
 </style>
