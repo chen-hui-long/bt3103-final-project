@@ -126,6 +126,47 @@ export default {
     edit() {
       this.$router.push({ path: "edit", params: { userID: this.userID } });
     },
+
+    checkFav(shop) {
+      if (this.favs.includes(shop)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    changeFav(shop) {
+      //this.updateFavUsers(shop);
+      const i = this.favs.indexOf(shop);
+      if (i > -1){
+        var newFavs = this.favs.splice(i, 1);
+        console.log(newFavs)
+/*
+      db.collection("Users")
+        .doc(this.userID)
+        .update({
+          favourite: newFavs,
+          total_favourite: this.total_fav - 1,
+        })
+        .then(() => {
+          location.reload();
+        });
+        */
+      }
+    },
+
+    updateFavUsers(shop) {
+      const fav_users = [];
+      db.collection("bakeriesNew").doc(shop).get((doc) => {
+          fav_users.push(doc.data().favourite_users);
+        });
+      console.log(fav_users);
+      const j = fav_users.indexOf(this.userID);
+      var new_fav_users = fav_users.splice(j);
+      db.collection("bakeriesNew").doc(shop).update({
+        favourite_users: new_fav_users,
+      });
+    },
   },
 
   created() {
@@ -135,6 +176,7 @@ export default {
     } else {
       this.$router.push({ path: "/login" });
     }
+
   },
 };
 </script>

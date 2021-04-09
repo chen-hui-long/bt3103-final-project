@@ -72,6 +72,11 @@ export default {
     toProduct() {
       this.$router.push({ path: "/product", query: { id: this.shopID } });
     },
+
+    clickFav(){
+      this.$emit('changeFav',this.shopID)
+    }
+
   },
 
   created() {

@@ -40,22 +40,9 @@ export default {
     };
   },
 
-  props: ["rev"],
+  props: ["rev", "checkFav"],
 
   methods: {
-    
-    toDate() {
-      var time = new Date(this.rev.time.seconds);
-      this.date =
-        time.getDate().toString() +
-        "/" +
-        (time.getMonth() + 1).toString() +
-        "/" +
-        time.getFullYear().toString().substr(-2);
-    },
-    // though works, the time seems incorrect
-    
-
     fetchItem() {
       this.review = this.rev.review;
       this.rating = this.rev.rating;
