@@ -44,7 +44,6 @@
       ></span>
       <hr />
 
-      <p style="color: red">insert sort on the top right</p>
       <div id="sorting">
         Sort by:
         <select id="sort" v-model="sort_by">
@@ -304,5 +303,17 @@ hr {
 #Name {
   color: rgb(101, 101, 101);
   text-decoration: underline;
+}
+
+#sorting {
+  margin-left: 450px;
+  font-weight:bold;
+  margin-bottom: 30px;
+}
+
+#sort {
+  border: none;
+  outline-style: none;
+  cursor: pointer;
 }
 </style>
