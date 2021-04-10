@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div id="nothing1" v-if="this.showShops && this.total_fav == 0">
+      <div class="empty" v-if="this.showShops && this.total_fav == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You don't have any favourite shops yet! Explore Eatsy and find a shop
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div id="nothing2" v-if="this.showReviews && this.total_rev == 0">
+      <div class="empty" v-if="this.showReviews && this.total_rev == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You haven't given any reviews yet! Start purchasing and leave your
@@ -136,22 +136,21 @@ export default {
     },
 
     changeFav(shop) {
-      //this.updateFavUsers(shop);
+      this.updateFavUsers(shop);
       const i = this.favs.indexOf(shop);
+      console.log(i)
       if (i > -1){
-        var newFavs = this.favs.splice(i, 1);
-        console.log(newFavs)
-/*
+        this.favs.splice(i);
       db.collection("Users")
         .doc(this.userID)
         .update({
-          favourite: newFavs,
+          favourite: this.favs,
           total_favourite: this.total_fav - 1,
         })
         .then(() => {
           location.reload();
         });
-        */
+        
       }
     },
 
@@ -160,11 +159,10 @@ export default {
       db.collection("bakeriesNew").doc(shop).get((doc) => {
           fav_users.push(doc.data().favourite_users);
         });
-      console.log(fav_users);
       const j = fav_users.indexOf(this.userID);
-      var new_fav_users = fav_users.splice(j);
+      fav_users.splice(j);
       db.collection("bakeriesNew").doc(shop).update({
-        favourite_users: new_fav_users,
+        favourite_users: fav_users,
       });
     },
   },
@@ -244,7 +242,6 @@ export default {
 }
 
 /*details*/
-
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -253,5 +250,10 @@ export default {
 
 .rev {
   flex: 0 0 50%;
+}
+
+.empty{
+  padding: 40px;
+  text-align: center;
 }
 </style>
