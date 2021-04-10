@@ -17,8 +17,9 @@
             placeholder="Shop Name"
             v-on:click="toggleIsClicked1"
           />
-
+        <br>
         <b>Short description of business and specialties:</b>
+        <br>
         <input
           type="text"
           :style="descClicked ? {'border-color':'black'} :null"
@@ -26,7 +27,7 @@
           placeholder="Short description"
           v-on:click="toggleIsClicked2"
         />
-
+        <br>
         <b>Product types:</b>
         <Multiselect v-on:input = "clickMulti($event)"></Multiselect>
         <br>
@@ -59,13 +60,11 @@
 
         <b>Location:</b>
         <br>
-        <select id="location" v-model= "location" >
-            <option value="Central" selected>Central</option>
-            <option value="East">East</option>
-            <option value="North">North</option>
-            <option value="South">South</option>
-            <option value="West">West</option>
-        </select>
+        <label id="checkbox-block">Central<input type="checkbox" id="checkbox-location"  value="Central" v-model = "location"/></label>
+        <label id="checkbox-block">East<input type="checkbox"  id="checkbox-location" value="East" v-model = "location"/></label>
+        <label id="checkbox-block">North<input type="checkbox"  id="checkbox-location" value="North" v-model = "location"/></label>
+        <label id="checkbox-block">South<input type="checkbox"  id="checkbox-location" value="South" v-model = "location"/></label>
+        <label id="checkbox-block">West<input type="checkbox"  id="checkbox-location" value="West" v-model = "location"/></label>
         <br>
         <br>
 
@@ -76,7 +75,7 @@
         v-on:click="toggleIsClicked4"
         v-model="business_email" 
         placeholder="Business Email" />
-
+        <br>
         <b>Official Website: </b>
         <input 
         type="text" 
@@ -84,7 +83,7 @@
         v-on:click="toggleIsClicked5"
         v-model="official_website" 
         placeholder="Official Website" />   
-
+        <br>
         <b>Instagram:</b>
         <input 
         type="text" 
@@ -92,7 +91,7 @@
         v-on:click="toggleIsClicked6"
         v-model="instagram" 
         placeholder="Handlename" />  
-
+        <br>
         <b>Facebook:</b>
         <input 
         type="text" 
@@ -100,7 +99,7 @@
         v-on:click="toggleIsClicked7"
         v-model="facebook" 
         placeholder="Facebook Page" />    
-
+        <br>
         <b>Upload Pictures of your product:</b>
         <div id = "image-upload"> 
           <div id = "image-upload-div">  
@@ -157,7 +156,7 @@ export default {
       type:[], 
       dietary: [],
       deal_options: [],
-      location: "", 
+      location: [], 
       business_email: "",
       official_website: "",
       facebook: "",
@@ -355,17 +354,6 @@ header {
   border-radius: 10px;
   /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
-/*.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-} */
 
 .form input {
   /*font-family: "Roboto", sans-serif;*/
@@ -374,11 +362,12 @@ header {
   width: 100%;
   border: #bbbbbb solid 1px;
   margin: 0 0 20px;
-  padding: 15px;
+  padding: 10px;
   box-sizing: border-box;
   font-size: 14px;
   border-radius: 10px;
 }
+
 
 #checkbox-dietary {
   width: auto;
@@ -389,6 +378,14 @@ header {
 }
 
 #checkbox-delivery {
+  width: auto;
+  margin-right: 15px;
+  margin-left: 5px;
+  width: 10px;
+  height: 10px;
+}
+
+#checkbox-location {
   width: auto;
   margin-right: 15px;
   margin-left: 5px;
@@ -460,6 +457,7 @@ header {
 
 #image-upload{
   display:flex;
+  width: 100%;
   justify-content: space-around;
 }
 
