@@ -28,13 +28,13 @@
             </div>
             </div>
 
-            
+            <div class="right-wrapper">
             <div class="product-content-right">
             <div class="title"><h1>{{this.shop_name}}</h1></div>
             <div style="width:430px;" class="description-box"><p class="description">{{this.short_desc}}</p></div>
 
             <div class="product-description">
-            
+    
             <div class="menu">
                 <span class="subtitle">Menu</span>
                 <span v-if='isActive1'>
@@ -124,6 +124,7 @@
                 </div>
             </div>
 
+            </div>
             </div>
             </div>
         </div>
@@ -248,6 +249,10 @@ ul.breadcrumb li a {
     display:block;
 }
 
+.right-wrapper {
+    position:relative;
+}
+
 .menu {
     margin-bottom:40px;
 }
@@ -315,7 +320,7 @@ ul.breadcrumb li a {
     cursor: pointer;
     font-size: 1.25em;
     position: absolute;
-    right: 100px;
+    right: 20px;
 
 
 }
@@ -348,4 +353,6 @@ ul.breadcrumb li a {
     margin-top: 200px;
     margin-left: 50px;
 }
+
+
 </style>

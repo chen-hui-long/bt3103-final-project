@@ -204,9 +204,14 @@ export default {
   font-weight: bolder;
 }
 .edit {
-  background-color: #919191;
+  background-color: rgba(202, 206, 205, 0.753);
   color: black;
-  border-radius: 30px;
+  border-radius: 20px;
+  border: none;
+  padding: 5px 15px;
+}
+.edit:hover {
+  background-color: #e3dddf;
 }
 
 /*button*/
@@ -224,14 +229,15 @@ export default {
   width: 125px;
   height: 75px;
   font-size: 30px;
-  border-radius: 30px;
+  border-radius: 20px;
   border: 0;
   outline: 0;
+  font-family:system-ui;
 }
 .fav-review-button:hover,
 .fav-review-button:focus,
 .fav-review-button:active {
-  border: black solid 1px;
+  border: black solid 2px;
 }
 .head-text {
   font-weight: bold;
@@ -255,5 +261,9 @@ export default {
 .empty{
   padding: 40px;
   text-align: center;
+}
+
+button {
+  cursor: pointer;
 }
 </style>

@@ -118,7 +118,6 @@ img {
 #not-fav {
   font-size: 20px;
   font-family: system-ui;
-  font-weight: 500;
   text-align: right;
   padding-right: 20px;
   float: right;
