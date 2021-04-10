@@ -1,19 +1,19 @@
 <template>
   <div class="list-item-container">
     <div class="list-item-head p-8">
-      {{item.question}}
-      <span class="toggle float-right" @click="item.visible = !item.visible" 
-            v-text="toggletText[item.visible * 1]">
+      {{user.question}}
+      <span class="toggle float-right" @click="user.visible = !user.visible" 
+            v-text="toggletText[user.visible * 1]">
       </span>
     </div>
-    <div class="list-item-body p-8" v-show="item.visible"> 
+    <div class="list-item-body p-8" v-show="user.visible"> 
       <slot />
     </div>
   </div>
 </template>
 <script>
 export default {
-
+  props:["user"],
   data(){
     return { toggletText: ['show', 'hide'] }
   }
