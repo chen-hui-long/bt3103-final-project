@@ -74,7 +74,7 @@ export default {
     },
 
     clickFav(){
-      this.$emit('changeFav',this.shopID)
+      this.$emit('unfavShop', this.shopID)
     }
 
   },
