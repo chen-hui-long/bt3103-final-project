@@ -53,9 +53,10 @@ export default {
   position: relative;
   min-height: 100vh;
 }
-#app-footer{
+
+app-footer{
   position:absolute;
-   bottom:0;
+  bottom:0;
 }
 html,
 body {

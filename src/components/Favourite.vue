@@ -1,6 +1,6 @@
 <template>
   <div id="favourite">
-    <!-- img id="img2" v-bind:src="this.image2"> -->
+    <img id="img2" v-bind:src="this.image2">
 
     <div id="shopDetails">
       <img id="img1" v-bind:src="this.image1" />
@@ -19,8 +19,7 @@
           active-color="black"
         ></star-rating
       ></span>
-      <!-- replaced by icon -->
-      <div id="fav">♡</div>
+      <div id="fav" v-on:click="clickFav">♥</div>
     </div>
   </div>
 </template>
@@ -56,17 +55,28 @@ export default {
           this.image1 = data.images[0];
           this.image2 = data.images[1];
           this.shopName = data.shop_name;
-          /*
-                include a function to calculate average rating?
-                this.rating = data.avgRating
-                */
-          this.reviewsNum = data.total_ratings_by_users;
+          this.rating = this.calAvgRating(snapshot.data().ratings, snapshot.data().total_ratings_by_users);
         });
+    },
+
+    calAvgRating(rating, total_ratings) {
+      var total_rating = rating[0] * 0 + rating[1] * 1 + rating[2] * 2 + rating[3] * 3 + rating[4] * 4 + rating[5] * 5;
+      if (total_ratings == 0) {
+        return 0;
+      } else {
+        var avg = total_rating / total_ratings;
+        return Math.round(avg * 10) / 10;
+      }
     },
 
     toProduct() {
       this.$router.push({ path: "/product", query: { id: this.shopID } });
     },
+
+    clickFav(){
+      this.$emit('changeFav',this.shopID)
+    }
+
   },
 
   created() {
@@ -82,36 +92,42 @@ export default {
   overflow: auto;
   margin: 10px 10px 25px 25px;
   border-radius: 12px;
+  
 }
 
 #img2 {
-  width: 100%;
-  text-align: left;
+  width: 262px;
+  height: 250px;
+
 }
 
 #img1 {
   float: left;
-  width: 20%;
-  padding: 15px;
-  padding-right: 35px;
+  width: 100px;
+
 }
 
-#name {
+.name {
   padding: 15px;
   color: rgb(179, 149, 110);
   text-decoration: underline;
   text-align: left;
-  font-size: 20px;
+  font-size: 15px;
   letter-spacing: 1px;
 }
 
 #rating {
   float: left;
-  padding-bottom: 10px;
 }
 
 #fav {
+  font-size: 20px;
+  font-family: system-ui;
+  font-weight: 500;
   text-align: right;
   padding-right: 20px;
+  float: right;
+  color: rgb(206, 58, 58);
 }
+
 </style>

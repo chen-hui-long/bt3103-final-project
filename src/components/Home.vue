@@ -1,7 +1,7 @@
 <template>
   <div class = "parent">
     <div class = "filter-side">
-      <h2> Filter By:</h2>
+      <h2> Filter by:</h2>
       <hr>
       <div class = "filter-header"> 
         Bakery Goods
@@ -82,14 +82,14 @@
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].images[0]" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].shop_name}}</p>
         <p id = "bakery-rating"><star-rating
-          read-only="true"
+          v-bind:read-only= "true"
           v-model="bakery[2]"
-          increment="0.1"
-          v-bind:show-rating="false"
+          v-bind:increment="0.1"
+          v-bind:show-rating= false
           v-bind:star-size="16"
-          border-color="black"
-          border-width="3"
-          rounded-corners="true"
+          border-color= "black"
+          v-bind:border-width= "3"
+          v-bind:rounded-corners= true
           inactive-color="white"
           active-color="black"
         ></star-rating>
@@ -312,11 +312,17 @@ export default {
   display: flex;
 }
 .filter-side {
-  flex: 0 0 20%;
-  padding-left: 30px;
+  flex: 0 0 25%;
+  padding-left: 50px;
   margin-top: 100px;
   margin-bottom: 20px;
   
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: #bbbbbb75
 }
 ul {
   display: flex;
@@ -332,8 +338,9 @@ li {
   font-size: 20px;
 }
 img {
-  width: 280px;
-  height: 280px;
+  width: 225px;
+  height: 225px;
+  cursor: pointer;
 }
 .f1 {
   display: none;
@@ -350,21 +357,29 @@ img {
 .collapsible-f1 {
   background-color: transparent;
   border:none;
+  cursor: pointer;
+  outline: 0;
 }
 .collapsible-f2 {
   float:right;
   background-color: transparent;
   border:none;
+  cursor: pointer;
+  outline: 0;
 }
 .collapsible-f3 {
   float:right;
   background-color: transparent;
   border:none;
+  cursor: pointer;
+  outline: 0;
 }
 .collapsible-f4 {
   float:right;
   background-color: transparent;
   border:none;
+  cursor: pointer;
+  outline: 0;
 }
 .filter-header {
   display:flex;
@@ -377,7 +392,9 @@ input { /*style for checkbox*/
 
 
 .content-side { 
-  flex: 0 0 80%;
+  flex: 0 0 75%;
+  padding-right: 60px;
+  padding-left: 50px;
 }
 
 .bakery-image-btn {
@@ -418,11 +435,13 @@ div.vue-star-rating {
 }
 #sorting {
   font-size: 18px;
+  font-weight: bold;
 }
 #sort {
   border:none;
   outline-style: none;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .pagination {
