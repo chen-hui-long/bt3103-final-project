@@ -27,21 +27,19 @@
     </div>
 
     <div id="details">
-      <div class="not-empty">
-        <div id="shops" v-show="this.showShops">
-          <div v-for="shopID in favs" v-bind:key="shopID">
-            <Favourite v-bind:shopID="shopID" />
-          </div>
-        </div>
-
-        <div id="reviews" v-show="this.showReviews">
-          <div v-for="review in revs" v-bind:key="review.UID">
-            <Review v-bind:rev="review" />
-          </div>
+      <div class="container" v-show="this.showShops">
+        <div class="shop" v-for="shopID in favs" v-bind:key="shopID">
+          <Favourite v-bind:shopID="shopID" v-on:changeFav="changeFav" />
         </div>
       </div>
 
-      <div id="nothing1" v-if="this.showShops && this.total_fav == 0">
+      <div class="container" v-show="this.showReviews">
+        <div class="rev" v-for="review in revs" v-bind:key="review.UID">
+          <Review v-bind:rev="review" :checkFav="checkFav(review.UID)" />
+        </div>
+      </div>
+
+      <div class="empty" v-if="this.showShops && this.total_fav == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You don't have any favourite shops yet! Explore Eatsy and find a shop
@@ -49,7 +47,7 @@
         </div>
       </div>
 
-      <div id="nothing2" v-if="this.showReviews && this.total_rev == 0">
+      <div class="empty" v-if="this.showReviews && this.total_rev == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You haven't given any reviews yet! Start purchasing and leave your
@@ -128,6 +126,45 @@ export default {
     edit() {
       this.$router.push({ path: "edit", params: { userID: this.userID } });
     },
+
+    checkFav(shop) {
+      if (this.favs.includes(shop)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    changeFav(shop) {
+      this.updateFavUsers(shop);
+      const i = this.favs.indexOf(shop);
+      console.log(i)
+      if (i > -1){
+        this.favs.splice(i);
+      db.collection("Users")
+        .doc(this.userID)
+        .update({
+          favourite: this.favs,
+          total_favourite: this.total_fav - 1,
+        })
+        .then(() => {
+          location.reload();
+        });
+        
+      }
+    },
+
+    updateFavUsers(shop) {
+      const fav_users = [];
+      db.collection("bakeriesNew").doc(shop).get((doc) => {
+          fav_users.push(doc.data().favourite_users);
+        });
+      const j = fav_users.indexOf(this.userID);
+      fav_users.splice(j);
+      db.collection("bakeriesNew").doc(shop).update({
+        favourite_users: fav_users,
+      });
+    },
   },
 
   created() {
@@ -137,6 +174,7 @@ export default {
     } else {
       this.$router.push({ path: "/login" });
     }
+
   },
 };
 </script>
@@ -188,6 +226,7 @@ export default {
   font-size: 30px;
   border-radius: 30px;
   border: 0;
+  outline: 0;
 }
 .fav-review-button:hover,
 .fav-review-button:focus,
@@ -203,15 +242,18 @@ export default {
 }
 
 /*details*/
-.not-empty {
+.container {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
+  flex-direction: row;
 }
-#shops {
-  width: 350px;
+
+.rev {
+  flex: 0 0 50%;
 }
-#reviews {
-  flex: 50%;
+
+.empty{
+  padding: 40px;
+  text-align: center;
 }
 </style>
