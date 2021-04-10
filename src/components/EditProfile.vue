@@ -1,8 +1,7 @@
 <template>
   <div class="edit">
     <div class="links">
-      <router-link id="home" to="/home">Home / </router-link>
-      <router-link id="profile" to="/profile">Profile / </router-link>
+      <router-link id="profile" to="/profile">My Profile / </router-link>
       <router-link id="edit" to="/editProfile">Edit</router-link>
     </div>
 
