@@ -8,98 +8,118 @@
       <header>Complete the form and start selling today!</header>
     <div class="form">
       <form class="register-form">
-
-        <b>Shop Name:</b>
+        <table>
+          <tr>
+            <td class="heading"><b>Shop Name:</b></td>
+            <td>
           <input
             type="text"
             :style="nameClicked ? {'border-color':'black'} :null"
             v-model="shop_name"
             placeholder="Shop Name"
             v-on:click="toggleIsClicked1"
-          />
-        <br>
-        <b>Short description of business and specialties:</b>
-        <br>
+          /></td>
+          </tr>
+        <tr>
+        <td class="heading"><b>Short description of business and specialties:</b></td>
+        <td>
         <input
           type="text"
           :style="descClicked ? {'border-color':'black'} :null"
           v-model="short_desc"
           placeholder="Short description"
           v-on:click="toggleIsClicked2"
-        />
-        <br>
-        <b>Product types:</b>
-        <Multiselect v-on:input = "clickMulti($event)"></Multiselect>
-        <br>
-
-        <b>Dietary types & options:</b>
-        <br>
+        /></td>
+</tr>
+<tr>
+        <td class="heading"><b>Product types:</b></td>
+        <td><Multiselect v-on:input = "clickMulti($event)"></Multiselect></td>
+        </tr>
+<tr>
+        <td class="heading"><b>Dietary types & options:</b></td>
+        <td>
         <label id="checkbox-block">Halal<input type="checkbox" id="checkbox-dietary"  value="Halal" v-model = "dietary"/></label>
         <label id="checkbox-block">Keto<input type="checkbox"  id="checkbox-dietary" value="Keto" v-model = "dietary"/></label>
         <label id="checkbox-block">Gluten-Free<input type="checkbox"  id="checkbox-dietary" value="Gluten-Free" v-model = "dietary"/></label>
         <label id="checkbox-block">Vegan<input type="checkbox"  id="checkbox-dietary" value="Vegan" v-model = "dietary"/></label>
-        <br> 
-
-        <b>Deal Options:</b>
-        <br>
+        </td>
+</tr>
+<tr>
+        <td class="heading"><b>Deal Options:</b></td>
+        <td>
         <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" value="Delivery" v-model = "deal_options"/></label>
         <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" value="Self Pick-Up" v-model = "deal_options"/></label>
-        <br> 
-
-        <b>Delivery/Self Pick-Up Details:</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="heading"><b>Delivery/Self Pick-Up Details:</b>
           <br>
-        (fees, locations, etc.)
+        (fees, locations, etc.)</td>
+        <td>
         <input 
           type="text" 
           :style="delClicked ? {'border-color' : 'black'} :null"
           v-model="order_details" 
           :placeholder= "'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'"
           v-on:click="toggleIsClicked3"   
-        /> 
-        <br>
-
-        <b>Location:</b>
-        <br>
+        /></td>
+        </tr>
+        <tr>
+        <td class="heading"><b>Location:</b></td>
+        <td>
         <label id="checkbox-block">Central<input type="checkbox" id="checkbox-location"  value="Central" v-model = "location"/></label>
         <label id="checkbox-block">East<input type="checkbox"  id="checkbox-location" value="East" v-model = "location"/></label>
         <label id="checkbox-block">North<input type="checkbox"  id="checkbox-location" value="North" v-model = "location"/></label>
         <label id="checkbox-block">South<input type="checkbox"  id="checkbox-location" value="South" v-model = "location"/></label>
         <label id="checkbox-block">West<input type="checkbox"  id="checkbox-location" value="West" v-model = "location"/></label>
-        <br>
-        <br>
-
-        <b>Business email:</b>
+        </td>
+        </tr>
+<tr>
+        <td class="heading"><b>Business email:</b></td>
+        <td>
         <input 
         type="text" 
         :style="emailClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked4"
         v-model="business_email" 
         placeholder="Business Email" />
-        <br>
-        <b>Official Website: </b>
+        </td>
+</tr>
+<tr>
+        <td class="heading"><b>Official Website: </b></td>
+        <td>
         <input 
         type="text" 
         :style="websiteClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked5"
         v-model="official_website" 
-        placeholder="Official Website" />   
-        <br>
-        <b>Instagram:</b>
+        placeholder="Official Website" />  
+        </td>
+</tr> 
+<tr>
+        <td class="heading"><b>Instagram:</b></td>
+        <td>
         <input 
         type="text" 
         :style="igClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked6"
         v-model="instagram" 
         placeholder="Handlename" />  
-        <br>
-        <b>Facebook:</b>
+        </td>
+</tr>
+<tr>
+        <td class="heading"><b>Facebook:</b></td>
+        <td>
         <input 
         type="text" 
         :style="fbClicked ? {'border-color' : 'black'} :null"
         v-on:click="toggleIsClicked7"
         v-model="facebook" 
         placeholder="Facebook Page" />    
-        <br>
+        </td>
+</tr>
+
+        </table>
         <b>Upload Pictures of your product:</b>
         <div id = "image-upload"> 
           <div id = "image-upload-div">  
@@ -368,6 +388,17 @@ header {
   border-radius: 10px;
 }
 
+table {
+  border-spacing:3em;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.heading {
+  padding-right:30px;
+  padding-left: 30px;
+  width:40%;
+}
 
 #checkbox-dietary {
   width: auto;
