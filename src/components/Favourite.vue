@@ -93,7 +93,7 @@ export default {
   border: 1px solid;
   border-color: rgb(214, 210, 206);
   overflow: auto;
-  margin: 10px 10px 55px 25px;
+  margin: 50px -10px 150px 80px;
   border-radius: 12px;
   
 }
