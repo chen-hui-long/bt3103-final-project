@@ -2,7 +2,7 @@
     <div class="faq">
       <NavBar></NavBar>
       <header>Frequently Asked Questions (FAQs) </header>
-    <infoList v-for="(item, index) in dynamicList" :key="index" :item="item">
+    <infoList v-for="(item, index) in dynamicList" :key="index" :user="item">
       {{item.a}}
     </infoList> 
   </div>

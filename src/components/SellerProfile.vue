@@ -138,7 +138,7 @@ export default {
 
 .body {
   font-size:15px;
-
+  width: 85%;
 }
 
 .shop-pic {
@@ -155,7 +155,9 @@ table {
 }
 
 .heading {
-  padding-right:150px;
+  padding-right:30px;
+  padding-left: 30px;
+  width:30%;
 }
 
 .profile-pic {
