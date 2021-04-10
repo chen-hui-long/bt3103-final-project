@@ -27,17 +27,15 @@
     </div>
 
     <div id="details">
-      <div class="not-empty">
-        <div id="shops" v-show="this.showShops">
-          <div v-for="shopID in favs" v-bind:key="shopID">
-            <Favourite v-bind:shopID="shopID" />
-          </div>
+      <div class="container" v-show="this.showShops">
+        <div class="shop" v-for="shopID in favs" v-bind:key="shopID">
+          <Favourite v-bind:shopID="shopID" v-on:changeFav="changeFav" />
         </div>
+      </div>
 
-        <div id="reviews" v-show="this.showReviews">
-          <div v-for="review in revs" v-bind:key="review.UID">
-            <Review v-bind:rev="review" />
-          </div>
+      <div class="container" v-show="this.showReviews">
+        <div class="rev" v-for="review in revs" v-bind:key="review.UID">
+          <Review v-bind:rev="review" :checkFav="checkFav(review.UID)" />
         </div>
       </div>
 
@@ -128,6 +126,47 @@ export default {
     edit() {
       this.$router.push({ path: "edit", params: { userID: this.userID } });
     },
+
+    checkFav(shop) {
+      if (this.favs.includes(shop)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    changeFav(shop) {
+      //this.updateFavUsers(shop);
+      const i = this.favs.indexOf(shop);
+      if (i > -1){
+        var newFavs = this.favs.splice(i, 1);
+        console.log(newFavs)
+/*
+      db.collection("Users")
+        .doc(this.userID)
+        .update({
+          favourite: newFavs,
+          total_favourite: this.total_fav - 1,
+        })
+        .then(() => {
+          location.reload();
+        });
+        */
+      }
+    },
+
+    updateFavUsers(shop) {
+      const fav_users = [];
+      db.collection("bakeriesNew").doc(shop).get((doc) => {
+          fav_users.push(doc.data().favourite_users);
+        });
+      console.log(fav_users);
+      const j = fav_users.indexOf(this.userID);
+      var new_fav_users = fav_users.splice(j);
+      db.collection("bakeriesNew").doc(shop).update({
+        favourite_users: new_fav_users,
+      });
+    },
   },
 
   created() {
@@ -137,6 +176,7 @@ export default {
     } else {
       this.$router.push({ path: "/login" });
     }
+
   },
 };
 </script>
@@ -188,6 +228,7 @@ export default {
   font-size: 30px;
   border-radius: 30px;
   border: 0;
+  outline: 0;
 }
 .fav-review-button:hover,
 .fav-review-button:focus,
@@ -203,15 +244,14 @@ export default {
 }
 
 /*details*/
-.not-empty {
+
+.container {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
+  flex-direction: row;
 }
-#shops {
-  width: 350px;
-}
-#reviews {
-  flex: 50%;
+
+.rev {
+  flex: 0 0 50%;
 }
 </style>
