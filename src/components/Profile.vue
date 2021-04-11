@@ -29,7 +29,7 @@
     <div id="details">
       <div class="container" v-show="this.showShops">
         <div class="shop" v-for="shopID in favs" v-bind:key="shopID">
-          <Favourite v-bind:shopID="shopID" v-on:changeFav="changeFav" />
+          <Favourite v-bind:shopID="shopID" v-on:unfavShop="unfavShop" />
         </div>
       </div>
 
@@ -135,35 +135,24 @@ export default {
       }
     },
 
-    changeFav(shop) {
-      this.updateFavUsers(shop);
-      const i = this.favs.indexOf(shop);
-      console.log(i)
-      if (i > -1){
-        this.favs.splice(i);
-      db.collection("Users")
-        .doc(this.userID)
-        .update({
-          favourite: this.favs,
-          total_favourite: this.total_fav - 1,
-        })
-        .then(() => {
-          location.reload();
-        });
-        
-      }
+    unfavShop(shop) {
+      db.collection("bakeriesNew").doc(shop).update({
+        favourite_users: firebase.firestore.FieldValue.arrayRemove(this.userID)
+      });
+      db.collection("Users").doc(this.userID).update({
+        favourite: firebase.firestore.FieldValue.arrayRemove(shop),
+        total_favourite: this.total_fav - 1
+      }).then(() => {location.reload()});
     },
 
-    updateFavUsers(shop) {
-      const fav_users = [];
-      db.collection("bakeriesNew").doc(shop).get((doc) => {
-          fav_users.push(doc.data().favourite_users);
-        });
-      const j = fav_users.indexOf(this.userID);
-      fav_users.splice(j);
+    favShop(shop){
       db.collection("bakeriesNew").doc(shop).update({
-        favourite_users: fav_users,
+        favourite_users: firebase.firestore.FieldValue.arrayUnion(this.userID)
       });
+      db.collection("Users").doc(this.userID).update({
+        favourite: firebase.firestore.FieldValue.arrayUnion(shop),
+        total_favourite: this.total_fav + 1,
+      }).then(() => {location.reload()});
     },
   },
 
