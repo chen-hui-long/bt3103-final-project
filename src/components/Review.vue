@@ -19,10 +19,8 @@
           v-bind:rounded-corners="true"
           inactive-color="white"
           active-color="black"
-        ></star-rating
-      ></span>
-      <div id="fav" v-show="this.checkFav" v-on:click="unfavShop">♥</div>
-      <div id="not-fav" v-show="!(this.checkFav)" v-on:click="favShop">♡</div>
+        ></star-rating>
+        </div>
   </div>
 </template>
 
