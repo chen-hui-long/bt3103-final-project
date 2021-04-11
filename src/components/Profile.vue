@@ -28,7 +28,7 @@
 
     <div id="details">
       <div v-show="this.showShops">
-        <ul>
+        <ul class="favs">
           <li class="shop" v-for="shopID in favs" v-bind:key="shopID">
             <Favourite
               v-bind:shopID="shopID"
@@ -40,7 +40,7 @@
       </div>
 
       <div v-show="this.showReviews">
-        <ul>
+        <ul class="revs">
           <li class="rev" v-for="review in revs" v-bind:key="review.UID">
             <Review
               v-bind:rev="review"
@@ -276,10 +276,6 @@ export default {
   display: flex;
 }
 
-.rev {
-  flex: 0 0 50%;
-}
-
 .empty {
   padding: 40px;
   text-align: center;
@@ -289,11 +285,17 @@ button {
   cursor: pointer;
 }
 
-ul {
+.favs {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
+}
+
+.revs {
+  list-style-type: none;
+  padding: 0;
+
 }
 </style>

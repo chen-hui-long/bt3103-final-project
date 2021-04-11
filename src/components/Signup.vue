@@ -98,7 +98,7 @@ export default {
       valid_password: false,
       name: "",
       default_image:
-        "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+        "https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-9/172217889_10216085082074896_6030318488333464278_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=730e14&_nc_ohc=RBtp7WqrTeQAX8so5Cj&_nc_ht=scontent-xsp1-3.xx&oh=b6186476981b18bf72d4c70f4a511378&oe=609973F9",
     };
   },
   methods: {
