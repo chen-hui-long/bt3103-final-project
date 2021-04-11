@@ -239,7 +239,6 @@ ul.breadcrumb li a {
 }
 
 .product-content-left{
-    /*flex: 0 0 500px;*/
     margin-left: 80px;
     display:flex;
 }

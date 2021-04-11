@@ -858,6 +858,7 @@ img {
 #cancelbtn {
   background: grey;
   margin-bottom: 10px;
+  margin-left: 4px;
   padding: 15px 32px;
   width: 25%;
 }
@@ -865,6 +866,7 @@ img {
 #deletebtn {
   background: grey;
   margin-bottom: 10px;
+  margin-right: 4px;
   padding: 15px 32px;
   width: 25%;
 }
