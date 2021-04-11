@@ -17,8 +17,8 @@
           active-color="black"
         ></star-rating
       ></span>
-      <div id="fav" v-show="this.checkFav">♥</div>
-      <div id="not-fav" v-show="!(this.checkFav)">♡</div>
+      <div id="fav" v-show="this.checkFav" v-on:click="unfavShop">♥</div>
+      <div id="not-fav" v-show="!(this.checkFav)" v-on:click="favShop">♡</div>
   </div>
 </template>
 
@@ -32,6 +32,7 @@ export default {
   },
   data() {
     return {
+      shopID: null,
       shopName: "",
       review: "",
       rating: null,
@@ -47,7 +48,7 @@ export default {
       this.review = this.rev.review;
       this.rating = this.rev.rating;
       db.collection("bakeriesNew")
-        .doc(this.rev.UID)
+        .doc(this.shopID)
         .get()
         .then((snapshot) => {
           this.image = snapshot.data().images[0];
@@ -58,9 +59,18 @@ export default {
     toProduct() {
       this.$router.push({ path: "/product", query: { id: this.rev.UID } });
     },
+
+    favShop(){
+      this.$emit("favShop", this.shopID)
+    },
+
+    unfavShop(){
+      this.$emit("unfavShop", this.shopID);
+    },
   },
 
   created() {
+    this.shopID = this.rev.UID;
     this.fetchItem();
   },
 };
