@@ -3,8 +3,8 @@
       <img v-bind:src="this.image" />
       <div class="wrapper">
       <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
-      <span id="fav" v-show="this.checkFav">♥</span>
-      <span id="not-fav" v-show="!(this.checkFav)">♡</span>
+      <span id="fav" v-show="this.checkFav" v-on:click="unfavShop">♥</span>
+      <span id="not-fav" v-show="!(this.checkFav)" v-on:click="favShop">♡</span>
       </div>
       <div id="text">{{ this.review }}</div>
       <div class="stars"
