@@ -86,9 +86,10 @@ export default {
   border: 2px solid;
   border-color: rgb(214, 210, 206);
   overflow: auto;
-  margin: 50px -10px 150px 80px;
+  margin: 50px -10px 0px 80px;
   border-radius: 12px;
   height: 155px;
+  width: 50%;
 }
 
 
@@ -96,6 +97,7 @@ export default {
 img {
   float: left;
   width: 150px;
+  height: 150px;
   padding: 15px;
 }
 
@@ -126,21 +128,18 @@ img:hover {
 }
 
 #fav {
+  text-align: right;
+  float: right;
   font-size: 30px;
   font-family: system-ui;
   font-weight: 500;
-  text-align: right;
-  margin-left: 300px;
-  float: right;
   color: #a52a2a;
 }
 
 #not-fav {
   font-size: 30px;
   font-family: system-ui;
-  text-align: right;
-  margin-left: 300px;
-  float: right;
+
 }
 
 #not-fav:hover {
