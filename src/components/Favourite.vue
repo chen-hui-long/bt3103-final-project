@@ -2,10 +2,12 @@
   <div id="favourite">
     <img id="img2" v-bind:src="this.image2">
 
+    
     <div id="shopDetails">
       <img id="img1" v-bind:src="this.image1" />
       <div class="name" v-on:click="toProduct">{{ this.shopName }}</div>
-      <span class="stars"
+      <div class = "wrapper">
+      <div class="stars"
         ><star-rating
           read-only="true"
           v-model="rating"
@@ -18,8 +20,9 @@
           inactive-color="white"
           active-color="black"
         ></star-rating
-      ></span>
-      <div id="fav" v-on:click="clickFav">♥</div>
+      ></div>
+      <span id="fav" v-on:click="clickFav">♥</span>
+    </div>
     </div>
   </div>
 </template>
@@ -74,7 +77,7 @@ export default {
     },
 
     clickFav(){
-      this.$emit('changeFav',this.shopID)
+      this.$emit('unfavShop', this.shopID)
     }
 
   },
@@ -87,33 +90,35 @@ export default {
 
 <style scoped>
 #favourite {
-  border: 2px solid;
+  border: 1px solid;
   border-color: rgb(214, 210, 206);
   overflow: auto;
-  margin: 10px 10px 25px 25px;
+  margin: 50px -10px 150px 80px;
   border-radius: 12px;
   
 }
 
 #img2 {
-  width: 262px;
-  height: 250px;
+  width: 280px;
+  height: 290px;
 
 }
 
 #img1 {
   float: left;
-  width: 100px;
+  width: 80px;
+  margin: 10px;
 
 }
 
 .name {
-  padding: 15px;
+  padding: 10px 5px 5px;
   color: rgb(179, 149, 110);
   text-decoration: underline;
   text-align: left;
   font-size: 15px;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 #rating {
@@ -121,13 +126,20 @@ export default {
 }
 
 #fav {
-  font-size: 20px;
+  font-size: 30px;
   font-family: system-ui;
-  font-weight: 500;
   text-align: right;
-  padding-right: 20px;
+  padding-right: 10px;
+  margin-top: 15px;
+  margin-left: 30px;
   float: right;
-  color: rgb(206, 58, 58);
+  color: #a52a2a;
+  cursor:pointer;
+}
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
 }
 
 </style>

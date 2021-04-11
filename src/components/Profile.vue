@@ -29,7 +29,7 @@
     <div id="details">
       <div class="container" v-show="this.showShops">
         <div class="shop" v-for="shopID in favs" v-bind:key="shopID">
-          <Favourite v-bind:shopID="shopID" v-on:changeFav="changeFav" />
+          <Favourite v-bind:shopID="shopID" v-on:unfavShop="unfavShop" />
         </div>
       </div>
 
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div id="nothing1" v-if="this.showShops && this.total_fav == 0">
+      <div class="empty" v-if="this.showShops && this.total_fav == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You don't have any favourite shops yet! Explore Eatsy and find a shop
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div id="nothing2" v-if="this.showReviews && this.total_rev == 0">
+      <div class="empty" v-if="this.showReviews && this.total_rev == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You haven't given any reviews yet! Start purchasing and leave your
@@ -135,37 +135,24 @@ export default {
       }
     },
 
-    changeFav(shop) {
-      //this.updateFavUsers(shop);
-      const i = this.favs.indexOf(shop);
-      if (i > -1){
-        var newFavs = this.favs.splice(i, 1);
-        console.log(newFavs)
-/*
-      db.collection("Users")
-        .doc(this.userID)
-        .update({
-          favourite: newFavs,
-          total_favourite: this.total_fav - 1,
-        })
-        .then(() => {
-          location.reload();
-        });
-        */
-      }
+    unfavShop(shop) {
+      db.collection("bakeriesNew").doc(shop).update({
+        favourite_users: firebase.firestore.FieldValue.arrayRemove(this.userID)
+      });
+      db.collection("Users").doc(this.userID).update({
+        favourite: firebase.firestore.FieldValue.arrayRemove(shop),
+        total_favourite: this.total_fav - 1
+      }).then(() => {location.reload()});
     },
 
-    updateFavUsers(shop) {
-      const fav_users = [];
-      db.collection("bakeriesNew").doc(shop).get((doc) => {
-          fav_users.push(doc.data().favourite_users);
-        });
-      console.log(fav_users);
-      const j = fav_users.indexOf(this.userID);
-      var new_fav_users = fav_users.splice(j);
+    favShop(shop){
       db.collection("bakeriesNew").doc(shop).update({
-        favourite_users: new_fav_users,
+        favourite_users: firebase.firestore.FieldValue.arrayUnion(this.userID)
       });
+      db.collection("Users").doc(this.userID).update({
+        favourite: firebase.firestore.FieldValue.arrayUnion(shop),
+        total_favourite: this.total_fav + 1,
+      }).then(() => {location.reload()});
     },
   },
 
@@ -206,9 +193,14 @@ export default {
   font-weight: bolder;
 }
 .edit {
-  background-color: #919191;
+  background-color: rgba(202, 206, 205, 0.753);
   color: black;
-  border-radius: 30px;
+  border-radius: 20px;
+  border: none;
+  padding: 5px 15px;
+}
+.edit:hover {
+  background-color: #e3dddf;
 }
 
 /*button*/
@@ -226,14 +218,15 @@ export default {
   width: 125px;
   height: 75px;
   font-size: 30px;
-  border-radius: 30px;
+  border-radius: 20px;
   border: 0;
   outline: 0;
+  font-family:system-ui;
 }
 .fav-review-button:hover,
 .fav-review-button:focus,
 .fav-review-button:active {
-  border: black solid 1px;
+  border: black solid 2px;
 }
 .head-text {
   font-weight: bold;
@@ -244,7 +237,6 @@ export default {
 }
 
 /*details*/
-
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -253,5 +245,14 @@ export default {
 
 .rev {
   flex: 0 0 50%;
+}
+
+.empty{
+  padding: 40px;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
 }
 </style>

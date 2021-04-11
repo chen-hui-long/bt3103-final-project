@@ -15,12 +15,12 @@
 					<div class="grid-item">
 						<span id = "subtitle"> SELL </span>
 						<br>
-                        <li><router-link to ="/sell" exact>Sell on EATSY</router-link></li>
+                        <li id="sell"><router-link to ="/sell" exact>Sell on EATSY</router-link></li>
                     </div>   
 					<div class="grid-item">
 						<span id = "subtitle">HELP</span>
                         <br>
-                        <li><router-link to ="/faq" exact>FAQs</router-link></li>
+                        <li id="faq"><router-link to ="/faq" exact>FAQs</router-link></li>
                     </div>   
 					<div class="grid-item">
 						<span id = "subscribe">Yes! Send me exclusive offers on Eatsy</span>
@@ -169,6 +169,14 @@ p {
 	font-size: 16px;
 	line-height: 32px;
 	color:black;
+}
+
+#sell:hover {
+	text-decoration: underline;
+}
+
+#faq:hover {
+	text-decoration: underline;
 }
 
 
