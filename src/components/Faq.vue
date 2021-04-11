@@ -1,22 +1,11 @@
 <template>
-  <div class="faq">
-    <NavBar></NavBar>
-    <header>Frequently Asked Questions (FAQs)</header>
-    <details>
-      <summary>How do I make a purchase?</summary>
-      <p>
-        Contact the bakeries directly through the platforms listed on their
-        profiles! :-)
-      </p>
-    </details>
-    <details>
-      <summary>Can I list my restaurant here?</summary>
-      <p>Sorry, our website currently caters to home bakeries only! :-(</p>
-    </details>
-    <details>
-      <summary>Didn't find the answer to your question?</summary>
-      <p>Contact us directly @ EMAIL and we'll get back to you soon! :-)</p>
-    </details>
+    <div class="faq">
+      <NavBar></NavBar>
+      <header>Frequently Asked Questions (FAQs) </header>
+    <infoList v-for="(item, index) in dynamicList" :key="index" :user="item" >
+      {{item.a}}
+    </infoList> 
+   
   </div>
 </template>
 
@@ -49,6 +38,9 @@ export default {
         this.dynamicList.push({ ...element, visible: false });
       });
     },
+    update(user) {
+      this.user = user;
+    }
   },
   async created() {
     await this.prepareDynamicList();
