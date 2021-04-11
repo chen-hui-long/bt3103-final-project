@@ -1,9 +1,13 @@
 <template>
   <div class="review">
       <img v-bind:src="this.image" />
-      <div id="name" v-on:click="toProduct">{{ this.shopName }}</div>
+      <div class="wrapper">
+      <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
+      <span id="fav" v-show="this.checkFav">♥</span>
+      <span id="not-fav" v-show="!(this.checkFav)">♡</span>
+      </div>
       <div id="text">{{ this.review }}</div>
-      <span class="stars"
+      <div class="stars"
         ><star-rating
           v-bind:read-only="true"
           v-model="rating"
@@ -84,7 +88,7 @@ export default {
   border: 2px solid;
   border-color: rgb(214, 210, 206);
   overflow: auto;
-  margin: 10px 10px 25px 25px;
+  margin: 50px -10px 150px 80px;
   border-radius: 12px;
   height: 155px;
 }
@@ -98,7 +102,6 @@ img {
 }
 
 #name {
-  padding: 15px;
   color: rgb(179, 149, 110);
   text-decoration: underline;
   text-align: left;
@@ -108,6 +111,7 @@ img {
 
 #name:hover{
   color: rgb(139, 115, 82);
+  cursor: pointer;
 }
 
 #text {
@@ -115,28 +119,37 @@ img {
   padding-bottom: 10px;
 }
 
+.stars {
+  margin-top: 10px;
+}
+
 #fav {
-  font-size: 20px;
+  font-size: 30px;
   font-family: system-ui;
   font-weight: 500;
   text-align: right;
-  padding-right: 20px;
+  margin-left: 300px;
   float: right;
-  color: rgb(206, 58, 58);
+  color: #a52a2a;
 }
 
 #not-fav {
-  font-size: 20px;
+  font-size: 30px;
   font-family: system-ui;
-  font-weight: 500;
   text-align: right;
-  padding-right: 20px;
+  margin-left: 300px;
   float: right;
 }
 
 #rating {
   float: left;
 }
+
+.wrapper {
+  display: flex;
+  padding-top: 10px;
+}
+
 </style>
 
 

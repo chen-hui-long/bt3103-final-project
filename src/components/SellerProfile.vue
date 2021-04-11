@@ -183,7 +183,7 @@ table {
 .edit {
   background-color:rgba(202, 206, 205, 0.753);
   border-radius: 8px;
-border: none;
+  border: none;
   
 }
 .edit:hover {
