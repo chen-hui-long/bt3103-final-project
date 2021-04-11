@@ -1,153 +1,230 @@
 <template>
-  
   <div>
-    <div class = "navbar">
+    <div class="navbar">
       <NavBar></NavBar>
     </div>
-    <div class = "login-page">
+    <div class="login-page">
       <header>Complete the form and start selling today!</header>
-    <div class="form">
-      <form class="register-form">
-        <table>
-          <tr>
-            <td class="heading"><b>Shop Name:</b></td>
-            <td>
-          <input
-            type="text"
-            :style="nameClicked ? {'border-color':'black'} :null"
-            v-model="shop_name"
-            placeholder="Shop Name"
-            v-on:click="toggleIsClicked1"
-            maxlength="50"
-          /></td>
-          </tr>
-        <tr>
-        <td class="heading"><b>Short description of business and specialties:</b></td>
-        <td>
-        <input
-          type="text"
-          :style="descClicked ? {'border-color':'black'} :null"
-          v-model="short_desc"
-          placeholder="Short description"
-          v-on:click="toggleIsClicked2"
-        /></td>
-</tr>
-<tr>
-        <td class="heading"><b>Product types:</b></td>
-        <td><Multiselect v-on:input = "clickMulti($event)"></Multiselect></td>
-        </tr>
-<tr>
-        <td class="heading"><b>Dietary types & options:</b></td>
-        <td>
-        <label id="checkbox-block">Halal<input type="checkbox" id="checkbox-dietary"  value="Halal" v-model = "dietary"/></label>
-        <label id="checkbox-block">Keto<input type="checkbox"  id="checkbox-dietary" value="Keto" v-model = "dietary"/></label>
-        <label id="checkbox-block">Gluten-Free<input type="checkbox"  id="checkbox-dietary" value="Gluten-Free" v-model = "dietary"/></label>
-        <label id="checkbox-block">Vegan<input type="checkbox"  id="checkbox-dietary" value="Vegan" v-model = "dietary"/></label>
-        </td>
-</tr>
-<tr>
-        <td class="heading"><b>Deal Options:</b></td>
-        <td>
-        <label id="checkbox-block">Delivery<input type="checkbox" id="checkbox-delivery" value="Delivery" v-model = "deal_options"/></label>
-        <label id="checkbox-block">Self Pick-Up<input type="checkbox" id="checkbox-delivery" value="Self Pick-Up" v-model = "deal_options"/></label>
-        </td>
-      </tr>
-      <tr>
-        <td class="heading"><b>Delivery/Self Pick-Up Details:</b>
-          <br>
-        (fees, locations, etc.)</td>
-        <td>
-        <input 
-          type="text" 
-          :style="delClicked ? {'border-color' : 'black'} :null"
-          v-model="order_details" 
-          :placeholder= "'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'"
-          v-on:click="toggleIsClicked3"   
-        /></td>
-        </tr>
-        <tr>
-        <td class="heading"><b>Location:</b></td>
-        <td>
-        <label id="checkbox-block">Central<input type="checkbox" id="checkbox-location"  value="Central" v-model = "location"/></label>
-        <label id="checkbox-block">East<input type="checkbox"  id="checkbox-location" value="East" v-model = "location"/></label>
-        <label id="checkbox-block">North<input type="checkbox"  id="checkbox-location" value="North" v-model = "location"/></label>
-        <label id="checkbox-block">South<input type="checkbox"  id="checkbox-location" value="South" v-model = "location"/></label>
-        <label id="checkbox-block">West<input type="checkbox"  id="checkbox-location" value="West" v-model = "location"/></label>
-        </td>
-        </tr>
-<tr>
-        <td class="heading"><b>Business email:</b></td>
-        <td>
-        <input 
-        type="text" 
-        :style="emailClicked ? {'border-color' : 'black'} :null"
-        v-on:click="toggleIsClicked4"
-        v-model="business_email" 
-        placeholder="Business Email" />
-        </td>
-</tr>
-<tr>
-        <td class="heading"><b>Official Website: </b></td>
-        <td>
-        <input 
-        type="text" 
-        :style="websiteClicked ? {'border-color' : 'black'} :null"
-        v-on:click="toggleIsClicked5"
-        v-model="official_website" 
-        placeholder="Official Website" />  
-        </td>
-</tr> 
-<tr>
-        <td class="heading"><b>Instagram:</b></td>
-        <td>
-        <input 
-        type="text" 
-        :style="igClicked ? {'border-color' : 'black'} :null"
-        v-on:click="toggleIsClicked6"
-        v-model="instagram" 
-        placeholder="Handlename" />  
-        </td>
-</tr>
-<tr>
-        <td class="heading"><b>Facebook:</b></td>
-        <td>
-        <input 
-        type="text" 
-        :style="fbClicked ? {'border-color' : 'black'} :null"
-        v-on:click="toggleIsClicked7"
-        v-model="facebook" 
-        placeholder="Facebook Page" />    
-        </td>
-</tr>
-
-        </table>
-        <b>Upload Pictures of your product:</b>
-        <div id = "image-upload"> 
-          <div id = "image-upload-div">  
-            <input type="file" @change="onFileChange1" accept = "image/*">
-            <img v-if ="this.imageData1" :src="imageData1" />
-            <img v-else :src = "this.logo_image"/>
+      <div class="form">
+        <form class="register-form">
+          <table>
+            <tr>
+              <td class="heading"><b>Shop Name*:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="nameClicked ? { 'border-color': 'black' } : null"
+                  v-model="shop_name"
+                  placeholder="Shop Name"
+                  v-on:click="toggleIsClicked1"
+                  maxlength="50"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading">
+                <b>Short description of business and specialties*:</b>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  :style="descClicked ? { 'border-color': 'black' } : null"
+                  v-model="short_desc"
+                  placeholder="Short description"
+                  v-on:click="toggleIsClicked2"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Product types*:</b></td>
+              <td>
+                <Multiselect v-on:input="clickMulti($event)"></Multiselect>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Dietary types & options:</b></td>
+              <td>
+                <label id="checkbox-block"
+                  >Halal<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Halal"
+                    v-model="dietary"
+                /></label>
+                <label id="checkbox-block"
+                  >Keto<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Keto"
+                    v-model="dietary"
+                /></label>
+                <label id="checkbox-block"
+                  >Gluten-Free<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Gluten-Free"
+                    v-model="dietary"
+                /></label>
+                <label id="checkbox-block"
+                  >Vegan<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Vegan"
+                    v-model="dietary"
+                /></label>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Deal Options*:</b></td>
+              <td>
+                <label id="checkbox-block"
+                  >Delivery<input
+                    type="checkbox"
+                    id="checkbox-delivery"
+                    value="Delivery"
+                    v-model="deal_options"
+                /></label>
+                <label id="checkbox-block"
+                  >Self Pick-Up<input
+                    type="checkbox"
+                    id="checkbox-delivery"
+                    value="Self Pick-Up"
+                    v-model="deal_options"
+                /></label>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading">
+                <b>Delivery/Self Pick-Up Details*:</b>
+                <br />
+                (fees, locations, etc.)
+              </td>
+              <td>
+                <input
+                  type="text"
+                  :style="delClicked ? { 'border-color': 'black' } : null"
+                  v-model="order_details"
+                  :placeholder="'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'"
+                  v-on:click="toggleIsClicked3"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Location*:</b></td>
+              <td>
+                <label id="checkbox-block"
+                  >Central<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="Central"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >East<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="East"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >North<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="North"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >South<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="South"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >West<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="West"
+                    v-model="location"
+                /></label>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Business email:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="emailClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked4"
+                  v-model="business_email"
+                  placeholder="Business Email"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Official Website: </b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="websiteClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked5"
+                  v-model="official_website"
+                  placeholder="Official Website"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Instagram:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="igClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked6"
+                  v-model="instagram"
+                  placeholder="Handlename"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Facebook:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="fbClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked7"
+                  v-model="facebook"
+                  placeholder="Facebook Page"
+                />
+              </td>
+            </tr>
+          </table>
+          <b>Upload Pictures of your product:</b>
+          <div id="image-upload">
+            <div id="image-upload-div">
+              <input type="file" @change="onFileChange1" accept="image/*" />
+              <img v-if="this.imageData1" :src="imageData1" />
+              <img v-else :src="this.logo_image" />
+            </div>
+            <div id="image-upload-div">
+              <input type="file" @change="onFileChange2" accept="image/*" />
+              <img v-if="this.imageData2" :src="imageData2" />
+              <img v-else :src="this.product_image" />
+            </div>
+            <div id="image-upload-div">
+              <input type="file" @change="onFileChange3" accept="image/*" />
+              <img v-if="this.imageData3" :src="imageData3" />
+              <img v-else :src="this.product_image" />
+            </div>
+            <div id="image-upload-div">
+              <input type="file" @change="onFileChange4" accept="image/*" />
+              <img v-if="this.imageData4" :src="imageData4" />
+              <img v-else :src="this.product_image" />
+            </div>
           </div>
-          <div id = "image-upload-div">  
-            <input type="file" @change="onFileChange2" accept = "image/*">
-            <img v-if ="this.imageData2" :src="imageData2" />
-            <img v-else :src = "this.product_image"/>
-          </div>
-          <div id = "image-upload-div">  
-            <input type="file" @change="onFileChange3" accept = "image/*">
-            <img v-if ="this.imageData3" :src="imageData3" />
-            <img v-else :src = "this.product_image"/>
-          </div>    
-          <div id = "image-upload-div">  
-            <input type="file" @change="onFileChange4" accept = "image/*">
-            <img v-if ="this.imageData4" :src="imageData4" />
-            <img v-else :src = "this.product_image"/>
-          </div>                  
-        </div>
-        <br>
+          <br />
           <button v-on:click.prevent="register">Register</button>
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -172,181 +249,215 @@ export default {
       emailClicked: false,
       websiteClicked: false,
       igClicked: false,
-      fbClicked:false,
+      fbClicked: false,
       short_desc: "",
-      type:[], 
+      type: [],
       dietary: [],
       deal_options: [],
-      location: [], 
+      location: [],
       business_email: "",
       official_website: "",
       facebook: "",
-      instagram: "", 
-      imageData1:'', 
-      imageData2: '', 
-      imageData3: '', 
-      imageData4: '',
-      order_details: '', 
-      logo_image: "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
-      product_image: "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
-      userID: firebase.auth().currentUser.uid
-
+      instagram: "",
+      imageData1:
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+      imageData2:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      imageData3:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      imageData4:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      order_details: "",
+      logo_image:
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+      product_image:
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      userID: firebase.auth().currentUser.uid,
     };
   },
 
   methods: {
     register: function () {
-      this.updateToSeller();
-      db.collection("bakeriesNew").doc(this.userID).set({
-        shop_name: this.shop_name, 
-        short_desc:this.short_desc, 
-        type: this.type, 
-        dietary: this.dietary, 
-        deal_options: this.deal_options, 
-        location: this.location, 
-        business_email: this.business_email,
-        official_website: this.official_website,
-        facebook: this.facebook,
-        instagram: this.instagram,
-        images: [this.imageData1, this.imageData2, this.imageData3, this.imageData4],
-        order_details: this.order_details, 
-        ratings: {0: 1, 1:0, 2:0, 3:0, 4:0, 5:0}, 
-        total_ratings_by_users: 0, 
-        total_favourites_by_users: 0,
-        owner: this.userID,
-        reviews: [],
-        favourite_users: [],
-        review_users: [],
-      }).then(() => {
-        this.$router.push({path: '/sellerprofile'})
-      })
+      if (!this.checkAllFilled()) {
+        this.$swal({
+          icon: "error",
+          text: "Error: Please fill up all the required details",
+          confirmButtonColor: "#000000",
+        });
+      } else {
+        this.updateToSeller();
+        db.collection("bakeriesNew")
+          .doc(this.userID)
+          .set({
+            shop_name: this.shop_name,
+            short_desc: this.short_desc,
+            type: this.type,
+            dietary: this.dietary,
+            deal_options: this.deal_options,
+            location: this.location,
+            business_email: this.business_email,
+            official_website: this.official_website,
+            facebook: this.facebook,
+            instagram: this.instagram,
+            images: [
+              this.imageData1,
+              this.imageData2,
+              this.imageData3,
+              this.imageData4,
+            ],
+            order_details: this.order_details,
+            ratings: { 0: 1, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+            total_ratings_by_users: 0,
+            total_favourites_by_users: 0,
+            owner: this.userID,
+            reviews: [],
+            favourite_users: [],
+            review_users: [],
+          })
+          .then(() => {
+            this.$router.push({ path: "/sellerprofile" });
+          });
+      }
     },
-    
-    updateToSeller: function() {
-      //function to update user to seller in firestore 
+
+    updateToSeller: function () {
+      //function to update user to seller in firestore
       db.collection("Users").doc(this.userID).update({
-        seller:true
-      })
+        seller: true,
+      });
     },
     onFileChange1(event) {
       const file = event.target.files.item(0);
       const reader = new FileReader();
-      reader.addEventListener('load', this.imageLoaded1);
+      reader.addEventListener("load", this.imageLoaded1);
       reader.readAsDataURL(file);
     },
-    imageLoaded1(event){
+    imageLoaded1(event) {
       this.imageData1 = event.target.result;
-    }, 
+    },
 
     onFileChange2(event) {
-    const file = event.target.files.item(0);
-    const reader = new FileReader();
-    reader.addEventListener('load', this.imageLoaded2);
-    reader.readAsDataURL(file);
+      const file = event.target.files.item(0);
+      const reader = new FileReader();
+      reader.addEventListener("load", this.imageLoaded2);
+      reader.readAsDataURL(file);
     },
 
-    imageLoaded2(event){
+    imageLoaded2(event) {
       this.imageData2 = event.target.result;
-    }, 
+    },
 
     onFileChange3(event) {
-    const file = event.target.files.item(0);
-    const reader = new FileReader();
-    reader.addEventListener('load', this.imageLoaded3);
-    reader.readAsDataURL(file);
+      const file = event.target.files.item(0);
+      const reader = new FileReader();
+      reader.addEventListener("load", this.imageLoaded3);
+      reader.readAsDataURL(file);
     },
 
-    imageLoaded3(event){
+    imageLoaded3(event) {
       this.imageData3 = event.target.result;
-    }, 
+    },
 
     onFileChange4(event) {
-    const file = event.target.files.item(0);
-    const reader = new FileReader();
-    reader.addEventListener('load', this.imageLoaded4);
-    reader.readAsDataURL(file);
+      const file = event.target.files.item(0);
+      const reader = new FileReader();
+      reader.addEventListener("load", this.imageLoaded4);
+      reader.readAsDataURL(file);
     },
 
-    imageLoaded4(event){
+    imageLoaded4(event) {
       this.imageData4 = event.target.result;
-    }, 
-
+    },
 
     toggleIsClicked1: function () {
-    this.nameClicked = !this.nameClicked;
-    this.descClicked = false;
-    this.delClicked = false;
-    this.emailClicked = false;
-    this.websiteClicked = false;
-    this.igClicked = false;
-    this.fbClicked = false;
-    },
-
-    toggleIsClicked2: function () {
-    (this.nameClicked = false), (this.descClicked = !this.descClicked);
-    this.delClicked = false;
-    this.emailClicked = false;
-    this.websiteClicked = false;
-    this.igClicked = false;
-    this.fbClicked = false;
-    },
-
-    toggleIsClicked3: function () { 
-    (this.nameClicked = false),
-    (this.descClicked = false),
-    (this.delClicked = !this.delClicked);
-    this.emailClicked = false;
-    this.websiteClicked = false;
-    this.igClicked = false;
-    this.fbClicked = false;
-    },
-
-    toggleIsClicked4: function () { 
-      (this.nameClicked = false),
-      (this.descClicked = false),
-      (this.delClicked = false),
-      (this.emailClicked = !this.emailClicked);
+      this.nameClicked = !this.nameClicked;
+      this.descClicked = false;
+      this.delClicked = false;
+      this.emailClicked = false;
       this.websiteClicked = false;
       this.igClicked = false;
       this.fbClicked = false;
     },
 
-    toggleIsClicked5: function () { 
-      (this.nameClicked = false),
-      (this.descClicked = false),
-      (this.delClicked = false),
-      (this.emailClicked = false),
-      (this.websiteClicked = !this.websiteClicked);
+    toggleIsClicked2: function () {
+      (this.nameClicked = false), (this.descClicked = !this.descClicked);
+      this.delClicked = false;
+      this.emailClicked = false;
+      this.websiteClicked = false;
       this.igClicked = false;
       this.fbClicked = false;
     },
 
-    toggleIsClicked6: function () { 
+    toggleIsClicked3: function () {
       (this.nameClicked = false),
-      (this.descClicked = false),
-      (this.delClicked = false),
-      (this.emailClicked = false),
-      (this.websiteClicked = false),
-      (this.igClicked = !this.igClicked);
+        (this.descClicked = false),
+        (this.delClicked = !this.delClicked);
+      this.emailClicked = false;
+      this.websiteClicked = false;
+      this.igClicked = false;
       this.fbClicked = false;
     },
 
-    toggleIsClicked7: function () { 
+    toggleIsClicked4: function () {
       (this.nameClicked = false),
-      (this.descClicked = false),
-      (this.delClicked = false),
-      (this.emailClicked = false),
-      (this.websiteClicked = false),
-      (this.igClicked = false),
-      this.fbClicked = !this.fbClicked;
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = !this.emailClicked);
+      this.websiteClicked = false;
+      this.igClicked = false;
+      this.fbClicked = false;
     },
 
-    clickMulti: function(event) {
-      this.type = []
+    toggleIsClicked5: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = false),
+        (this.websiteClicked = !this.websiteClicked);
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked6: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = false),
+        (this.websiteClicked = false),
+        (this.igClicked = !this.igClicked);
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked7: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = false),
+        (this.websiteClicked = false),
+        (this.igClicked = false),
+        (this.fbClicked = !this.fbClicked);
+    },
+
+    clickMulti: function (event) {
+      this.type = [];
       for (var i = 0; i < event.length; i++) {
-        this.type.push(event[i].type)
+        this.type.push(event[i].type);
       }
-    }
+    },
+
+    checkAllFilled: function () {
+      if (
+        this.shop_name == "" ||
+        this.short_desc == "" ||
+        this.type.length == 0 ||
+        this.deal_options.length == 0 ||
+        this.location.length == 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
 };
 </script>
@@ -390,15 +501,15 @@ header {
 }
 
 table {
-  border-spacing:3em;
-  margin-left:auto;
-  margin-right:auto;
+  border-spacing: 3em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .heading {
-  padding-right:30px;
+  padding-right: 30px;
   padding-left: 30px;
-  width:40%;
+  width: 40%;
 }
 
 #checkbox-dietary {
@@ -487,8 +598,8 @@ table {
   text-decoration: none;
 }
 
-#image-upload{
-  display:flex;
+#image-upload {
+  display: flex;
   width: 100%;
   justify-content: space-around;
 }
@@ -496,12 +607,12 @@ table {
 #image-upload-div {
   width: 25%;
   align-items: center;
-
+  margin-right: 10px;
 }
 
 img {
-  width:200px;
-  height:200px;
+  width: 200px;
+  height: 200px;
   border: #bbbbbb solid 1px;
   border-radius: 10px;
   display: block;
@@ -512,7 +623,6 @@ img {
 .navbar {
   text-align: center;
 }
-
 </style>
 
 <style>
@@ -541,9 +651,6 @@ img {
 .multiselect__tag-icon:focus,
 .multiselect__tag-icon:hover {
   background: #f0f0f0 !important;
-  color:black;
+  color: black;
 }
-
-
-
 </style>
