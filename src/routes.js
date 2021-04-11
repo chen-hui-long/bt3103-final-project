@@ -34,7 +34,7 @@ export default [
   { path: "/sellerprofile", component: SellerProfile, beforeEnter : guardMyroute},
   { path: "/faq", component: Faq }, 
   { path: "/terms-and-conditions", component: TC },
-  { path: "/dashboard", component: Dashboard }
+  { path: "/dashboard", component: Dashboard },
   //{ path: '/Fav', component: Favourite}
 ];
 

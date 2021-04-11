@@ -1,6 +1,6 @@
 <template>
   <div id="favourite">
-    <img id="img2" v-bind:src="this.image2">
+    <img id="img2" v-on:click="toProduct" v-bind:src="this.image2">
 
     
     <div id="shopDetails">
@@ -9,14 +9,14 @@
       <div class = "wrapper">
       <div class="stars"
         ><star-rating
-          read-only="true"
+          v-bind:read-only="true"
           v-model="rating"
-          increment="0.1"
+          v-bind:increment="0.1"
           v-bind:show-rating="false"
           v-bind:star-size="16"
           border-color="black"
-          border-width="3"
-          rounded-corners="true"
+          v-bind:border-width="3"
+          v-bind:rounded-corners="true"
           inactive-color="white"
           active-color="black"
         ></star-rating
@@ -90,18 +90,26 @@ export default {
 
 <style scoped>
 #favourite {
-  border: 1px solid;
+  border: 1.5px solid;
   border-color: rgb(214, 210, 206);
-  overflow: auto;
-  margin: 50px -10px 150px 80px;
   border-radius: 12px;
+  margin-left:20px;
+  margin-right:20px;
+  margin-top:15px;
+  margin-bottom:15px;
   
 }
 
 #img2 {
   width: 280px;
-  height: 290px;
+  height: 280px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 
+}
+
+#img2:hover {
+  cursor:pointer;
 }
 
 #img1 {

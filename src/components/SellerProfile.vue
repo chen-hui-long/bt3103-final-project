@@ -33,6 +33,15 @@
           </td>
         </tr>
         <tr>
+          <td class = "heading">Location</td>
+          <td>
+            <li v-for = "(location, index) in this.bakery[0].location" v-bind:key= "index"> 
+              {{location}}
+              </li>
+          </td>
+        </tr>
+
+        <tr>
           <td class = "heading">Dietary types & options</td>
           <td>
             <li v-for = "(diet, index) in this.bakery[0].dietary" v-bind:key= "index"> 

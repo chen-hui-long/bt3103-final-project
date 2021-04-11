@@ -2,9 +2,10 @@
     <div class="faq">
       <NavBar></NavBar>
       <header>Frequently Asked Questions (FAQs) </header>
-    <infoList v-for="(item, index) in dynamicList" :key="index" :user="item">
+    <infoList v-for="(item, index) in dynamicList" :key="index" :user="item" >
       {{item.a}}
     </infoList> 
+    
   </div>
 </template>
 
@@ -31,6 +32,9 @@ export default {
       list.forEach(element => {
        this.dynamicList.push({...element, visible: false});
       });
+    },
+    update(user) {
+      this.user = user;
     }
   },
   async created(){

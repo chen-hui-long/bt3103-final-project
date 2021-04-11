@@ -19,9 +19,9 @@
             v-model="this.rating"
           ></star-rating
         ></span>
-      
+
         <button type="submit" v-on:click.prevent="submit">Submit</button>
-        </div>
+      </div>
     </form>
 
     <div class="reviews">
@@ -193,13 +193,52 @@ export default {
                       review: this.review,
                       time: Date(),
                     }),
+                  })
+                  .then(() => {
+                    database
+                      .collection("Users")
+                      .doc(firebase.auth().currentUser.uid)
+                      .update({
+                        total_review: firebase.firestore.FieldValue.increment(
+                          1
+                        ),
+                      })
+                      .then(() => {
+                        var rating_number = parseInt(this.rating);
+                        database
+                          .collection("bakeriesNew")
+                          .doc(this.docID)
+                          .update({
+                            reviews: firebase.firestore.FieldValue.arrayUnion({
+                              user_id: firebase.auth().currentUser.uid,
+                              rating: this.rating,
+                              review: this.review,
+                              time: Date(),
+                            }),
+                            total_ratings_by_users: firebase.firestore.FieldValue.increment(
+                              1
+                            ),
+                            review_users: firebase.firestore.FieldValue.arrayUnion(
+                              firebase.auth().currentUser.uid
+                            ),
+                            [`ratings.${rating_number}`]: firebase.firestore.FieldValue.increment(
+                              1
+                            ),
+                          })
+                          .then(() => {
+                            location.reload();
+                          });
+                      });
                   });
+                /*  IGNORE ALL THIS 
                 database
                   .collection("Users")
                   .doc(firebase.auth().currentUser.uid)
                   .update({
                     total_review: firebase.firestore.FieldValue.increment(1),
                   });
+                  */
+                /*
                 var rating_number = parseInt(this.rating);
                 database
                   .collection("bakeriesNew")
@@ -221,7 +260,8 @@ export default {
                       1
                     ),
                   });
-                location.reload();
+                  */
+                //location.reload();
               }
             });
         }
@@ -332,5 +372,4 @@ hr {
   outline-style: none;
   cursor: pointer;
 }
-
 </style>

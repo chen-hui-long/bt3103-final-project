@@ -1,10 +1,10 @@
 <template>
   <div class="review">
-      <img v-bind:src="this.image" />
+      <img v-bind:src="this.image" v-on:click="toProduct"/>
       <div class="wrapper">
       <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
-      <span id="fav" v-show="this.checkFav">♥</span>
-      <span id="not-fav" v-show="!(this.checkFav)">♡</span>
+      <span id="fav" v-show="this.checkFav" v-on:click="unfavShop">♥</span>
+      <span id="not-fav" v-show="!(this.checkFav)" v-on:click="favShop">♡</span>
       </div>
       <div id="text">{{ this.review }}</div>
       <div class="stars"
@@ -99,6 +99,10 @@ img {
   padding: 15px;
 }
 
+img:hover {
+  cursor:pointer;
+}
+
 #name {
   color: rgb(179, 149, 110);
   text-decoration: underline;
@@ -137,6 +141,14 @@ img {
   text-align: right;
   margin-left: 300px;
   float: right;
+}
+
+#not-fav:hover {
+  cursor:pointer
+}
+
+#fav:hover {
+  cursor:pointer
 }
 
 #rating {
