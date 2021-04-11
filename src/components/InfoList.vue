@@ -2,7 +2,7 @@
   <div class="list-item-container">
     <div class="list-item-head p-8">
       {{user.question}}
-      <span class="toggle float-right" @click="user.visible = !user.visible" 
+      <span class="toggle float-right" @click="makeVisible"
             v-text="toggletText[user.visible * 1]">
       </span>
     </div>
@@ -13,9 +13,16 @@
 </template>
 <script>
 export default {
-  //props:["user"],
+  props:["user"],
   data(){
     return { toggletText: ['show', 'hide'] }
+  },
+  methods: {
+    makeVisible(){
+    let temp = this.user;
+    temp.visible = !temp.visible;
+    this.$emit("update-user", temp)
+    }
   }
 }
 </script>
