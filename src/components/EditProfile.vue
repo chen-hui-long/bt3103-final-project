@@ -143,12 +143,26 @@ img {
 }
 
 #update {
-  background-color: black;
-  color: white;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: black;
+  width: 40%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
   cursor: pointer;
-  padding: 5px 30px;
-  border-radius: 6px;
-  border: none;
+  border-radius: 30px;
+}
+
+#update:hover,
+#update:active,
+#update:focus {
+  background: black;
+  transform: scale(1.05);
 }
 </style>
 
