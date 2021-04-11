@@ -117,7 +117,7 @@ form {
   position: relative;
   z-index: 1;
   background: #ffffff;
-  margin: 0 auto 100px;
+  margin: 0 100px 100px;
   padding: 45px;
 }
 
@@ -139,7 +139,7 @@ form label {
 }
 
 img {
-  width: 400px;
+  width: 250px;
 }
 
 #update {
