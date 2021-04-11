@@ -7,110 +7,212 @@
       <header>Edit your listing</header>
       <div class="form">
         <form class="register-form">
-          Shop name*:
-          <input type="text" v-model="shop_name" placeholder="Shop name" />
-          Short description of business and specialties*:
-          <input
-            type="text"
-            v-model="short_desc"
-            placeholder="Short description"
-          />
-          Product types*:
-          <Multiselect
-            v-on:input="clickMulti($event)"
-            v-bind:value="type"
-          ></Multiselect>
-          <br />
-          Dietary types & options:
-          <br />
-          <label id="checkbox-block"
-            >Halal<input
-              type="checkbox"
-              id="checkbox-dietary"
-              value="Halal"
-              v-model="dietary"
-          /></label>
-          <label id="checkbox-block"
-            >Keto<input
-              type="checkbox"
-              id="checkbox-dietary"
-              value="Keto"
-              v-model="dietary"
-          /></label>
-          <label id="checkbox-block"
-            >Gluten-Free<input
-              type="checkbox"
-              id="checkbox-dietary"
-              value="Gluten-Free"
-              v-model="dietary"
-          /></label>
-          <label id="checkbox-block"
-            >Vegan<input
-              type="checkbox"
-              id="checkbox-dietary"
-              value="Vegan"
-              v-model="dietary"
-          /></label>
-          <br />
-          Deal Options*:
-          <br />
-          <label id="checkbox-block"
-            >Delivery<input
-              type="checkbox"
-              id="checkbox-delivery"
-              value="Delivery"
-              v-model="deal_options"
-          /></label>
-          <label id="checkbox-block"
-            >Self Pick-Up<input
-              type="checkbox"
-              id="checkbox-delivery"
-              value="Self Pick-Up"
-              v-model="deal_options"
-          /></label>
-
-          <br />
-          Delivery/Self Pick-Up Details*:
-          <br />
-          (fees, locations, etc.)
-          <input type="text" v-model="order_details" />
-
-          <br />
-          Location*:
-          <br />
-          <select id="location" v-model="location">
-            <option value="Central" selected>Central</option>
-            <option value="East">East</option>
-            <option value="North">North</option>
-            <option value="South">South</option>
-            <option value="West">West</option>
-          </select>
-          <br />
-          <br />
-          Business email:
-          <input
-            type="text"
-            v-model="business_email"
-            placeholder="Business Email"
-          />
-          Official Website:
-          <input
-            type="text"
-            v-model="official_website"
-            placeholder="Official Website"
-          />
-          Instagram:
-          <input type="text" v-model="instagram" placeholder="@handlename" />
-          Facebook:
-          <input type="text" v-model="facebook" placeholder="Facebook Page" />
-          Upload Pictures of your product:
+          <table>
+            <tr>
+              <td class="heading"><b>Shop Name*:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="nameClicked ? { 'border-color': 'black' } : null"
+                  v-model="shop_name"
+                  placeholder="Shop Name"
+                  v-on:click="toggleIsClicked1"
+                  maxlength="50"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading">
+                <b>Short description of business and specialties*:</b>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  :style="descClicked ? { 'border-color': 'black' } : null"
+                  v-model="short_desc"
+                  placeholder="Short description"
+                  v-on:click="toggleIsClicked2"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Product types*:</b></td>
+              <td>
+                <Multiselect
+                  v-on:input="clickMulti($event)"
+                  v-bind:value="type"
+                ></Multiselect>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Dietary types & options:</b></td>
+              <td>
+                <label id="checkbox-block"
+                  >Halal<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Halal"
+                    v-model="dietary"
+                /></label>
+                <label id="checkbox-block"
+                  >Keto<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Keto"
+                    v-model="dietary"
+                /></label>
+                <label id="checkbox-block"
+                  >Gluten-Free<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Gluten-Free"
+                    v-model="dietary"
+                /></label>
+                <label id="checkbox-block"
+                  >Vegan<input
+                    type="checkbox"
+                    id="checkbox-dietary"
+                    value="Vegan"
+                    v-model="dietary"
+                /></label>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Deal Options*:</b></td>
+              <td>
+                <label id="checkbox-block"
+                  >Delivery<input
+                    type="checkbox"
+                    id="checkbox-delivery"
+                    value="Delivery"
+                    v-model="deal_options"
+                /></label>
+                <label id="checkbox-block"
+                  >Self Pick-Up<input
+                    type="checkbox"
+                    id="checkbox-delivery"
+                    value="Self Pick-Up"
+                    v-model="deal_options"
+                /></label>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading">
+                <b>Delivery/Self Pick-Up Details*:</b>
+                <br />
+                (fees, locations, etc.)
+              </td>
+              <td>
+                <input
+                  type="text"
+                  :style="delClicked ? { 'border-color': 'black' } : null"
+                  v-model="order_details"
+                  :placeholder="'Delivery: <insert details> \n and/or Self Pick-Up: <insert details>'"
+                  v-on:click="toggleIsClicked3"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Location*:</b></td>
+              <td>
+                <label id="checkbox-block"
+                  >Central<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="Central"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >East<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="East"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >North<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="North"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >South<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="South"
+                    v-model="location"
+                /></label>
+                <label id="checkbox-block"
+                  >West<input
+                    type="checkbox"
+                    id="checkbox-location"
+                    value="West"
+                    v-model="location"
+                /></label>
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Business email:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="emailClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked4"
+                  v-model="business_email"
+                  placeholder="Business Email"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Official Website: </b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="websiteClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked5"
+                  v-model="official_website"
+                  placeholder="Official Website"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Instagram:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="igClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked6"
+                  v-model="instagram"
+                  placeholder="Handlename"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="heading"><b>Facebook:</b></td>
+              <td>
+                <input
+                  type="text"
+                  :style="fbClicked ? { 'border-color': 'black' } : null"
+                  v-on:click="toggleIsClicked7"
+                  v-model="facebook"
+                  placeholder="Facebook Page"
+                />
+              </td>
+            </tr>
+          </table>
+          <b>Upload Pictures of your product:</b>
           <div id="image-upload">
             <div id="image-upload-div">
               <input type="file" @change="onFileChange1" accept="image/*" />
               <img v-if="this.imageData1" :src="imageData1" />
-              <img v-else :src="this.imageData1" />
+              <img v-else :src="this.logo_image" />
               <div class="delete-image-div">
-                <button class="delete-image" v-on:click.prevent="delete_image1">
+                <button
+                  class="delete-image"
+                  id="delete-img"
+                  v-on:click.prevent="delete_image1"
+                >
                   Delete
                 </button>
               </div>
@@ -118,9 +220,13 @@
             <div id="image-upload-div">
               <input type="file" @change="onFileChange2" accept="image/*" />
               <img v-if="this.imageData2" :src="imageData2" />
-              <img v-else :src="this.imageData2" />
+              <img v-else :src="this.product_image" />
               <div class="delete-image-div">
-                <button class="delete-image" v-on:click.prevent="delete_image2">
+                <button
+                  class="delete-image"
+                  id="delete-img"
+                  v-on:click.prevent="delete_image2"
+                >
                   Delete
                 </button>
               </div>
@@ -128,9 +234,13 @@
             <div id="image-upload-div">
               <input type="file" @change="onFileChange3" accept="image/*" />
               <img v-if="this.imageData3" :src="imageData3" />
-              <img v-else :src="this.imageData3" />
+              <img v-else :src="this.product_image" />
               <div class="delete-image-div">
-                <button class="delete-image" v-on:click.prevent="delete_image3">
+                <button
+                  class="delete-image"
+                  id="delete-img"
+                  v-on:click.prevent="delete_image3"
+                >
                   Delete
                 </button>
               </div>
@@ -138,9 +248,13 @@
             <div id="image-upload-div">
               <input type="file" @change="onFileChange4" accept="image/*" />
               <img v-if="this.imageData4" :src="imageData4" />
-              <img v-else :src="this.imageData4" />
+              <img v-else :src="this.product_image" />
               <div class="delete-image-div">
-                <button class="delete-image" v-on:click.prevent="delete_image4">
+                <button
+                  class="delete-image"
+                  id="delete-img"
+                  v-on:click.prevent="delete_image4"
+                >
                   Delete
                 </button>
               </div>
@@ -148,11 +262,11 @@
           </div>
           <br />
           <div id="changes">
+            <button id="savebtn" v-on:click.prevent="save">Save changes</button>
+            <button id="cancelbtn" v-on:click="cancel_action">Cancel</button>
             <button id="deletebtn" v-on:click.prevent="confirm_delete">
               Delete Listing
             </button>
-            <button id="cancelbtn" v-on:click="cancel_action">Cancel</button>
-            <button id="savebtn" v-on:click.prevent="save">Save changes</button>
           </div>
         </form>
       </div>
@@ -174,11 +288,18 @@ export default {
   data() {
     return {
       shop_name: "",
+      nameClicked: true,
+      descClicked: false,
+      delClicked: false,
+      emailClicked: false,
+      websiteClicked: false,
+      igClicked: false,
+      fbClicked: false,
       short_desc: "",
       type: [],
       dietary: [],
       deal_options: [],
-      location: "",
+      location: [],
       business_email: "",
       official_website: "",
       facebook: "",
@@ -188,11 +309,11 @@ export default {
       imageData3: "",
       imageData4: "",
       order_details: "",
-      userID: firebase.auth().currentUser.uid,
-      thumbnail:
+      logo_image:
         "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
-      picture:
+      product_image:
         "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+      userID: firebase.auth().currentUser.uid,
       deleting_user_id: "",
     };
   },
@@ -265,18 +386,88 @@ export default {
       this.imageData4 = event.target.result;
     },
 
+    toggleIsClicked1: function () {
+      this.nameClicked = !this.nameClicked;
+      this.descClicked = false;
+      this.delClicked = false;
+      this.emailClicked = false;
+      this.websiteClicked = false;
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked2: function () {
+      (this.nameClicked = false), (this.descClicked = !this.descClicked);
+      this.delClicked = false;
+      this.emailClicked = false;
+      this.websiteClicked = false;
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked3: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = !this.delClicked);
+      this.emailClicked = false;
+      this.websiteClicked = false;
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked4: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = !this.emailClicked);
+      this.websiteClicked = false;
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked5: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = false),
+        (this.websiteClicked = !this.websiteClicked);
+      this.igClicked = false;
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked6: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = false),
+        (this.websiteClicked = false),
+        (this.igClicked = !this.igClicked);
+      this.fbClicked = false;
+    },
+
+    toggleIsClicked7: function () {
+      (this.nameClicked = false),
+        (this.descClicked = false),
+        (this.delClicked = false),
+        (this.emailClicked = false),
+        (this.websiteClicked = false),
+        (this.igClicked = false),
+        (this.fbClicked = !this.fbClicked);
+    },
+
     clickMulti: function (event) {
       this.type = [];
       for (var i = 0; i < event.length; i++) {
         this.type.push(event[i].type);
       }
     },
+
     cancel_action: function () {
       this.$router.push({ path: "/sellerprofile" });
     },
 
     save: function () {
-      if (!this.check_allfilled()) {
+      if (!this.checkAllFilled()) {
         this.$swal.fire({
           icon: "error",
           title: "Please check all required field are filled",
@@ -388,18 +579,18 @@ export default {
         });
     },
 
-    delete_image1: function () {
-      this.imageData1 = this.thumbnail;
-    },
-
-    delete_image2: function () {
-      this.imageData2 = this.picture;
-    },
-    delete_image3: function () {
-      this.imageData3 = this.picture;
-    },
-    delete_image4: function () {
-      this.imageData4 = this.picture;
+    checkAllFilled: function () {
+      if (
+        this.shop_name == "" ||
+        this.short_desc == "" ||
+        this.type.length == 0 ||
+        this.deal_options.length == 0 ||
+        this.location.length == 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
     },
 
     confirm_delete() {
@@ -419,19 +610,18 @@ export default {
         });
     },
 
-    check_allfilled() {
-      if (
-        this.shop_name == "" ||
-        this.short_desc == "" ||
-        this.type == [] ||
-        this.deal_options == [] ||
-        this.location == "" ||
-        this.order_details == ""
-      ) {
-        return false;
-      } else {
-        return true;
-      }
+    delete_image1: function () {
+      this.imageData1 = this.logo_image;
+    },
+
+    delete_image2: function () {
+      this.imageData2 = this.product_image;
+    },
+    delete_image3: function () {
+      this.imageData3 = this.product_image;
+    },
+    delete_image4: function () {
+      this.imageData4 = this.product_image;
     },
   },
 
@@ -461,18 +651,34 @@ header {
   background: #ffffff;
   margin: 0 auto 100px;
   padding: 45px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
+  /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
+
 .form input {
-  font-family: "Roboto", sans-serif;
+  /*font-family: "Roboto", sans-serif;*/
   outline: 0;
-  background: #f2f2f2;
+  /*background: #f2f2f2;*/
   width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
+  border: #bbbbbb solid 1px;
+  margin: 0 0 20px;
+  padding: 10px;
   box-sizing: border-box;
   font-size: 14px;
+  border-radius: 10px;
+}
+
+table {
+  border-spacing: 3em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heading {
+  padding-right: 30px;
+  padding-left: 30px;
+  width: 40%;
 }
 
 #checkbox-dietary {
@@ -491,13 +697,22 @@ header {
   height: 10px;
 }
 
+#checkbox-location {
+  width: auto;
+  margin-right: 15px;
+  margin-left: 5px;
+  width: 10px;
+  height: 10px;
+}
+
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4caf50;
-  width: 33%;
+  background: black;
+  width: 100%;
   border: 0;
+  border-radius: 30px;
   padding: 15px;
   color: #ffffff;
   font-size: 14px;
@@ -508,7 +723,8 @@ header {
 .form button:hover,
 .form button:active,
 .form button:focus {
-  background: #43a047;
+  background: black;
+  transform: scale(1.05);
 }
 .form .message {
   margin: 15px 0 0;
@@ -553,17 +769,21 @@ header {
 
 #image-upload {
   display: flex;
+  width: 100%;
   justify-content: space-around;
 }
 
 #image-upload-div {
   width: 25%;
   align-items: center;
+  margin-right: 10px;
 }
 
 img {
   width: 200px;
   height: 200px;
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -572,32 +792,61 @@ img {
 .navbar {
   text-align: center;
 }
+</style>
 
-#changes {
-  display: flex;
-  justify-content: space-around;
+<style>
+.multiselect__option--highlight {
+  background: #e3dddf !important;
+  color: black;
 }
 
-#deletebtn {
+.multiselect__option--highlight:after {
+  background: #bbbbbb !important;
+}
+
+.multiselect__tag {
+  margin: 0 0 20px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #e3dddf;
+  color: black;
+}
+
+.multiselect__tag-icon:after {
+  color: rgba(60, 60, 60, 0.5) !important;
+}
+
+.multiselect__tag-icon:focus,
+.multiselect__tag-icon:hover {
+  background: #f0f0f0 !important;
+  color: black;
+}
+
+#delete-img {
+  width: 50%;
+  margin-top: 10px;
+  padding: 5px;
   background: #cc3723;
-}
-
-#cancelbtn {
-  background: #617375;
-}
-
-#savebtn {
-  background: #43a047;
 }
 
 .delete-image-div {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-button.delete-image {
-  margin-top: 10px;
-  padding: 5px;
+#savebtn {
+  background: #4caf50;
+  margin-bottom: 10px;
+}
+
+#cancelbtn {
+  background: grey;
+  margin-bottom: 10px;
+}
+
+#deletebtn {
   background: #cc3723;
+  margin-bottom: 10px;
 }
 </style>
