@@ -306,7 +306,7 @@ export default {
               this.imageData4,
             ],
             order_details: this.order_details,
-            ratings: { 0: 1, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+            ratings: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
             total_ratings_by_users: 0,
             total_favourites_by_users: 0,
             owner: this.userID,
@@ -451,7 +451,8 @@ export default {
         this.short_desc == "" ||
         this.type.length == 0 ||
         this.deal_options.length == 0 ||
-        this.location.length == 0
+        this.location.length == 0 || 
+        this.order_details == ""
       ) {
         return false;
       } else {

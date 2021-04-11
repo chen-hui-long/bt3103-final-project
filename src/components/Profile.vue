@@ -29,13 +29,13 @@
     <div id="details">
       <div class="container" v-show="this.showShops">
         <div class="shop" v-for="shopID in favs" v-bind:key="shopID">
-          <Favourite v-bind:shopID="shopID" v-on:unfavShop="unfavShop" />
+          <Favourite v-bind:shopID="shopID" v-on:unfavShop="unfavShop" v-on:favShop ="favShop"/>
         </div>
       </div>
 
       <div class="container" v-show="this.showReviews">
         <div class="rev" v-for="review in revs" v-bind:key="review.UID">
-          <Review v-bind:rev="review" :checkFav="checkFav(review.UID)" />
+          <Review v-bind:rev="review" :checkFav="checkFav(review.UID)"  v-on:favShop ="favShop" v-on:unfavShop="unfavShop"/>
         </div>
       </div>
 
@@ -137,21 +137,24 @@ export default {
 
     unfavShop(shop) {
       db.collection("bakeriesNew").doc(shop).update({
-        favourite_users: firebase.firestore.FieldValue.arrayRemove(this.userID)
+        favourite_users: firebase.firestore.FieldValue.arrayRemove(this.userID),
+        total_favourites_by_users : firebase.firestore.FieldValue.increment(-1)
       });
       db.collection("Users").doc(this.userID).update({
         favourite: firebase.firestore.FieldValue.arrayRemove(shop),
-        total_favourite: this.total_fav - 1
+        total_favourite : firebase.firestore.FieldValue.increment(-1)
       }).then(() => {location.reload()});
     },
 
     favShop(shop){
+      console.log("testing")
       db.collection("bakeriesNew").doc(shop).update({
-        favourite_users: firebase.firestore.FieldValue.arrayUnion(this.userID)
+        favourite_users: firebase.firestore.FieldValue.arrayUnion(this.userID),
+        total_favourites_by_users : firebase.firestore.FieldValue.increment(1)
       });
       db.collection("Users").doc(this.userID).update({
         favourite: firebase.firestore.FieldValue.arrayUnion(shop),
-        total_favourite: this.total_fav + 1,
+        total_favourite : firebase.firestore.FieldValue.increment(1)
       }).then(() => {location.reload()});
     },
   },
