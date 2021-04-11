@@ -16,7 +16,7 @@
     <div class="body">
       <table>
         <tr>
-          <td class = "heading">
+          <td class = "heading-btn">
             <button class ="edit" v-on:click="edit">Edit my listing </button>
             <button class ="edit" v-on:click="dashboard">View Dashboard </button>
             </td>
@@ -173,6 +173,11 @@ table {
   padding-left: 50px;
   width:30%;
   font-weight: bold;
+}
+.heading-btn {
+  padding-right:30px;
+  padding-left: 50px;
+  width:30%;
 }
 
 .profile-pic {
