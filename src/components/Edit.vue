@@ -201,6 +201,7 @@
               </td>
             </tr>
           </table>
+          <div id="photos">
           <b>Upload Pictures of your product:</b>
           <div id="image-upload">
             <div id="image-upload-div">
@@ -260,13 +261,16 @@
               </div>
             </div>
           </div>
+          </div>
           <br />
+          <br>
           <div id="changes">
-            <button id="savebtn" v-on:click.prevent="save">Save changes</button>
-            <button id="cancelbtn" v-on:click="cancel_action">Cancel</button>
             <button id="deletebtn" v-on:click.prevent="confirm_delete">
               Delete Listing
             </button>
+            <button id="cancelbtn" v-on:click="cancel_action">Cancel</button> 
+            <br>
+            <button id="savebtn" v-on:click.prevent="save">Save Changes</button>
           </div>
         </form>
       </div>
@@ -710,7 +714,7 @@ table {
   text-transform: uppercase;
   outline: 0;
   background: black;
-  width: 100%;
+  width: 40%;
   border: 0;
   border-radius: 30px;
   padding: 15px;
@@ -789,6 +793,15 @@ img {
   margin-right: auto;
 }
 
+#photos {
+  margin-left: 9%;
+  margin-right: 6%;
+}
+
+#changes {
+  text-align: center;
+}
+
 .navbar {
   text-align: center;
 }
@@ -827,7 +840,7 @@ img {
   width: 50%;
   margin-top: 10px;
   padding: 5px;
-  background: #cc3723;
+  background: #bbbbbb;
 }
 
 .delete-image-div {
@@ -836,17 +849,23 @@ img {
 }
 
 #savebtn {
-  background: #4caf50;
+  background: black;
   margin-bottom: 10px;
+  padding: 15px 32px;
+  width: 50%;
 }
 
 #cancelbtn {
   background: grey;
   margin-bottom: 10px;
+  padding: 15px 32px;
+  width: 25%;
 }
 
 #deletebtn {
-  background: #cc3723;
+  background: grey;
   margin-bottom: 10px;
+  padding: 15px 32px;
+  width: 25%;
 }
 </style>

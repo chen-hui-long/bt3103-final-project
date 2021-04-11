@@ -170,8 +170,9 @@ table {
 
 .heading {
   padding-right:30px;
-  padding-left: 30px;
+  padding-left: 50px;
   width:30%;
+  font-weight: bold;
 }
 
 .profile-pic {

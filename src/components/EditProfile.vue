@@ -117,7 +117,7 @@ form {
   position: relative;
   z-index: 1;
   background: #ffffff;
-  margin: 0 auto 100px;
+  margin: 0 100px 100px;
   padding: 45px;
 }
 
@@ -139,16 +139,30 @@ form label {
 }
 
 img {
-  width: 400px;
+  width: 250px;
 }
 
 #update {
-  background-color: black;
-  color: white;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: black;
+  width: 40%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
   cursor: pointer;
-  padding: 5px 30px;
-  border-radius: 6px;
-  border: none;
+  border-radius: 30px;
+}
+
+#update:hover,
+#update:active,
+#update:focus {
+  background: black;
+  transform: scale(1.05);
 }
 </style>
 
