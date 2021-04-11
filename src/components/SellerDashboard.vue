@@ -1,13 +1,28 @@
 <template>
   <div>
-    <bar-chart></bar-chart>
+    <BarChart></BarChart>
   </div>
 </template>
  
 <script>
-import BarChart from "./charts/Bar"
+import BarChart from './BarChart.vue'
+
 export default {
-  components: { "bar-chart": BarChart },
+  components: {
+    BarChart
+  },
+
+  data: function () {
+    return {
+      ratings: [],
+    };
+  },
+
+  methods: {
+  },
+
+  created: function () {
+  },
 };
 </script>
  
