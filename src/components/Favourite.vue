@@ -92,6 +92,7 @@ export default {
 #favourite {
   border: 1.5px solid;
   border-color: rgb(214, 210, 206);
+  
   border-radius: 12px;
   margin-left:20px;
   margin-right:20px;
