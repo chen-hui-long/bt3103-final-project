@@ -18,6 +18,7 @@
         <tr>
           <td class = "heading">
             <button class ="edit" v-on:click="edit">Edit my listing </button>
+            <button class ="edit" v-on:click="dashboard">View Dashboard </button>
             </td>
         </tr>
         <tr>
@@ -131,6 +132,10 @@ export default {
 
     edit: function() {
       this.$router.push({path: "/editlisting"})
+    },
+
+    dashboard: function() {
+      this.$router.push({path: "/dashboard"})
     }
   },
 
@@ -193,6 +198,8 @@ table {
   background-color:rgba(202, 206, 205, 0.753);
   border-radius: 8px;
   border: none;
+  margin-top:10px;
+  margin-bottom:10px;
   
 }
 .edit:hover {
