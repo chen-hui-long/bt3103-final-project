@@ -90,17 +90,21 @@ export default {
 
 <style scoped>
 #favourite {
-  border: 1px solid;
+  border: 1.5px solid;
   border-color: rgb(214, 210, 206);
-  overflow: auto;
-  margin: 50px -10px 150px 80px;
   border-radius: 12px;
+  margin-left:20px;
+  margin-right:20px;
+  margin-top:15px;
+  margin-bottom:15px;
   
 }
 
 #img2 {
   width: 280px;
-  height: 290px;
+  height: 280px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 
 }
 
