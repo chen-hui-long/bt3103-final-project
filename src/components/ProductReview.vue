@@ -1,11 +1,15 @@
 <template>
   <div>
+    <div class="date-box">
+      <span id="Date">{{ this.getTime() }}</span>
+    </div>
     <div class="users">
       <img id="profile-pic" v-bind:src="profile_pic" />
       <div class="wrapper">
-        <span id="Name" >{{ this.getName() }}</span>
-        <span id="Date">{{ this.getTime() }}</span>
-        <p></p>
+        <span id="Name">{{ this.getName() }}</span>
+        <p>
+          {{ review.review }}
+        </p>
         <star-rating
           v-bind:read-only="true"
           v-bind:rating="this.review.rating"
@@ -19,7 +23,6 @@
           active-color="black"
         >
         </star-rating>
-        {{ review.review }}
       </div>
     </div>
   </div>
@@ -28,7 +31,7 @@
 <script>
 import StarRating from "vue-star-rating";
 import db from "../firebase.js";
-import moment from "moment"
+import moment from "moment";
 export default {
   components: {
     "star-rating": StarRating,
@@ -48,31 +51,30 @@ export default {
 
   methods: {
     getName() {
-        db.collection("Users")
+      db.collection("Users")
         .doc(this.review.user_id)
         .get()
         .then((doc) => {
           this.reviewer_name = doc.data().name;
           this.profile_pic = doc.data().image;
         });
-        return this.reviewer_name
-    }, 
+      return this.reviewer_name;
+    },
 
     getTime() {
-      return moment(this.review.time).format('DD/MM/YYYY')
-    }
+      return moment(this.review.time).format("DD/MM/YYYY");
+    },
   },
 
-  created() {
-  },
+  created() {},
 };
 </script>
 
 <style scoped>
 #profile-pic {
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
 }
 
 #Name {
@@ -81,10 +83,11 @@ export default {
 }
 
 #Date {
-  margin-left: 80px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
   font-size: 16px;
   color: #565656df;
-
 }
 
 .users {

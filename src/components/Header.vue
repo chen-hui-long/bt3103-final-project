@@ -192,7 +192,6 @@ nav {
   display: flex;
   height: 50%;
   /*width: 30%;*/
-  margin-right: 50px;
   justify-content: space-evenly;
 }
 
