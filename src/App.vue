@@ -4,16 +4,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Raleway&display=swap" rel="stylesheet">
 
-    <app-header :key ="componentKey"></app-header>
-    <p>
-    <router-link to="/signup" exact>Sign Up</router-link> |
-    <router-link to="/login" exact>Login</router-link> |
-    <router-link to="/product" exact>Product</router-link> |
-    <router-link to="/profile" exact>User Profile</router-link> |
-    <router-link to="/" exact>Home</router-link> |
-    </p>
-    ROUTE LINK THAT REQUIE LOGIN:
-    DO NOT DELETE FIRST USE THIS AS DEBUG  
+    <app-header :key ="componentKey"></app-header> 
     <router-view></router-view>
 
     <app-footer></app-footer>

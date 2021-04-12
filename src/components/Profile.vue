@@ -296,6 +296,8 @@ button {
 .revs {
   list-style-type: none;
   padding: 0;
+  margin: auto;
+  width: 50%;
 
 }
 </style>

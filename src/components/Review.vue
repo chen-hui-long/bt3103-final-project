@@ -1,14 +1,32 @@
 <template>
   <div class="review">
-      <img v-bind:src="this.image" v-on:click="toProduct"/>
-      <div class="wrapper">
-      <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
-      <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"><div id="fav2">♥</div></span>
-      <span id="not-fav" v-show="!(this.checkFav)" v-on:click="favShop">♡</span>
+    <div class="fav-div">
+      <span id="not-fav" v-show="!this.checkFav" v-on:click="favShop">♡</span>
+      <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"
+        ><div id="fav2">♥</div></span
+      >
+    </div>
+    <div class="content">
+      <div class="profile-img">
+        <img v-bind:src="this.image" v-on:click="toProduct" />
       </div>
+      <div class="wrapper">
+        <div class="name-container">
+          <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
+        </div>
+        <!--
+      <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"
+        ><div id="fav2">♥</div></span
+      >
+      <div class="fav-container">
+        <span id="not-fav" v-show="!this.checkFav" v-on:click="favShop">♡</span>
+      </div>
+      -->
       <div id="text">{{ this.review }}</div>
-      <div class="stars"
-        ><star-rating
+      <br>
+      <br>
+      <div class="stars">
+        <star-rating
           v-bind:read-only="true"
           v-model="rating"
           v-bind:increment="0.1"
@@ -20,7 +38,9 @@
           inactive-color="white"
           active-color="black"
         ></star-rating>
-        </div>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -62,11 +82,11 @@ export default {
       this.$router.push({ path: "/product", query: { id: this.rev.UID } });
     },
 
-    favShop(){
-      this.$emit("favShop", this.shopID)
+    favShop() {
+      this.$emit("favShop", this.shopID);
     },
 
-    unfavShop(){
+    unfavShop() {
       this.$emit("unfavShop", this.shopID);
     },
   },
@@ -80,29 +100,22 @@ export default {
 
 
 <style scoped>
-
-
 .review {
   border: 2px solid;
   border-color: rgb(214, 210, 206);
   /*overflow: auto;*/
-  margin: 50px -10px 50px 80px;
   border-radius: 12px;
-  height: 175px;
-  width: 50%;
+  margin-top:20px;
+  margin-bottom: 20px;;
 }
 
-
-
 img {
-  float: left;
   width: 150px;
   height: 150px;
-  padding: 15px;
 }
 
 img:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 #name {
@@ -113,19 +126,15 @@ img:hover {
   letter-spacing: 1px;
 }
 
-#name:hover{
+#name:hover {
   color: rgb(139, 115, 82);
   cursor: pointer;
 }
 
 #text {
   word-wrap: normal;
-  padding-bottom: 10px;
 }
 
-.stars {
-  margin-top: 10px;
-}
 
 #fav {
   /*text-align: right;
@@ -134,35 +143,52 @@ img:hover {
   font-family: system-ui;
   font-weight: 500;
   color: #a52a2a;
- 
 }
 
 #not-fav {
   font-size: 30px;
   font-family: system-ui;
+  /*padding: none;*/
   /*margin-left: 200px;
   margin-right: 50px;*/
-
 }
 
 #not-fav:hover {
-  cursor:pointer
+  cursor: pointer;
 }
 
 #fav:hover {
-  cursor:pointer
+  cursor: pointer;
 }
 
-#rating {
-  float: left;
+.fav-div {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.content {
+  display: flex;
+}
+
+.stars {
+  position:absolute;                  /* added */
+  bottom:0; 
+  margin-bottom: 20px;
+}
+
+.profile-img {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  margin-left: 20px;
+  margin-right:20px;
+  margin-bottom: 20px;
 }
 
 .wrapper {
-  display: flex;
-  padding-top: 10px;
-  position: relative;
+  position:relative;
 }
-
 </style>
 
 

@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div class="date-box">
-      <span id="Date">{{ this.getTime() }}</span>
-    </div>
     <div class="users">
-      <img id="profile-pic" v-bind:src="profile_pic" />
+      <div class="profile-img">
+        <img id="profile-pic" v-bind:src="profile_pic" />
+      </div>
       <div class="wrapper">
+        <div class="date-box">
+          <span id="Date">Date: {{ this.getTime() }}</span>
+        </div>
         <span id="Name">{{ this.getName() }}</span>
-        <p>
-          {{ review.review }}
-        </p>
+
+        <p></p>
         <star-rating
           v-bind:read-only="true"
           v-bind:rating="this.review.rating"
@@ -23,6 +24,7 @@
           active-color="black"
         >
         </star-rating>
+        {{ review.review }}
       </div>
     </div>
   </div>
@@ -30,7 +32,7 @@
 
 <script>
 import StarRating from "vue-star-rating";
-import db from "../firebase.js";
+import db from "../../firebase.js";
 import moment from "moment";
 export default {
   components: {
@@ -73,8 +75,8 @@ export default {
 <style scoped>
 #profile-pic {
   border-radius: 50%;
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
 }
 
 #Name {
@@ -85,9 +87,7 @@ export default {
 #Date {
   display: flex;
   justify-content: flex-end;
-  margin-right: 20px;
-  font-size: 16px;
-  color: #565656df;
+  margin-right:20px;
 }
 
 .users {
@@ -95,8 +95,15 @@ export default {
 }
 
 .wrapper {
-  margin-left: 1.5em;
-  margin-bottom: 1.5em;
+  width: 90%;
   font-size: 18px;
+}
+
+.profile-img {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  margin: 20px;
+  width: 10%;
 }
 </style>

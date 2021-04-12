@@ -76,6 +76,7 @@ export default {
 	position: relative;
 	background-color:#e3dddf;
 	width: 100%;	
+	margin-top: 50px;
 }
 
 .site-footer .container {
