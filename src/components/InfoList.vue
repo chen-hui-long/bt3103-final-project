@@ -30,14 +30,14 @@ export default {
 .list-item-container{
   width: 80%;
   margin: 0 auto;
-  background-color: #e3dddf;
+  background-color: #dcdcdcb2;
   margin-bottom: 10px;
 }
 .p-8{
   padding: 8px;
 }
 .list-item-head{
-  background-color: #bbbbbb ;
+  background-color: #3a4562;
   color: #fff;
 }
 .float-right{

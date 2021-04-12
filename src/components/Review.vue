@@ -3,7 +3,7 @@
       <img v-bind:src="this.image" v-on:click="toProduct"/>
       <div class="wrapper">
       <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
-      <span id="fav" v-show="this.checkFav" v-on:click="unfavShop">♥</span>
+      <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"><div id="fav2">♥</div></span>
       <span id="not-fav" v-show="!(this.checkFav)" v-on:click="favShop">♡</span>
       </div>
       <div id="text">{{ this.review }}</div>
@@ -85,10 +85,10 @@ export default {
 .review {
   border: 2px solid;
   border-color: rgb(214, 210, 206);
-  overflow: auto;
-  margin: 50px -10px 0px 80px;
+  /*overflow: auto;*/
+  margin: 50px -10px 50px 80px;
   border-radius: 12px;
-  height: 155px;
+  height: 175px;
   width: 50%;
 }
 
@@ -128,17 +128,20 @@ img:hover {
 }
 
 #fav {
-  text-align: right;
-  float: right;
+  /*text-align: right;
+  float: right;*/
   font-size: 30px;
   font-family: system-ui;
   font-weight: 500;
   color: #a52a2a;
+ 
 }
 
 #not-fav {
   font-size: 30px;
   font-family: system-ui;
+  /*margin-left: 200px;
+  margin-right: 50px;*/
 
 }
 
@@ -157,6 +160,7 @@ img:hover {
 .wrapper {
   display: flex;
   padding-top: 10px;
+  position: relative;
 }
 
 </style>
