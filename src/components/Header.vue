@@ -29,12 +29,13 @@
                 <a href="#" v-on:click="logout" id="menu">Log out</a>
               </div>
             </li>
-
+            <!--
             <li id="fav">
               <router-link to="/favorite" exact
                 ><span id="heart-icon">♡</span></router-link
               >
             </li>
+            -->
             <!--li><a href ="#" v-on:click ="logout">Logout</a></li-->
           </ul>
         </div>
@@ -42,11 +43,13 @@
           <div class="login">
             <ul>
               <li><router-link to="/login" exact>Login</router-link></li>
+              <!--
               <li>
                 <router-link to="/favorite" exact
                   ><span id="heart-icon">♡</span></router-link
                 >
               </li>
+              -->
             </ul>
           </div>
         </div>

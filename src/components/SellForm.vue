@@ -630,6 +630,7 @@ img {
 .multiselect__option--highlight {
   background: #e3dddf !important;
   color: black;
+  margin: 0 0 20px;
 }
 
 .multiselect__option--highlight:after {

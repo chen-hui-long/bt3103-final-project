@@ -28,8 +28,10 @@ export default {
       options: {
         legend: { display: false },
         title: {
+          
           display: true,
           text: "Ratings",
+          fontSize: 25
         },
         scales: {
           yAxes: [
