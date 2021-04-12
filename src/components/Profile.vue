@@ -97,6 +97,12 @@ export default {
     };
   },
 
+  props: {
+    isFav : {
+      type:Boolean
+    }
+  }, 
+
   components: {
     NavBar,
     Favourite,
@@ -196,6 +202,7 @@ export default {
     this.checkLogin();
     if (this.signedIn) {
       this.fetchItems();
+      console.log(this.isFav)
     } else {
       this.$router.push({ path: "/login" });
     }

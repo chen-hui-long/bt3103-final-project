@@ -11,6 +11,8 @@
       <a> {{this.bakery[0].total_ratings_by_users}} Total Reviews </a>
       <br>
       <a> {{this.bakery[0].total_favourites_by_users}} Total Favourites</a>
+      <br>
+      <a> <button class ="edit" v-on:click="dashboard">View Dashboard </button></a>
       </div>
       </div>
     <div class="body">
@@ -18,7 +20,6 @@
         <tr>
           <td class = "heading-btn">
             <button class ="edit" v-on:click="edit">Edit my listing </button>
-            <button class ="edit" v-on:click="dashboard">View Dashboard </button>
             </td>
         </tr>
         <tr>

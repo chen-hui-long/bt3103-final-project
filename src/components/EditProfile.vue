@@ -1,10 +1,12 @@
 <template>
   <div class="edit">
+    <!--
     <div class="links">
       <router-link id="profile" to="/profile">My Profile / </router-link>
       <router-link id="edit" to="/editProfile">Edit</router-link>
+      
     </div>
-
+    -->
     <form action="/action_page.php">
       <div id="image-upload-div">
         <div id="title">Upload your image:</div>
@@ -115,7 +117,6 @@ export default {
 }
 form {
   position: relative;
-  z-index: 1;
   background: #ffffff;
   margin: 0 100px 100px;
   padding: 45px;
