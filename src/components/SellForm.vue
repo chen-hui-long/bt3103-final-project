@@ -198,6 +198,7 @@
               </td>
             </tr>
           </table>
+          <div id="photos">
           <b>Upload Pictures of your product:</b>
           <div id="image-upload">
             <div id="image-upload-div">
@@ -220,6 +221,7 @@
               <img v-if="this.imageData4" :src="imageData4" />
               <img v-else :src="this.product_image" />
             </div>
+          </div>
           </div>
           <br />
           <button v-on:click.prevent="register">Register</button>
@@ -260,18 +262,18 @@ export default {
       facebook: "",
       instagram: "",
       imageData1:
-        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/172264055_10216094457589278_91680100162152886_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=730e14&_nc_ohc=EJ1lo2oM5TYAX8cBhCD&_nc_ht=scontent-xsp1-2.xx&oh=d5851c99698747a40aca253d2f874a24&oe=609BB005",
       imageData2:
-        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/169937624_10216094457629279_3868980115832293243_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=-82cH4NY5NwAX-fgfxv&_nc_ht=scontent-xsp1-2.xx&oh=7bb08790a7c8d162dcef95c0fa0be55c&oe=609A5816",
       imageData3:
-        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/169937624_10216094457629279_3868980115832293243_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=-82cH4NY5NwAX-fgfxv&_nc_ht=scontent-xsp1-2.xx&oh=7bb08790a7c8d162dcef95c0fa0be55c&oe=609A5816",
       imageData4:
-        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/169937624_10216094457629279_3868980115832293243_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=-82cH4NY5NwAX-fgfxv&_nc_ht=scontent-xsp1-2.xx&oh=7bb08790a7c8d162dcef95c0fa0be55c&oe=609A5816",
       order_details: "",
       logo_image:
-        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/168663194_10216055315290745_2083553434860775477_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=ERdQMWpOjjgAX_aCNld&_nc_ht=scontent-xsp1-2.xx&oh=90403237afedfe60420260f274e2bd42&oe=609192AA",
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/172264055_10216094457589278_91680100162152886_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=730e14&_nc_ohc=EJ1lo2oM5TYAX_2Z09l&_nc_ht=scontent-xsp1-2.xx&oh=3526502c7e44efa2da66df74d91ccea1&oe=609BB005",
       product_image:
-        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/167535445_10216055315010738_2265645224878982698_n.jpg?_nc_cat=110&ccb=1-3&_nc_sid=730e14&_nc_ohc=dtbdTGQTvJwAX-oaWow&_nc_ht=scontent-xsp1-1.xx&oh=6514032ba22324f806cf2bfad4f5e9fa&oe=609036B5",
+        "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/169937624_10216094457629279_3868980115832293243_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_ohc=-82cH4NY5NwAX8OqBJf&_nc_ht=scontent-xsp1-2.xx&oh=2be96dbe724629ccb9435661460a0cd9&oe=609A5816",
       userID: firebase.auth().currentUser.uid,
     };
   },
@@ -509,7 +511,7 @@ table {
 
 .heading {
   padding-right: 30px;
-  padding-left: 30px;
+  padding-left: 0;
   width: 40%;
 }
 
@@ -598,6 +600,13 @@ table {
   color: #000000;
   text-decoration: none;
 }
+
+#photos {
+  max-width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 #image-upload {
   display: flex;
