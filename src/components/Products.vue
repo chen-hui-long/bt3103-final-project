@@ -397,7 +397,8 @@ ul.breadcrumb li a {
 }
 
 .ig a {
-  color: #a19090;
+  color: #ae6e3b;
+  margin-top: 15px;
   margin-left: 10px;
 }
 
@@ -408,7 +409,8 @@ ul.breadcrumb li a {
 }
 
 .fb a {
-  color: #a19090;
+  color: #ae6e3b;
+  margin-top: 15px;
   margin-left: 10px;
 }
 
@@ -419,7 +421,8 @@ ul.breadcrumb li a {
 }
 
 .website a {
-  color: #a19090;
+  color: #ae6e3b;
+  margin-top: 15px;
   margin-left: 10px;
 }
 
@@ -430,7 +433,8 @@ ul.breadcrumb li a {
 }
 
 .email a {
-  color: #a19090;
+  color: #ae6e3b;
+  margin-top: 15px;
   margin-left: 10px;
   text-decoration: underline;
 }
@@ -447,7 +451,7 @@ ul.breadcrumb li a {
 }*/
 
 .title {
-  color: #a19090;
+  color: #525f7f;
   letter-spacing: 1px;
   line-height: 20px;
 }

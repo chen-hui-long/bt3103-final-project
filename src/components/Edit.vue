@@ -794,8 +794,9 @@ img {
 }
 
 #photos {
-  margin-left: 9%;
-  margin-right: 6%;
+  max-width: 85%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #changes {

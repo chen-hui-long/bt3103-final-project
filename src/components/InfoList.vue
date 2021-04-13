@@ -37,7 +37,7 @@ export default {
   padding: 8px;
 }
 .list-item-head{
-  background-color: #3a4562;
+  background-color: #525f7f;
   color: #fff;
 }
 .float-right{
