@@ -25,7 +25,7 @@ export default [
   { path: "/forgot", component: ForgotPw},
   { path: "/signup", component: Signup },
   { path: "/sell", component: Sell },
-  { path: "/profile", component: Profile },
+  { path: "/profile", component: Profile},
   { path: "/edit", component: EditProfile },
   { path: "/sellform", component: SellForm, beforeEnter: guardSellingForm},
   { path: "/multipleselect", component: MultipleSelect },
