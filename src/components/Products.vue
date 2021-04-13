@@ -362,7 +362,7 @@ ul.breadcrumb li a {
 
 .product-content-right {
   margin-left: 50px;
-  margin-right:20px;
+  margin-right:80px;
   display: block;
 }
 
