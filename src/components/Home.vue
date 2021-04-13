@@ -66,9 +66,9 @@
 
       <div class = "content-side">
         <div class = "search-sort">
-          <input id = "search_bar" type="text" v-model = "search_filter" placeholder="Search by keyword!" />
+          <input id = "search_bar" type="text" v-model = "search_filter" placeholder="Search by keyword!"/>
+          <span id="search-icon">&#8981;</span>
           <div id = "sorting">
-            Sort by:
             <select id="sort" v-model = "sort_by">
                 <option value="A-Z" selected>A-Z</option>
                 <option value="ratings_ascending">Ratings (Ascending)</option>
@@ -81,7 +81,7 @@
       <li v-for = "bakery in search_bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].images[0]" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].shop_name}}</p>
-        <p id = "bakery-rating"><star-rating
+        <!--p id = "bakery-rating"><star-rating
           v-bind:read-only= "true"
           v-model="bakery[2]"
           v-bind:increment="0.1"
@@ -93,7 +93,7 @@
           inactive-color="white"
           active-color="black"
         ></star-rating>
-        </p>
+        </p-->
         </li>
       </ul>
       <div class="pagination">
@@ -113,10 +113,10 @@
 
 <script>
 import database from "../firebase"
-import StarRating from "vue-star-rating";
+//import StarRating from "vue-star-rating";
 export default {
   components: {
-    "star-rating": StarRating,
+    /*"star-rating": StarRating,*/
   },
   data() {
     return {
@@ -426,14 +426,24 @@ div.vue-star-rating {
   padding-right:3%;
   align-items: center;
 }
+
 #search_bar {
   border-radius: 15px;
   width:60%;
-  text-indent: 15px;
-  font-size: 18px;
+  height: 80%;
+  text-indent: 40px;
+  font-size: 16px;
   outline-style: none;
   box-shadow: none;
   border: 2px solid #bbbbbb;
+}
+
+#search-icon {
+  position: fixed;
+  margin-left: 10px;
+  transform: rotate(270deg);
+  font-size: 50px;
+  color: rgba(7, 7, 7, 0.39);
 }
 #sorting {
   font-size: 18px;
@@ -478,37 +488,7 @@ div.vue-star-rating {
   margin: 0 0 0 0;
 }
 
-.search-sort {
-  display:flex;
-  width:100%;
-  height:45px;
-  justify-content: space-between;
-  margin-top:10px;
-  margin-bottom: 10px;
-  padding-left:3%;
-  padding-right:3%;
-  align-items: center;
-}
 
-#search_bar {
-  border-radius: 15px;
-  width:60%;
-  height: 80%;
-  text-indent: 15px;
-  font-size: 16px;
-  outline-style: none;
-  box-shadow: none;
-  border: 2px solid #bbbbbb;
-}
 
-#sorting {
-  font-size: 18px;
-}
-
-#sort {
-  border:none;
-  outline-style: none;
-  box-shadow: none;
-}
 </style>
 
