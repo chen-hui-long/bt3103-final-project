@@ -51,7 +51,7 @@
           </li>
         </ul>
       </div>
-
+      
       <div class="empty" v-if="this.showShops && this.total_fav == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
@@ -235,11 +235,11 @@ export default {
   font-weight: bolder;
 }
 .edit {
-  background-color: rgba(202, 206, 205, 0.753);
-  color: black;
-  border-radius: 20px;
+  background-color:rgba(202, 206, 205, 0.753);
+  border-radius: 8px;
   border: none;
-  padding: 5px 15px;
+  margin-top:10px;
+  margin-bottom:10px;
 }
 .edit:hover {
   background-color: #e3dddf;
