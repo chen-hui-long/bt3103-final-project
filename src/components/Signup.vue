@@ -223,7 +223,7 @@ header {
 
 .login-page {
   width: 420px;
-  padding: 1% 0 0;
+  padding: 80px 0 0;
   margin: auto;
 }
 

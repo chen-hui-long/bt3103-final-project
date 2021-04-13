@@ -51,7 +51,7 @@
           </li>
         </ul>
       </div>
-
+      
       <div class="empty" v-if="this.showShops && this.total_fav == 0">
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
