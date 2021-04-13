@@ -14,12 +14,12 @@ export default {
           {
             label: "Total number of ratings",
             backgroundColor: [
-              "#3e95cd",
-              "#8e5ea2",
-              "#3cba9f",
-              "#e8c3b9",
-              "#c45850",
-              "#ddeb1c",
+              "#C0AD98",
+              "#646E78",
+              "#8D98A7",
+              "#A7A39A",
+              "#C1AE8D",
+              "#918576",
             ],
             data: [],
           },
