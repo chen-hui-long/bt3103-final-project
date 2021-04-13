@@ -49,8 +49,8 @@
                   v-for="(bake, index) in bakery[0].type"
                   :key="index"
                 >
-                  <span class="description1" v-if="index != 0">, </span
-                  >{{ bake }} 
+                  <span class="description1" v-if="index != 0">, </span>
+                  {{bake}}
                 </span>
               </details>
               <!--
@@ -200,9 +200,11 @@
               </span>
                           -->
             </div>
-            <br>
-            <div class="ig">
+
+            <div class="social-wrapper">
+            
               <div v-show="this.instagram != ''">
+                <div class="ig">
                 <span style="font-weight: bold">IG:</span>
                 <a
                   :href="'https://www.instagram.com/' + this.instagram"
@@ -212,8 +214,9 @@
               </div>
             </div>
 
-            <div class="fb">
+ 
               <div v-show="this.bakery[0].facebook != ''">
+                <div class="fb">
                 <span style="font-weight: bold">FB:</span>
                 <a :href="this.bakery[0].facebook" class="description-box"
                   >{{ this.bakery[0].facebook }}
@@ -221,8 +224,9 @@
               </div>
             </div>
 
-            <div class="website">
+            
               <div v-show="this.bakery[0].official_website != ''">
+                <div class="website">
                 <span style="font-weight: bold">Website:</span>
                 <a
                   :href="this.bakery[0].official_website"
@@ -232,13 +236,15 @@
               </div>
             </div>
 
-            <div class="email">
+            
               <div v-show="this.bakery[0].business_email != ''">
+                <div class="email">
                 <span style="font-weight: bold">Email:</span>
                 <a class="description-box"
                   >{{ this.bakery[0].business_email }}
                 </a>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -382,6 +388,9 @@ ul.breadcrumb li a {
   margin-bottom: 50px;
 }
 
+.social-wrapper {
+  display: inline-block;
+}
 .ig {
   display: flex;
   font-size: 18px;
@@ -396,7 +405,7 @@ ul.breadcrumb li a {
 .fb {
   display: flex;
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 .fb a {
@@ -408,7 +417,7 @@ ul.breadcrumb li a {
 .website {
   display: flex;
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 .website a {
@@ -420,7 +429,7 @@ ul.breadcrumb li a {
 .email {
   display: flex;
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 .email a {
@@ -430,6 +439,7 @@ ul.breadcrumb li a {
   text-decoration: underline;
 }
 
+/*
 .arrow {
   background: none;
   border: none;
@@ -438,7 +448,7 @@ ul.breadcrumb li a {
   font-size: 1.25em;
   position: absolute;
   right: 20px;
-}
+}*/
 
 .title {
   color: #525f7f;
@@ -457,6 +467,11 @@ ul.breadcrumb li a {
 
 .description-box {
   font-size: 18px;
+}
+
+.description1 {
+  margin-top: 10px;
+  margin-bottom: 40px;
 }
 
 .wrapper {
@@ -486,9 +501,12 @@ summary {
   outline: none;
   color: darkslategray;
 }
+
 summary::after {
-  content: "▼";
-  padding: 0.5rem;
+  content: "›";
+  font-size: 32px;
+  transform: rotate(-270deg);
+  /*padding: 0.5rem;*/
   position: absolute;
   right: 0.25rem;
   top: -0.5rem;
@@ -507,7 +525,8 @@ details[open] summary {
 }
 */
 details[open] summary::after {
-  content: "▲";
+  content: "‹";
+  /*transform: rotate(-270deg);*/
 }
 /*** End specific styles ***/
 

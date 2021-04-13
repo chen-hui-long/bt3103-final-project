@@ -6,14 +6,15 @@
           <span><router-link to="/" exact>EATSY</router-link></span>
         </div>
 
-        <div class="search">
+        <!--div class="search">
           <input
             type="text"
             placeholder="Search by keyword!"
           />
           <button id="search-icon">&#8981;</button>
-        </div>
+        </div-->
 
+        <div class="side-nav">
         <div v-if="signedIn" class="login">
           <ul>
             <!--li>  
@@ -21,7 +22,7 @@
             </li-->
 
             <li class="dropdown">
-              <a href="#">Profile</a>
+              <a href="#" style='font-size:26px;'>Profile</a>
               <div class="dropdown-content">
                 <a href="#" v-on:click="toMyProfile" id="menu"
                   >View your profile</a
@@ -29,13 +30,13 @@
                 <a href="#" v-on:click="logout" id="menu">Log out</a>
               </div>
             </li>
-            <!--
+            
             <li id="fav">
               <router-link to="/favorite" exact
                 ><span id="heart-icon">♡</span></router-link
               >
             </li>
-            -->
+            
             <!--li><a href ="#" v-on:click ="logout">Logout</a></li-->
           </ul>
         </div>
@@ -43,15 +44,16 @@
           <div class="login">
             <ul>
               <li><router-link to="/login" exact>Login</router-link></li>
-              <!--
+          
               <li>
                 <router-link to="/favorite" exact
                   ><span id="heart-icon">♡</span></router-link
                 >
               </li>
-              -->
+    
             </ul>
           </div>
+        </div>
         </div>
       </nav>
     </header>
@@ -109,7 +111,7 @@ export default {
 header {
   box-sizing: border-box;
   width: 100vw;
-  height: 100px;
+  height: 80px;
   padding-left: 24px;
   padding-right: 24px;
   background-color: #e3dddf;
@@ -126,6 +128,13 @@ nav {
   /*overflow: hidden;*/
 }
 
+.side-nav {
+  position: absolute;
+  right: 50px;
+}
+
+
+/*to remove search bar css */
 .search {
   display: flex;
   width: 70%;
@@ -178,13 +187,15 @@ nav {
   /*width: 20%;*/
   margin-left: 50px;
   height: 50%;
-  justify-content: center;
+  /*justify-content: space-evenly;*/
   color: none;
 }
+
 .logo span {
   font-size: 44px;
   letter-spacing: 2px;
-  line-height: 48px;
+  line-height: 42px;
+ /*justify-content: space-evenly;*/
   font-weight: bold;
 }
 
@@ -201,7 +212,7 @@ nav {
 }
 
 .login ul a {
-  padding: 37px 25px;
+  padding: 26px 40px;
   color: black;
   font-size: 22px;
   font-weight: bold;

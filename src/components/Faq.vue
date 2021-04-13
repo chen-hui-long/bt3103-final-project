@@ -45,17 +45,17 @@ export default {
 </script>
 
 <style scoped>
-
 header {
   text-align: center;
   color: black;
   font-size: 40px;
   font-weight: bold;
-  margin-block: 40px;
+  margin: 40px;
 }
 
 .faq {
   text-align: center;
   margin-bottom: 50px;
 }
+
 </style>

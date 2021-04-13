@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <br>
     <BarChart></BarChart>
     <div class="reviews-top">
       <h3>{{ this.total_reviews }} Reviews</h3>
@@ -183,6 +184,11 @@ export default {
 };
 </script>
  <style scoped>
+
+#app {
+  width: 85%;
+  margin: auto;
+}
 ul {
   padding: 0;
   list-style-type: none;
@@ -197,6 +203,7 @@ li {
 
 .reviews-top {
   margin:20px;
+  margin-top: 80px;
 }
 
 .select {
