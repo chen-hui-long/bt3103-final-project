@@ -17,7 +17,8 @@ import Dashboard from "./components/SellerDashboard.vue"
 import firebase from "@firebase/app";
 import db from "./firebase.js";
 require("firebase/auth");
-//import Favourite from './components/Favourite.vue'
+import Favourite from './components/ProfileFav.vue'
+
 export default [
   { path: "/", component: Home },
   { path: "/product", component: Product },
@@ -35,7 +36,7 @@ export default [
   { path: "/faq", component: Faq }, 
   { path: "/terms-and-conditions", component: TC },
   { path: "/dashboard", component: Dashboard },
-  //{ path: '/Fav', component: Favourite}
+  { path: '/favorite', component: Favourite}
 ];
 
 function guardMyroute(to, from, next) {
