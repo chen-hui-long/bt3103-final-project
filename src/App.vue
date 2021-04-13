@@ -5,8 +5,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Raleway&display=swap" rel="stylesheet">
 
     <app-header :key ="componentKey"></app-header> 
+    
     <router-view></router-view>
-
+    
     <app-footer></app-footer>
   </div>
 </template>
@@ -42,13 +43,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 app-footer{
   position:absolute;
   bottom:0;
 }
+
 html,
 body {
   margin: 0 !important;

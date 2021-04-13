@@ -80,13 +80,14 @@ export default {
 #Name {
   text-decoration: underline;
   color: #565656df;
+  font-size: 16px;
 }
 
 #Date {
   display: flex;
   justify-content: flex-end;
   margin-right: 20px;
-  font-size: 16px;
+  font-size: 14px;
   color: #565656df;
 }
 
@@ -96,7 +97,7 @@ export default {
 
 .wrapper {
   margin-left: 1.5em;
-  margin-bottom: 1.5em;
-  font-size: 18px;
+  margin-bottom: 0em;
+  font-size: 14px;
 }
 </style>
