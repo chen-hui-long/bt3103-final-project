@@ -310,10 +310,11 @@ export default {
 <style scoped>
 .parent {
   display: flex;
+  margin-top: 20px;
 }
 .filter-side {
-  flex: 0 0 25%;
-  padding-left: 50px;
+  flex: 0 0 22%;
+  padding-left: 80px;
   margin-top: 100px;
   margin-bottom: 20px;
   
@@ -385,6 +386,7 @@ img {
   display:flex;
   justify-content: space-between;
   font-size:20px;
+  
 }
 input { /*style for checkbox*/
   margin-right:10px;
@@ -392,8 +394,8 @@ input { /*style for checkbox*/
 
 
 .content-side { 
-  flex: 0 0 75%;
-  padding-right: 60px;
+  flex: 0 0 78%;
+  padding-right: 80px;
   padding-left: 50px;
 }
 
@@ -491,8 +493,9 @@ div.vue-star-rating {
 #search_bar {
   border-radius: 15px;
   width:60%;
+  height: 80%;
   text-indent: 15px;
-  font-size: 18px;
+  font-size: 16px;
   outline-style: none;
   box-shadow: none;
   border: 2px solid #bbbbbb;
