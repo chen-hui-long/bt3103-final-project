@@ -31,7 +31,7 @@ export default {
           
           display: true,
           text: "Ratings",
-          fontSize: 25
+          fontSize: 25,
         },
         scales: {
           yAxes: [
