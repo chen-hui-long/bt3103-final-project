@@ -155,7 +155,7 @@ img:hover {
 
 #not-fav:hover {
   cursor: pointer;
-  color: #d68577;
+    color: #d68577;
 }
 
 #fav:hover {

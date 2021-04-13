@@ -52,15 +52,15 @@
         </ul>
       </div>
       
+      
       <div class="empty" v-if="this.showShops && this.total_fav == 0">
-        <div class="firstLine">Nothing here... yet</div>
-        <div class="secondLine">
+        <div class="firstLine">Nothing here... yet <br>
           You don't have any favourite shops yet! Explore Eatsy and find a shop
           you'll love.
         </div>
       </div>
 
-      <div class="empty" v-if="this.showReviews && this.total_rev == 0">
+      <div class="empty" v-if="this.showReviews && this.total_rev == 0">  <br>
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You haven't given any reviews yet! Start purchasing and leave your
@@ -284,7 +284,7 @@ export default {
 }
 
 .empty {
-  padding: 40px;
+  padding-top: 20px;
   text-align: center;
 }
 
