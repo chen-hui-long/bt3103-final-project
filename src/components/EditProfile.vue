@@ -109,7 +109,7 @@ export default {
   font-weight: bold;
 }
 #text {
-  width: 400px;
+  width: 350px;
 }
 
 #image-upload-div {
@@ -140,7 +140,7 @@ form label {
 }
 
 img {
-  width: 250px;
+  width: 350px;
 }
 
 #update {
@@ -148,9 +148,9 @@ img {
   text-transform: uppercase;
   outline: 0;
   background: black;
-  width: 40%;
+  width: 150px;
   border: 0;
-  padding: 15px;
+  padding: 10px;
   color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
