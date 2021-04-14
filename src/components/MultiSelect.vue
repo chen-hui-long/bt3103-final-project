@@ -49,6 +49,7 @@ export default {
         { type: "Pastries" },
         { type: "Traditional Desserts" },
         { type: "Others" },
+        { type: "Festive Baked Goods"},
       ],
       userID: firebase.auth().currentUser.uid,
       isSeller: null,
