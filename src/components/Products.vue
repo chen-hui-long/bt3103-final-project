@@ -206,6 +206,7 @@
               <div v-show="this.instagram != ''">
                 <div class="ig">
                 <span style="font-weight: bold">IG:</span>
+                
                 <a
                   :href="'https://www.instagram.com/' + this.instagram"
                   class="description-box"
@@ -214,10 +215,10 @@
               </div>
             </div>
 
- 
               <div v-show="this.bakery[0].facebook != ''">
                 <div class="fb">
                 <span style="font-weight: bold">FB:</span>
+                <br>
                 <a :href="this.bakery[0].facebook" class="description-box"
                   >{{ this.bakery[0].facebook }}
                 </a>
@@ -422,8 +423,8 @@ ul.breadcrumb li a {
 
 .website a {
   color: #ae6e3b;
-  margin-top: 15px;
-  margin-left: 10px;
+  margin-top: 25px;
+  margin-left: 10px
 }
 
 .email {
@@ -436,6 +437,7 @@ ul.breadcrumb li a {
   color: #ae6e3b;
   margin-top: 15px;
   margin-left: 10px;
+
   text-decoration: underline;
 }
 

@@ -160,7 +160,7 @@ img:hover {
 
 #fav:hover {
   cursor: pointer;
-
+  color: black;
 }
 
 .fav-div {

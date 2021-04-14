@@ -98,7 +98,7 @@ export default {
       valid_password: false,
       name: "",
       default_image:
-        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/172709969_10216095950666604_811823731359266768_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=730e14&_nc_ohc=ctk82zBKCz4AX-5cNwJ&_nc_ht=scontent-xsp1-1.xx&oh=9d26d627e7862a3ac9518dfb07734b4f&oe=609D0419",
+        "https://scontent-xsp1-1.xx.fbcdn.net/v/t1.6435-9/172709969_10216095950666604_811823731359266768_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=730e14&_nc_ohc=8JNJ1IZLwnAAX9bOAcw&_nc_ht=scontent-xsp1-1.xx&oh=134f4164d5366e34ebf61e3d47c7aaef&oe=609D0419",
     };
   },
   methods: {
