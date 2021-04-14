@@ -48,6 +48,7 @@ export default {
         { type: "Festive Baked Goods"},
         { type: "Macarons" },
         { type: "Pastries" },
+        { type: "Pies & Tarts"},
         { type: "Traditional Desserts" },
         { type: "Others" },
       ],

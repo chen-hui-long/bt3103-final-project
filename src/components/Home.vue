@@ -17,6 +17,7 @@
         <label><input type="checkbox" name="fl-bakery-goods" value="Chocolate Confections" id="Chocolate Confections"  v-model="checked.bakery"/>Chocolate Confections</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Cupcakes & Muffins" id="Cupcakes & Muffins" v-model="checked.bakery" />Cupcakes & Muffins</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Donuts" id="Donuts" v-model="checked.bakery" />Donuts</label><br>
+        <label><input type="checkbox" name="fl-bakery-goods" value="Festive Baked Goods" id="Festive Baked Goods" v-model="checked.bakery" />Festive Baked Goods</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Macarons" id="Macarons" v-model="checked.bakery" />Macarons</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Pastries" id="Pastries" v-model="checked.bakery" />Pastries</label><br>
         <label><input type="checkbox" name="fl-bakery-goods" value="Pies & Tarts" id="Pies & Tarts" v-model="checked.bakery" />Pies & Tarts</label><br>
@@ -439,7 +440,7 @@ div.vue-star-rating {
 }
 
 #search-icon {
-  position: fixed;
+  position: absolute;
   margin-left: 10px;
   transform: rotate(270deg);
   font-size: 50px;
