@@ -309,4 +309,9 @@ export default {
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   background-color: white;
 }
+
+.fav :hover {
+  color: #d68577;
+}
+
 </style>
