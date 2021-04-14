@@ -147,6 +147,11 @@ export default {
   cursor:pointer;
 }
 
+
+#fav:hover { 
+  color: black;
+}
+
 .wrapper {
   position: relative;
   display: inline-flex;
