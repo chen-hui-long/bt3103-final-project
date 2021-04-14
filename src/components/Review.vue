@@ -119,7 +119,7 @@ img:hover {
 }
 
 #name {
-  color: rgb(179, 149, 110);
+  color: #ae6e3b;
   text-decoration: underline;
   text-align: left;
   font-size: 18px;
@@ -155,10 +155,12 @@ img:hover {
 
 #not-fav:hover {
   cursor: pointer;
+    color: #d68577;
 }
 
 #fav:hover {
   cursor: pointer;
+
 }
 
 .fav-div {
