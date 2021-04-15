@@ -820,7 +820,6 @@ div.vue-star-rating {
 <style>
 /*FOR PAGINATION THIS IS NOT SCOPED */
 ul.paginate-links a {
-  border: 1px solid #ddd;
   border-radius: 50px;
   background-color: #e5e5e5b4;
   color: black;
@@ -834,8 +833,9 @@ ul.paginate-links a:hover {
   cursor: pointer;
 }
 
-li.number.active a {
-  background-color: #e3dddf;
+li.number.active  a {
+  background-color: #9c9c9c;
+
 }
 
 </style>
