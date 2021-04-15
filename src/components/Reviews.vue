@@ -365,7 +365,6 @@ hr {
 .user-reviews {
   margin-bottom: 50px;
   width: 580px;
-  margin-left: -30px;
 }
 
 #Name {
