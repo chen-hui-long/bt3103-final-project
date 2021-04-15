@@ -1,5 +1,6 @@
 <template>
   <div class="card-carousel" @mouseover="stopTimer" @mouseleave="restartTimer">
+    <div class="wrapper">
     <div class="thumbnails">
       <div
         v-for="(image, index) in images"
@@ -21,6 +22,7 @@
 
     <div v-if="show()" class="fav">
       <button id="fav1" @click="fav">♡</button>
+    </div>
     </div>
   </div>
 </template>
@@ -313,7 +315,5 @@ export default {
 .fav :hover {
   color: #d68577;
 }
-
-
 
 </style>
