@@ -345,6 +345,7 @@ img {
   height: 280px;
   cursor: pointer;
   border: 2px solid #dcdcdc45;
+  border-radius: 5px;
 }
 .f1 {
   display: none;
