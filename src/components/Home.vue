@@ -301,7 +301,6 @@
           <li
             v-for="bakery in paginated('bakeries')"
             v-bind:key="bakery[1].name"
-            v-show="visible(bakery[1])"
           >
             <button class="bakery-image-btn" v-on:click="route">
               <img v-bind:src="bakery[1].images[0]" v-bind:id="bakery[0]" />
@@ -390,21 +389,6 @@ export default {
       },
       search_filter: "",
       sort_by: "A-Z",
-      items: [
-        "Item One",
-        "Item Two",
-        "Item Three",
-        "Item Four",
-        "Item Five",
-        "Item Six",
-        "Item Seven",
-        "Item Eight",
-        "Item Nine",
-        "Item Ten",
-        "Item Eleven",
-        "Item Twelve",
-        "Item Thirteen",
-      ],
       paginate: ["bakeries"],
     };
   },
@@ -422,7 +406,6 @@ export default {
             this.bakeries.push([doc.id, doc.data(), avg_rating]);
           });
         })
-        .then(() => console.log(this.bakeries));
     },
     calAvgRating: function (rating, total_ratings) {
       var total_rating =
@@ -794,7 +777,7 @@ div.vue-star-rating {
 </style>
 
 <style>
-ul.paginate-links li {
+ul.paginate-links a {
   border: 1px solid #ddd;
   border-radius: 50px;
   background-color: #e5e5e5b4;
@@ -805,7 +788,7 @@ ul.paginate-links li {
   margin: 0 4px;
   font-weight: bold;
 }
-ul.paginate-links li:hover {
+ul.paginate-links  a:hover {
   cursor: pointer;
 }
 
