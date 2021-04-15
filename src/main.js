@@ -16,6 +16,9 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 //import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import VuePaginate from 'vue-paginate'
+Vue.use(VuePaginate)
+
 Vue.use(VueSweetAlert);
 
 library.add(faAngleDown, faAngleUp)
