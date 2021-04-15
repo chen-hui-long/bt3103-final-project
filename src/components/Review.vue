@@ -106,7 +106,7 @@ export default {
   /*overflow: auto;*/
   border-radius: 12px;
   margin-top:20px;
-  margin-bottom: 20px;;
+  margin-bottom: 20px;
 }
 
 img {
@@ -133,6 +133,8 @@ img:hover {
 
 #text {
   word-wrap: normal;
+  margin-right: 50px;
+  margin-bottom: 1em;
 }
 
 

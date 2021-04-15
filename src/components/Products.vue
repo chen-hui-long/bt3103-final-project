@@ -53,41 +53,6 @@
                   {{bake}}
                 </span>
               </details>
-              <!--
-              <span class="subtitle">Menu</span>
-              <span v-if="isActive1">
-                <button
-                  class="arrow"
-                  v-bind:class="{ active: isActive1 }"
-                  @click="toggle1()"
-                >
-                  <font-awesome-icon icon="angle-up" />
-                </button>
-                <br />
-                <div class="wrapper">
-                  <p></p>
-                  <div
-                    style="float: left"
-                    class="description-box"
-                    v-for="(bake, index) in bakery[0].type"
-                    :key="index"
-                  >
-                    <span class="description1" v-if="index != 0">, </span
-                    >{{ bake }}
-                  </div>
-                </div>
-              </span>
-
-              <span v-else>
-                <button
-                  class="arrow"
-                  v-bind:class="{ active: isActive1 }"
-                  @click="toggle1()"
-                >
-                  <font-awesome-icon icon="angle-down" />
-                </button>
-              </span>
-              -->
             </div>
 
             <div class="highlights">
@@ -113,49 +78,6 @@
                   </div> 
                   </div>     
               </details>
-              <!--
-              <span class="subtitle">Highlights</span>
-              <span v-if="isActive2">
-                <button
-                  class="arrow"
-                  v-bind:class="{ active: isActive2 }"
-                  @click="toggle2()"
-                >
-                  <font-awesome-icon icon="angle-up" />
-                </button>
-                <br />
-
-                <div class="wrapper" v-show="this.bakery[0].dietary != ''">
-                  <div
-                    class="description-box"
-                    v-for="(diet, index) in bakery[0].dietary"
-                    :key="index"
-                  >
-                    <ul class="description1">
-                      <li>{{ diet }}</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="wrapper" v-show="this.bakery[0].dietary == ''">
-                  <div class="description-box">
-                    <ul>
-                      <li>No special dietary requirements</li>
-                    </ul>
-                  </div>
-                </div>
-              </span>
-
-              <span v-else>
-                <button
-                  class="arrow"
-                  v-bind:class="{ active: isActive2 }"
-                  @click="toggle2()"
-                >
-                  <font-awesome-icon icon="angle-down" />
-                </button>
-              </span>
-                          -->
             </div>
 
             <div class="delivery">
@@ -167,48 +89,6 @@
                   </p>
                 </div>
               </details>
-              <!--
-              <span class="subtitle">Delivery/ Collection</span>
-              <span v-if="isActive3">
-                <button
-                  class="arrow"
-                  v-bind:class="{ active: isActive3 }"
-                  @click="toggle3()"
-                >
-                  <font-awesome-icon icon="angle-up" />
-                </button>
-                <br />
-                <div
-                  class="wrapper"
-                  v-show="this.bakery[0].order_details != ''"
-                >
-                  <div style="float: left" class="description-box">
-                    <p class="description1">
-                      {{ this.bakery[0].order_details }}
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="wrapper"
-                  v-show="this.bakery[0].order_details == ''"
-                >
-                  <div class="description-box">
-                    <p><i>Contact seller for more information</i></p>
-                  </div>
-                </div>
-              </span>
-
-              <span v-else>
-                <button
-                  class="arrow"
-                  v-bind:class="{ active: isActive3 }"
-                  @click="toggle3()"
-                >
-                  <font-awesome-icon icon="angle-down" />
-                </button>
-              </span>
-                          -->
             </div>
 
             <div class="social-wrapper">
@@ -371,14 +251,17 @@ ul.breadcrumb li a {
 
 
 .product-content {
+  width: 100%;
   display: flex;
   margin-top: 50px;
+  overflow-x: auto;
 }
 
+
+/*
 .product-content-left {
   margin-left: 80px;
   display: flex;
-
 }
 
 .product-content-right {
@@ -386,14 +269,22 @@ ul.breadcrumb li a {
   margin-right:80px;
   display: block;
 }
+*/
 
 .left-wrapper {
-  flex: 0 0 50%;
+  margin-left: 50px;
+  margin-right: 80px;
 }
 .right-wrapper {
- /* position: relative;*/
+  margin-right: 100px;
+  position: relative;
+  max-width: 40%;
   /*flex: 0 0 50%*/
-  min-width: 40%;
+  /*min-width: 40%;*/
+}
+
+div.disabled {
+  overflow-x: scroll;
 }
 
 .menu {
@@ -410,9 +301,12 @@ ul.breadcrumb li a {
 
 .social-wrapper {
   display: inline-block;
+  max-width: 420px;
+  word-wrap: break-word;
 }
+
 .ig {
-  display: flex;
+  /*display: flex;*/
   font-size: 18px;
 }
 
@@ -423,7 +317,7 @@ ul.breadcrumb li a {
 }
 
 .fb {
-  display: flex;
+  /*display: flex;*/
   font-size: 18px;
   margin-top: 18px;
 }
@@ -435,7 +329,7 @@ ul.breadcrumb li a {
 }
 
 .website {
-  display: flex;
+  /*display: flex;*/
   font-size: 18px;
   margin-top: 18px;
 }
@@ -447,7 +341,7 @@ ul.breadcrumb li a {
 }
 
 .email {
-  display: flex;
+  /*display: flex;*/
   font-size: 18px;
   margin-top: 18px;
   
@@ -460,21 +354,11 @@ ul.breadcrumb li a {
   word-break:break-all
 }
 
-/*
-.arrow {
-  background: none;
-  border: none;
-  font-weight: bolder;
-  cursor: pointer;
-  font-size: 1.25em;
-  position: absolute;
-  right: 20px;
-}*/
-
 .title {
   color: #a19090;
   letter-spacing: 1px;
   line-height: 20px;
+  word-wrap: break-word;
 }
 .subtitle {
   font-weight: bold;
@@ -484,6 +368,7 @@ ul.breadcrumb li a {
 .description {
   margin-top: 20px;
   margin-bottom: 40px;
+
 }
 
 .description-box {
@@ -493,17 +378,11 @@ ul.breadcrumb li a {
 .description1 {
   margin-top: 10px;
   margin-bottom: 40px;
-}
 
-.wrapper {
-  color: black;
-  display: inline-block;
-  width: 400px;
 }
 
 .review {
   margin-top: 200px;
-  margin-left: 50px;
 }
 
 details {
@@ -529,7 +408,8 @@ summary::after {
   transform: rotate(-270deg);
   /*padding: 0.5rem;*/
   position: absolute;
-  right: 0.25rem;
+  /*right: 0.25rem;*/
+  left: 420px;
   top: -0.7rem;
   color: rgb(0, 0, 0);
 }
