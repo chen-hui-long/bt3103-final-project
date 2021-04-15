@@ -354,6 +354,7 @@
         </li>
       </ul>
       -->
+      <!--
       <div class="pagination">
         <a href="#">&laquo;</a>
         <a class="active" href="#">1</a>
@@ -365,6 +366,7 @@
         <a href="#">...</a>
         <a href="#">&raquo;</a>
       </div>
+      -->
     </div>
   </div>
 </template>
@@ -755,12 +757,14 @@ div.vue-star-rating {
   cursor: pointer;
 }
 
+/*
 .pagination {
   display: inline-block;
 }
-
+*/
+/*
 .pagination a {
-  /*border: 1px solid #ddd;*/
+  border: 1px solid #ddd;
   border-radius: 50px;
   background-color: #e5e5e5b4;
   color: black;
@@ -779,6 +783,7 @@ div.vue-star-rating {
 .pagination a:hover:not(.active) {
   background-color: #ddd;
 }
+*/
 
 #bakery-name {
   margin-bottom: 0;
@@ -786,13 +791,22 @@ div.vue-star-rating {
 #bakery-rating {
   margin: 0 0 0 0;
 }
-
-ul.paginate-list {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding: 0;
-}
 </style>
 
+<style>
+ul.paginate-links li {
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  background-color: #e5e5e5b4;
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 0 4px;
+  font-weight: bold;
+}
+ul.paginate-links li:hover {
+  cursor: pointer;
+}
+
+</style>
