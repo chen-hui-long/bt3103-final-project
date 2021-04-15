@@ -56,6 +56,9 @@ header {
 .faq {
   text-align: center;
   margin-bottom: 50px;
+  height: 100%;
+  justify-content: space-around;
 }
+
 
 </style>
