@@ -387,6 +387,10 @@ hr {
 #page-number  > ul {
   display: flex;
   list-style-type: none;
+  padding:none;
 }
 
+.paginate-list {
+  padding:0;
+}
 </style>
