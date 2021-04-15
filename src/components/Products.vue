@@ -351,9 +351,11 @@ ul.breadcrumb {
   font-size: 18px;
 }
 
+
 ul.breadcrumb li {
   display: inline;
 }
+
 
 ul.breadcrumb li + li:before {
   padding: 8px;
@@ -428,6 +430,7 @@ ul.breadcrumb li a {
 .fb a {
   color: #a19090;
   margin-left: 10px;
+  word-break:break-all
 }
 
 .website {

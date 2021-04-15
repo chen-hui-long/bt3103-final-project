@@ -295,6 +295,7 @@
         <paginate
           name="bakeries"
           :list="search_bakeries"
+          :key="search_bakeries"
           class="paginate-list"
           :per="12"
         >
@@ -323,7 +324,9 @@
           </li>
         </paginate>
       </ul>
+      <div id= "page-number">
       <paginate-links for="bakeries" :show-step-links="true"></paginate-links>
+      </div>
 
       <!-- OLD
       <ul>
@@ -774,9 +777,14 @@ div.vue-star-rating {
 #bakery-rating {
   margin: 0 0 0 0;
 }
+
+#page-number { 
+}
 </style>
 
+
 <style>
+/*FOR PAGINATION THIS IS NOT SCOPED */
 ul.paginate-links a {
   border: 1px solid #ddd;
   border-radius: 50px;
@@ -790,6 +798,10 @@ ul.paginate-links a {
 }
 ul.paginate-links  a:hover {
   cursor: pointer;
+}
+
+li.number.active  a {
+  background-color: #e3dddf;
 }
 
 </style>
