@@ -40,27 +40,41 @@
       </div>
 
       <div v-show="this.showReviews">
-        <ul class="revs">
-          <li class="rev" v-for="review in revs" v-bind:key="review.UID">
-            <Review
-              v-bind:rev="review"
-              :checkFav="checkFav(review.UID)"
-              v-on:favShop="favShop"
-              v-on:unfavShop="unfavShop"
-            />
-          </li>
-        </ul>
+        <paginate
+          name="reviews"
+          :list="revs"
+          class="paginate-list"
+          :per="3"
+        >
+          <ul class="revs">
+            <li class="rev" v-for="review in paginated('reviews')" v-bind:key="review.UID">
+              <Review
+                v-bind:rev="review"
+                :checkFav="checkFav(review.UID)"
+                v-on:favShop="favShop"
+                v-on:unfavShop="unfavShop"
+              />
+            </li>
+          </ul>
+        </paginate>
+        <div id="page-number">
+          <paginate-links
+            for="reviews"
+            :show-step-links="true"
+          ></paginate-links>
+        </div>
       </div>
-      
-      
+
       <div class="empty" v-if="this.showShops && this.total_fav == 0">
-        <div class="firstLine">Nothing here... yet <br>
+        <div class="firstLine">
+          Nothing here... yet <br />
           You don't have any favourite shops yet! Explore Eatsy and find a shop
           you'll love.
         </div>
       </div>
 
-      <div class="empty" v-if="this.showReviews && this.total_rev == 0">  <br>
+      <div class="empty" v-if="this.showReviews && this.total_rev == 0">
+        <br />
         <div class="firstLine">Nothing here... yet</div>
         <div class="secondLine">
           You haven't given any reviews yet! Start purchasing and leave your
@@ -92,16 +106,17 @@ export default {
       name: "",
       total_fav: 0,
       total_rev: 0,
+      paginate: ["reviews"],
 
       seller: [], //needed?
     };
   },
 
   props: {
-    isFav : {
-      type:Boolean
-    }
-  }, 
+    isFav: {
+      type: Boolean,
+    },
+  },
 
   components: {
     NavBar,
@@ -202,7 +217,7 @@ export default {
     this.checkLogin();
     if (this.signedIn) {
       this.fetchItems();
-      console.log(this.isFav)
+      console.log(this.isFav);
     } else {
       this.$router.push({ path: "/login" });
     }
@@ -235,11 +250,11 @@ export default {
   font-weight: bolder;
 }
 .edit {
-  background-color:rgba(202, 206, 205, 0.753);
+  background-color: rgba(202, 206, 205, 0.753);
   border-radius: 8px;
   border: none;
-  margin-top:10px;
-  margin-bottom:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .edit:hover {
   background-color: #e3dddf;
@@ -305,6 +320,12 @@ button {
   padding: 0;
   margin: auto;
   width: 50%;
-
 }
+
+#page-number  > ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+}
+
 </style>

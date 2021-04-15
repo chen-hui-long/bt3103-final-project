@@ -419,6 +419,7 @@ ul.breadcrumb li a {
 .ig a {
   color: #a19090;
   margin-left: 10px;
+  word-break:break-all
 }
 
 .fb {
@@ -442,18 +443,21 @@ ul.breadcrumb li a {
 .website a {
   color: #a19090;
   margin-left: 10px;
+  word-break:break-all
 }
 
 .email {
   display: flex;
   font-size: 18px;
   margin-top: 18px;
+  
 }
 
 .email a {
   color: #a19090;
   margin-left: 10px;
   text-decoration: underline;
+  word-break:break-all
 }
 
 /*
@@ -552,4 +556,8 @@ p {
   letter-spacing: 1.5;
 }
 */
+
+h1 {
+  line-height:100%
+}
 </style>
