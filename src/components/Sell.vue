@@ -54,7 +54,7 @@ header {
   z-index: 1;
   background: #ffffff;
   max-width: 420px;
-  margin: 0 auto 100px;
+  margin: 0 auto 0;
   padding: 30px 45px 70px 45px;
   text-align: center;
   border: #bbbbbb solid 1px;

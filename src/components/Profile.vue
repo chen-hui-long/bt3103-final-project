@@ -298,6 +298,8 @@ export default {
 }
 .sub-text {
   text-align: center;
+  /*margin-bottom: 33px;*/
+  margin-bottom: 2.2em;
 }
 
 /*details*/
