@@ -82,19 +82,19 @@
       <li v-for = "bakery in search_bakeries" v-bind:key="bakery[1].name" v-show = "visible(bakery[1])">
         <button class = "bakery-image-btn" v-on:click ="route"><img v-bind:src = "bakery[1].images[0]" v-bind:id = "bakery[0]"></button>
         <p id = "bakery-name">{{bakery[1].shop_name}}</p>
-        <!--p id = "bakery-rating"><star-rating
+        <p id = "bakery-rating"><star-rating
           v-bind:read-only= "true"
           v-model="bakery[2]"
           v-bind:increment="0.1"
           v-bind:show-rating= false
-          v-bind:star-size="16"
+          v-bind:star-size="12"
           border-color= "black"
-          v-bind:border-width= "3"
+          v-bind:border-width= "2"
           v-bind:rounded-corners= true
           inactive-color="white"
           active-color="black"
         ></star-rating>
-        </p-->
+        </p>
         </li>
       </ul>
       <div class="pagination">
@@ -114,10 +114,10 @@
 
 <script>
 import database from "../firebase"
-//import StarRating from "vue-star-rating";
+import StarRating from "vue-star-rating";
 export default {
   components: {
-    /*"star-rating": StarRating,*/
+    "star-rating": StarRating,
   },
   data() {
     return {
@@ -341,9 +341,11 @@ li {
   font-size: 20px;
 }
 img {
-  width: 225px;
-  height: 225px;
+  width: 280px;
+  height: 280px;
   cursor: pointer;
+  border: 2px solid #dcdcdc45;
+  border-radius: 5px;
 }
 .f1 {
   display: none;

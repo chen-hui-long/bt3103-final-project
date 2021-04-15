@@ -61,6 +61,9 @@ app-header{
   position:absolute;
 }
 
+button {
+  outline: 0;
+}
 
 
 
