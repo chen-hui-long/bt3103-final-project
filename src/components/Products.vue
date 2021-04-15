@@ -93,7 +93,8 @@
             <div class="highlights">
               <details>
                 <summary>Highlights</summary>
-                <div
+                <div v-show= "this.bakery[0].dietary != ''">
+                  <div
                   class="description-box"
                   v-for="(diet, index) in bakery[0].dietary"
                   :key="index"
@@ -102,6 +103,15 @@
                     <li>{{ diet }}</li>
                   </ul>
                 </div>
+                </div>
+
+                <div v-show = "this.bakery[0].dietary == ''">
+                  <div class="description-box">
+                    <ul>
+                      <li>No special dietary requirements</li>
+                    </ul>
+                  </div> 
+                  </div>     
               </details>
               <!--
               <span class="subtitle">Highlights</span>
@@ -356,6 +366,8 @@ ul.breadcrumb li a {
   text-decoration: none;
 }
 
+
+
 .product-content {
   display: flex;
   margin-top: 50px;
@@ -364,16 +376,22 @@ ul.breadcrumb li a {
 .product-content-left {
   margin-left: 80px;
   display: flex;
+
 }
 
 .product-content-right {
-  margin-left: 50px;
+  margin-left: 100px;
   margin-right:80px;
   display: block;
 }
 
+.left-wrapper {
+  flex: 0 0 50%;
+}
 .right-wrapper {
-  position: relative;
+ /* position: relative;*/
+  /*flex: 0 0 50%*/
+  min-width: 600px;
 }
 
 .menu {
@@ -505,7 +523,7 @@ summary::after {
   /*padding: 0.5rem;*/
   position: absolute;
   right: 0.25rem;
-  top: -0.5rem;
+  top: -0.7rem;
   color: rgb(0, 0, 0);
 }
 
@@ -522,7 +540,6 @@ details[open] summary {
 */
 details[open] summary::after {
   content: "‹";
-  /*transform: rotate(-270deg);*/
 }
 /*** End specific styles ***/
 
