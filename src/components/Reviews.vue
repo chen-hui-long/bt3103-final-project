@@ -306,7 +306,8 @@ textarea {
   height: 145px;
   border-radius: 20px;
   font-size: 20px;
-  text-indent: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
   border: none;
   resize: none;
   background-color: rgba(236, 235, 235, 0.555);
@@ -354,6 +355,7 @@ hr {
 
 .user-reviews {
   margin-bottom: 50px;
+  width: 580px;
 }
 
 #Name {

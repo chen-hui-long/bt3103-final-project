@@ -85,8 +85,8 @@ export default {
 
 #Date {
   display: flex;
-  justify-content: flex-end;
-  margin-right: 20px;
+  /*justify-content: flex-end;*/
+  margin-left: 45em;
   font-size: 14px;
   color: #565656df;
 }
@@ -100,4 +100,6 @@ export default {
   margin-bottom: 0em;
   font-size: 14px;
 }
+
+
 </style>
