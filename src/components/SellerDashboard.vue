@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <br>
+    <br />
     <BarChart></BarChart>
     <div class="reviews-top">
       <h3>{{ this.total_reviews }} Reviews</h3>
@@ -32,16 +32,26 @@
       </select>
     </div>
     <ul>
-      <li
-        class="user-reviews"
-        v-for="(review, user) in review_sorted"
-        :key="user"
-        v-bind:review="review"
-        v-show="visible(review)"
+      <paginate
+        name="revs"
+        :list="review_sorted"
+        class="paginate-list"
+        :per="5"
       >
-        <indiv-review v-bind:review="review"></indiv-review>
-      </li>
+        <li
+          class="user-reviews"
+          v-for="(review, user) in paginated('revs')"
+          :key="user"
+          v-bind:review="review"
+          v-show="visible(review)"
+        >
+          <indiv-review v-bind:review="review"></indiv-review>
+        </li>
+      </paginate>
     </ul>
+    <div id="page-number">
+      <paginate-links for="revs" :show-step-links="true"></paginate-links>
+    </div>
   </div>
 </template>
  
@@ -70,6 +80,7 @@ export default {
       sort_by: "new",
       reviews_unsorted: [],
       filter: [],
+      paginate: ["revs"],
     };
   },
 
@@ -184,7 +195,6 @@ export default {
 };
 </script>
  <style scoped>
-
 #app {
   width: 85%;
   margin: auto;
@@ -202,15 +212,20 @@ li {
 }
 
 .reviews-top {
-  margin:20px;
+  margin: 20px;
   margin-top: 80px;
 }
 
 .select {
-  margin:20px;
+  margin: 20px;
 }
 
 div#sorting {
-  margin:20px;
+  margin: 20px;
+}
+
+#page-number > ul {
+  display: flex;
+  list-style-type: none;
 }
 </style>
