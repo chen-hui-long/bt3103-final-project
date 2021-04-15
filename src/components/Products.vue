@@ -391,7 +391,7 @@ ul.breadcrumb li a {
 .right-wrapper {
  /* position: relative;*/
   /*flex: 0 0 50%*/
-  min-width: 600px;
+  min-width: 40%;
 }
 
 .menu {
