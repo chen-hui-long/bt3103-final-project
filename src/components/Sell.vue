@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="sell-page">
-      <header>Free, Simple, Transparent</header>
+      <br><br><header>Free, Simple, Transparent</header><br>
       <div class="form">
         <p id="words">Be featured today</p>
         <button v-on:click="startSelling">Start selling on Eatsy</button>
@@ -30,12 +30,11 @@ header {
   color: black;
   font-size: 40px;
   font-weight: bold;
-  margin-block: 40px;
+  /*margin-block: 40px;*/
 }
 
 .sell-page {
   text-align: center;
-  margin-bottom: 50px;
 }
 
 /*.form {
@@ -55,7 +54,7 @@ header {
   z-index: 1;
   background: #ffffff;
   max-width: 420px;
-  margin: 0 auto 100px;
+  margin: 0 auto 0;
   padding: 30px 45px 70px 45px;
   text-align: center;
   border: #bbbbbb solid 1px;

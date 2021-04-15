@@ -90,7 +90,7 @@ export default {
 
 <style scoped>
 #favourite {
-  border: 1.5px solid;
+  border: 2px solid;
   border-color: rgb(214, 210, 206);
 
   border-radius: 12px;
