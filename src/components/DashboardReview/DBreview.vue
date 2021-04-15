@@ -97,7 +97,11 @@ export default {
 .wrapper {
   width: 90%;
   font-size: 18px;
+  padding-right: 20px;
+  padding-left: 10px;
+  padding-bottom: 15px;
 }
+
 
 .profile-img {
   display: flex;
@@ -106,4 +110,5 @@ export default {
   margin: 20px;
   width: 10%;
 }
+
 </style>
