@@ -341,9 +341,10 @@ li {
   font-size: 20px;
 }
 img {
-  width: 260px;
-  height: 260px;
+  width: 280px;
+  height: 280px;
   cursor: pointer;
+  border: 2px solid #dcdcdc45;
 }
 .f1 {
   display: none;
