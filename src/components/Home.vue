@@ -517,8 +517,8 @@ export default {
         if (this.checked.location.includes(location[i])) {
           return true;
         }
-        return false;
       }
+      return false;
     },
     check_deliver: function (delivery) {
       if (delivery == undefined) {
