@@ -291,41 +291,49 @@
         </div>
       </div>
       <hr />
-      <ul>
-        <paginate
-          name="bakeries"
-          :list="search_bakeries"
-          :key="search_bakeries"
-          class="paginate-list"
-          :per="12"
-        >
-          <li
-            v-for="bakery in paginated('bakeries')"
-            v-bind:key="bakery[1].name"
+      <div id="loading" v-if="stillLoading">
+        <div class="loader"></div>
+      </div>
+      <div id="main-content" v-if="loaded">
+        <ul>
+          <paginate
+            name="bakeries"
+            :list="search_bakeries"
+            :key="search_bakeries"
+            class="paginate-list"
+            :per="12"
           >
-            <button class="bakery-image-btn" v-on:click="route">
-              <img v-bind:src="bakery[1].images[0]" v-bind:id="bakery[0]" />
-            </button>
-            <p id="bakery-name">{{ bakery[1].shop_name }}</p>
-            <p id="bakery-rating">
-              <star-rating
-                v-bind:read-only="true"
-                v-model="bakery[2]"
-                v-bind:increment="0.1"
-                v-bind:show-rating="false"
-                v-bind:star-size="12"
-                border-color="black"
-                v-bind:border-width="2"
-                v-bind:rounded-corners="true"
-                inactive-color="white"
-                active-color="black"
-              ></star-rating>
-            </p>
-          </li>
-        </paginate>
-      </ul>
-      <div id= "page-number">
-      <paginate-links for="bakeries" :show-step-links="true"></paginate-links>
+            <li
+              v-for="bakery in paginated('bakeries')"
+              v-bind:key="bakery[1].name"
+            >
+              <button class="bakery-image-btn" v-on:click="route">
+                <img v-bind:src="bakery[1].images[0]" v-bind:id="bakery[0]" />
+              </button>
+              <p id="bakery-name">{{ bakery[1].shop_name }}</p>
+              <p id="bakery-rating">
+                <star-rating
+                  v-bind:read-only="true"
+                  v-model="bakery[2]"
+                  v-bind:increment="0.1"
+                  v-bind:show-rating="false"
+                  v-bind:star-size="12"
+                  border-color="black"
+                  v-bind:border-width="2"
+                  v-bind:rounded-corners="true"
+                  inactive-color="white"
+                  active-color="black"
+                ></star-rating>
+              </p>
+            </li>
+          </paginate>
+        </ul>
+        <div id="page-number">
+          <paginate-links
+            for="bakeries"
+            :show-step-links="true"
+          ></paginate-links>
+        </div>
       </div>
 
       <!-- OLD
@@ -393,6 +401,8 @@ export default {
       search_filter: "",
       sort_by: "A-Z",
       paginate: ["bakeries"],
+      loaded: false,
+      stillLoading: true,
     };
   },
   methods: {
@@ -409,6 +419,10 @@ export default {
             this.bakeries.push([doc.id, doc.data(), avg_rating]);
           });
         })
+        .then(() => {
+          this.stillLoading = false;
+          this.loaded = true;
+        });
     },
     calAvgRating: function (rating, total_ratings) {
       var total_rating =
@@ -778,7 +792,27 @@ div.vue-star-rating {
   margin: 0 0 0 0;
 }
 
-#page-number { 
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #e3dddf; /* Blue */
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#loading {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top:120px;
 }
 </style>
 
@@ -796,11 +830,11 @@ ul.paginate-links a {
   margin: 0 4px;
   font-weight: bold;
 }
-ul.paginate-links  a:hover {
+ul.paginate-links a:hover {
   cursor: pointer;
 }
 
-li.number.active  a {
+li.number.active a {
   background-color: #e3dddf;
 }
 
