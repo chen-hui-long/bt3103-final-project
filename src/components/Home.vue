@@ -226,7 +226,7 @@ export default {
     }, 
     check_bakery:function(bakes) {
       for (var i = 0; i < bakes.length; i++) {
-        console.log(bakes[i])
+        //console.log(bakes[i])
         if (this.checked.bakery.includes(bakes[i])) {
           return true;
         }
@@ -235,9 +235,10 @@ export default {
     },
     
     check_location:function(location) {
-      if (this.checked.location.includes(location)) {
+      for (var i = 0; i < location.length; i++ ) {
+        if (this.checked.location.includes(location[i])) {
         return true;
-      } else {
+      }
         return false;
       }
     }, 
