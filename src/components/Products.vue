@@ -371,6 +371,7 @@ ul.breadcrumb li a {
 .product-content {
   display: flex;
   margin-top: 50px;
+  overflow-x: auto;
 }
 
 .product-content-left {
@@ -392,6 +393,10 @@ ul.breadcrumb li a {
  /* position: relative;*/
   /*flex: 0 0 50%*/
   min-width: 40%;
+}
+
+div.disabled {
+  overflow-x: scroll;
 }
 
 .menu {
