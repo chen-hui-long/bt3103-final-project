@@ -795,7 +795,7 @@ div.vue-star-rating {
 
 <style>
 ul.paginate-links li {
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
   border-radius: 50px;
   background-color: #e5e5e5b4;
   color: black;
