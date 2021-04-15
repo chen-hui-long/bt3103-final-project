@@ -231,9 +231,11 @@ ul.breadcrumb {
   font-size: 18px;
 }
 
+
 ul.breadcrumb li {
   display: inline;
 }
+
 
 ul.breadcrumb li + li:before {
   padding: 8px;
@@ -311,6 +313,7 @@ div.disabled {
 .ig a {
   color: #a19090;
   margin-left: 10px;
+  word-break:break-all
 }
 
 .fb {
@@ -322,6 +325,7 @@ div.disabled {
 .fb a {
   color: #a19090;
   margin-left: 10px;
+  word-break:break-all
 }
 
 .website {
@@ -333,19 +337,21 @@ div.disabled {
 .website a {
   color: #a19090;
   margin-left: 10px;
-
+  word-break:break-all
 }
 
 .email {
   /*display: flex;*/
   font-size: 18px;
   margin-top: 18px;
+  
 }
 
 .email a {
   color: #a19090;
   margin-left: 10px;
   text-decoration: underline;
+  word-break:break-all
 }
 
 .title {
@@ -430,4 +436,8 @@ p {
   letter-spacing: 1.5;
 }
 */
+
+h1 {
+  line-height:100%
+}
 </style>

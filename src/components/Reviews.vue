@@ -55,16 +55,24 @@
         </select>
       </div>
 
-      <div
-        class="user-reviews"
-        v-for="(review, user) in review_sorted"
-        :key="user"
-        v-bind:review="review"
+      <paginate
+        name="reviews"
+        :list="review_sorted"
+        class="paginate-list"
+        :per="3"
       >
-        <indiv-review v-bind:review="review"></indiv-review>
-      </div>
-
-      <p style="color: red">insert pageination</p>
+        <div
+          class="user-reviews"
+          v-for="(review, user) in paginated('reviews')"
+          :key="user"
+          v-bind:review="review"
+        >
+          <indiv-review v-bind:review="review"></indiv-review>
+        </div>
+      </paginate>
+    </div>
+    <div id="page-number">
+      <paginate-links for="reviews" :show-step-links="true"></paginate-links>
     </div>
   </div>
 </template>
@@ -87,6 +95,7 @@ export default {
       sort_by: "new",
       reviews_unsorted: [],
       owner: "",
+      paginate: ["reviews"],
     };
   },
   components: {
@@ -374,4 +383,10 @@ hr {
   outline-style: none;
   cursor: pointer;
 }
+
+#page-number  > ul {
+  display: flex;
+  list-style-type: none;
+}
+
 </style>

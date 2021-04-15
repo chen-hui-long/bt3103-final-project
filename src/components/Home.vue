@@ -295,13 +295,13 @@
         <paginate
           name="bakeries"
           :list="search_bakeries"
+          :key="search_bakeries"
           class="paginate-list"
           :per="12"
         >
           <li
             v-for="bakery in paginated('bakeries')"
             v-bind:key="bakery[1].name"
-            v-show="visible(bakery[1])"
           >
             <button class="bakery-image-btn" v-on:click="route">
               <img v-bind:src="bakery[1].images[0]" v-bind:id="bakery[0]" />
@@ -324,7 +324,9 @@
           </li>
         </paginate>
       </ul>
+      <div id= "page-number">
       <paginate-links for="bakeries" :show-step-links="true"></paginate-links>
+      </div>
 
       <!-- OLD
       <ul>
@@ -390,21 +392,6 @@ export default {
       },
       search_filter: "",
       sort_by: "A-Z",
-      items: [
-        "Item One",
-        "Item Two",
-        "Item Three",
-        "Item Four",
-        "Item Five",
-        "Item Six",
-        "Item Seven",
-        "Item Eight",
-        "Item Nine",
-        "Item Ten",
-        "Item Eleven",
-        "Item Twelve",
-        "Item Thirteen",
-      ],
       paginate: ["bakeries"],
     };
   },
@@ -422,7 +409,6 @@ export default {
             this.bakeries.push([doc.id, doc.data(), avg_rating]);
           });
         })
-        .then(() => console.log(this.bakeries));
     },
     calAvgRating: function (rating, total_ratings) {
       var total_rating =
@@ -791,11 +777,16 @@ div.vue-star-rating {
 #bakery-rating {
   margin: 0 0 0 0;
 }
+
+#page-number { 
+}
 </style>
 
+
 <style>
-ul.paginate-links li {
-  /*border: 1px solid #ddd;*/
+/*FOR PAGINATION THIS IS NOT SCOPED */
+ul.paginate-links a {
+  border: 1px solid #ddd;
   border-radius: 50px;
   background-color: #e5e5e5b4;
   color: black;
@@ -805,8 +796,12 @@ ul.paginate-links li {
   margin: 0 4px;
   font-weight: bold;
 }
-ul.paginate-links li:hover {
+ul.paginate-links  a:hover {
   cursor: pointer;
+}
+
+li.number.active  a {
+  background-color: #e3dddf;
 }
 
 </style>
