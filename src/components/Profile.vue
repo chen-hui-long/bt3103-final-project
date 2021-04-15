@@ -28,26 +28,33 @@
 
     <div id="details">
       <div v-show="this.showShops">
-        <ul class="favs">
-          <li class="shop" v-for="shopID in favs" v-bind:key="shopID">
-            <Favourite
-              v-bind:shopID="shopID"
-              v-on:unfavShop="unfavShop"
-              v-on:favShop="favShop"
-            />
-          </li>
-        </ul>
+        <paginate name="favs" :list="favs" class="paginate-list" :per="6">
+          <ul class="favs">
+            <li class="shop" v-for="shopID in paginated('favs')" v-bind:key="shopID">
+              <Favourite
+                v-bind:shopID="shopID"
+                v-on:unfavShop="unfavShop"
+                v-on:favShop="favShop"
+              />
+            </li>
+          </ul>
+        </paginate>
+        <div id="page-number">
+          <paginate-links
+            for="favs"
+            :show-step-links="true"
+          ></paginate-links>
+        </div>
       </div>
 
       <div v-show="this.showReviews">
-        <paginate
-          name="reviews"
-          :list="revs"
-          class="paginate-list"
-          :per="3"
-        >
+        <paginate name="reviews" :list="revs" class="paginate-list" :per="3">
           <ul class="revs">
-            <li class="rev" v-for="review in paginated('reviews')" v-bind:key="review.UID">
+            <li
+              class="rev"
+              v-for="review in paginated('reviews')"
+              v-bind:key="review.UID"
+            >
               <Review
                 v-bind:rev="review"
                 :checkFav="checkFav(review.UID)"
@@ -106,7 +113,7 @@ export default {
       name: "",
       total_fav: 0,
       total_rev: 0,
-      paginate: ["reviews"],
+      paginate: ["reviews", "favs"],
 
       seller: [], //needed?
     };
@@ -322,10 +329,9 @@ button {
   width: 50%;
 }
 
-#page-number  > ul {
+#page-number > ul {
   display: flex;
   list-style-type: none;
   justify-content: center;
 }
-
 </style>
