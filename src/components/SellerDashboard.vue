@@ -49,7 +49,7 @@
         </li>
       </paginate>
     </ul>
-    <div id="page-number">
+    <div id="page-number" v-if = "reviews_unsorted.length > 0">
       <paginate-links for="revs" :show-step-links="true"></paginate-links>
     </div>
   </div>
@@ -227,5 +227,6 @@ div#sorting {
 #page-number > ul {
   display: flex;
   list-style-type: none;
+  margin: 20px;
 }
 </style>
