@@ -87,7 +87,6 @@ export default {
 #Date {
   display: flex;
   justify-content: flex-end;
-  margin-right:20px;
   color:#565656df;
 }
 
@@ -96,7 +95,7 @@ export default {
 }
 
 .wrapper {
-  width: 90%;
+  width: 80%;
   font-size: 18px;
   padding-right: 20px;
   padding-left: 10px;
@@ -109,7 +108,7 @@ export default {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
   margin: 20px;
-  width: 10%;
+  width: 20%;
 }
 
 </style>

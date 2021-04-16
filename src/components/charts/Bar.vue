@@ -13,8 +13,7 @@ export default {
 
     methods: {
         received:function(event) {
-            console.log("from bar vue")
-            console.log(event)
+            this.$emit("clicked", event)
         }
     }
 }

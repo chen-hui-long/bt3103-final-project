@@ -35,6 +35,9 @@ export default {
         responsive: true,
         maintainAspectRatio: false,
         onClick: this.clicked, 
+        onHover: (event, chartElement) => {
+          event.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+      }
       },
     };
   },
@@ -57,6 +60,16 @@ export default {
 
     clicked(pointer, event) {
       console.log(pointer)
+      var index = event[0]._index
+      if (index == 0) {
+        if (this.datacollection.datasets[0].backgroundColor[0] == "#DC8665") {
+          console.log("yo")
+          this.$set(this.datacollection.datasets[0].backgroundColor, index, "black");
+          this.datacollection.datasets[0].backgroundColor[0] = "black"
+        } else {
+          this.datacollection.datasets[0].backgroundColor[0] = "#DC8665"
+        }
+      }
       this.$emit("on-receive", {
         index: event[0]._index
       })
