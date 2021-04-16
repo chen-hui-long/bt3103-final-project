@@ -6,7 +6,7 @@
       </div>
       <div class="wrapper">
         <div class="date-box">
-          <span id="Date">Date: {{ this.getTime() }}</span>
+          <span id="Date"> {{ this.getTime() }}</span>
         </div>
         <span id="Name">{{ this.getName() }}</span>
 
@@ -88,6 +88,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   margin-right:20px;
+  color:#565656df;
 }
 
 .users {

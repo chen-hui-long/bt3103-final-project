@@ -1,18 +1,28 @@
 <template>
   <div class="review">
-    <div class="fav-div">
+   
+    <span class="fav-div">
+       <span id="Date">{{ this.getTime() }}</span>
       <span id="not-fav" v-show="!this.checkFav" v-on:click="favShop">♡</span>
       <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"
         ><div id="fav2">♥</div></span
       >
-    </div>
+    </span>
+
     <div class="content">
+
+
       <div class="profile-img">
         <img v-bind:src="this.image" v-on:click="toProduct" />
       </div>
+      
+
+
+      
       <div class="wrapper">
         <div class="name-container">
           <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
+          
         </div>
         <!--
       <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"
@@ -22,10 +32,11 @@
         <span id="not-fav" v-show="!this.checkFav" v-on:click="favShop">♡</span>
       </div>
       -->
+      
       <div id="text">{{ this.review }}</div>
       <br>
       <br>
-      <div class="stars">
+      <span class="stars">
         <star-rating
           v-bind:read-only="true"
           v-model="rating"
@@ -38,7 +49,9 @@
           inactive-color="white"
           active-color="black"
         ></star-rating>
-      </div>
+      </span>
+
+
     </div>
     </div>
   </div>
@@ -47,7 +60,7 @@
 <script>
 import db from "../firebase.js";
 import StarRating from "vue-star-rating";
-
+import moment from "moment";
 export default {
   components: {
     "star-rating": StarRating,
@@ -76,6 +89,10 @@ export default {
           this.image = snapshot.data().images[0];
           this.shopName = snapshot.data().shop_name;
         });
+    },
+
+    getTime() {
+      return moment(this.review.time).format("DD/MM/YYYY");
     },
 
     toProduct() {
@@ -165,6 +182,13 @@ img:hover {
   color: black;
 }
 
+#Date {
+  font-size: 16px;
+  color: #565656df;
+  margin-right: 540px;
+  margin-top: 10px;
+}
+
 .fav-div {
   display: flex;
   justify-content: flex-end;
@@ -191,6 +215,11 @@ img:hover {
 }
 
 .wrapper {
+  position:relative;
+}
+
+.wrap2 {
+  display: flex;
   position:relative;
 }
 </style>
