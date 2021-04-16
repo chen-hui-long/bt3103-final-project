@@ -83,10 +83,11 @@ export default {
   font-size: 16px;
 }
 
-#Date {
+.date-box {
+  width: 120%;
   display: flex;
-  /*justify-content: flex-end;*/
-  margin-left: 45em;
+  justify-content: flex-end;
+  /*margin-left: 40em;*/
   font-size: 14px;
   color: #565656df;
 }

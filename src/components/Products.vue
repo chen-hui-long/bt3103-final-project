@@ -17,6 +17,7 @@
     </div>
 
     <div class="product-content">
+      
       <div class="left-wrapper">
         <div class="product-content-left">
           <image-slider
@@ -249,27 +250,21 @@ ul.breadcrumb li a {
   overflow-x: auto;
 }
 
-/*
-.product-content-left {
-  margin-left: 80px;
-  display: flex;
-}
 
-.product-content-right {
-  margin-left: 100px;
-  margin-right:80px;
-  display: block;
-}
-*/
 
 .left-wrapper {
-  width: 60%;
+  width: 60%; 
   margin-left: 50px;
   /*margin-right: 80px;*/
 }
 .right-wrapper {
-  margin-right: 50px;
-  position: relative;
+  margin-right: 80px;
+  margin-top: -1.5em;
+  /*position: relative;*/
+  position:absolute;
+  right: 0;
+  max-width: 35%;
+  min-width: 35%;
   /*flex: 0 0 50%*/
   /*min-width: 40%;*/
 }
@@ -279,20 +274,20 @@ div.disabled {
 }
 
 .menu {
-  /*margin-bottom: 40px;*/
+  margin-bottom: 40px;
 }
 
 .highlights {
-  /*margin-bottom: 40px;*/
+  margin-bottom: 40px;
 }
 
 .delivery {
- /* margin-bottom: 50px;*/
+ margin-bottom: 50px;
 }
 
 .social-wrapper {
   display: inline-block;
-  max-width: 420px;
+  max-width: 100%;
   word-wrap: break-word;
 }
 

@@ -19,9 +19,12 @@
             v-model="this.rating"
           ></star-rating
         ></span>
+        </div>
 
+        <span id="submit">
         <button type="submit" v-on:click.prevent="submit">Submit</button>
-      </div>
+        </span>
+  
     </form>
 
     <div class="reviews">
@@ -310,8 +313,12 @@ export default {
 </script>
 
 <style scoped>
+.review-wrapper {
+  width: 90%;
+}
+
 textarea {
-  width: 750px;
+  width: 85%;
   height: 145px;
   border-radius: 20px;
   font-size: 20px;
@@ -341,10 +348,16 @@ button {
   height: 40px;
   display: inline-block;
   width: fit-content;
-  padding: 0 30px;
-  margin-left: 380px;
-  margin-top: 35px;
+  padding: 0 26px;
+  /*margin-left: 16em;*/
+  margin-top: -30px;
   cursor: pointer;
+}
+
+#submit {
+  display: flex;
+  justify-content: flex-end;
+  width: 82%;
 }
 
 .reviews > span {
@@ -356,7 +369,7 @@ hr {
   display: block;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  width: 750px;
+  width: 88%;
   border-style: inset;
   border-width: 1px;
   background-color: none;
@@ -364,7 +377,7 @@ hr {
 
 .user-reviews {
   margin-bottom: 50px;
-  width: 580px;
+  width: 70%;
 }
 
 #Name {
@@ -373,9 +386,13 @@ hr {
 }
 
 #sorting {
-  margin-left: 450px;
+  /*margin-left: 50%;*/
+  display: flex;
+  justify-content: flex-end;
   font-weight: bold;
   margin-bottom: 30px;
+  width: 85%;
+  font-size:14px;
 }
 
 #sort {
