@@ -50,7 +50,7 @@
                   :key="index"
                 >
                   <span class="description1" v-if="index != 0">, </span>
-                  {{bake}}
+                  {{ bake }}
                 </span>
               </details>
             </div>
@@ -58,25 +58,25 @@
             <div class="highlights">
               <details>
                 <summary>Highlights</summary>
-                <div v-show= "this.bakery[0].dietary != ''">
+                <div v-show="this.bakery[0].dietary != ''">
                   <div
-                  class="description-box"
-                  v-for="(diet, index) in bakery[0].dietary"
-                  :key="index"
-                >
-                  <ul class="description1">
-                    <li>{{ diet }}</li>
-                  </ul>
-                </div>
+                    class="description-box"
+                    v-for="(diet, index) in bakery[0].dietary"
+                    :key="index"
+                  >
+                    <ul class="description1">
+                      <li>{{ diet }}</li>
+                    </ul>
+                  </div>
                 </div>
 
-                <div v-show = "this.bakery[0].dietary == ''">
+                <div v-show="this.bakery[0].dietary == ''">
                   <div class="description-box">
                     <ul>
                       <li>No special dietary requirements</li>
                     </ul>
-                  </div> 
-                  </div>     
+                  </div>
+                </div>
               </details>
             </div>
 
@@ -92,49 +92,45 @@
             </div>
 
             <div class="social-wrapper">
-            
               <div v-show="this.instagram != ''">
                 <div class="ig">
-                <span style="font-weight: bold">IG:</span>
-                <a
-                  :href="'https://www.instagram.com/' + this.instagram"
-                  class="description-box"
-                  >@{{ this.instagram }}
-                </a>
+                  <span style="font-weight: bold">IG:</span>
+                  <a
+                    :href="'https://www.instagram.com/' + this.instagram"
+                    class="description-box"
+                    >@{{ this.instagram }}
+                  </a>
+                </div>
               </div>
-            </div>
 
- 
               <div v-show="this.bakery[0].facebook != ''">
                 <div class="fb">
-                <span style="font-weight: bold">FB:</span>
-                <a :href="this.bakery[0].facebook" class="description-box"
-                  >{{ this.bakery[0].facebook }}
-                </a>
+                  <span style="font-weight: bold">FB:</span>
+                  <a :href="this.bakery[0].facebook" class="description-box"
+                    >{{ this.bakery[0].facebook }}
+                  </a>
+                </div>
               </div>
-            </div>
 
-            
               <div v-show="this.bakery[0].official_website != ''">
                 <div class="website">
-                <span style="font-weight: bold">Website:</span>
-                <a
-                  :href="this.bakery[0].official_website"
-                  class="description-box"
-                  >{{ this.bakery[0].official_website }}
-                </a>
+                  <span style="font-weight: bold">Website:</span>
+                  <a
+                    :href="this.bakery[0].official_website"
+                    class="description-box"
+                    >{{ this.bakery[0].official_website }}
+                  </a>
+                </div>
               </div>
-            </div>
 
-            
               <div v-show="this.bakery[0].business_email != ''">
                 <div class="email">
-                <span style="font-weight: bold">Email:</span>
-                <a class="description-box"
-                  >{{ this.bakery[0].business_email }}
-                </a>
+                  <span style="font-weight: bold">Email:</span>
+                  <a class="description-box"
+                    >{{ this.bakery[0].business_email }}
+                  </a>
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
@@ -231,11 +227,9 @@ ul.breadcrumb {
   font-size: 18px;
 }
 
-
 ul.breadcrumb li {
   display: inline;
 }
-
 
 ul.breadcrumb li + li:before {
   padding: 8px;
@@ -248,15 +242,12 @@ ul.breadcrumb li a {
   text-decoration: none;
 }
 
-
-
 .product-content {
   width: 100%;
   display: flex;
   margin-top: 50px;
   overflow-x: auto;
 }
-
 
 /*
 .product-content-left {
@@ -272,13 +263,13 @@ ul.breadcrumb li a {
 */
 
 .left-wrapper {
+  width: 60%;
   margin-left: 50px;
-  margin-right: 80px;
+  /*margin-right: 80px;*/
 }
 .right-wrapper {
-  margin-right: 100px;
+  margin-right: 50px;
   position: relative;
-  max-width: 40%;
   /*flex: 0 0 50%*/
   /*min-width: 40%;*/
 }
@@ -288,15 +279,15 @@ div.disabled {
 }
 
 .menu {
-  margin-bottom: 40px;
+  /*margin-bottom: 40px;*/
 }
 
 .highlights {
-  margin-bottom: 40px;
+  /*margin-bottom: 40px;*/
 }
 
 .delivery {
-  margin-bottom: 50px;
+ /* margin-bottom: 50px;*/
 }
 
 .social-wrapper {
@@ -313,7 +304,7 @@ div.disabled {
 .ig a {
   color: #a19090;
   margin-left: 10px;
-  word-break:break-all
+  word-break: break-all;
 }
 
 .fb {
@@ -325,7 +316,7 @@ div.disabled {
 .fb a {
   color: #a19090;
   margin-left: 10px;
-  word-break:break-all
+  word-break: break-all;
 }
 
 .website {
@@ -337,21 +328,19 @@ div.disabled {
 .website a {
   color: #a19090;
   margin-left: 10px;
-  word-break:break-all
+  word-break: break-all;
 }
 
 .email {
-  /*display: flex;*/
   font-size: 18px;
   margin-top: 18px;
-  
 }
 
 .email a {
   color: #a19090;
   margin-left: 10px;
   text-decoration: underline;
-  word-break:break-all
+  word-break: break-all;
 }
 
 .title {
@@ -368,7 +357,6 @@ div.disabled {
 .description {
   margin-top: 20px;
   margin-bottom: 40px;
-
 }
 
 .description-box {
@@ -378,20 +366,17 @@ div.disabled {
 .description1 {
   margin-top: 10px;
   margin-bottom: 40px;
-
 }
 
 .review {
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 details {
   margin-bottom: 1rem;
-  padding: 0;
+  /*padding: 0.25rem;*/
   border-radius: 0.25rem;
-  /*border: 1px solid darkslategray;*/
 }
-
 summary {
   list-style-type: none;
   font-size: 1.25rem;
@@ -401,43 +386,22 @@ summary {
   outline: none;
   color: darkslategray;
 }
-
 summary::after {
   content: "›";
-  font-size: 32px;
   transform: rotate(-270deg);
-  /*padding: 0.5rem;*/
+  padding: 0.5rem;
   position: absolute;
-  /*right: 0.25rem;*/
-  left: 420px;
+  right: 0.25rem;
   top: -0.7rem;
   color: rgb(0, 0, 0);
 }
 
-/*
-details[open] {
-  background: whitesmoke;
-}
-*/
-
-/*
-details[open] summary {
-  color: dimgrey;
-}
-*/
 details[open] summary::after {
   content: "‹";
 }
-/*** End specific styles ***/
 
-/*
-p {
-  color: dimgrey;
-  letter-spacing: 1.5;
-}
-*/
 
 h1 {
-  line-height:100%
+  line-height: 100%;
 }
 </style>

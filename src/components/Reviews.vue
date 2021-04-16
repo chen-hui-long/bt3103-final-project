@@ -365,7 +365,6 @@ hr {
 .user-reviews {
   margin-bottom: 50px;
   width: 580px;
-  margin-left: -30px;
 }
 
 #Name {
@@ -388,6 +387,10 @@ hr {
 #page-number  > ul {
   display: flex;
   list-style-type: none;
+  padding:none;
 }
 
+.paginate-list {
+  padding:0;
+}
 </style>

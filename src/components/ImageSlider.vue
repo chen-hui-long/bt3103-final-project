@@ -260,8 +260,8 @@ export default {
 }
 
 .card-img > img {
-  width: 450px;
-  height: 450px;
+  width: 400px;
+  height: 400px;
   border-radius: 15px;
   margin-left: 75px;
 }
@@ -272,7 +272,7 @@ export default {
   position: absolute;
   top: 50%;
   margin-top: -20px;
-  width: 600px;
+  width: 550px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -297,7 +297,7 @@ export default {
 
 .fav {
   position: absolute;
-  margin-left: 670px;
+  margin-left: 620px;
   font-size: 28px;
   font-family: system-ui;
   font-weight: 500px;

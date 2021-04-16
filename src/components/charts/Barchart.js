@@ -9,7 +9,7 @@ export default {
     return {
       total_orders: {},
       datacollection: {
-        labels: ["0","★" , "★ ★", "★ ★ ★", "★ ★	★ ★", "★ ★ ★ ★ ★"],
+        labels: ["0", "★", "★ ★", "★ ★ ★", "★ ★	★ ★", "★ ★ ★ ★ ★"],
         datasets: [
           {
             label: "Total number of ratings",
@@ -28,7 +28,6 @@ export default {
       options: {
         legend: { display: false },
         title: {
-          
           display: true,
           text: "Ratings",
           fontSize: 25,
@@ -38,10 +37,15 @@ export default {
             {
               ticks: {
                 beginAtZero: true,
-
+                stepSize: 1
               },
             },
           ],
+          xAxes: [{
+            ticks: {
+              stepSize: 1
+            }
+          }],
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -55,13 +59,14 @@ export default {
         .doc(firebase.auth().currentUser.uid)
         .get()
         .then((doc) => {
-            var ratings  = doc.data().ratings
-            for (var i = 0; i <= 6; i++) {
-                this.datacollection.datasets[0].data.push(ratings[i])
-            }
-        }).then(() => {
-            this.renderChart(this.datacollection, this.options);
+          var ratings = doc.data().ratings;
+          for (var i = 0; i <= 6; i++) {
+            this.datacollection.datasets[0].data.push(ratings[i]);
+          }
         })
+        .then(() => {
+          this.renderChart(this.datacollection, this.options);
+        });
     },
   },
 
