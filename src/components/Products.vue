@@ -352,6 +352,7 @@ div.disabled {
 .description {
   margin-top: 20px;
   margin-bottom: 40px;
+  width: 95%;
 }
 
 .description-box {
@@ -389,10 +390,12 @@ summary::after {
   right: 0.25rem;
   top: -0.7rem;
   color: rgb(0, 0, 0);
+  font-size: 1.5em;
 }
 
 details[open] summary::after {
   content: "‹";
+  font-size: 1.5em;
 }
 
 
