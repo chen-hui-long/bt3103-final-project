@@ -1,10 +1,10 @@
-import { HorizontalBar } from "vue-chartjs";
+import { Doughnut } from "vue-chartjs";
 import database from "../../firebase.js";
 import firebase from "@firebase/app";
 require("firebase/auth");
 
 export default {
-  extends: HorizontalBar,
+  extends: Doughnut,
   data: function() {
     return {
       total_orders: {},
@@ -14,41 +14,27 @@ export default {
           {
             label: "Total number of ratings",
             backgroundColor: [
-              "#C0AD98",
-              "#646E78",
-              "#8D98A7",
-              "#A7A39A",
-              "#C1AE8D",
-              "#918576",
+              "#DC8665",
+              "#138086",
+              "#534666",
+              "#CD7672",
+              "#EEB462",
+              "#f67e7d",
             ],
             data: [],
           },
         ],
       },
       options: {
-        legend: { display: false },
+        legend: { display: true },
         title: {
           display: true,
           text: "Ratings",
           fontSize: 25,
         },
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-                stepSize: 1
-              },
-            },
-          ],
-          xAxes: [{
-            ticks: {
-              stepSize: 1
-            }
-          }],
-        },
         responsive: true,
         maintainAspectRatio: false,
+        onClick: this.clicked, 
       },
     };
   },
@@ -68,6 +54,14 @@ export default {
           this.renderChart(this.datacollection, this.options);
         });
     },
+
+    clicked(pointer, event) {
+      console.log(pointer)
+      this.$emit("on-receive", {
+        index: event[0]._index
+      })
+    }
+
   },
 
   created() {

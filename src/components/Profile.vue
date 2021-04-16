@@ -39,7 +39,7 @@
             </li>
           </ul>
         </paginate>
-        <div id="page-number" v-if= "revs.favs > 0">
+        <div id="page-number" v-if= "favs.length > 0">
           <paginate-links
             for="favs"
             :show-step-links="true"
