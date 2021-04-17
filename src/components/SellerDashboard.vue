@@ -21,7 +21,9 @@
     </div>
     <hr />
     <div id="app-db">
-      <BarChart @clicked="received"></BarChart>
+      <div class="chart-div">
+        <BarChart @clicked="received"></BarChart>
+      </div>
       <div class="review-side">
         <!--
         <div class="reviews-top">
@@ -49,6 +51,16 @@
           ></MultiSelectRating>
         </div>
         -->
+        <div class="curr-filter">
+          Viewing:
+          <div class="filter">
+            <ul class = "ul-filter">
+              <li  class = "li-filter" v-for="filter in this.check_filter()" v-bind:key="filter">
+                {{ filter }}
+              </li>
+            </ul>
+          </div>
+        </div>
         <div id="sorting">
           Sort by:
           <select id="sort" v-model="sort_by">
@@ -64,7 +76,7 @@
             :list="review_sorted"
             :key="review_sorted"
             class="paginate-list"
-            :per="4"
+            :per="3"
           >
             <li
               class="user-reviews"
@@ -231,6 +243,19 @@ export default {
       }
     },
 
+    check_filter() {
+      var arr = [];
+      if (this.new_filter.length == 0) {
+        arr.push("All Reviews");
+      } else {
+        var str = " stars review";
+        for (var i = 0; i < this.new_filter.length; i++) {
+          arr.push(this.new_filter[i] + str);
+        }
+      }
+      return arr;
+    },
+
     received: function (event) {
       var index = event.index;
       if (this.new_filter.includes(index)) {
@@ -289,8 +314,11 @@ export default {
 }
 
 .chart {
-  width:50%;
   margin-top: 20px;
+}
+
+.chart-div {
+  width: 50%;
 }
 
 .review-side {
@@ -319,10 +347,25 @@ div#sorting {
   margin: 20px;
 }
 
+div.curr-filter {
+    margin: 20px;
+}
+
 h3 {
   text-align: center;
 }
 
+.ul-filter {
+  display:flex;
+}
+
+.li-filter {
+  margin-right:10px;
+  margin-left:0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding:10px;
+}
 #page-number > ul {
   display: flex;
   list-style-type: none;
