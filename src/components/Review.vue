@@ -1,28 +1,25 @@
 <template>
   <div class="review">
-   
-    <span class="fav-div">
-       <span id="Date">{{ this.getTime() }}</span>
+    <div class="fav-date">
+      <div class="date-div">
+        <span id="Date">{{ this.getTime() }}</span>
+      </div>
+      <div class = "fav-div">
       <span id="not-fav" v-show="!this.checkFav" v-on:click="favShop">♡</span>
       <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"
         ><div id="fav2">♥</div></span
       >
-    </span>
+      </div>
+    </div>
 
     <div class="content">
-
-
       <div class="profile-img">
         <img v-bind:src="this.image" v-on:click="toProduct" />
       </div>
-      
 
-
-      
       <div class="wrapper">
         <div class="name-container">
           <span id="name" v-on:click="toProduct">{{ this.shopName }}</span>
-          
         </div>
         <!--
       <span id="fav" v-show="this.checkFav" v-on:click="unfavShop"
@@ -32,27 +29,25 @@
         <span id="not-fav" v-show="!this.checkFav" v-on:click="favShop">♡</span>
       </div>
       -->
-      
-      <div id="text">{{ this.review }}</div>
-      <br>
-      <br>
-      <span class="stars">
-        <star-rating
-          v-bind:read-only="true"
-          v-model="rating"
-          v-bind:increment="0.1"
-          v-bind:show-rating="false"
-          v-bind:star-size="16"
-          border-color="black"
-          v-bind:border-width="3"
-          v-bind:rounded-corners="true"
-          inactive-color="white"
-          active-color="black"
-        ></star-rating>
-      </span>
 
-
-    </div>
+        <div id="text">{{ this.review }}</div>
+        <br />
+        <br />
+        <span class="stars">
+          <star-rating
+            v-bind:read-only="true"
+            v-model="rating"
+            v-bind:increment="0.1"
+            v-bind:show-rating="false"
+            v-bind:star-size="16"
+            border-color="black"
+            v-bind:border-width="3"
+            v-bind:rounded-corners="true"
+            inactive-color="white"
+            active-color="black"
+          ></star-rating>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -122,7 +117,7 @@ export default {
   border-color: rgb(214, 210, 206);
   /*overflow: auto;*/
   border-radius: 12px;
-  margin-top:20px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -154,7 +149,6 @@ img:hover {
   margin-bottom: 1em;
 }
 
-
 #fav {
   /*text-align: right;
   float: right;*/
@@ -174,7 +168,7 @@ img:hover {
 
 #not-fav:hover {
   cursor: pointer;
-    color: #d68577;
+  color: #d68577;
 }
 
 #fav:hover {
@@ -185,14 +179,24 @@ img:hover {
 #Date {
   font-size: 16px;
   color: #565656df;
-  margin-right: 540px;
-  margin-top: 10px;
+}
+
+.fav-date {
+  display: flex;
+  margin-right: 10px;
+}
+
+.date-div {
+  display: flex;
+  width:50%;
+  align-items: center;
+  margin-left: 20px;
 }
 
 .fav-div {
   display: flex;
   justify-content: flex-end;
-  margin-right: 10px;
+  width:50%;
 }
 
 .content {
@@ -200,8 +204,8 @@ img:hover {
 }
 
 .stars {
-  position:absolute;                  /* added */
-  bottom:0; 
+  position: absolute; /* added */
+  bottom: 0;
   margin-bottom: 20px;
 }
 
@@ -210,17 +214,17 @@ img:hover {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
   margin-left: 20px;
-  margin-right:20px;
+  margin-right: 20px;
   margin-bottom: 20px;
 }
 
 .wrapper {
-  position:relative;
+  position: relative;
 }
 
 .wrap2 {
   display: flex;
-  position:relative;
+  position: relative;
 }
 </style>
 

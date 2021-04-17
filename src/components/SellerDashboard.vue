@@ -1,56 +1,97 @@
 <template>
-  <div id="app">
-    <br />
-    <BarChart></BarChart>
-    <div class="reviews-top">
-      <h3>{{ this.total_reviews }} Reviews</h3>
-      <span class="stars"
-        ><star-rating
-          v-bind:read-only="true"
-          v-bind:increment="0.1"
-          v-bind:rating="this.rating1"
-          v-bind:show-rating="false"
-          v-bind:star-size="16"
-          border-color="black"
-          v-bind:border-width="3"
-          v-bind:rounded-corners="true"
-          inactive-color="white"
-          active-color="black"
-        ></star-rating
-      ></span>
+  <div>
+    <div class="heading-db">
+      <div class="reviews-top">
+        <h3>{{ this.total_reviews }} Reviews</h3>
+        <span class="stars"
+          ><star-rating
+            v-bind:read-only="true"
+            v-bind:increment="0.1"
+            v-bind:rating="this.rating1"
+            v-bind:show-rating="false"
+            v-bind:star-size="16"
+            border-color="black"
+            v-bind:border-width="3"
+            v-bind:rounded-corners="true"
+            inactive-color="white"
+            active-color="black"
+          ></star-rating
+        ></span>
+      </div>
     </div>
-    <div class="select">
-      <MultiSelectRating v-on:input="clickMulti($event)"></MultiSelectRating>
-    </div>
-    <div id="sorting">
-      Sort by:
-      <select id="sort" v-model="sort_by">
-        <option value="new" selected>Date (Newest)</option>
-        <option value="old" selected>Date (Oldest)</option>
-        <option value="ratings_ascending">Ratings (Ascending)</option>
-        <option value="ratings_descending">Ratings (Descending)</option>
-      </select>
-    </div>
-    <ul>
-      <paginate
-        name="revs"
-        :list="review_sorted"
-        class="paginate-list"
-        :per="5"
-      >
-        <li
-          class="user-reviews"
-          v-for="(review, user) in paginated('revs')"
-          :key="user"
-          v-bind:review="review"
-          v-show="visible(review)"
-        >
-          <indiv-review v-bind:review="review"></indiv-review>
-        </li>
-      </paginate>
-    </ul>
-    <div id="page-number">
-      <paginate-links for="revs" :show-step-links="true"></paginate-links>
+    <hr />
+    <div id="app-db">
+      <div class="chart-div">
+        <BarChart @clicked="received"></BarChart>
+      </div>
+      <div class="review-side">
+        <!--
+        <div class="reviews-top">
+          <h3>{{ this.total_reviews }} Reviews</h3>
+          <span class="stars"
+            ><star-rating
+              v-bind:read-only="true"
+              v-bind:increment="0.1"
+              v-bind:rating="this.rating1"
+              v-bind:show-rating="false"
+              v-bind:star-size="16"
+              border-color="black"
+              v-bind:border-width="3"
+              v-bind:rounded-corners="true"
+              inactive-color="white"
+              active-color="black"
+            ></star-rating
+          ></span>
+        </div>
+        -->
+        <!--
+        <div class="select">
+          <MultiSelectRating
+            v-on:input="clickMulti($event)"
+          ></MultiSelectRating>
+        </div>
+        -->
+        <div class="curr-filter">
+          Viewing:
+          <div class="filter">
+            <ul class = "ul-filter">
+              <li  class = "li-filter" v-for="filter in this.check_filter()" v-bind:key="filter">
+                {{ filter }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="sorting">
+          Sort by:
+          <select id="sort" v-model="sort_by">
+            <option value="new" selected>Date (Newest)</option>
+            <option value="old" selected>Date (Oldest)</option>
+            <option value="ratings_ascending">Ratings (Ascending)</option>
+            <option value="ratings_descending">Ratings (Descending)</option>
+          </select>
+        </div>
+        <ul>
+          <paginate
+            name="revs"
+            :list="review_sorted"
+            :key="review_sorted"
+            class="paginate-list"
+            :per="3"
+          >
+            <li
+              class="user-reviews"
+              v-for="(review, user) in paginated('revs')"
+              :key="user"
+              v-bind:review="review"
+            >
+              <indiv-review v-bind:review="review"></indiv-review>
+            </li>
+          </paginate>
+        </ul>
+        <div id="page-number" v-if="reviews_unsorted.length > 0">
+          <paginate-links for="revs" :show-step-links="true"></paginate-links>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -61,7 +102,7 @@ import BarChart from "./charts/Bar.vue";
 import database from "../firebase.js";
 import firebase from "@firebase/app";
 import review from "./DashboardReview/DBreview.vue";
-import MultiSelectRating from "./DashboardReview/MultiSelectRating.vue";
+//import MultiSelectRating from "./DashboardReview/MultiSelectRating.vue";
 require("firebase/auth");
 
 export default {
@@ -69,7 +110,7 @@ export default {
     BarChart,
     "star-rating": StarRating,
     "indiv-review": review,
-    MultiSelectRating,
+    //MultiSelectRating,
   },
 
   data: function () {
@@ -81,6 +122,7 @@ export default {
       reviews_unsorted: [],
       filter: [],
       paginate: ["revs"],
+      new_filter: [],
     };
   },
 
@@ -163,11 +205,78 @@ export default {
         }
       }
     },
+
+    new_visible(review) {
+      if (this.new_filter.length == 0) {
+        return true;
+      } else {
+        if (this.new_filter.includes(0)) {
+          if (review.rating == 0) {
+            return true;
+          }
+        }
+        if (this.new_filter.includes(1)) {
+          if (review.rating == 1) {
+            return true;
+          }
+        }
+        if (this.new_filter.includes(2)) {
+          if (review.rating == 2) {
+            return true;
+          }
+        }
+        if (this.new_filter.includes(3)) {
+          if (review.rating == 3) {
+            return true;
+          }
+        }
+        if (this.new_filter.includes(4)) {
+          if (review.rating == 4) {
+            return true;
+          }
+        }
+        if (this.new_filter.includes(5)) {
+          if (review.rating == 5) {
+            return true;
+          }
+        }
+      }
+    },
+
+    check_filter() {
+      var arr = [];
+      if (this.new_filter.length == 0) {
+        arr.push("All Reviews");
+      } else {
+        var str = " stars review";
+        for (var i = 0; i < this.new_filter.length; i++) {
+          arr.push(this.new_filter[i] + str);
+        }
+      }
+      return arr;
+    },
+
+    received: function (event) {
+      var index = event.index;
+      if (this.new_filter.includes(index)) {
+        var arr = this.new_filter.filter(function (e) {
+          return e !== index;
+        });
+        this.new_filter = arr;
+      } else {
+        this.new_filter.push(index);
+      }
+    },
   },
 
   computed: {
     review_sorted() {
-      var sorted = this.reviews_unsorted;
+      var sorted = [];
+      for (var i = 0; i < this.reviews_unsorted.length; i++) {
+        if (this.new_visible(this.reviews_unsorted[i])) {
+          sorted.push(this.reviews_unsorted[i]);
+        }
+      }
       if (this.sort_by == "ratings_ascending") {
         sorted.sort(function (a, b) {
           return a.rating - b.rating;
@@ -195,9 +304,25 @@ export default {
 };
 </script>
  <style scoped>
-#app {
-  width: 85%;
-  margin: auto;
+.heading-db {
+  display: flex;
+  justify-content: center;
+}
+
+#app-db {
+  display: flex;
+}
+
+.chart {
+  margin-top: 20px;
+}
+
+.chart-div {
+  width: 50%;
+}
+
+.review-side {
+  width: 50%;
 }
 ul {
   padding: 0;
@@ -212,8 +337,6 @@ li {
 }
 
 .reviews-top {
-  margin: 20px;
-  margin-top: 80px;
 }
 
 .select {
@@ -224,8 +347,28 @@ div#sorting {
   margin: 20px;
 }
 
+div.curr-filter {
+    margin: 20px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.ul-filter {
+  display:flex;
+}
+
+.li-filter {
+  margin-right:10px;
+  margin-left:0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding:10px;
+}
 #page-number > ul {
   display: flex;
   list-style-type: none;
+  margin: 20px;
 }
 </style>
