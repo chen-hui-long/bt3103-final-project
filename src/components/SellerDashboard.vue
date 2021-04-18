@@ -354,7 +354,17 @@ li {
 
 div#sorting {
   margin: 20px;
+  font-weight: bold;
 }
+
+
+
+#sort {
+  border: none;
+  outline-style: none;
+  cursor: pointer;
+}
+
 
 div.curr-filter {
     margin: 20px;
