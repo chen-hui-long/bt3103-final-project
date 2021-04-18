@@ -27,7 +27,7 @@ export default {
         {question: "Can I list my restaurant here? ", 
         a: "Sorry, our website currently caters to home bakeries only! :-("},
         {question: "Didn't find the answer to your question?", 
-        a: "Contact us directly @ EMAIL and we'll get back to you soon! :-)"}
+        a: "Contact us directly at enquiries@eatsy.com and we'll get back to you soon! :-)"}
       ];
       list.forEach(element => {
        this.dynamicList.push({...element, visible: false});
