@@ -5,7 +5,14 @@
     <infoList v-for="(item, index) in dynamicList" :key="index" :user="item" >
       {{item.a}}
     </infoList> 
-    
+    <br><br>
+    <div class="msg"> 
+      Didn't find the answer to your question? Don't worry! <br>
+      Contact us directly at 
+      <a href="mailto:bt3103g31@gmail.com">enquiries@eatsy.sg</a>
+       and we'll get back to you soon! :-)
+
+    </div>
   </div>
 </template>
 
@@ -26,8 +33,8 @@ export default {
         a: "Contact the bakeries directly through the platforms listed on their profiles! :-)"},
         {question: "Can I list my restaurant here? ", 
         a: "Sorry, our website currently caters to home bakeries only! :-("},
-        {question: "Didn't find the answer to your question?", 
-        a: "Contact us directly at enquiries@eatsy.com and we'll get back to you soon! :-)"}
+        {question: "Am I able to make multiple listings as a seller?", 
+        a: "Sorry, each account is only able to set up for one listing only!"}
       ];
       list.forEach(element => {
        this.dynamicList.push({...element, visible: false});
@@ -60,5 +67,16 @@ header {
   justify-content: space-around;
 }
 
+.msg {
+  font-size: 17px;
+}
+
+a:link {
+  color: #525f7f;
+}
+
+a:link:hover {
+  color:	#0000A0;
+}
 
 </style>
