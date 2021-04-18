@@ -4,7 +4,7 @@
       <NavBar></NavBar>
     </div>
     <div class="login-page">
-      <header>Edit your listing</header>
+      <header>Edit My Listing</header>
       <div class="form">
         <form class="register-form">
           <table>

@@ -1,14 +1,14 @@
 <template>
     <div class = "chart">
-        <bar-chart @on-receive="received"></bar-chart>
+        <doughnut-chart @on-receive="received"></doughnut-chart>
     </div>
 </template>
 
 <script>
-import Barchart from "./Barchart.js"
+import Doughnut from "./Doughnut.js"
 export default {
     components:{
-        "bar-chart": Barchart
+        "doughnut-chart": Doughnut
     },
 
     methods: {

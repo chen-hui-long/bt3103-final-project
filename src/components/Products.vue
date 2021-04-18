@@ -6,14 +6,6 @@
           <a><router-link to="/" exact>Home</router-link></a>
         </li>
         <li> {{this.bakery[0].shop_name}}</li>
-        <!-- insert router for dietary type if there is 
-            Show only when click at filter 
-            then click will go back to the home page with the filtered dietayr
-            Or is too hard shld we just scrape it away??? -->
-        <!-- comment out first 
-            <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].dietary}}</a></li> /
-            <li>{{this.bakery[0].shop_name}}</li>
-            <-->
       </ul>
     </div>
 
