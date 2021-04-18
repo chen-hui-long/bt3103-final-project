@@ -1,12 +1,23 @@
 <template>
   <div class="edit">
-    <!--
-    <div class="links">
-      <router-link id="profile" to="/profile">My Profile / </router-link>
-      <router-link id="edit" to="/editProfile">Edit</router-link>
-      
+    <div class="navbar">
+      <NavBar></NavBar>
     </div>
-    -->
+    <!--div class="breadcrumb-wrap">
+      <ul class="breadcrumb">
+        <li>
+          <a><router-link to="/" exact>Home</router-link></a>
+        </li>
+        <li>
+          <a><router-link to="/profile">My Profile</router-link></a>
+        </li>
+        <li>
+          Edit Profile
+        </li>
+      </ul>
+    </div-->
+    <header>Edit My Profile</header>  
+    <div id="form">
     <form action="/action_page.php">
       <div id="image-upload-div">
         <div id="title">Upload your image:</div>
@@ -25,16 +36,22 @@
         /><br /><br />
         <button id="update" v-on:click.prevent="save">UPDATE</button>
       </div>
+      <div>
+        <router-link to="/" id="delete" tag="button">Delete My Account</router-link>
+      </div>
     </form>
+    </div>
   </div>
 </template>
 
 <script>
 import db from "../firebase.js";
+import NavBar from "./ProfileNavBar";
 import firebase from "@firebase/app";
 require("firebase/auth");
 
 export default {
+  components: {NavBar},
   data() {
     return {
       userID: "",
@@ -92,10 +109,10 @@ export default {
 </script>
 
 <style scoped>
-.links {
+/*.links {
   text-align: left;
   padding: 10px;
-}
+}*/
 
 #home {
   color: gray;
@@ -115,11 +132,30 @@ export default {
 #image-upload-div {
   margin-bottom: 3em;
 }
+
+header {
+  text-align: center;
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  margin-block: 40px;
+}
+
+#form {
+  display:block;
+  text-align:center;
+  margin-bottom: 80px;
+}
 form {
   position: relative;
   background: #ffffff;
-  margin: 0 100px 100px;
-  padding: 45px;
+  padding: 45px 200px 80px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  border: #bbbbbb solid 1px;
+  border-radius: 10px;
 }
 
 form input {
@@ -165,6 +201,66 @@ img {
   background: black;
   transform: scale(1.05);
 }
+
+
+#delete {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: rgb(255, 255, 255);
+  width: 350px;
+  /*border: 0;*/
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin-top: 30px;
+  color: #000000;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+#delete:hover,
+#delete:active,
+#delete:focus {
+  /*background: black;*/
+  transform: scale(1.05);
+  color:#bbbbbb;
+}
+
+.navbar {
+  text-align: center;
+}
+
+/*
+.breadcrumb-wrap {
+  position: relative;
+  padding-left: 60px;
+}
+
+ul.breadcrumb {
+  padding: 8px 16px;
+  list-style: none;
+  font-size: 18px;
+}
+
+ul.breadcrumb li {
+  display: inline;
+}
+
+ul.breadcrumb li + li:before {
+  padding: 8px;
+  color: #626262;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {
+  color: #626262;
+  text-decoration: none;
+}
+*/
+
 </style>
 
 

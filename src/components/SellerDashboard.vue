@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div class="dashboard">
+    <div class="navbar">
+      <NavBar></NavBar>
+    </div>
     <div class="heading-db">
       <div class="reviews-top">
         <h3>{{ this.total_reviews }} Reviews</h3>
@@ -19,10 +22,10 @@
         ></span>
       </div>
     </div>
-    <hr />
+
     <div id="app-db">
       <div class="chart-div">
-        <BarChart @clicked="received"></BarChart>
+        <Doughnut @clicked="received"></Doughnut>
       </div>
       <div class="review-side">
         <!--
@@ -98,16 +101,18 @@
  
 <script>
 import StarRating from "vue-star-rating";
-import BarChart from "./charts/Bar.vue";
+import Doughnut from "./charts/Doughnut.vue";
 import database from "../firebase.js";
 import firebase from "@firebase/app";
 import review from "./DashboardReview/DBreview.vue";
+import NavBar from "./ProfileNavBar"
 //import MultiSelectRating from "./DashboardReview/MultiSelectRating.vue";
 require("firebase/auth");
 
 export default {
   components: {
-    BarChart,
+    Doughnut,
+    NavBar,
     "star-rating": StarRating,
     "indiv-review": review,
     //MultiSelectRating,
@@ -309,6 +314,9 @@ export default {
   justify-content: center;
 }
 
+.navbar {
+  text-align: center;
+}
 #app-db {
   display: flex;
 }
@@ -323,6 +331,7 @@ export default {
 
 .review-side {
   width: 50%;
+  margin-right: 40px;
 }
 ul {
   padding: 0;
@@ -345,7 +354,17 @@ li {
 
 div#sorting {
   margin: 20px;
+  font-weight: bold;
 }
+
+
+
+#sort {
+  border: none;
+  outline-style: none;
+  cursor: pointer;
+}
+
 
 div.curr-filter {
     margin: 20px;
@@ -370,5 +389,9 @@ h3 {
   display: flex;
   list-style-type: none;
   margin: 20px;
+}
+
+.dashboard {
+  margin-bottom: 80px;
 }
 </style>

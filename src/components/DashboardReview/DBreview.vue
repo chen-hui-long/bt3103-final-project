@@ -96,7 +96,7 @@ export default {
 
 .wrapper {
   width: 80%;
-  font-size: 18px;
+  font-size: 16px;
   padding-right: 20px;
   padding-left: 10px;
   padding-bottom: 15px;
