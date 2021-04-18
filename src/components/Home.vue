@@ -539,7 +539,7 @@ export default {
         return false;
       } else {
         for (var i = 0; i < delivery.length; i++) {
-          console.log(delivery[i]);
+          //console.log(delivery[i]);
           if (this.checked.deliver.includes(delivery[i])) {
             return true;
           }
@@ -552,7 +552,7 @@ export default {
         return false;
       } else {
         for (var i = 0; i < diet.length; i++) {
-          console.log(diet[i]);
+          //console.log(diet[i]);
           if (this.checked.dietary.includes(diet[i])) {
             return true;
           }

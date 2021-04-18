@@ -74,7 +74,7 @@
         </div>
       </paginate>
     </div>
-    <div id="page-number">
+    <div id="page-number" v-if = "total_reviews > 0">
       <paginate-links for="reviews" :show-step-links="true"></paginate-links>
     </div>
   </div>
@@ -119,7 +119,7 @@ export default {
             snapshot.data().total_ratings_by_users
           );
           this.reviews_unsorted = snapshot.data().reviews;
-          console.log(this.reviews_unsorted);
+          //console.log(this.reviews_unsorted);
           this.total_reviews = snapshot.data().total_ratings_by_users;
           this.owner = snapshot.data().owner;
         });
@@ -155,7 +155,7 @@ export default {
     setRating: function (rating) {
       //this.rating1 = rating;
       this.rating = rating;
-      console.log(this.rating);
+      //console.log(this.rating);
     },
 
     /*needs help*/

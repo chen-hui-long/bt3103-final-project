@@ -187,7 +187,6 @@ export default {
     },
 
     favShop(shop) {
-      console.log("testing");
       db.collection("bakeriesNew")
         .doc(shop)
         .update({

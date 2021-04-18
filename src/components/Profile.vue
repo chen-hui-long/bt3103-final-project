@@ -199,7 +199,6 @@ export default {
     },
 
     favShop(shop) {
-      console.log("testing");
       db.collection("bakeriesNew")
         .doc(shop)
         .update({
@@ -224,7 +223,6 @@ export default {
     this.checkLogin();
     if (this.signedIn) {
       this.fetchItems();
-      console.log(this.isFav);
     } else {
       this.$router.push({ path: "/login" });
     }

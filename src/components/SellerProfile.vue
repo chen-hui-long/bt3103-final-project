@@ -4,9 +4,9 @@
       <NavBar></NavBar>
     </div>
     <div class ="top-profile">
-      <img class = "profile-pic" :src="this.bakery[0].images[0]" />
+      <img class = "profile-pic" :src="this.bakery[0].images[0]" v-on:click = "redirect"/>
       <div class = "profile-info">
-      <a class = "shop-name">{{ this.bakery[0].shop_name }}</a>
+      <a class = "shop-name" v-on:click = "redirect">{{ this.bakery[0].shop_name }}</a>
       <br>
       <a> {{this.bakery[0].total_ratings_by_users}} Total Reviews </a>
       <br>
@@ -113,7 +113,7 @@ export default {
         })
         .then(() => {
           if (!this.isSeller) {
-            console.log("this is not a seller yet");
+            //console.log("this is not a seller yet");
             this.$router.push({ path: "/sell" });
           } else {
             this.getBakery();
@@ -127,7 +127,7 @@ export default {
         .get()
         .then((doc) => {
           this.bakery.push(doc.data());
-          console.log(this.bakery);
+          //console.log(this.bakery);
         });
     },
 
@@ -137,6 +137,10 @@ export default {
 
     dashboard: function() {
       this.$router.push({path: "/dashboard"})
+    }, 
+
+    redirect: function() {
+      this.$router.push({ path: "/product", query: { id: this.userID } });
     }
   },
 
@@ -185,6 +189,7 @@ table {
   border-radius: 50%;
   width:150px;
   height:150px;
+  cursor:pointer;
 }
 
 .top-profile {
@@ -196,6 +201,7 @@ table {
 .shop-name {
   font-size: 30px;
   font-weight: bolder;
+  cursor:pointer;
 }
 
 .profile-info {

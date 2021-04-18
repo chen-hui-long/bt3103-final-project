@@ -3,7 +3,13 @@
     <div class="navbar">
       <NavBar></NavBar>
     </div>
-    <div class="heading-db">
+    <div id="loading" v-if="!loaded">
+      <div class="loader"></div>
+    </div>
+    <div class="no-review" v-if="total_reviews == 0 && loaded">
+      Dashboard is avalible as your listing have 0 reviews
+    </div>
+    <div class="heading-db" v-if="total_reviews > 0 && loaded">
       <div class="reviews-top">
         <h3>{{ this.total_reviews }} Reviews</h3>
         <span class="stars"
@@ -23,7 +29,7 @@
       </div>
     </div>
 
-    <div id="app-db">
+    <div id="app-db" v-if="total_reviews > 0 && loaded">
       <div class="chart-div">
         <Doughnut @clicked="received"></Doughnut>
       </div>
@@ -57,8 +63,12 @@
         <div class="curr-filter">
           Viewing:
           <div class="filter">
-            <ul class = "ul-filter">
-              <li  class = "li-filter" v-for="filter in this.check_filter()" v-bind:key="filter">
+            <ul class="ul-filter">
+              <li
+                class="li-filter"
+                v-for="filter in this.check_filter()"
+                v-bind:key="filter"
+              >
                 {{ filter }}
               </li>
             </ul>
@@ -105,7 +115,7 @@ import Doughnut from "./charts/Doughnut.vue";
 import database from "../firebase.js";
 import firebase from "@firebase/app";
 import review from "./DashboardReview/DBreview.vue";
-import NavBar from "./ProfileNavBar"
+import NavBar from "./ProfileNavBar";
 //import MultiSelectRating from "./DashboardReview/MultiSelectRating.vue";
 require("firebase/auth");
 
@@ -128,6 +138,7 @@ export default {
       filter: [],
       paginate: ["revs"],
       new_filter: [],
+      loaded: false,
     };
   },
 
@@ -146,6 +157,9 @@ export default {
           this.reviews_unsorted = snapshot.data().reviews;
           this.total_reviews = snapshot.data().total_ratings_by_users;
           this.owner = snapshot.data().owner;
+        })
+        .then(() => {
+          this.loaded = true;
         });
     },
 
@@ -170,7 +184,7 @@ export default {
       for (var i = 0; i < event.length; i++) {
         this.filter.push(event[i].type);
       }
-      console.log(this.filter);
+      //console.log(this.filter);
     },
 
     visible(review) {
@@ -183,7 +197,7 @@ export default {
           }
         }
         if (this.filter.includes("1 Star Review")) {
-          console.log("test");
+          //console.log("test");
           if (review.rating == 1) {
             return true;
           }
@@ -357,17 +371,14 @@ div#sorting {
   font-weight: bold;
 }
 
-
-
 #sort {
   border: none;
   outline-style: none;
   cursor: pointer;
 }
 
-
 div.curr-filter {
-    margin: 20px;
+  margin: 20px;
 }
 
 h3 {
@@ -375,15 +386,15 @@ h3 {
 }
 
 .ul-filter {
-  display:flex;
+  display: flex;
 }
 
 .li-filter {
-  margin-right:10px;
-  margin-left:0px;
+  margin-right: 10px;
+  margin-left: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
-  padding:10px;
+  padding: 10px;
 }
 #page-number > ul {
   display: flex;
@@ -393,5 +404,33 @@ h3 {
 
 .dashboard {
   margin-bottom: 80px;
+}
+
+.no-review {
+  text-align: center;
+  font-size: 20px;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #e3dddf; /* Blue */
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#loading {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 120px;
 }
 </style>

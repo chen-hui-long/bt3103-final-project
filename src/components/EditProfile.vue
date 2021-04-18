@@ -16,30 +16,32 @@
         </li>
       </ul>
     </div-->
-    <header>Edit My Profile</header>  
+    <header>Edit My Profile</header>
     <div id="form">
-    <form action="/action_page.php">
-      <div id="image-upload-div">
-        <div id="title">Upload your image:</div>
-        <input id="text" type="file" @change="changeImage" accept="image/*" />
-        <br /><img v-if="this.image" :src="image" />
-        <img v-else :src="this.image" />
-      </div>
+      <form action="/action_page.php">
+        <div id="image-upload-div">
+          <div id="title">Upload your image:</div>
+          <input id="text" type="file" @change="changeImage" accept="image/*" />
+          <br /><img v-if="this.image" :src="image" />
+          <img v-else :src="this.image" />
+        </div>
 
-      <div id="name-update">
-        <label id="title">Name: </label><br />
-        <input
-          id="text"
-          type="text"
-          v-model="name"
-          placeholder="Name"
-        /><br /><br />
-        <button id="update" v-on:click.prevent="save">UPDATE</button>
-      </div>
-      <div>
-        <button id="delete" v-on:click.prevent="del">Delete My Account</button>
-      </div>
-    </form>
+        <div id="name-update">
+          <label id="title">Name: </label><br />
+          <input
+            id="text"
+            type="text"
+            v-model="name"
+            placeholder="Name"
+          /><br /><br />
+          <button id="update" v-on:click.prevent="save">UPDATE</button>
+        </div>
+        <div>
+          <button id="delete" v-on:click.prevent="del">
+            Delete My Account
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -51,12 +53,13 @@ import firebase from "@firebase/app";
 require("firebase/auth");
 
 export default {
-  components: {NavBar},
+  components: { NavBar },
   data() {
     return {
       userID: "",
       name: "",
       image: "",
+      deleting_user_id: "",
     };
   },
 
@@ -101,31 +104,102 @@ export default {
     },
 
     del() {
-      console.log(this.userID)
       this.$swal
         .fire({
           icon: "warning",
           iconColor: "#d33",
-          text: "Are you sure? This will delete all your favourites and reviews",
+          text:
+            "Are you sure? This your existing listing too",
           showCancelButton: true,
           confirmButtonText: `Delete`,
           confirmButtonColor: "#d33",
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.confirmDel()
+            this.confirmDel();
           }
         });
     },
 
     confirmDel() {
-      db.collection("Users").doc(this.userID).delete().then(() => {
-         firebase.auth().currentUser.delete().then(() => {
-           this.$router.push({path: "/login"})
-           this.$parent.forceRerender();
-         })
-      })
-    }, 
+      db.collection("Users")
+        .doc(this.userID)
+        .get()
+        .then((doc) => {
+          if (doc.data().seller) {
+            this.deleteBakery();
+          }
+        })
+        .then(() => {
+          firebase
+            .auth()
+            .currentUser.delete()
+            .then(() => {
+              this.$router.push({ path: "/login" });
+              this.$parent.forceRerender();
+            });
+        });
+    },
+
+    deleteBakery: function () {
+      //delete in the user who favourite and reviewed the shop
+      db.collection("bakeriesNew")
+        .doc(this.userID)
+        .get()
+        .then((doc) => {
+          var favourite_users = doc.data().favourite_users;
+          var review_users = doc.data().review_users;
+          for (var i = 0; i < favourite_users.length; i++) {
+            db.collection("Users")
+              .doc(favourite_users[i])
+              .update({
+                favourite: firebase.firestore.FieldValue.arrayRemove(
+                  this.userID
+                ),
+                total_favourite: firebase.firestore.FieldValue.increment(-1),
+              })
+              .then(() => {
+                console.log("deleted");
+              })
+              .then(() => console.log("fav deleted"));
+          }
+
+          for (var j = 0; j < review_users.length; j++) {
+            this.deleting_user_id = review_users[j];
+            //console.log(this.deleting_user_id);
+            db.collection("Users")
+              .doc(this.deleting_user_id)
+              .get()
+              .then((doc) => {
+                var curr_user_reviews = doc.data().reviews;
+                for (var k = 0; k < curr_user_reviews.length; k++) {
+                  if (curr_user_reviews[k].UID == this.userID) {
+                    var review = curr_user_reviews[k];
+                    //console.log(this.deleting_user_id);
+                    db.collection("Users")
+                      .doc(this.deleting_user_id)
+                      .update({
+                        reviews: firebase.firestore.FieldValue.arrayRemove(
+                          review
+                        ),
+                        total_review: firebase.firestore.FieldValue.increment(
+                          -1
+                        ),
+                      })
+                      .then(() => console.log("deletion complete"));
+                  }
+                }
+              })
+              .then(() => console.log("user loop done"));
+          }
+        })
+        .then(() => console.log("fav and review all deleted"));
+
+      db.collection("bakeriesNew").doc(this.userID).delete();
+      db.collection("Users").doc(this.userID).update({
+        seller: false,
+      });
+    },
   },
 
   created() {
@@ -169,8 +243,8 @@ header {
 }
 
 #form {
-  display:block;
-  text-align:center;
+  display: block;
+  text-align: center;
   margin-bottom: 80px;
 }
 form {
@@ -231,7 +305,6 @@ img {
   transform: scale(1.05);
 }
 
-
 #delete {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -255,7 +328,7 @@ img {
 #delete:focus {
   /*background: black;*/
   transform: scale(1.05);
-  color:#bbbbbb;
+  color: #bbbbbb;
 }
 
 .navbar {
@@ -289,7 +362,6 @@ ul.breadcrumb li a {
   text-decoration: none;
 }
 */
-
 </style>
 
 

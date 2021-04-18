@@ -339,7 +339,6 @@ export default {
           this.facebook = doc.data().facebook;
           this.instagram = doc.data().instagram;
           this.order_details = doc.data().order_details;
-          console.log(this.order_details);
           this.imageData1 = doc.data().images[0];
           this.imageData2 = doc.data().images[1];
           this.imageData3 = doc.data().images[2];
@@ -537,7 +536,7 @@ export default {
 
           for (var j = 0; j < review_users.length; j++) {
             this.deleting_user_id = review_users[j];
-            console.log(this.deleting_user_id);
+            //console.log(this.deleting_user_id);
             db.collection("Users")
               .doc(this.deleting_user_id)
               .get()
@@ -546,7 +545,7 @@ export default {
                 for (var k = 0; k < curr_user_reviews.length; k++) {
                   if (curr_user_reviews[k].UID == this.userID) {
                     var review = curr_user_reviews[k];
-                    console.log(this.deleting_user_id);
+                    //console.log(this.deleting_user_id);
                     db.collection("Users")
                       .doc(this.deleting_user_id)
                       .update({

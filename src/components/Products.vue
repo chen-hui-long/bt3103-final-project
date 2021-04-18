@@ -214,8 +214,8 @@ export default {
         .then(() => {
           if (firebase.auth().currentUser) {
             this.curr_user = firebase.auth().currentUser.uid;
-            this.loaded = true;
           }
+          this.loaded = true;
         });
     },
   },

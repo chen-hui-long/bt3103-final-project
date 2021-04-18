@@ -30,8 +30,8 @@ export default {
     methods: {
         register: function() {
             const curr_seller = {email:this.email, name:this.shop_name, total_reviews_by_users: 0, total_favourites_by_users: 0, average_rating: 0} 
-            console.log(curr_seller)
-            console.log("register start")
+            //console.log(curr_seller)
+            //console.log("register start")
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
                 db.collection("Sellers").doc(cred.user.uid).set(
                   Object.assign({}, curr_seller)
@@ -40,8 +40,7 @@ export default {
             }, err => {
                 alert(err.message);
             })
-            console.log("end")
-            this.$router.push()
+            //console.log("end")
         }
     }
     
