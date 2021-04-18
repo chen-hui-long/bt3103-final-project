@@ -47,7 +47,7 @@
         </ul>
         <div>
           I understand and agree to
-          <a v-on:click="privacy">Terms and Conditions </a>
+          <a class = "tc" v-on:click="privacy">Terms and Conditions </a>
         </div>
         <br />
         <div
@@ -413,5 +413,10 @@ li:before {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+.tc {
+  text-decoration: underline;
+  cursor:pointer;
 }
 </style>

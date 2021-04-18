@@ -1,128 +1,142 @@
 <template>
   <body>
-    <div class="breadcrumb-wrap">
-      <ul class="breadcrumb">
-        <li>
-          <a><router-link to="/" exact>Home</router-link></a>
-        </li>
-        <li> {{this.bakery[0].shop_name}}</li>
-      </ul>
+    <div id="loading" v-if="!loaded">
+      <div class="loader"></div>
     </div>
-
-    <div class="product-content">
-      
-      <div class="left-wrapper">
-        <div class="product-content-left">
-          <image-slider
-            v-bind:images="images"
-            :curr_product_id="docID"
-            :curr_user="curr_user"
-          ></image-slider>
-        </div>
-
-        <div class="review">
-          <reviews></reviews>
-        </div>
+    <div class="product-loaded" v-if="loaded">
+      <div class="breadcrumb-wrap">
+        <ul class="breadcrumb">
+          <li>
+            <a
+              ><router-link to="/" exact>Home</router-link> /
+              {{ this.bakery[0].shop_name }}</a
+            >
+          </li>
+          <!-- insert router for dietary type if there is 
+            Show only when click at filter 
+            then click will go back to the home page with the filtered dietayr
+            Or is too hard shld we just scrape it away??? -->
+          <!-- comment out first 
+            <li v-show= "this.bakery[0].Dietary != '-'"><a href="#">{{this.bakery[0].dietary}}</a></li> /
+            <li>{{this.bakery[0].shop_name}}</li>
+            <-->
+        </ul>
       </div>
 
-      <div class="right-wrapper">
-        <div class="product-content-right">
-          <div class="title">
-            <h1>{{ this.shop_name }}</h1>
-          </div>
-          <div class="description-box">
-            <p class="description">{{ this.short_desc }}</p>
+      <div class="product-content">
+        <div class="left-wrapper">
+          <div class="product-content-left">
+            <image-slider
+              v-bind:images="images"
+              :curr_product_id="docID"
+              :curr_user="curr_user"
+            ></image-slider>
           </div>
 
-          <div class="product-description">
-            <div class="menu">
-              <details>
-                <summary>Menu</summary>
-                <span
-                  class="description-box"
-                  v-for="(bake, index) in bakery[0].type"
-                  :key="index"
-                >
-                  <span class="description1" v-if="index != 0">, </span>
-                  {{ bake }}
-                </span>
-              </details>
+          <div class="review">
+            <reviews></reviews>
+          </div>
+        </div>
+
+        <div class="right-wrapper">
+          <div class="product-content-right">
+            <div class="title">
+              <h1>{{ this.shop_name }}</h1>
+            </div>
+            <div class="description-box">
+              <p class="description">{{ this.short_desc }}</p>
             </div>
 
-            <div class="highlights">
-              <details>
-                <summary>Highlights</summary>
-                <div v-show="this.bakery[0].dietary != ''">
-                  <div
+            <div class="product-description">
+              <div class="menu">
+                <details>
+                  <summary>Menu</summary>
+                  <span
                     class="description-box"
-                    v-for="(diet, index) in bakery[0].dietary"
+                    v-for="(bake, index) in bakery[0].type"
                     :key="index"
                   >
-                    <ul class="description1">
-                      <li>{{ diet }}</li>
-                    </ul>
+                    <span class="description1" v-if="index != 0">, </span>
+                    {{ bake }}
+                  </span>
+                </details>
+              </div>
+
+              <div class="highlights">
+                <details>
+                  <summary>Highlights</summary>
+                  <div v-show="this.bakery[0].dietary != ''">
+                    <div
+                      class="description-box"
+                      v-for="(diet, index) in bakery[0].dietary"
+                      :key="index"
+                    >
+                      <ul class="description1">
+                        <li>{{ diet }}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div v-show="this.bakery[0].dietary == ''">
+                    <div class="description-box">
+                      <ul>
+                        <li>No special dietary requirements</li>
+                      </ul>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+              <div class="delivery">
+                <details>
+                  <summary>Delivery / Collection</summary>
+                  <div style="float: left" class="description-box">
+                    <p class="description1">
+                      {{ this.bakery[0].order_details }}
+                    </p>
+                  </div>
+                </details>
+              </div>
+
+              <div class="social-wrapper">
+                <div v-show="this.instagram != ''">
+                  <div class="ig">
+                    <span style="font-weight: bold">IG:</span>
+                    <a
+                      :href="'https://www.instagram.com/' + this.instagram"
+                      class="description-box"
+                      >@{{ this.instagram }}
+                    </a>
                   </div>
                 </div>
 
-                <div v-show="this.bakery[0].dietary == ''">
-                  <div class="description-box">
-                    <ul>
-                      <li>No special dietary requirements</li>
-                    </ul>
+                <div v-show="this.bakery[0].facebook != ''">
+                  <div class="fb">
+                    <span style="font-weight: bold">FB:</span>
+                    <a :href="this.bakery[0].facebook" class="description-box"
+                      >{{ this.bakery[0].facebook }}
+                    </a>
                   </div>
                 </div>
-              </details>
-            </div>
 
-            <div class="delivery">
-              <details>
-                <summary>Delivery / Collection</summary>
-                <div style="float: left" class="description-box">
-                  <p class="description1">
-                    {{ this.bakery[0].order_details }}
-                  </p>
+                <div v-show="this.bakery[0].official_website != ''">
+                  <div class="website">
+                    <span style="font-weight: bold">Website:</span>
+                    <a
+                      :href="this.bakery[0].official_website"
+                      class="description-box"
+                      >{{ this.bakery[0].official_website }}
+                    </a>
+                  </div>
                 </div>
-              </details>
-            </div>
 
-            <div class="social-wrapper">
-              <div v-show="this.instagram != ''">
-                <div class="ig">
-                  <span style="font-weight: bold">IG:</span>
-                  <a
-                    :href="'https://www.instagram.com/' + this.instagram"
-                    class="description-box"
-                    >@{{ this.instagram }}
-                  </a>
-                </div>
-              </div>
-
-              <div v-show="this.bakery[0].facebook != ''">
-                <div class="fb">
-                  <span style="font-weight: bold">FB:</span>
-                  <a :href="this.bakery[0].facebook" class="description-box"
-                    >{{ this.bakery[0].facebook }}
-                  </a>
-                </div>
-              </div>
-
-              <div v-show="this.bakery[0].official_website != ''">
-                <div class="website">
-                  <span style="font-weight: bold">Website:</span>
-                  <a
-                    :href="this.bakery[0].official_website"
-                    class="description-box"
-                    >{{ this.bakery[0].official_website }}
-                  </a>
-                </div>
-              </div>
-
-              <div v-show="this.bakery[0].business_email != ''">
-                <div class="email">
-                  <span style="font-weight: bold">Email:</span>
-                  <a class="description-box"
-                    >{{ this.bakery[0].business_email }}
-                  </a>
+                <div v-show="this.bakery[0].business_email != ''">
+                  <div class="email">
+                    <span style="font-weight: bold">Email:</span>
+                    <a class="description-box"
+                      >{{ this.bakery[0].business_email }}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -152,6 +166,7 @@ export default {
       short_desc: "",
       instagram: "",
       curr_user: "",
+      loaded: false,
     };
   },
   components: {
@@ -195,10 +210,13 @@ export default {
           this.shop_name = snapshot.data().shop_name;
           this.short_desc = snapshot.data().short_desc;
           this.instagram = snapshot.data().instagram;
+        })
+        .then(() => {
+          if (firebase.auth().currentUser) {
+            this.curr_user = firebase.auth().currentUser.uid;
+            this.loaded = true;
+          }
         });
-      if (firebase.auth().currentUser) {
-        this.curr_user = firebase.auth().currentUser.uid;
-      }
     },
   },
 
@@ -243,10 +261,8 @@ ul.breadcrumb li a {
   overflow-x: auto;
 }
 
-
-
 .left-wrapper {
-  width: 60%; 
+  width: 60%;
   margin-left: 50px;
   /*margin-right: 80px;*/
 }
@@ -254,7 +270,7 @@ ul.breadcrumb li a {
   margin-right: 80px;
   margin-top: -1.5em;
   /*position: relative;*/
-  position:absolute;
+  position: absolute;
   right: 0;
   max-width: 35%;
   min-width: 35%;
@@ -275,7 +291,7 @@ div.disabled {
 }
 
 .delivery {
- margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .social-wrapper {
@@ -391,8 +407,31 @@ details[open] summary::after {
   font-size: 1.5em;
 }
 
-
 h1 {
   line-height: 100%;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #e3dddf; /* Blue */
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#loading {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 </style>

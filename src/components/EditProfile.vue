@@ -37,7 +37,7 @@
         <button id="update" v-on:click.prevent="save">UPDATE</button>
       </div>
       <div>
-        <router-link to="/" id="delete" tag="button">Delete My Account</router-link>
+        <button id="delete" v-on:click.prevent="del">Delete My Account</button>
       </div>
     </form>
     </div>
@@ -95,10 +95,37 @@ export default {
             text: "Updated Successfully",
             confirmButtonColor: "#000000",
           }).then(() => {
-            this.$router.push({path:"/profile"})
+            this.$router.push({ path: "/profile" });
           });
         });
     },
+
+    del() {
+      console.log(this.userID)
+      this.$swal
+        .fire({
+          icon: "warning",
+          iconColor: "#d33",
+          text: "Are you sure? This will delete all your favourites and reviews",
+          showCancelButton: true,
+          confirmButtonText: `Delete`,
+          confirmButtonColor: "#d33",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.confirmDel()
+          }
+        });
+    },
+
+    confirmDel() {
+      db.collection("Users").doc(this.userID).delete().then(() => {
+         firebase.auth().currentUser.delete().then(() => {
+           this.$router.push({path: "/login"})
+           this.$parent.forceRerender();
+         })
+      })
+    }, 
   },
 
   created() {
@@ -184,10 +211,12 @@ img {
   text-transform: uppercase;
   outline: 0;
   background: black;
-  width: 150px;
-  border: 0;
-  padding: 10px;
-  color: #ffffff;
+  width: 350px;
+  /*border: 0;*/
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin-top: 30px;
+  color: white;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
