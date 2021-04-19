@@ -108,8 +108,7 @@ export default {
         .fire({
           icon: "warning",
           iconColor: "#d33",
-          text:
-            "Are you sure? This your existing listing too",
+          text: "Are you sure? This your existing listing too",
           showCancelButton: true,
           confirmButtonText: `Delete`,
           confirmButtonColor: "#d33",
@@ -128,8 +127,17 @@ export default {
         .then((doc) => {
           if (doc.data().seller) {
             this.deleteBakery();
+          } else {
+            firebase
+              .auth()
+              .currentUser.delete()
+              .then(() => {
+                this.$router.push({ path: "/login" });
+                this.$parent.forceRerender();
+              });
           }
-        })
+        });
+      /*
         .then(() => {
           firebase
             .auth()
@@ -139,8 +147,10 @@ export default {
               this.$parent.forceRerender();
             });
         });
+        */
     },
 
+    /*
     deleteBakery: function () {
       //delete in the user who favourite and reviewed the shop
       db.collection("bakeriesNew")
@@ -193,12 +203,86 @@ export default {
               .then(() => console.log("user loop done"));
           }
         })
-        .then(() => console.log("fav and review all deleted"));
+        .then(() => console.log("fav and review all deleted"))
+        .then(() => {
+          db.collection("bakeriesNew").doc(this.userID).delete();
+          db.collection("Users").doc(this.userID).update({
+            seller: false,
+          });
+        });
+    },
+    */
+    deleteBakery: function () {
+      //delete in the user who favourite and reviewed the shop
+      db.collection("bakeriesNew")
+        .doc(this.userID)
+        .get()
+        .then((doc) => {
+          var favourite_users = doc.data().favourite_users;
+          var review_users = doc.data().review_users;
 
-      db.collection("bakeriesNew").doc(this.userID).delete();
-      db.collection("Users").doc(this.userID).update({
-        seller: false,
-      });
+          for (var i = 0; i < favourite_users.length; i++) {
+            db.collection("Users")
+              .doc(favourite_users[i])
+              .update({
+                favourite: firebase.firestore.FieldValue.arrayRemove(
+                  this.userID
+                ),
+                total_favourite: firebase.firestore.FieldValue.increment(-1),
+              })
+              .then(() => {
+                console.log("deleted");
+              })
+              .then(() => console.log("fav deleted"));
+          }
+
+          for (var j = 0; j < review_users.length; j++) {
+            this.deleting_user_id = review_users[j];
+            console.log(this.deleting_user_id);
+            db.collection("Users")
+              .doc(this.deleting_user_id)
+              .get()
+              .then((doc) => {
+                var curr_user_reviews = doc.data().reviews;
+                for (var k = 0; k < curr_user_reviews.length; k++) {
+                  if (curr_user_reviews[k].UID == this.userID) {
+                    var review = curr_user_reviews[k];
+                    console.log(this.deleting_user_id);
+                    db.collection("Users")
+                      .doc(this.deleting_user_id)
+                      .update({
+                        reviews: firebase.firestore.FieldValue.arrayRemove(
+                          review
+                        ),
+                        total_review: firebase.firestore.FieldValue.increment(
+                          -1
+                        ),
+                      })
+                      .then(() => console.log("deletion complete"));
+                  }
+                }
+              })
+              .then(() => console.log("user loop done"));
+          }
+        })
+        .then(() => console.log("fav and review all deleted"))
+        .then(() => {
+          db.collection("bakeriesNew").doc(this.userID).delete();
+          db.collection("Users")
+            .doc(this.userID)
+            .update({
+              seller: false,
+            })
+            .then(() => {
+              firebase
+                .auth()
+                .currentUser.delete()
+                .then(() => {
+                  this.$router.push({ path: "/login" });
+                  this.$parent.forceRerender();
+                });
+            });
+        });
     },
   },
 

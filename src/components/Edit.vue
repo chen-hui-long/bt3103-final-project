@@ -202,74 +202,74 @@
             </tr>
           </table>
           <div id="photos">
-          <b>Upload Pictures of your product:</b>
-          <div id="image-upload">
-            <div id="image-upload-div">
-              <input type="file" @change="onFileChange1" accept="image/*" />
-              <img v-if="this.imageData1" :src="imageData1" />
-              <img v-else :src="this.logo_image" />
-              <div class="delete-image-div">
-                <button
-                  class="delete-image"
-                  id="delete-img"
-                  v-on:click.prevent="delete_image1"
-                >
-                  Delete
-                </button>
+            <b>Upload Pictures of your product:</b>
+            <div id="image-upload">
+              <div id="image-upload-div">
+                <input type="file" @change="onFileChange1" accept="image/*" />
+                <img v-if="this.imageData1" :src="imageData1" />
+                <img v-else :src="this.logo_image" />
+                <div class="delete-image-div">
+                  <button
+                    class="delete-image"
+                    id="delete-img"
+                    v-on:click.prevent="delete_image1"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+              <div id="image-upload-div">
+                <input type="file" @change="onFileChange2" accept="image/*" />
+                <img v-if="this.imageData2" :src="imageData2" />
+                <img v-else :src="this.product_image" />
+                <div class="delete-image-div">
+                  <button
+                    class="delete-image"
+                    id="delete-img"
+                    v-on:click.prevent="delete_image2"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+              <div id="image-upload-div">
+                <input type="file" @change="onFileChange3" accept="image/*" />
+                <img v-if="this.imageData3" :src="imageData3" />
+                <img v-else :src="this.product_image" />
+                <div class="delete-image-div">
+                  <button
+                    class="delete-image"
+                    id="delete-img"
+                    v-on:click.prevent="delete_image3"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+              <div id="image-upload-div">
+                <input type="file" @change="onFileChange4" accept="image/*" />
+                <img v-if="this.imageData4" :src="imageData4" />
+                <img v-else :src="this.product_image" />
+                <div class="delete-image-div">
+                  <button
+                    class="delete-image"
+                    id="delete-img"
+                    v-on:click.prevent="delete_image4"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
-            <div id="image-upload-div">
-              <input type="file" @change="onFileChange2" accept="image/*" />
-              <img v-if="this.imageData2" :src="imageData2" />
-              <img v-else :src="this.product_image" />
-              <div class="delete-image-div">
-                <button
-                  class="delete-image"
-                  id="delete-img"
-                  v-on:click.prevent="delete_image2"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-            <div id="image-upload-div">
-              <input type="file" @change="onFileChange3" accept="image/*" />
-              <img v-if="this.imageData3" :src="imageData3" />
-              <img v-else :src="this.product_image" />
-              <div class="delete-image-div">
-                <button
-                  class="delete-image"
-                  id="delete-img"
-                  v-on:click.prevent="delete_image3"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-            <div id="image-upload-div">
-              <input type="file" @change="onFileChange4" accept="image/*" />
-              <img v-if="this.imageData4" :src="imageData4" />
-              <img v-else :src="this.product_image" />
-              <div class="delete-image-div">
-                <button
-                  class="delete-image"
-                  id="delete-img"
-                  v-on:click.prevent="delete_image4"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
           </div>
           <br />
-          <br>
+          <br />
           <div id="changes">
             <button id="deletebtn" v-on:click.prevent="confirm_delete">
               Delete Listing
             </button>
-            <button id="cancelbtn" v-on:click="cancel_action">Cancel</button> 
-            <br>
+            <button id="cancelbtn" v-on:click="cancel_action">Cancel</button>
+            <br />
             <button id="savebtn" v-on:click.prevent="save">Save Changes</button>
           </div>
         </form>
@@ -319,6 +319,8 @@ export default {
         "https://scontent-xsp1-2.xx.fbcdn.net/v/t1.6435-9/171467233_10216095740901360_501033987709844571_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=730e14&_nc_ohc=Z3QPUdD1hOkAX8uWkLs&_nc_ht=scontent-xsp1-2.xx&oh=73bbc141824c6dfc410e5f809a706485&oe=609B0EC0",
       userID: firebase.auth().currentUser.uid,
       deleting_user_id: "",
+      favourite_users: [],
+      review_users: [],
     };
   },
 
@@ -343,6 +345,8 @@ export default {
           this.imageData2 = doc.data().images[1];
           this.imageData3 = doc.data().images[2];
           this.imageData4 = doc.data().images[3];
+          this.favourite_users = doc.data().favourite_users;
+          this.review_users = doc.data().review_users;
         });
     },
 
@@ -509,7 +513,7 @@ export default {
           });
       }
     },
-
+    /*
     delete_action: function () {
       //delete in the user who favourite and reviewed the shop
       db.collection("bakeriesNew")
@@ -518,7 +522,6 @@ export default {
         .then((doc) => {
           var favourite_users = doc.data().favourite_users;
           var review_users = doc.data().review_users;
-
           for (var i = 0; i < favourite_users.length; i++) {
             db.collection("Users")
               .doc(favourite_users[i])
@@ -564,7 +567,6 @@ export default {
           }
         })
         .then(() => console.log("fav and review all deleted"));
-
       db.collection("bakeriesNew").doc(this.userID).delete();
       db.collection("Users")
         .doc(this.userID)
@@ -579,6 +581,80 @@ export default {
           }).then(() => {
             this.$router.push({ path: "/profile" });
           });
+        });
+    },
+    */
+
+    delete_action: function () {
+      //delete in the user who favourite and reviewed the shop
+      db.collection("bakeriesNew")
+        .doc(this.userID)
+        .get()
+        .then((doc) => {
+          var favourite_users = doc.data().favourite_users;
+          var review_users = doc.data().review_users;
+
+          for (var i = 0; i < favourite_users.length; i++) {
+            db.collection("Users")
+              .doc(favourite_users[i])
+              .update({
+                favourite: firebase.firestore.FieldValue.arrayRemove(
+                  this.userID
+                ),
+                total_favourite: firebase.firestore.FieldValue.increment(-1),
+              })
+              .then(() => {
+                console.log("deleted");
+              })
+              .then(() => console.log("fav deleted"));
+          }
+
+          for (var j = 0; j < review_users.length; j++) {
+            this.deleting_user_id = review_users[j];
+            console.log(this.deleting_user_id);
+            db.collection("Users")
+              .doc(this.deleting_user_id)
+              .get()
+              .then((doc) => {
+                var curr_user_reviews = doc.data().reviews;
+                for (var k = 0; k < curr_user_reviews.length; k++) {
+                  if (curr_user_reviews[k].UID == this.userID) {
+                    var review = curr_user_reviews[k];
+                    console.log(this.deleting_user_id);
+                    db.collection("Users")
+                      .doc(this.deleting_user_id)
+                      .update({
+                        reviews: firebase.firestore.FieldValue.arrayRemove(
+                          review
+                        ),
+                        total_review: firebase.firestore.FieldValue.increment(
+                          -1
+                        ),
+                      })
+                      .then(() => console.log("deletion complete"));
+                  }
+                }
+              })
+              .then(() => console.log("user loop done"));
+          }
+        })
+        .then(() => console.log("fav and review all deleted"))
+        .then(() => {
+          db.collection("bakeriesNew").doc(this.userID).delete();
+          db.collection("Users")
+            .doc(this.userID)
+            .update({
+              seller: false,
+            })
+            .then(() => {
+              this.$swal({
+                text: "Listing Deleted",
+                icon: "success",
+                confirmButtonColor: "#000000",
+              }).then(() => {
+                this.$router.push({ path: "/profile" });
+              });
+            });
         });
     },
 
