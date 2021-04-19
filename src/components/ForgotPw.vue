@@ -45,6 +45,7 @@ h3 {
   width: 420px;
   padding: 1% 0 0;
   margin: auto;
+
 }
 
 .form{
@@ -52,7 +53,7 @@ h3 {
   z-index: 1;
   background: #FFFFFF;
   max-width: 420px;
-  margin: 0 auto 100px;
+  margin: 80px auto 100px;
   padding: 30px 45px 70px 45px;
   text-align: center;
   border: #bbbbbb solid 1px;
