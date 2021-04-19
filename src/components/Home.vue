@@ -838,8 +838,4 @@ li.number.active  a {
 
 }
 
-#page-number {
-  margin-top: 80px;
-}
-
 </style>
